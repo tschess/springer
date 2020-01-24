@@ -195,7 +195,7 @@ class DataGeneratorToy(
         val whiteId = UUID.fromString("11111111-1111-1111-1111-111111111111")
         val whiteName = "white"
         val whitePassword = "password"
-        val whiteAvatar = "https://github.com/tschess/catacombes/raw/master/mr_white.jpg"
+        val whiteAvatar = PhotoGenerator().getPhotoText("https://github.com/tschess/catacombes/raw/master/mr_white.jpg")
         val whiteDevice = "w"
         val white =
             Player(id = whiteId, name = whiteName, password = whitePassword, avatar = whiteAvatar, device = whiteDevice)
@@ -204,7 +204,7 @@ class DataGeneratorToy(
         val blackId = UUID.fromString("22222222-2222-2222-2222-222222222222")
         val blackName = "black"
         val blackPassword = "password"
-        val blackAvatar = "https://github.com/tschess/catacombes/raw/master/batman.png"
+        val blackAvatar = PhotoGenerator().getPhotoText("https://github.com/tschess/catacombes/raw/master/batman.png")
         val blackDevice = "w"
         val black =
             Player(id = blackId, name = blackName, password = blackPassword, avatar = blackAvatar, device = blackDevice)
@@ -213,7 +213,7 @@ class DataGeneratorToy(
         val id_test = UUID.fromString("33333333-3333-3333-3333-333333333333")
         val name_test = "test"
         val password_test = "\$2a\$10\$paasde3Qy5jcxzZONo4a1OT3d4qgBIriGdyvO1qfeDWb2ksXSjycO"
-        val avatar_test = "https://github.com/tschess/catacombes/raw/master/skull_pink.png"
+        val avatar_test = PhotoGenerator().getPhotoText("https://github.com/tschess/catacombes/raw/master/skull_pink.png")
         val device_test = "t"
         val player_test =
             Player(id = id_test, name = name_test, password = password_test, avatar = avatar_test, device = device_test)
@@ -222,7 +222,7 @@ class DataGeneratorToy(
         val id_0 = UUID.fromString("0ee7d9ea-d0d9-4f68-a2f2-78c5f8f64231")
         val name_0 = "aesdfghjkl666"
         val password_0 = "\$2a\$10\$lVYVMFfU94mKfZHsybsP4eLlnf3QKtqc9l5BEwIa8/q7Vw/U.VmO2"
-        val avatar_0 = "https://github.com/tschess/catacombes/raw/master/skull_zebra_double_blue_purple.png"
+        val avatar_0 = PhotoGenerator().getPhotoText("https://github.com/tschess/catacombes/raw/master/skull_zebra_double_blue_purple.png")
         val device_0 = "064697AB-61F1-4C20-8168-CD8401459FAF"
         val player_0 = Player(id = id_0, name = name_0, password = password_0, avatar = avatar_0, device = device_0)
         repositoryPlayer.save(player_0)
@@ -230,7 +230,7 @@ class DataGeneratorToy(
         val id_1 = UUID.fromString("ba650fed-c21d-48ed-86bb-a71b9bb82f52")
         val name_1 = "timxor"
         val password_1 = "\$2a\$10\$ps0SyMhkqL59iS1Tj4oQZeWjJTINL6jtLsgVdy6gLooYhJpdNOxne"
-        val avatar_1 = "https://github.com/tschess/catacombes/raw/master/skull_zebra_double_purple_red.png"
+        val avatar_1 = PhotoGenerator().getPhotoText("https://github.com/tschess/catacombes/raw/master/skull_zebra_double_purple_red.png")
         val device_1 = "F83E2182-7300-44F1-9D17-C902DACEA413"
         val player_1 = Player(id = id_1, name = name_1, password = password_1, avatar = avatar_1, device = device_1)
         repositoryPlayer.save(player_1)
@@ -238,7 +238,7 @@ class DataGeneratorToy(
         val id_2 = UUID.fromString("ce7e83ad-a030-446f-b6cf-b283b6cf95c8")
         val name_2 = "ernane"
         val password_2 = "\$2a\$10\$eUB3pIxUg/ITzUUr0KtmoePiK80JnXZeLP.acl/nJfG4lY1Bw1s/u"
-        val avatar_2 = "https://github.com/tschess/catacombes/raw/master/skull_zebra_double_purple_red.png"
+        val avatar_2 = PhotoGenerator().getPhotoText("https://github.com/tschess/catacombes/raw/master/skull_zebra_double_purple_red.png")
         val device_2 = "BC10A54D-A7E0-4954-B8EB-C546277EFB79"
         val player_2 = Player(id = id_2, name = name_2, password = password_2, avatar = avatar_2, device = device_2)
         repositoryPlayer.save(player_2)
@@ -246,7 +246,7 @@ class DataGeneratorToy(
         val id_3 = UUID.fromString("5071d574-90ce-429f-8c8c-c4576b2355ce")
         val name_3 = "alexandra"
         val password_3 = "\$2a\$10\$OVunCSr98/VV/71XY.dRxOIuSRt1j7bgxB/2FOdjnx0U2Ztf2RY7W"
-        val avatar_3 = "https://github.com/tschess/catacombes/raw/master/skull_zebra_double_blue_red.png"
+        val avatar_3 = PhotoGenerator().getPhotoText("https://github.com/tschess/catacombes/raw/master/skull_zebra_double_blue_red.png")
         val device_3 = "C5331E7A-125F-4167-8E6E-9458D1344E32"
         val player_3 = Player(id = id_3, name = name_3, password = password_3, avatar = avatar_3, device = device_3)
         repositoryPlayer.save(player_3)
@@ -254,7 +254,7 @@ class DataGeneratorToy(
         val id_4 = UUID.fromString("96ea4026-29a4-4939-a996-0f9777a5d758")
         val name_4 = "dwalter"
         val password_4 = "\$2a\$10\$uYaSm6TjsgSpmEiQVBv/6OiikfjI3gbIhohppeOu7ZeerbSDinM52"
-        val avatar_4 = "https://github.com/tschess/catacombes/raw/master/skull_purple.png"
+        val avatar_4 = PhotoGenerator().getPhotoText("https://github.com/tschess/catacombes/raw/master/skull_purple.png")
         val device_4 = "BD89F13D-FDFB-4B25-874C-3E322F2D564A"
         val player_4 = Player(id = id_4, name = name_4, password = password_4, avatar = avatar_4, device = device_4)
         repositoryPlayer.save(player_4)
