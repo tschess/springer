@@ -37,6 +37,7 @@ dependencies {
     implementation("org.json:json:20171018")
     implementation("com.squareup.moshi:moshi-kotlin:1.8.0")
     implementation("org.apache.httpcomponents:httpclient:4.5.10")
+    implementation("org.hibernate:hibernate-core:5.2.17.Final")
     runtimeOnly("org.postgresql:postgresql:42.1.4")
 
     testImplementation("io.kotlintest:kotlintest-core:3.0.2")

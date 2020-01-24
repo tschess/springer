@@ -18,23 +18,24 @@ class SpringerApplication(
     val repositoryPlayer: RepositoryPlayer,
     val repositoryIapetus: RepositoryIapetus,
     val repositoryGame: RepositoryGame
-) : ApplicationRunner {
+): ApplicationRunner {
 
     override fun run(args: ApplicationArguments?) {
-        val dataLoaderPlayer = DataLoaderPlayer(repositoryPlayer=repositoryPlayer)
-        dataLoaderPlayer.importDataPlayer()
-        val dataLoaderIapetus = DataLoaderIapetus(repositoryIapetus=repositoryIapetus,repositoryPlayer=repositoryPlayer)
-        dataLoaderIapetus.importDataIapetus()
-        val dataLoaderGame = DataLoaderGame(repositoryPlayer=repositoryPlayer,repositoryGame=repositoryGame)
-        dataLoaderGame.importDataGame()
+//        val dataLoaderPlayer = DataLoaderPlayer(repositoryPlayer = repositoryPlayer)
+//        dataLoaderPlayer.importDataPlayer()
+//        val dataLoaderIapetus =
+//            DataLoaderIapetus(repositoryIapetus = repositoryIapetus, repositoryPlayer = repositoryPlayer)
+//        dataLoaderIapetus.importDataIapetus()
+//        val dataLoaderGame = DataLoaderGame(repositoryPlayer = repositoryPlayer, repositoryGame = repositoryGame)
+//        dataLoaderGame.importDataGame()
 
-//        val dataGeneratorToy = DataGeneratorToy(
-//            repositoryPlayer=repositoryPlayer,
-//            repositoryIapetus=repositoryIapetus,
-//            repositoryGame=repositoryGame)
-//        dataGeneratorToy.defaultData()
+        val dataGeneratorToy = DataGeneratorToy(
+            repositoryPlayer=repositoryPlayer,
+            repositoryIapetus=repositoryIapetus,
+            repositoryGame=repositoryGame)
+        dataGeneratorToy.defaultData()
 
-        val timeoutTasks = TimeoutTasks(repositoryPlayer=repositoryPlayer,repositoryGame=repositoryGame)
+        val timeoutTasks = TimeoutTasks(repositoryPlayer = repositoryPlayer, repositoryGame = repositoryGame)
         timeoutTasks.start()
     }
 }
