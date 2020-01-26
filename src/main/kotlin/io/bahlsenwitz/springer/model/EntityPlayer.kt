@@ -8,50 +8,46 @@ import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Table
-import javax.validation.constraints.Size
 
 @Entity
 @Table(name = "player")
 @TypeDefs(TypeDef(name = "jsonb", typeClass = JsonBinaryType::class))
 class Player(
-
     id: UUID? = null,
 
-    var rank: Int = 0,
-
-    var address: String = "TBD",
-    var api: String = "TBD",
+    @Column(unique = true)
+    var username: String,
+    var password: String,
 
     @Type(type="text")
     @Column(columnDefinition = "text")
-    var avatar: String = "NONE",
+    var avatar: String = "TBD",
+
+    var elo: Int = 1200,
+    var rank_position: Int = 0,
+    var rank_displacement: Int = 0,
+    var rank_date: String = "TBD",
+
+    var email: String = "TBD",
+    var name: String = "TBD",
+    var surname: String = "TBD",
+    var address: String = "TBD",
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
     var config0: List<List<String>> = default0(),
-
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
     var config1: List<List<String>> = default1(),
-
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
     var config2: List<List<String>> = default2(),
 
-    @Size(max = 255)
-    @Column(unique = true)
-    var name: String,
-
-    var password: String,
-    var elo: Int = 1200,
-    var tschx: Int = 4,
-
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    var squad: List<String> = arrayListOf("Amazon"),
-    var device: String,
-    var skin: String = "NONE",
+    var skinList: List<String> = emptyList(),
 
+    var device: String = "TBD",
     var updated: String = "TBD",
     var created: String = "TBD"
 

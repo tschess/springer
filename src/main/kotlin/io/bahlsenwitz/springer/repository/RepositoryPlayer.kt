@@ -10,7 +10,7 @@ interface RepositoryPlayer: JpaRepository<Player,UUID> {
 
     fun getById(id: UUID): Player
 
-    fun getByName(name: String): Player?
+    fun getByUsername(username: String): Player?
 
     fun getByDevice(device: String): Player?
 
