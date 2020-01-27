@@ -26,16 +26,6 @@ class ControllerPlayer(val repositoryPlayer: RepositoryPlayer) {
         if (BCryptPasswordEncoder().matches(password, player.password)) {
             player.device = device
             player.updated = updated
-
-            /* * */
-            val rank0: Int = player.rank
-            val playerList: List<Player> = repositoryPlayer.findAll()
-            val rank1: Int = playerList.indexOf(player)
-            val disp: Int = rank0 - rank1
-            player.rank = rank1
-            player.disp = disp
-            /* * */
-
             return ResponseEntity.ok(repositoryPlayer.save(player))
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\": \"password\"}")
@@ -45,16 +35,6 @@ class ControllerPlayer(val repositoryPlayer: RepositoryPlayer) {
     fun device(@PathVariable(value = "device") device: String): ResponseEntity<Any> {
         val player = repositoryPlayer.getByDevice(device)
             ?: return ResponseEntity.status(HttpStatus.OK).body("{\"info\": \"unassigned\"}")
-
-        /* * */
-        val rank0: Int = player.rank
-        val playerList: List<Player> = repositoryPlayer.findAll()
-        val rank1: Int = playerList.indexOf(player)
-        val disp: Int = rank0 - rank1
-        player.rank = rank1
-        player.disp = disp
-        /* * */
-
         return ResponseEntity.ok(repositoryPlayer.save(player))
     }
 
@@ -70,22 +50,10 @@ class ControllerPlayer(val repositoryPlayer: RepositoryPlayer) {
             return ResponseEntity.status(HttpStatus.OK).body("{\"leaderboard\": \"EOL\"}")
         }
         if(playerList.size <= toIndex){
-            var count = 1
             val zzz = playerList.subList(fromIndex, playerList.lastIndex)
-            for (item in zzz) {
-                item.rank = fromIndex + count
-                repositoryPlayer.save(item)
-                count++
-            }
             return ResponseEntity.ok(zzz)
         }
         val mmm = playerList.subList(fromIndex, toIndex)
-        var count = 1
-        for (item in mmm) {
-            item.rank = fromIndex + count
-            repositoryPlayer.save(item)
-            count++
-        }
         return ResponseEntity.ok(mmm)
     }
 
