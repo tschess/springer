@@ -1,6 +1,7 @@
 package io.bahlsenwitz.springer.model
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
+import io.bahlsenwitz.springer.util.PhotoGenerator
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs
@@ -21,7 +22,7 @@ class Player(
 
     @Type(type="text")
     @Column(columnDefinition = "text")
-    var avatar: String = "TBD",
+    var avatar: String = defaultAvatar(),
 
     var elo: Int = 1200,
     var rank_position: Int = 0,
@@ -35,13 +36,13 @@ class Player(
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    var config0: List<List<String>> = default0(),
+    var config0: List<List<String>> = defaultConfig0(),
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    var config1: List<List<String>> = default1(),
+    var config1: List<List<String>> = defaultConfig1(),
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    var config2: List<List<String>> = default2(),
+    var config2: List<List<String>> = defaultConfig2(),
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
@@ -53,20 +54,25 @@ class Player(
 
 ): AssignedIdBaseEntity(id) {
     companion object {
-        fun default0(): List<List<String>> {
+        fun defaultConfig0(): List<List<String>> {
             val r0 = arrayListOf("","Bishop","Rook","Pawn","Pawn","Rook","Bishop","Pawn")
             val r1 = arrayListOf("Bishop","","Rook","Knight","King","Rook","","Bishop")
             return arrayListOf(r0, r1)
         }
-        fun default1(): List<List<String>> {
+        fun defaultConfig1(): List<List<String>> {
             val r0 = arrayListOf("Rook","Knight","Bishop","Queen","King","Bishop","Knight","Rook")
             val r1 = arrayListOf("Pawn","Pawn","Pawn","Pawn","Pawn","Pawn","Pawn","Pawn")
             return arrayListOf(r1, r0)
         }
-        fun default2(): List<List<String>> {
+        fun defaultConfig2(): List<List<String>> {
             val r0 = arrayListOf("","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop")
             val r1 = arrayListOf("","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop","King")
             return arrayListOf(r0, r1)
+        }
+        fun defaultAvatar(): String {
+            val photoMap = PhotoGenerator().photoMap
+            val random = Random()
+            return photoMap.entries.elementAt(random.nextInt(photoMap.size)).value
         }
     }
 }
