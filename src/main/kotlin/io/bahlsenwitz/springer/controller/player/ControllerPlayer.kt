@@ -52,10 +52,10 @@ class ControllerPlayer(val repositoryPlayer: RepositoryPlayer) {
         if(playerListAll.lastIndex < indexFrom) {
             return ResponseEntity.status(HttpStatus.OK).body("{\"leaderboard\": \"EOL\"}")
         }
-        playerListPage = if(playerListAll.lastIndex <= indexTo) {
-            playerListAll.subList(indexFrom, playerListAll.lastIndex)
+        playerListPage = if(playerListAll.lastIndex + 1 <= indexTo) {
+            playerListAll.subList(indexFrom, playerListAll.lastIndex + 1)
         } else {
-            playerListAll.subList(indexFrom, indexTo)
+            playerListAll.subList(indexFrom, indexTo + 1)
         }
         return ResponseEntity.ok(playerListPage)
     }

@@ -13,6 +13,7 @@ class DataGeneratorToy(
 
         val PASSWORD = "\$2a\$10\$paasde3Qy5jcxzZONo4a1OT3d4qgBIriGdyvO1qfeDWb2ksXSjycO"
 
+        //0
         val idWhite = UUID.fromString("00000000-0000-0000-0000-000000000000")
         val usernameWhite = "white"
         val avatarWhite = PhotoGenerator().getPhotoText("https://github.com/tschess/catacombes/raw/master/mr_white.jpg")
@@ -26,6 +27,7 @@ class DataGeneratorToy(
             disp = 3)
         repositoryPlayer.save(playerWhite)
 
+        //1
         val idBlack = UUID.fromString("11111111-1111-1111-1111-111111111111")
         val usernameBlack = "black"
         val avatarBlack = PhotoGenerator().getPhotoText("https://github.com/tschess/catacombes/raw/master/batman.png")
@@ -39,6 +41,7 @@ class DataGeneratorToy(
             disp = 1)
         repositoryPlayer.save(playerBlack)
 
+        //2
         val idTest =  UUID.fromString("22222222-2222-2222-2222-222222222222")
         val usernameTest = "test"
         val avatarTest = PhotoGenerator().getPhotoText("https://github.com/tschess/catacombes/raw/master/skull_pink.png")
@@ -52,6 +55,7 @@ class DataGeneratorToy(
             disp = -3)
         repositoryPlayer.save(playerTest)
 
+        //3
         val usernameA = "aaa"
         val playerA = Player(
             username = usernameA,
@@ -61,6 +65,7 @@ class DataGeneratorToy(
             disp = -1)
         repositoryPlayer.save(playerA)
 
+        //4
         val usernameB = "bbb"
         val playerB = Player(
             username = usernameB,
@@ -70,6 +75,7 @@ class DataGeneratorToy(
             disp = 0)
         repositoryPlayer.save(playerB)
 
+        //5
         val usernameC = "ccc"
         val playerC = Player(
             username = usernameC,
@@ -79,6 +85,7 @@ class DataGeneratorToy(
             disp = -5)
         repositoryPlayer.save(playerC)
 
+        //6
         val usernameD = "ddd"
         val playerD = Player(
             username = usernameD,
@@ -88,6 +95,7 @@ class DataGeneratorToy(
             disp = 1)
         repositoryPlayer.save(playerD)
 
+        //7
         val usernameE = "eee"
         val playerE = Player(
             username = usernameE,
@@ -97,6 +105,7 @@ class DataGeneratorToy(
             disp = -3)
         repositoryPlayer.save(playerE)
 
+        //8
         val usernameF = "fff"
         val playerF = Player(
             username = usernameF,
@@ -106,6 +115,7 @@ class DataGeneratorToy(
             disp = 1)
         repositoryPlayer.save(playerF)
 
+        //9
         val username9 = "999"
         val player9 = Player(
             username = username9,
@@ -115,6 +125,7 @@ class DataGeneratorToy(
             disp = -1)
         repositoryPlayer.save(player9)
 
+        //10
         val username8 = "888"
         val player8 = Player(
             username = username8,
