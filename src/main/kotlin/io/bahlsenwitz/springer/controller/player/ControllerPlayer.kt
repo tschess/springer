@@ -41,21 +41,23 @@ class ControllerPlayer(val repositoryPlayer: RepositoryPlayer) {
 
     @PostMapping("/leaderboard/{page}")
     fun leaderboard(@PathVariable(value = "page") page: Int): ResponseEntity<Any> {
+        val playerListAll: List<Player> = repositoryPlayer.findAll(Sort.by("elo").descending())
+        val playerListPage: List<Player>
+
         val PAGE_SIZE = 9
 
-        val fromIndex: Int = page * PAGE_SIZE
-        val toIndex: Int = fromIndex + PAGE_SIZE + 1
+        val indexFrom: Int = page * PAGE_SIZE
+        val indexTo: Int = indexFrom + PAGE_SIZE
 
-        val playerList: List<Player> = repositoryPlayer.findAll(Sort.by("elo").descending())
-        if(playerList.lastIndex < fromIndex) {
+        if(playerListAll.lastIndex < indexFrom) {
             return ResponseEntity.status(HttpStatus.OK).body("{\"leaderboard\": \"EOL\"}")
         }
-        if(playerList.lastIndex < toIndex){
-            val zzz = playerList.subList(fromIndex, playerList.lastIndex)
-            return ResponseEntity.ok(zzz)
+        playerListPage = if(playerListAll.lastIndex <= indexTo) {
+            playerListAll.subList(indexFrom, playerListAll.lastIndex)
+        } else {
+            playerListAll.subList(indexFrom, indexTo)
         }
-        val mmm = playerList.subList(fromIndex, toIndex)
-        return ResponseEntity.ok(mmm)
+        return ResponseEntity.ok(playerListPage)
     }
 
     @PostMapping("/clear/{device}")
