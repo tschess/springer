@@ -66,9 +66,10 @@ class ControllerPlayer(val repositoryPlayer: RepositoryPlayer) {
         val toIndex: Int = fromIndex + PAGE_SIZE
 
         val playerList: List<Player> = repositoryPlayer.findAll()
-        val playerPage = playerList.subList(fromIndex, toIndex)
-
-        return ResponseEntity.ok(playerPage)
+        if(playerList.size <= toIndex){
+            return ResponseEntity.ok(playerList.subList(fromIndex, playerList.lastIndex))
+        }
+        return ResponseEntity.ok(playerList.subList(fromIndex, toIndex))
     }
 
     @PostMapping("/clear/{device}")
