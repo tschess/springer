@@ -44,7 +44,7 @@ class ControllerPlayer(val repositoryPlayer: RepositoryPlayer) {
         val PAGE_SIZE = 9
 
         val fromIndex: Int = page * PAGE_SIZE
-        val toIndex: Int = fromIndex + PAGE_SIZE
+        val toIndex: Int = fromIndex + PAGE_SIZE + 1
 
         val playerList: List<Player> = repositoryPlayer.findAll(Sort.by("elo").descending())
         if(playerList.lastIndex < fromIndex) {
