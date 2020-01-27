@@ -25,9 +25,9 @@ class Player(
     var avatar: String = defaultAvatar(),
 
     var elo: Int = 1200,
-    var rank_position: Int = 0,
-    var rank_displacement: Int = 0,
-    var rank_date: String = "TBD",
+    var rank: Int = 0,
+    var disp: Int = 0,
+    var date: String = "TBD",
 
     var email: String = "TBD",
     var name: String = "TBD",
@@ -46,7 +46,7 @@ class Player(
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    var skinList: List<String> = emptyList(),
+    var skins: List<String> = emptyList(),
 
     var device: String = "TBD",
     var updated: String = "TBD",
