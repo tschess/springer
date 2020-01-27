@@ -3,6 +3,7 @@ package io.bahlsenwitz.springer.controller.player
 import io.bahlsenwitz.springer.model.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.request.player.RequestLogin
+import org.springframework.data.domain.Sort
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -45,7 +46,7 @@ class ControllerPlayer(val repositoryPlayer: RepositoryPlayer) {
         val fromIndex: Int = page * PAGE_SIZE
         val toIndex: Int = fromIndex + PAGE_SIZE
 
-        val playerList: List<Player> = repositoryPlayer.findAll()
+        val playerList: List<Player> = repositoryPlayer.findAll(Sort.by("elo").descending())
         if(playerList.size < fromIndex) {
             return ResponseEntity.status(HttpStatus.OK).body("{\"leaderboard\": \"EOL\"}")
         }
