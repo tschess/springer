@@ -71,14 +71,15 @@ class ControllerPlayer(val repositoryPlayer: RepositoryPlayer) {
         return ResponseEntity.ok(playerPage)
     }
 
-    //fun clear(@PathVariable(value = "device") device: String): ResponseEntity<Any> {
-    //val player = repositoryPlayer.getByDevice(device)
-
-//    val pageRequest = PageRequest.of(0, 8, Sort.by("elo").descending())
-//    val playerList: List<Player> = repositoryPlayer
-//        .findAll(pageRequest)
-//        .get()
-//        .collect(toList())
+    @PostMapping("/clear/{device}")
+    fun clear(@PathVariable(value = "device") device: String): ResponseEntity<Any> {
+        val player = repositoryPlayer.getByDevice(device)
+        if(player != null){
+            player.device = ""
+            return ResponseEntity.ok(repositoryPlayer.save(player))
+        }
+        return ResponseEntity.ok("{\"result\": \"ok\"}")
+    }
 
 
 
