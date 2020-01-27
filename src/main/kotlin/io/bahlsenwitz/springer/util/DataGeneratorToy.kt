@@ -122,7 +122,7 @@ class DataGeneratorToy(
             password = PASSWORD,
             elo = 1191,
             rank = 10,
-            disp = -1)
+            disp = 0)
         repositoryPlayer.save(player9)
 
         //10
