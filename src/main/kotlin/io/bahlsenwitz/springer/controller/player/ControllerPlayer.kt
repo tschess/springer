@@ -43,7 +43,10 @@ class ControllerPlayer(val repositoryPlayer: RepositoryPlayer) {
     fun leaderboard(@PathVariable(value = "page") page: Int): ResponseEntity<Any> {
         val PAGE_SIZE = 9
 
-        val fromIndex: Int = page * PAGE_SIZE
+        var fromIndex: Int = page * PAGE_SIZE
+        if(fromIndex > 0){
+            fromIndex -= 1
+        }
         val toIndex: Int = fromIndex + PAGE_SIZE
 
         val playerList: List<Player> = repositoryPlayer.findAll(Sort.by("elo").descending())
