@@ -27,7 +27,6 @@ class Player(
     var elo: Int = 1200,
     var rank: Int = 0,
     var disp: Int = 0,
-    var rect: Boolean = true,
     var date: String = "TBD",
 
     var email: String = "TBD",
