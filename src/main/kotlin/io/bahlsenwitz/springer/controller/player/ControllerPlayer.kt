@@ -1,14 +1,12 @@
 package io.bahlsenwitz.springer.controller.player
 
-
+import io.bahlsenwitz.springer.model.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.request.player.*
-
+import io.bahlsenwitz.springer.request.player.RequestLogin
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.*
-
 import javax.validation.Valid
 
 @RestController
@@ -28,8 +26,17 @@ class ControllerPlayer(val repositoryPlayer: RepositoryPlayer) {
         if (BCryptPasswordEncoder().matches(password, player.password)) {
             player.device = device
             player.updated = updated
-            repositoryPlayer.save(player)
-            return ResponseEntity.ok(player)
+
+            /* * */
+            val rank0: Int = player.rank
+            val playerList: List<Player> = repositoryPlayer.findAll()
+            val rank1: Int = playerList.indexOf(player)
+            val disp: Int = rank0 - rank1
+            player.rank = rank1
+            player.disp = disp
+            /* * */
+
+            return ResponseEntity.ok(repositoryPlayer.save(player))
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\": \"password\"}")
     }
@@ -38,14 +45,31 @@ class ControllerPlayer(val repositoryPlayer: RepositoryPlayer) {
     fun device(@PathVariable(value = "device") device: String): ResponseEntity<Any> {
         val player = repositoryPlayer.getByDevice(device)
             ?: return ResponseEntity.status(HttpStatus.OK).body("{\"info\": \"unassigned\"}")
-        return ResponseEntity.ok(player)
+
+        /* * */
+        val rank0: Int = player.rank
+        val playerList: List<Player> = repositoryPlayer.findAll()
+        val rank1: Int = playerList.indexOf(player)
+        val disp: Int = rank0 - rank1
+        player.rank = rank1
+        player.disp = disp
+        /* * */
+
+        return ResponseEntity.ok(repositoryPlayer.save(player))
     }
 
-//    @PostMapping("/leaderboard")
-//    fun leaderboard(@Valid @RequestBody requestLeaderboard: RequestLeaderboard): ResponseEntity<Any> {
-//        val pageRequest = PageRequest.of(requestLeaderboard.page, requestLeaderboard.size, Sort.by("elo").descending())
-//        return ResponseEntity.ok(repositoryPlayer.findAll(pageRequest))
-//    }
+    @PostMapping("/leaderboard/{page}")
+    fun leaderboard(@PathVariable(value = "page") page: Int): ResponseEntity<Any> {
+        val PAGE_SIZE = 9
+
+        val fromIndex: Int = page * PAGE_SIZE
+        val toIndex: Int = fromIndex + PAGE_SIZE
+
+        val playerList: List<Player> = repositoryPlayer.findAll()
+        val playerPage = playerList.subList(fromIndex, toIndex)
+
+        return ResponseEntity.ok(playerPage)
+    }
 
     //fun clear(@PathVariable(value = "device") device: String): ResponseEntity<Any> {
     //val player = repositoryPlayer.getByDevice(device)

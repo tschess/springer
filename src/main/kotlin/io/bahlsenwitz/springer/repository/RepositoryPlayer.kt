@@ -4,6 +4,9 @@ import io.bahlsenwitz.springer.model.Player
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import java.util.*
+import com.sun.deploy.util.SearchPath.findOne
+import org.springframework.data.domain.Sort
+
 
 @Repository
 interface RepositoryPlayer: JpaRepository<Player,UUID> {
@@ -13,5 +16,13 @@ interface RepositoryPlayer: JpaRepository<Player,UUID> {
     fun getByUsername(username: String): Player?
 
     fun getByDevice(device: String): Player?
+
+    override fun findAll(): List<Player> {
+        return findAll(sortByEloDesc())
+    }
+
+    private fun sortByEloDesc(): Sort {
+        return Sort(Sort.Direction.DESC, "elo")
+    }
 
 }
