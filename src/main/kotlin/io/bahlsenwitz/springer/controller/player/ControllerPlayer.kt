@@ -42,7 +42,7 @@ class ControllerPlayer(val repositoryPlayer: RepositoryPlayer) {
     @PostMapping("/leaderboard/{page}")
     fun leaderboard(@PathVariable(value = "page") page: Int): ResponseEntity<Any> {
         val playerListAll: List<Player> = repositoryPlayer.findAll(Sort.by("elo").descending())
-        val playerListPage: List<Player>
+        val opponentPage: MutableList<Opponent> = mutableListOf()
 
         val PAGE_SIZE = 9
 
@@ -52,12 +52,35 @@ class ControllerPlayer(val repositoryPlayer: RepositoryPlayer) {
         if(playerListAll.lastIndex < indexFrom) {
             return ResponseEntity.status(HttpStatus.OK).body("{\"leaderboard\": \"EOL\"}")
         }
-        playerListPage = if(playerListAll.lastIndex + 1 <= indexTo) {
-            playerListAll.subList(indexFrom, playerListAll.lastIndex + 1)
+       if(playerListAll.lastIndex + 1 <= indexTo) {
+
+            val xxx = playerListAll.subList(indexFrom, playerListAll.lastIndex + 1)
+            for (item in xxx) {
+                val opponent = Opponent(
+                    id = item.id.toString(),
+                    username = item.username,
+                    avatar = item.avatar,
+                    elo = item.elo,
+                    rank = item.rank,
+                    date = item.date,
+                    disp = item.disp)
+                opponentPage.add(opponent)
+            }
         } else {
-            playerListAll.subList(indexFrom, indexTo + 1)
+           val xxx = playerListAll.subList(indexFrom, indexTo + 1)
+           for (item in xxx) {
+               val opponent = Opponent(
+                   id = item.id.toString(),
+                   username = item.username,
+                   avatar = item.avatar,
+                   elo = item.elo,
+                   rank = item.rank,
+                   date = item.date,
+                   disp = item.disp)
+               opponentPage.add(opponent)
+           }
         }
-        return ResponseEntity.ok(playerListPage)
+        return ResponseEntity.ok(opponentPage)
     }
 
     @PostMapping("/clear/{device}")
