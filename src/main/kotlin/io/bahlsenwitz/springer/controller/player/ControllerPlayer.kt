@@ -50,7 +50,7 @@ class ControllerPlayer(val repositoryPlayer: RepositoryPlayer) {
         if(playerList.size < fromIndex) {
             return ResponseEntity.status(HttpStatus.OK).body("{\"leaderboard\": \"EOL\"}")
         }
-        if(playerList.size <= toIndex){
+        if(playerList.size < toIndex){
             val zzz = playerList.subList(fromIndex, playerList.lastIndex)
             return ResponseEntity.ok(zzz)
         }
