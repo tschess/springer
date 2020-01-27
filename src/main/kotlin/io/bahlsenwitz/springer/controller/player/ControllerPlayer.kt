@@ -66,7 +66,10 @@ class ControllerPlayer(val repositoryPlayer: RepositoryPlayer) {
         val toIndex: Int = fromIndex + PAGE_SIZE
 
         val playerList: List<Player> = repositoryPlayer.findAll()
-        if(playerList.size <= fromIndex || playerList.size <= toIndex){
+        if(playerList.size < fromIndex) {
+            return ResponseEntity.status(HttpStatus.OK).body("{\"leaderboard\": \"EOL\"}")
+        }
+        if(playerList.size <= toIndex){
             return ResponseEntity.ok(playerList.subList(fromIndex, playerList.lastIndex))
         }
         return ResponseEntity.ok(playerList.subList(fromIndex, toIndex))
