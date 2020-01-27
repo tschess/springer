@@ -70,9 +70,23 @@ class ControllerPlayer(val repositoryPlayer: RepositoryPlayer) {
             return ResponseEntity.status(HttpStatus.OK).body("{\"leaderboard\": \"EOL\"}")
         }
         if(playerList.size <= toIndex){
-            return ResponseEntity.ok(playerList.subList(fromIndex, playerList.lastIndex))
+            var count = 1
+            val zzz = playerList.subList(fromIndex, playerList.lastIndex)
+            for (item in zzz) {
+                item.rank = fromIndex + count
+                repositoryPlayer.save(item)
+                count++
+            }
+            return ResponseEntity.ok(zzz)
         }
-        return ResponseEntity.ok(playerList.subList(fromIndex, toIndex))
+        val mmm = playerList.subList(fromIndex, toIndex)
+        var count = 1
+        for (item in mmm) {
+            item.rank = fromIndex + count
+            repositoryPlayer.save(item)
+            count++
+        }
+        return ResponseEntity.ok(mmm)
     }
 
     @PostMapping("/clear/{device}")
