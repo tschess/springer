@@ -1,9 +1,11 @@
 package io.bahlsenwitz.springer.controller.player
 
+import io.bahlsenwitz.springer.controller.player.config.PlayerConfig
 import io.bahlsenwitz.springer.controller.player.home.PlayerHome
 import io.bahlsenwitz.springer.controller.player.initializer.PlayerInit
 import io.bahlsenwitz.springer.controller.player.profile.PlayerProfile
 import io.bahlsenwitz.springer.controller.player.start.PlayerStart
+import io.bahlsenwitz.springer.model.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -58,7 +60,15 @@ class PlayerController(repositoryPlayer: RepositoryPlayer) {
         return playerHome.leaderboard(page)
     }
 
+    /**
+     * Config.swift
+     */
+    val playerConfig = PlayerConfig(repositoryPlayer)
 
+    @PostMapping("/config")
+    fun config(@Valid @RequestBody updateConfig: PlayerConfig.UpdateConfig): ResponseEntity<Player> {
+        return playerConfig.config(updateConfig)
+    }
 
 }
 
