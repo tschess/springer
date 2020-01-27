@@ -35,7 +35,7 @@ class ControllerPlayer(val repositoryPlayer: RepositoryPlayer) {
     fun device(@PathVariable(value = "device") device: String): ResponseEntity<Any> {
         val player = repositoryPlayer.getByDevice(device)
             ?: return ResponseEntity.status(HttpStatus.OK).body("{\"info\": \"unassigned\"}")
-        return ResponseEntity.ok(repositoryPlayer.save(player))
+        return ResponseEntity.ok(player)
     }
 
     @PostMapping("/leaderboard/{page}")
@@ -61,7 +61,7 @@ class ControllerPlayer(val repositoryPlayer: RepositoryPlayer) {
     fun clear(@PathVariable(value = "device") device: String): ResponseEntity<Any> {
         val player = repositoryPlayer.getByDevice(device)
         if(player != null){
-            player.device = ""
+            player.device = "TBD"
             return ResponseEntity.ok(repositoryPlayer.save(player))
         }
         return ResponseEntity.ok("{\"result\": \"ok\"}")
