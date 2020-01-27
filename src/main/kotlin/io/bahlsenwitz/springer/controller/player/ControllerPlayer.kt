@@ -43,17 +43,14 @@ class ControllerPlayer(val repositoryPlayer: RepositoryPlayer) {
     fun leaderboard(@PathVariable(value = "page") page: Int): ResponseEntity<Any> {
         val PAGE_SIZE = 9
 
-        var fromIndex: Int = page * PAGE_SIZE
-        if(fromIndex > 0){
-            fromIndex -= 1
-        }
+        val fromIndex: Int = page * PAGE_SIZE
         val toIndex: Int = fromIndex + PAGE_SIZE
 
         val playerList: List<Player> = repositoryPlayer.findAll(Sort.by("elo").descending())
-        if(playerList.size < fromIndex) {
+        if(playerList.lastIndex < fromIndex) {
             return ResponseEntity.status(HttpStatus.OK).body("{\"leaderboard\": \"EOL\"}")
         }
-        if(playerList.size < toIndex){
+        if(playerList.lastIndex < toIndex){
             val zzz = playerList.subList(fromIndex, playerList.lastIndex)
             return ResponseEntity.ok(zzz)
         }
