@@ -112,4 +112,15 @@ class Player(
         }
         return 1
     }
+
+    class Core(player: Player) {
+        val id: String = player.id.toString()
+        val username: String = player.username
+        val avatar: String = player.avatar
+        val elo: Int = player.elo
+        val rank: Int = player.rank
+        val date: String = player.date
+        val disp: Int = player.disp
+    }
 }
+

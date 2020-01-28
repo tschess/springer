@@ -9,7 +9,7 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
 
     fun leaderboard(requestPage: RequestPage): ResponseEntity<Any> {
         val playerListFindAll: List<Player> = repositoryPlayer.findAll().sorted()
-        val opponentPageList: MutableList<ReturnOpponent> = mutableListOf()
+        val opponentPageList: MutableList<Player.Core> = mutableListOf()
         val opponentPlayerList: List<Player>
 
         val pageIndex: Int = requestPage.index
@@ -24,31 +24,15 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
         if (playerListFindAll.lastIndex + 1 <= indexTo) {
             opponentPlayerList = playerListFindAll.subList(indexFrom, playerListFindAll.lastIndex + 1)
             for (opponentPlayer: Player in opponentPlayerList) {
-                val opponentReturn = ReturnOpponent(
-                    id = opponentPlayer.id.toString(),
-                    username = opponentPlayer.username,
-                    avatar = opponentPlayer.avatar,
-                    elo = opponentPlayer.elo,
-                    rank = opponentPlayer.rank,
-                    date = opponentPlayer.date,
-                    disp = opponentPlayer.disp
-                )
-                opponentPageList.add(opponentReturn)
+                val opponent = Player.Core(opponentPlayer)
+                opponentPageList.add(opponent)
             }
             return ResponseEntity.ok(opponentPageList)
         }
         opponentPlayerList = playerListFindAll.subList(indexFrom, indexTo + 1)
             for (opponentPlayer: Player in opponentPlayerList) {
-                val opponentReturn = ReturnOpponent(
-                    id = opponentPlayer.id.toString(),
-                    username = opponentPlayer.username,
-                    avatar = opponentPlayer.avatar,
-                    elo = opponentPlayer.elo,
-                    rank = opponentPlayer.rank,
-                    date = opponentPlayer.date,
-                    disp = opponentPlayer.disp
-                )
-                opponentPageList.add(opponentReturn)
+                val opponent = Player.Core(opponentPlayer)
+                opponentPageList.add(opponent)
             }
         return ResponseEntity.ok(opponentPageList)
     }
@@ -57,16 +41,5 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
         val index: Int,
         val size: Int
     )
-
-    data class ReturnOpponent(
-        val id: String,
-        val username: String,
-        val avatar: String,
-        val elo: Int,
-        val rank: Int,
-        val date: String,
-        val disp: Int
-    )
-
 }
 
