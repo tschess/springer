@@ -1,5 +1,6 @@
 package io.bahlsenwitz.springer.controller.player
 
+import io.bahlsenwitz.springer.controller.player.address.PlayerAddress
 import io.bahlsenwitz.springer.controller.player.config.PlayerConfig
 import io.bahlsenwitz.springer.controller.player.home.PlayerHome
 import io.bahlsenwitz.springer.controller.player.init.PlayerInit
@@ -26,6 +27,20 @@ class PlayerController(repositoryPlayer: RepositoryPlayer) {
     }
 
     /**
+     * Profile.swift
+     */
+    val playerProfile = PlayerProfile(repositoryPlayer)
+
+    @PostMapping("/clear/{device}")
+    fun clear(@PathVariable(value = "device") device: String): ResponseEntity<Any> {
+        return playerProfile.clear(device)
+    }
+    @PostMapping("/avatar")
+    fun avatar(@Valid @RequestBody updateAvatar: PlayerProfile.UpdateAvatar): ResponseEntity<Any> {
+        return playerProfile.avatar(updateAvatar)
+    }
+
+    /**
      * Start.swift
      */
     val playerStart = PlayerStart(repositoryPlayer)
@@ -36,28 +51,13 @@ class PlayerController(repositoryPlayer: RepositoryPlayer) {
     }
 
     /**
-     * Profile.swift
-     */
-    val playerProfile = PlayerProfile(repositoryPlayer)
-
-    @PostMapping("/clear/{device}")
-    fun clear(@PathVariable(value = "device") device: String): ResponseEntity<Any> {
-        return playerProfile.clear(device)
-    }
-
-    @PostMapping("/avatar")
-    fun avatar(@Valid @RequestBody updateAvatar: PlayerProfile.UpdateAvatar): ResponseEntity<Any> {
-        return playerProfile.avatar(updateAvatar)
-    }
-
-    /**
      * Home.swift
      */
     val playerHome = PlayerHome(repositoryPlayer)
 
-    @PostMapping("/leaderboard/{page}")
-    fun leaderboard(@PathVariable(value = "page") page: Int): ResponseEntity<Any> {
-        return playerHome.leaderboard(page)
+    @PostMapping("/leaderboard")
+    fun leaderboard(@Valid @RequestBody requestPage: PlayerHome.RequestPage): ResponseEntity<Any> {
+        return playerHome.leaderboard(requestPage)
     }
 
     /**
@@ -68,6 +68,16 @@ class PlayerController(repositoryPlayer: RepositoryPlayer) {
     @PostMapping("/config")
     fun config(@Valid @RequestBody updateConfig: PlayerConfig.UpdateConfig): ResponseEntity<Player> {
         return playerConfig.config(updateConfig)
+    }
+
+    /**
+     * Address.swift
+     */
+    val playerAddress = PlayerAddress(repositoryPlayer)
+
+    @PostMapping("/address")
+    fun address(@Valid @RequestBody updateAddress: PlayerAddress.UpdateAddress): ResponseEntity<Any> {
+        return playerAddress.address(updateAddress)
     }
 
 }

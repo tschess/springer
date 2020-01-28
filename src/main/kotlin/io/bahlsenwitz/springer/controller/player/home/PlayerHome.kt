@@ -7,53 +7,58 @@ import org.springframework.http.ResponseEntity
 
 class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
 
-    fun leaderboard(page: Int): ResponseEntity<Any> {
-        val playerListAll: List<Player> = repositoryPlayer.findAll().sorted()
-        //val playerListAll: List<Player> = repositoryPlayer.findAll(Sort.by("elo").descending())
-        val opponentPage: MutableList<Opponent> = mutableListOf()
+    fun leaderboard(requestPage: RequestPage): ResponseEntity<Any> {
+        val playerListFindAll: List<Player> = repositoryPlayer.findAll().sorted()
+        val opponentPageList: MutableList<ReturnOpponent> = mutableListOf()
+        val opponentPlayerList: List<Player>
 
-        val PAGE_SIZE = 9
+        val pageIndex: Int = requestPage.index
+        val pageSize: Int = requestPage.size
 
-        val indexFrom: Int = page * PAGE_SIZE
-        val indexTo: Int = indexFrom + PAGE_SIZE
+        val indexFrom: Int = pageIndex * pageSize
+        val indexTo: Int = indexFrom + pageSize
 
-        if (playerListAll.lastIndex < indexFrom) {
+        if (playerListFindAll.lastIndex < indexFrom) {
             return ResponseEntity.status(HttpStatus.OK).body("{\"leaderboard\": \"EOL\"}")
         }
-        if (playerListAll.lastIndex + 1 <= indexTo) {
-
-            val xxx = playerListAll.subList(indexFrom, playerListAll.lastIndex + 1)
-            for (item in xxx) {
-                val opponent = Opponent(
-                    id = item.id.toString(),
-                    username = item.username,
-                    avatar = item.avatar,
-                    elo = item.elo,
-                    rank = item.rank,
-                    date = item.date,
-                    disp = item.disp
+        if (playerListFindAll.lastIndex + 1 <= indexTo) {
+            opponentPlayerList = playerListFindAll.subList(indexFrom, playerListFindAll.lastIndex + 1)
+            for (opponentPlayer: Player in opponentPlayerList) {
+                val opponentReturn = ReturnOpponent(
+                    id = opponentPlayer.id.toString(),
+                    username = opponentPlayer.username,
+                    avatar = opponentPlayer.avatar,
+                    elo = opponentPlayer.elo,
+                    rank = opponentPlayer.rank,
+                    date = opponentPlayer.date,
+                    disp = opponentPlayer.disp
                 )
-                opponentPage.add(opponent)
+                opponentPageList.add(opponentReturn)
             }
-        } else {
-            val xxx = playerListAll.subList(indexFrom, indexTo + 1)
-            for (item in xxx) {
-                val opponent = Opponent(
-                    id = item.id.toString(),
-                    username = item.username,
-                    avatar = item.avatar,
-                    elo = item.elo,
-                    rank = item.rank,
-                    date = item.date,
-                    disp = item.disp
-                )
-                opponentPage.add(opponent)
-            }
+            return ResponseEntity.ok(opponentPageList)
         }
-        return ResponseEntity.ok(opponentPage)
+        opponentPlayerList = playerListFindAll.subList(indexFrom, indexTo + 1)
+            for (opponentPlayer: Player in opponentPlayerList) {
+                val opponentReturn = ReturnOpponent(
+                    id = opponentPlayer.id.toString(),
+                    username = opponentPlayer.username,
+                    avatar = opponentPlayer.avatar,
+                    elo = opponentPlayer.elo,
+                    rank = opponentPlayer.rank,
+                    date = opponentPlayer.date,
+                    disp = opponentPlayer.disp
+                )
+                opponentPageList.add(opponentReturn)
+            }
+        return ResponseEntity.ok(opponentPageList)
     }
 
-    data class Opponent(
+    data class RequestPage(
+        val index: Int,
+        val size: Int
+    )
+
+    data class ReturnOpponent(
         val id: String,
         val username: String,
         val avatar: String,
