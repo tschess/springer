@@ -134,6 +134,16 @@ class DataGeneratorToy(
             rank = 11,
             disp = 3)
         repositoryPlayer.save(player8)
+
+        //11
+        val username7 = "777"
+        val player7 = Player(
+            username = username7,
+            password = PASSWORD,
+            elo = 1190,
+            rank = 11,
+            disp = 3)
+        repositoryPlayer.save(player7)
     }
 
     private fun cleanCollections() {
