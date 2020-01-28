@@ -5,6 +5,7 @@ import io.bahlsenwitz.springer.controller.player.config.PlayerConfig
 import io.bahlsenwitz.springer.controller.player.home.PlayerHome
 import io.bahlsenwitz.springer.controller.player.init.PlayerInit
 import io.bahlsenwitz.springer.controller.player.profile.PlayerProfile
+import io.bahlsenwitz.springer.controller.player.quick.PlayerQuick
 import io.bahlsenwitz.springer.controller.player.start.PlayerStart
 import io.bahlsenwitz.springer.model.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
@@ -78,6 +79,16 @@ class PlayerController(repositoryPlayer: RepositoryPlayer) {
     @PostMapping("/address")
     fun address(@Valid @RequestBody updateAddress: PlayerAddress.UpdateAddress): ResponseEntity<Any> {
         return playerAddress.address(updateAddress)
+    }
+
+    /**
+     * Quick.swift
+     */
+    val playerQuick = PlayerQuick(repositoryPlayer)
+
+    @GetMapping("/quick/{id}")
+    fun quick(@PathVariable(value = "id") id: String): ResponseEntity<Any> {
+        return playerQuick.quick(id)
     }
 
 }
