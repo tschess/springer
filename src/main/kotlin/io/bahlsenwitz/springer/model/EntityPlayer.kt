@@ -97,9 +97,9 @@ class Player(
             val date: ZonedDateTime = generateDate(date = this.created)
             val dateOther: ZonedDateTime = generateDate(date = other.created)
             if(date.isBefore(dateOther)){
-                return -1
+                return 1
             }
-            return 1
+            return -1
         }
         if (this.elo > other.elo) {
             return -1
