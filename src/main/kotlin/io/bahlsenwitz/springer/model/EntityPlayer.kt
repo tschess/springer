@@ -57,7 +57,7 @@ class Player(
     var created: String = rightNow()
 
 ): AssignedIdBaseEntity(id), Comparable<Player> {
-    
+
     //TODO: wtf is companion object???
     companion object {
 
@@ -103,9 +103,9 @@ class Player(
             val date: ZonedDateTime = generateDate(date = this.created)
             val dateOther: ZonedDateTime = generateDate(date = other.created)
             if(date.isBefore(dateOther)){
-                return 1
+                return -1
             }
-            return -1
+            return 1
         }
         if (this.elo > other.elo) {
             return -1
