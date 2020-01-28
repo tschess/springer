@@ -5,6 +5,10 @@ import io.bahlsenwitz.springer.util.PhotoGenerator
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -52,7 +56,10 @@ class Player(
     var updated: String = "TBD",
     var created: String = "TBD"
 
-): AssignedIdBaseEntity(id) {
+): AssignedIdBaseEntity(id), Comparable<Player> {
+
+    val BROOKLYN = ZoneId.of("America/New_York")
+
     companion object {
         fun defaultConfig0(): List<List<String>> {
             val r0 = arrayListOf("","Bishop","Rook","Pawn","Pawn","Rook","Bishop","Pawn")
@@ -74,5 +81,29 @@ class Player(
             val random = Random()
             return photoMap.entries.elementAt(random.nextInt(photoMap.size)).value
         }
+    }
+
+    fun generateDate(date: String): ZonedDateTime {
+        if (date == "TBD") {
+            return ZonedDateTime.now(BROOKLYN)
+        }
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy_HH:mm:ss.SSSS")
+        val dateTimeFormatted = LocalDateTime.parse(date, formatter)
+        return ZonedDateTime.of(dateTimeFormatted, BROOKLYN)
+    }
+
+    override operator fun compareTo(other: Player): Int {
+        if (this.elo == other.elo) {
+            val date: ZonedDateTime = generateDate(date = this.created)
+            val dateOther: ZonedDateTime = generateDate(date = other.created)
+            if(date.isBefore(dateOther)){
+                return 1
+            }
+            return -1
+        }
+        if (this.elo > other.elo) {
+            return 1
+        }
+        return -1
     }
 }
