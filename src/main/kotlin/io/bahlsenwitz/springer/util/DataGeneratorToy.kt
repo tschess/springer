@@ -135,6 +135,8 @@ class DataGeneratorToy(
             disp = 3)
         repositoryPlayer.save(player8)
 
+        Thread.sleep(1_000)
+
         //11
         val username7 = "777"
         val player7 = Player(

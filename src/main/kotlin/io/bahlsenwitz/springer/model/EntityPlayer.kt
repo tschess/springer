@@ -54,13 +54,16 @@ class Player(
 
     var device: String = "TBD",
     var updated: String = "TBD",
-    var created: String = "TBD"
+    var created: String = rightNow()
 
 ): AssignedIdBaseEntity(id), Comparable<Player> {
-
-    val BROOKLYN = ZoneId.of("America/New_York")
-
+    
+    //TODO: wtf is companion object???
     companion object {
+
+        val FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy_HH:mm:ss.SSSS")
+        val BROOKLYN = ZoneId.of("America/New_York")
+
         fun defaultConfig0(): List<List<String>> {
             val r0 = arrayListOf("","Bishop","Rook","Pawn","Pawn","Rook","Bishop","Pawn")
             val r1 = arrayListOf("Bishop","","Rook","Knight","King","Rook","","Bishop")
@@ -81,14 +84,17 @@ class Player(
             val random = Random()
             return photoMap.entries.elementAt(random.nextInt(photoMap.size)).value
         }
+
+        fun rightNow(): String {
+            return FORMATTER.format(ZonedDateTime.now(BROOKLYN))
+        }
     }
 
-    fun generateDate(date: String): ZonedDateTime {
+    private fun generateDate(date: String): ZonedDateTime {
         if (date == "TBD") {
             return ZonedDateTime.now(BROOKLYN)
         }
-        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy_HH:mm:ss.SSSS")
-        val dateTimeFormatted = LocalDateTime.parse(date, formatter)
+        val dateTimeFormatted = LocalDateTime.parse(date, FORMATTER)
         return ZonedDateTime.of(dateTimeFormatted, BROOKLYN)
     }
 
