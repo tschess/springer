@@ -1,4 +1,4 @@
-package io.bahlsenwitz.springer.controller.player.initializer
+package io.bahlsenwitz.springer.controller.player.init
 
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.HttpStatus

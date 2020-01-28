@@ -2,7 +2,7 @@ package io.bahlsenwitz.springer.controller.player
 
 import io.bahlsenwitz.springer.controller.player.config.PlayerConfig
 import io.bahlsenwitz.springer.controller.player.home.PlayerHome
-import io.bahlsenwitz.springer.controller.player.initializer.PlayerInit
+import io.bahlsenwitz.springer.controller.player.init.PlayerInit
 import io.bahlsenwitz.springer.controller.player.profile.PlayerProfile
 import io.bahlsenwitz.springer.controller.player.start.PlayerStart
 import io.bahlsenwitz.springer.model.Player
