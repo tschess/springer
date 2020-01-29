@@ -14,7 +14,7 @@ class GameTest(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    fun updateTest(@Valid @RequestBody updateTest: UpdateTest): ResponseEntity<Any> {
+    fun updateTest(updateTest: UpdateTest): ResponseEntity<Any> {
 
         val id: UUID = UUID.fromString("00000000-0000-0000-0000-000000000000")
         val game: Game = repositoryGame.findById(id).get()
@@ -36,7 +36,7 @@ class GameTest(
         val test: String
     )
 
-    fun requestTest(@Valid @RequestBody requestTest: RequestTest): ResponseEntity<Any> {
+    fun requestTest(requestTest: RequestTest): ResponseEntity<Any> {
         //if (requestTest.state != null) {
         //game.state = requestTest.state
         //}

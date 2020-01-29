@@ -85,17 +85,10 @@ class Player(
         }
     }
 
-    private fun generateDate(date: String): ZonedDateTime {
-        if (date == PLACEHOLDER) {
-            return DATE_TIME_GENERATOR.rightNowZone()
-        }
-        return DATE_TIME_GENERATOR.getZone(date = date)
-    }
-
     override operator fun compareTo(other: Player): Int {
         if (this.elo == other.elo) {
-            val date: ZonedDateTime = generateDate(date = this.created)
-            val dateOther: ZonedDateTime = generateDate(date = other.created)
+            val date: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = this.created)
+            val dateOther: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = other.created)
             if(date.isBefore(dateOther)){
                 return -1
             }

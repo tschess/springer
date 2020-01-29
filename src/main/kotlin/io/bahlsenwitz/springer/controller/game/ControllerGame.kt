@@ -1,5 +1,6 @@
 package io.bahlsenwitz.springer.controller.game
 
+import io.bahlsenwitz.springer.controller.game.other.GameOther
 import io.bahlsenwitz.springer.controller.game.test.GameTest
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
@@ -30,5 +31,15 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     @GetMapping("/test/request")
     fun requestTest(@Valid @RequestBody requestTest: GameTest.RequestTest): ResponseEntity<Any> {
         return gameTest.requestTest(requestTest)
+    }
+
+    /**
+     * Other.swift
+     */
+    val gameOther = GameOther(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+
+    @PostMapping("/other")
+    fun other(@Valid @RequestBody updateTest: GameOther.RequestOther): ResponseEntity<Any> {
+        return gameOther.other(updateTest)
     }
 }
