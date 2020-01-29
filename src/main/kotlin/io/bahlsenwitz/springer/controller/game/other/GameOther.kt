@@ -18,7 +18,7 @@ class GameOther(private val repositoryGame: RepositoryGame,
         val uuid: UUID = UUID.fromString(requestOther.id)!!
         val other: Player = repositoryPlayer.getById(uuid)
         val playerList: List<Game> = repositoryGame.getPlayerList(uuid)
-        val playerListResolved: List<Game> = playerList.filter { it.status != STATUS.RESOLVED }
+        val playerListResolved: List<Game> = playerList.filter { it.status == STATUS.RESOLVED }
         val playerListResolvedSorted: List<Game> = playerListResolved.sortedWith(OtherComparator)
 
         val gameListCore: MutableList<Game.Core> = mutableListOf()
