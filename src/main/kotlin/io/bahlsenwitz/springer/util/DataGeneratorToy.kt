@@ -1,11 +1,14 @@
 package io.bahlsenwitz.springer.util
 
+import io.bahlsenwitz.springer.model.Game
 import io.bahlsenwitz.springer.model.Player
+import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import java.util.*
 
 class DataGeneratorToy(
-    private val repositoryPlayer: RepositoryPlayer
+    private val repositoryPlayer: RepositoryPlayer,
+    private val repositoryGame: RepositoryGame
 ) {
 
     fun defaultData() {
@@ -14,7 +17,7 @@ class DataGeneratorToy(
         val PASSWORD = "\$2a\$10\$paasde3Qy5jcxzZONo4a1OT3d4qgBIriGdyvO1qfeDWb2ksXSjycO"
 
         //0
-        val idWhite = UUID.fromString("00000000-0000-0000-0000-000000000000")
+        val idWhite: UUID = UUID.fromString("00000000-0000-0000-0000-000000000000")!!
         val usernameWhite = "white"
         val avatarWhite = PhotoGenerator().getPhotoText("https://github.com/tschess/catacombes/raw/master/mr_white.jpg")
         val playerWhite = Player(
@@ -28,7 +31,7 @@ class DataGeneratorToy(
         repositoryPlayer.save(playerWhite)
 
         //1
-        val idBlack = UUID.fromString("11111111-1111-1111-1111-111111111111")
+        val idBlack: UUID = UUID.fromString("11111111-1111-1111-1111-111111111111")!!
         val usernameBlack = "black"
         val avatarBlack = PhotoGenerator().getPhotoText("https://github.com/tschess/catacombes/raw/master/batman.png")
         val playerBlack = Player(
@@ -146,6 +149,17 @@ class DataGeneratorToy(
             rank = 11,
             disp = 3)
         repositoryPlayer.save(player7)
+        
+        /**
+         * GAME
+         **/
+
+        val testGameId: UUID = UUID.fromString("00000000-0000-0000-0000-000000000000")!!
+        val testGame = Game(
+            id = testGameId,
+            white = playerWhite,
+            black = playerBlack)
+        repositoryGame.save(testGame)
     }
 
     private fun cleanCollections() {
