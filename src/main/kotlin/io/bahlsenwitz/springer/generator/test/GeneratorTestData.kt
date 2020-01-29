@@ -248,7 +248,7 @@ class GeneratorTestData(
 
         val invite01 = Game(
             white = playerA,
-            black = player8,
+            black = playerC,
             status = STATUS.PROPOSED,
             challenger = CONTESTANT.BLACK,
             date_create = DATE_TIME_GENERATOR.rightNowString())
