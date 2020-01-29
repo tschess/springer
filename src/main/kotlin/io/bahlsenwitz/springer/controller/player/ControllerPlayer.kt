@@ -4,6 +4,7 @@ import io.bahlsenwitz.springer.controller.player.address.PlayerAddress
 import io.bahlsenwitz.springer.controller.player.config.PlayerConfig
 import io.bahlsenwitz.springer.controller.player.home.PlayerHome
 import io.bahlsenwitz.springer.controller.player.init.PlayerInit
+import io.bahlsenwitz.springer.controller.player.home.PlayerPolling
 import io.bahlsenwitz.springer.controller.player.profile.PlayerProfile
 import io.bahlsenwitz.springer.controller.player.quick.PlayerQuick
 import io.bahlsenwitz.springer.controller.player.start.PlayerStart
@@ -15,7 +16,7 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/player")
-class PlayerController(repositoryPlayer: RepositoryPlayer) {
+class ControllerPlayer(repositoryPlayer: RepositoryPlayer) {
 
     /**
      * Initializer.swift
@@ -25,6 +26,11 @@ class PlayerController(repositoryPlayer: RepositoryPlayer) {
     @PostMapping("/device/{device}")
     fun device(@PathVariable(value = "device") device: String): ResponseEntity<Any> {
         return playerInit.device(device)
+    }
+
+    @PostMapping("/refresh/{id}")
+    fun refresh(@PathVariable(value = "id") id: String): ResponseEntity<Any> {
+        return playerInit.refresh(id)
     }
 
     /**
@@ -49,16 +55,6 @@ class PlayerController(repositoryPlayer: RepositoryPlayer) {
     @PostMapping("/login")
     fun login(@Valid @RequestBody requestLogin: PlayerStart.RequestLogin): ResponseEntity<Any> {
         return playerStart.login(requestLogin)
-    }
-
-    /**
-     * Home.swift
-     */
-    val playerHome = PlayerHome(repositoryPlayer)
-
-    @PostMapping("/leaderboard")
-    fun leaderboard(@Valid @RequestBody requestPage: PlayerHome.RequestPage): ResponseEntity<Any> {
-        return playerHome.leaderboard(requestPage)
     }
 
     /**
@@ -89,6 +85,17 @@ class PlayerController(repositoryPlayer: RepositoryPlayer) {
     @GetMapping("/quick/{id}")
     fun quick(@PathVariable(value = "id") id: String): ResponseEntity<Player.Core> {
         return playerQuick.quick(id)
+    }
+
+    /**
+     * Home.swift
+     */
+    val playerHome = PlayerHome(repositoryPlayer)
+    val playerPolling = PlayerPolling(repositoryPlayer)
+
+    @PostMapping("/leaderboard")
+    fun leaderboard(@Valid @RequestBody requestPage: PlayerHome.RequestPage): ResponseEntity<Any> {
+        return playerHome.leaderboard(requestPage)
     }
 
 }

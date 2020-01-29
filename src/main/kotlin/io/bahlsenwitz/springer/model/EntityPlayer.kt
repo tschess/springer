@@ -1,14 +1,14 @@
 package io.bahlsenwitz.springer.model
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
+import io.bahlsenwitz.springer.model.common.EntityUUID
+import io.bahlsenwitz.springer.model.common.SKIN
+import io.bahlsenwitz.springer.util.DateTimeGenerator
 import io.bahlsenwitz.springer.util.PhotoGenerator
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs
-import java.time.LocalDateTime
-import java.time.ZoneId
 import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -31,12 +31,12 @@ class Player(
     var elo: Int = 1200,
     var rank: Int = 0,
     var disp: Int = 0,
-    var date: String = "TBD",
+    var date: String = PLACEHOLDER,
 
-    var email: String = "TBD",
-    var name: String = "TBD",
-    var surname: String = "TBD",
-    var address: String = "TBD",
+    var email: String = PLACEHOLDER,
+    var name: String = PLACEHOLDER,
+    var surname: String = PLACEHOLDER,
+    var address: String = PLACEHOLDER,
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
@@ -50,19 +50,18 @@ class Player(
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    var skins: List<String> = emptyList(),
+    var skinList: List<SKIN> = arrayListOf(SKIN.DEFAULT),
 
-    var device: String = "TBD",
-    var updated: String = "TBD",
-    var created: String = rightNow()
+    var device: String = PLACEHOLDER,
+    var updated: String = PLACEHOLDER,
+    var created: String = DATE_TIME_GENERATOR.rightNowString()
 
-): AssignedIdBaseEntity(id), Comparable<Player> {
+): EntityUUID(id), Comparable<Player> {
 
-    //TODO: wtf is companion object???
     companion object {
+        const val PLACEHOLDER: String = "TBD"
 
-        val FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy_HH:mm:ss.SSSS")
-        val BROOKLYN = ZoneId.of("America/New_York")
+       val DATE_TIME_GENERATOR =  DateTimeGenerator()
 
         fun defaultConfig0(): List<List<String>> {
             val r0 = arrayListOf("","Bishop","Rook","Pawn","Pawn","Rook","Bishop","Pawn")
@@ -84,18 +83,13 @@ class Player(
             val random = Random()
             return photoMap.entries.elementAt(random.nextInt(photoMap.size)).value
         }
-
-        fun rightNow(): String {
-            return FORMATTER.format(ZonedDateTime.now(BROOKLYN))
-        }
     }
 
     private fun generateDate(date: String): ZonedDateTime {
-        if (date == "TBD") {
-            return ZonedDateTime.now(BROOKLYN)
+        if (date == PLACEHOLDER) {
+            return DATE_TIME_GENERATOR.rightNowZone()
         }
-        val dateTimeFormatted = LocalDateTime.parse(date, FORMATTER)
-        return ZonedDateTime.of(dateTimeFormatted, BROOKLYN)
+        return DATE_TIME_GENERATOR.getZone(date = date)
     }
 
     override operator fun compareTo(other: Player): Int {

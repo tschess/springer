@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-interface RepositoryPlayer : JpaRepository<Player, UUID> {
+interface RepositoryPlayer: JpaRepository<Player, UUID> {
 
     fun getById(id: UUID): Player
 

@@ -1,11 +1,11 @@
-package io.bahlsenwitz.springer.model
+package io.bahlsenwitz.springer.model.common
 
 import org.springframework.data.domain.Persistable
 import java.util.*
 import javax.persistence.*
 
 @MappedSuperclass
-abstract class AssignedIdBaseEntity(givenId: UUID? = null): Persistable<UUID> {
+abstract class EntityUUID(givenId: UUID? = null): Persistable<UUID> {
 
     @Id
     @Column(name = "id", length = 16, unique = true, nullable = false)
@@ -24,7 +24,7 @@ abstract class AssignedIdBaseEntity(givenId: UUID? = null): Persistable<UUID> {
         return when {
             this === other -> true
             other == null -> false
-            other !is AssignedIdBaseEntity -> false
+            other !is EntityUUID -> false
             else -> getId() == other.getId()
         }
     }

@@ -6,6 +6,11 @@ import org.springframework.http.ResponseEntity
 
 class PlayerInit(private val repositoryPlayer: RepositoryPlayer) {
 
+    // TODO: Refresh (minimize then reopen the app...)...
+    fun refresh(id: String): ResponseEntity<Any> {
+        return ResponseEntity.badRequest().body("{\"TODO\": \"IMPLEMENT_ME\"}")
+    }
+
     fun device(device: String): ResponseEntity<Any> {
         val player = repositoryPlayer.getByDevice(device)
             ?: return ResponseEntity.status(HttpStatus.OK).body("{\"info\": \"unassigned\"}")
