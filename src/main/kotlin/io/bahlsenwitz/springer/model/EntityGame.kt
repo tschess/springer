@@ -29,10 +29,6 @@ class Game(
     var odds: Int = 0, //white.elo - black.elo
     var moves: Int = 0,
 
-    var start: String = PLACEHOLDER,
-    var end: String = PLACEHOLDER,
-    var updated: String = PLACEHOLDER,
-
     @OneToOne
     @JoinColumn(name = "white")
     var white: Player,
@@ -51,7 +47,10 @@ class Game(
     var winner: CONTESTANT = CONTESTANT.TBD,
     var check_on: Boolean = false,
 
-    var created: String = DATE_TIME_GENERATOR.rightNowString()
+    var date_start: String = PLACEHOLDER,
+    var date_end: String = PLACEHOLDER,
+    var date_update: String = PLACEHOLDER,
+    var date_create: String = DATE_TIME_GENERATOR.rightNowString()
 
 ): EntityUUID(id) {
     companion object {

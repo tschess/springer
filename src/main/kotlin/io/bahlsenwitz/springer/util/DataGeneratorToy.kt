@@ -164,5 +164,6 @@ class DataGeneratorToy(
 
     private fun cleanCollections() {
         repositoryPlayer.deleteAll()
+        repositoryGame.deleteAll()
     }
 }

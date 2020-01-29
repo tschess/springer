@@ -1,6 +1,6 @@
-package io.bahlsenwitz.springer.model.common;
+package io.bahlsenwitz.springer.model.common
 
-public enum SKIN {
+enum class SKIN {
     DEFAULT,
     IAPETUS,
     CALYPSO,
