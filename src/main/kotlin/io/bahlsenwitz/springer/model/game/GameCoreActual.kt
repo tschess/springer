@@ -35,12 +35,12 @@ class GameCoreActual(player: Player, game: Game) {
                     if (player == game.black) {
                         inbound = true
                     }
-                    username = game.black.avatar
+                    username = game.black.username
                     avatar = game.black.avatar
                 }
                 if (player == game.white) {
                     inbound = true
-                    username = game.black.avatar
+                    username = game.black.username
                     avatar = game.black.avatar
                 }
                 return Info(
@@ -53,7 +53,7 @@ class GameCoreActual(player: Player, game: Game) {
             if (game.turn == CONTESTANT.WHITE) {
                 if (player == game.white) {
                     inbound = true
-                    username = game.black.avatar
+                    username = game.black.username
                     avatar = game.black.avatar
                 }
             }
