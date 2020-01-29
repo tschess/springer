@@ -77,29 +77,28 @@ class Game(
         }
     }
 
-    enum class CONTESTANT {
-        WHITE,
-        BLACK,
-        TBD
-    }
-
-    enum class STATUS {
-        PROPOSED,
-        DECLINED, // expired or refused
-        ONGOING,
-        RESOLVED
-    }
-
-    enum class OUTCOME {
-        CHECKMATE,
-        TIMEOUT,
-        RESIGN,
-        DRAW,
-        EXPIRED, //of an invitation
-        REFUSED, //of an invitation
-        TBD
-    }
 }
 
+enum class CONTESTANT {
+    WHITE,
+    BLACK,
+    TBD
+}
 
+enum class STATUS {
+    PROPOSED,
+    DECLINED, // expired or refused
+    ONGOING,
+    RESOLVED
+}
+
+enum class OUTCOME {
+    CHECKMATE,
+    TIMEOUT,
+    RESIGN,
+    DRAW,
+    EXPIRED, //of an invitation
+    REFUSED, //of an invitation
+    TBD
+}
 
