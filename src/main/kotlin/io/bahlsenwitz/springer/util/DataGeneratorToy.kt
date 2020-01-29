@@ -1,7 +1,9 @@
 package io.bahlsenwitz.springer.util
 
+import io.bahlsenwitz.springer.model.CONTESTANT
 import io.bahlsenwitz.springer.model.Game
 import io.bahlsenwitz.springer.model.Player
+import io.bahlsenwitz.springer.model.STATUS
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import java.util.*
@@ -10,6 +12,8 @@ class DataGeneratorToy(
     private val repositoryPlayer: RepositoryPlayer,
     private val repositoryGame: RepositoryGame
 ) {
+
+    private val DATE_TIME_GENERATOR = DateTimeGenerator()
 
     fun defaultData() {
         this.cleanCollections()
@@ -160,6 +164,53 @@ class DataGeneratorToy(
             white = playerWhite,
             black = playerBlack)
         repositoryGame.save(testGame)
+
+        val game00 = Game(
+            white = playerA,
+            black = playerB,
+            status = STATUS.RESOLVED,
+            winner = CONTESTANT.WHITE,
+            date_end = DATE_TIME_GENERATOR.rightNowString())
+        repositoryGame.save(game00)
+
+        Thread.sleep(1_000)
+
+        val game01 = Game(
+            white = playerA,
+            black = playerC,
+            status = STATUS.RESOLVED,
+            winner = CONTESTANT.WHITE,
+            date_end = DATE_TIME_GENERATOR.rightNowString())
+        repositoryGame.save(game01)
+
+        Thread.sleep(1_000)
+
+        val game02 = Game(
+            white = playerA,
+            black = playerD,
+            status = STATUS.RESOLVED,
+            winner = CONTESTANT.BLACK,
+            date_end = DATE_TIME_GENERATOR.rightNowString())
+        repositoryGame.save(game02)
+
+        Thread.sleep(1_000)
+
+        val game03 = Game(
+            white = playerA,
+            black = playerE,
+            status = STATUS.RESOLVED,
+            winner = CONTESTANT.NA,
+            date_end = DATE_TIME_GENERATOR.rightNowString())
+        repositoryGame.save(game03)
+
+        val game04 = Game(
+            white = playerA,
+            black = playerF,
+            status = STATUS.RESOLVED,
+            winner = CONTESTANT.BLACK,
+            date_end = DATE_TIME_GENERATOR.rightNowString())
+        repositoryGame.save(game04)
+
     }
 
     private fun cleanCollections() {
