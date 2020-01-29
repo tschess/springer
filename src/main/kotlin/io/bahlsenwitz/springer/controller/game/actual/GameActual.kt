@@ -2,7 +2,6 @@ package io.bahlsenwitz.springer.controller.game.actual
 
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.GameCoreActual
-import io.bahlsenwitz.springer.model.game.GameCoreHistoric
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
@@ -22,7 +21,8 @@ class GameActual(
         val uuid: UUID = UUID.fromString(requestActual.id)!!
         val player: Player = repositoryPlayer.getById(uuid)
         val playerList: List<Game> = repositoryGame.getPlayerList(uuid)
-        val playerListFilter: List<Game> = playerList.filter{ it.status == STATUS.PROPOSED || it.status == STATUS.ONGOING }
+        val playerListFilter: List<Game> =
+            playerList.filter { it.status == STATUS.PROPOSED || it.status == STATUS.ONGOING }
         val playerListSort: List<Game> = playerListFilter.sortedWith(ComparatorActual)
 
         val gameCoreActualList: MutableList<GameCoreActual> = mutableListOf()
@@ -45,8 +45,12 @@ class GameActual(
             }
             return ResponseEntity.ok(gameCoreActualList)
         }
-
-        return ResponseEntity.ok("")
+        gameList = playerListSort.subList(indexFrom, indexTo + 1)
+        for (game: Game in gameList) {
+            val gameCoreActual = GameCoreActual(player = player, game = game)
+            gameCoreActualList.add(gameCoreActual)
+        }
+        return ResponseEntity.ok(gameCoreActualList)
     }
 
     data class RequestActual(
