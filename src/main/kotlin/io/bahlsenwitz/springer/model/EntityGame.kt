@@ -103,7 +103,8 @@ class Game(
                 val username: String,
                 val avatar: String,
                 val disp: Int,
-                val odds: Int)
+                val odds: Int
+            )
 
             fun getInfo(player: Player, game: Game): Info {
                 if (game.white == player) {
@@ -112,14 +113,16 @@ class Game(
                         username = game.black.username,
                         avatar = game.black.avatar,
                         disp = game.white_disp,
-                        odds = game.white_elo - game.black_elo)
+                        odds = game.white_elo - game.black_elo
+                    )
                 }
                 return Info(
                     id = game.white.id.toString(),
                     username = game.white.username,
                     avatar = game.white.avatar,
                     disp = game.black_disp,
-                    odds = game.black_elo - game.white_elo)
+                    odds = game.black_elo - game.white_elo
+                )
             }
 
             fun getWinner(player: Player, game: Game): Int {
