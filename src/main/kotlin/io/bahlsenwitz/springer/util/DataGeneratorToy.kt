@@ -31,7 +31,8 @@ class DataGeneratorToy(
             avatar = avatarWhite,
             elo = 1200,
             rank = 1,
-            disp = 3)
+            disp = 3
+        )
         repositoryPlayer.save(playerWhite)
 
         //1
@@ -45,13 +46,15 @@ class DataGeneratorToy(
             avatar = avatarBlack,
             elo = 1199,
             rank = 2,
-            disp = 1)
+            disp = 1
+        )
         repositoryPlayer.save(playerBlack)
 
         //2
-        val idTest =  UUID.fromString("22222222-2222-2222-2222-222222222222")
+        val idTest = UUID.fromString("22222222-2222-2222-2222-222222222222")
         val usernameTest = "test"
-        val avatarTest = PhotoGenerator().getPhotoText("https://github.com/tschess/catacombes/raw/master/skull_pink.png")
+        val avatarTest =
+            PhotoGenerator().getPhotoText("https://github.com/tschess/catacombes/raw/master/skull_pink.png")
         val playerTest = Player(
             id = idTest,
             username = usernameTest,
@@ -59,7 +62,8 @@ class DataGeneratorToy(
             avatar = avatarTest,
             elo = 1198,
             rank = 3,
-            disp = -3)
+            disp = -3
+        )
         repositoryPlayer.save(playerTest)
 
         //3
@@ -69,7 +73,8 @@ class DataGeneratorToy(
             password = PASSWORD,
             elo = 1197,
             rank = 4,
-            disp = -1)
+            disp = -1
+        )
         repositoryPlayer.save(playerA)
 
         //4
@@ -79,7 +84,8 @@ class DataGeneratorToy(
             password = PASSWORD,
             elo = 1196,
             rank = 5,
-            disp = 0)
+            disp = 0
+        )
         repositoryPlayer.save(playerB)
 
         //5
@@ -89,7 +95,8 @@ class DataGeneratorToy(
             password = PASSWORD,
             elo = 1195,
             rank = 6,
-            disp = -5)
+            disp = -5
+        )
         repositoryPlayer.save(playerC)
 
         //6
@@ -99,7 +106,8 @@ class DataGeneratorToy(
             password = PASSWORD,
             elo = 1194,
             rank = 7,
-            disp = 1)
+            disp = 1
+        )
         repositoryPlayer.save(playerD)
 
         //7
@@ -109,7 +117,8 @@ class DataGeneratorToy(
             password = PASSWORD,
             elo = 1193,
             rank = 8,
-            disp = -3)
+            disp = -3
+        )
         repositoryPlayer.save(playerE)
 
         //8
@@ -119,7 +128,8 @@ class DataGeneratorToy(
             password = PASSWORD,
             elo = 1192,
             rank = 9,
-            disp = 1)
+            disp = 1
+        )
         repositoryPlayer.save(playerF)
 
         //9
@@ -129,7 +139,8 @@ class DataGeneratorToy(
             password = PASSWORD,
             elo = 1191,
             rank = 10,
-            disp = 0)
+            disp = 0
+        )
         repositoryPlayer.save(player9)
 
         //10
@@ -139,7 +150,8 @@ class DataGeneratorToy(
             password = PASSWORD,
             elo = 1190,
             rank = 11,
-            disp = 3)
+            disp = 3
+        )
         repositoryPlayer.save(player8)
 
         Thread.sleep(1_000)
@@ -151,7 +163,8 @@ class DataGeneratorToy(
             password = PASSWORD,
             elo = 1190,
             rank = 11,
-            disp = 3)
+            disp = 3
+        )
         repositoryPlayer.save(player7)
 
         /**
@@ -162,7 +175,8 @@ class DataGeneratorToy(
         val testGame = Game(
             id = testGameId,
             white = playerWhite,
-            black = playerBlack)
+            black = playerBlack
+        )
         repositoryGame.save(testGame)
 
         val game00 = Game(
@@ -170,7 +184,8 @@ class DataGeneratorToy(
             black = playerB,
             status = STATUS.RESOLVED,
             winner = CONTESTANT.WHITE,
-            date_end = DATE_TIME_GENERATOR.rightNowString())
+            date_end = DATE_TIME_GENERATOR.rightNowString()
+        )
         repositoryGame.save(game00)
 
         Thread.sleep(1_000)
@@ -180,7 +195,10 @@ class DataGeneratorToy(
             black = playerC,
             status = STATUS.RESOLVED,
             winner = CONTESTANT.WHITE,
-            date_end = DATE_TIME_GENERATOR.rightNowString())
+            date_end = DATE_TIME_GENERATOR.rightNowString(),
+            white_disp = -3,
+            black_disp = 1
+        )
         repositoryGame.save(game01)
 
         Thread.sleep(1_000)
@@ -190,7 +208,8 @@ class DataGeneratorToy(
             black = playerD,
             status = STATUS.RESOLVED,
             winner = CONTESTANT.BLACK,
-            date_end = DATE_TIME_GENERATOR.rightNowString())
+            date_end = DATE_TIME_GENERATOR.rightNowString()
+        )
         repositoryGame.save(game02)
 
         Thread.sleep(1_000)
@@ -200,7 +219,10 @@ class DataGeneratorToy(
             black = playerE,
             status = STATUS.RESOLVED,
             winner = CONTESTANT.NA,
-            date_end = DATE_TIME_GENERATOR.rightNowString())
+            date_end = DATE_TIME_GENERATOR.rightNowString(),
+            white_disp = 14,
+            black_disp = -4
+        )
         repositoryGame.save(game03)
 
         val game04 = Game(
@@ -208,7 +230,10 @@ class DataGeneratorToy(
             black = playerF,
             status = STATUS.RESOLVED,
             winner = CONTESTANT.BLACK,
-            date_end = DATE_TIME_GENERATOR.rightNowString())
+            date_end = DATE_TIME_GENERATOR.rightNowString(),
+            white_disp = 6,
+            black_disp = -2
+        )
         repositoryGame.save(game04)
 
     }
