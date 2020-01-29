@@ -149,7 +149,7 @@ class DataGeneratorToy(
             rank = 11,
             disp = 3)
         repositoryPlayer.save(player7)
-        
+
         /**
          * GAME
          **/

@@ -15,7 +15,7 @@ class SpringerApplication(
 
     override fun run(args: ApplicationArguments?) {
 
-        val dataGeneratorToy = DataGeneratorToy(repositoryPlayer = repositoryPlayer)
+        val dataGeneratorToy = DataGeneratorToy(repositoryPlayer = repositoryPlayer, repositoryGame = repositoryGame)
         dataGeneratorToy.defaultData()
     }
 }
