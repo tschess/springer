@@ -22,12 +22,12 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     val gameTest = GameTest(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
 
     @PostMapping("/test/update")
-    fun updateTest(@Valid @RequestBody updateTest: GameTest.UpdateTest): ResponseEntity<Game> {
+    fun updateTest(@Valid @RequestBody updateTest: GameTest.UpdateTest): ResponseEntity<Any> {
         return gameTest.updateTest(updateTest)
     }
 
     @GetMapping("/test/request")
-    fun requestTest(@Valid @RequestBody requestTest: GameTest.RequestTest): ResponseEntity<Game> {
+    fun requestTest(@Valid @RequestBody requestTest: GameTest.RequestTest): ResponseEntity<Any> {
         return gameTest.requestTest(requestTest)
     }
 }
