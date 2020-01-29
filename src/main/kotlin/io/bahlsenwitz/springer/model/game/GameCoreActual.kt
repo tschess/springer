@@ -25,6 +25,8 @@ class GameCoreActual(player: Player, game: Game) {
         fun getInfo(player: Player, game: Game): Info {
             var inbound: Boolean = false
             var invitation: Boolean = false
+            var username: String = game.white.username
+            var avatar: String = game.white.avatar
             var date: String = game.date_update
             if (game.status == STATUS.PROPOSED) {
                 invitation = true
@@ -33,20 +35,26 @@ class GameCoreActual(player: Player, game: Game) {
                     if (player == game.black) {
                         inbound = true
                     }
+                    username = game.black.avatar
+                    avatar = game.black.avatar
                 }
                 if (player == game.white) {
                     inbound = true
+                    username = game.black.avatar
+                    avatar = game.black.avatar
                 }
                 return Info(
                     invitation = invitation,
                     inbound = inbound,
                     date = date,
-                    username = game.white.username,
-                    avatar = game.white.avatar)
+                    username = username,
+                    avatar = avatar)
             }
             if (game.turn == CONTESTANT.WHITE) {
                 if (player == game.white) {
                     inbound = true
+                    username = game.black.avatar
+                    avatar = game.black.avatar
                 }
             }
             if (player == game.black) {
@@ -56,8 +64,8 @@ class GameCoreActual(player: Player, game: Game) {
                 invitation = invitation,
                 inbound = inbound,
                 date = date,
-                username = game.white.username,
-                avatar = game.white.avatar)
+                username = username,
+                avatar = avatar)
         }
 
 
