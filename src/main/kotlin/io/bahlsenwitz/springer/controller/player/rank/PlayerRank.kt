@@ -1,6 +1,6 @@
 package io.bahlsenwitz.springer.controller.player.rank
 
-import io.bahlsenwitz.springer.model.Player
+import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import kotlin.math.pow
 

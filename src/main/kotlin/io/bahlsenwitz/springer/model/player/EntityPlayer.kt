@@ -1,4 +1,4 @@
-package io.bahlsenwitz.springer.model
+package io.bahlsenwitz.springer.model.player
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import io.bahlsenwitz.springer.model.common.EntityUUID

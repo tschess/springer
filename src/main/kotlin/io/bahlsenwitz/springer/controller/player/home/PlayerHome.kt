@@ -1,6 +1,6 @@
 package io.bahlsenwitz.springer.controller.player.home
 
-import io.bahlsenwitz.springer.model.Player
+import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

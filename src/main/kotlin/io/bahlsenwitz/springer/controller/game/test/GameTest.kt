@@ -1,6 +1,6 @@
 package io.bahlsenwitz.springer.controller.game.test
 
-import io.bahlsenwitz.springer.model.Game
+import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.HttpStatus

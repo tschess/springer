@@ -8,7 +8,7 @@ import io.bahlsenwitz.springer.controller.player.home.PlayerPolling
 import io.bahlsenwitz.springer.controller.player.profile.PlayerProfile
 import io.bahlsenwitz.springer.controller.player.quick.PlayerQuick
 import io.bahlsenwitz.springer.controller.player.start.PlayerStart
-import io.bahlsenwitz.springer.model.Player
+import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

@@ -1,9 +1,9 @@
 package io.bahlsenwitz.springer.util
 
-import io.bahlsenwitz.springer.model.CONTESTANT
-import io.bahlsenwitz.springer.model.Game
-import io.bahlsenwitz.springer.model.Player
-import io.bahlsenwitz.springer.model.STATUS
+import io.bahlsenwitz.springer.model.game.CONTESTANT
+import io.bahlsenwitz.springer.model.game.Game
+import io.bahlsenwitz.springer.model.player.Player
+import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import java.util.*

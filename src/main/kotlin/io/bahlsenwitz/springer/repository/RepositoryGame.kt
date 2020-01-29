@@ -1,6 +1,6 @@
 package io.bahlsenwitz.springer.repository
 
-import io.bahlsenwitz.springer.model.Game
+import io.bahlsenwitz.springer.model.game.Game
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
