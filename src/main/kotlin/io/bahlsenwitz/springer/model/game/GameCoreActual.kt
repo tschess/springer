@@ -5,60 +5,56 @@ import io.bahlsenwitz.springer.model.player.Player
 class GameCoreActual(player: Player, game: Game) {
     private val info = getInfo(player, game)
 
-    val game_id: String = game.id.toString()
-    val date_end: String = game.date_end
-
-    val opponent_id: String = info.id
-    val opponent_avatar: String = info.avatar
-    val opponent_username: String = info.username
-    val disp: Int = info.disp
-    val odds: Int = info.odds
-
-    val winner: Int = getWinner(player, game)
+    val id: String = game.id.toString()
+    val invitation: Boolean = info.invitation
+    val inbound: Boolean = info.inbound
+    val date: String = info.date
+    val username: String = info.username
+    val avatar: String = info.avatar
 
     companion object {
 
         data class Info(
-            val id: String,
+            val invitation: Boolean,
+            val inbound: Boolean,
+            val date: String,
             val username: String,
-            val avatar: String,
-            val disp: Int,
-            val odds: Int
+            val avatar: String
         )
 
         fun getInfo(player: Player, game: Game): Info {
-            if (game.white == player) {
-                return Info(
-                    id = game.black.id.toString(),
-                    username = game.black.username,
-                    avatar = game.black.avatar,
-                    disp = game.white_disp,
-                    odds = game.white_elo - game.black_elo
-                )
+            var inbound: Boolean = false
+            var invitation: Boolean = false
+            var date: String = game.date_update
+            if (game.status == STATUS.PROPOSED) {
+                invitation = true
+                date = game.date_create
+                if (game.challenger == CONTESTANT.WHITE) {
+                    if (player == game.black) {
+                        inbound = true
+                    }
+                }
+                if (player == game.white) {
+                    inbound = true
+                }
+            }
+            if (game.turn == CONTESTANT.WHITE) {
+                if (player == game.white) {
+                    inbound = true
+                }
+            }
+            if (player == game.black) {
+                inbound = true
             }
             return Info(
-                id = game.white.id.toString(),
+                invitation = invitation,
+                inbound = inbound,
+                date = date,
                 username = game.white.username,
-                avatar = game.white.avatar,
-                disp = game.black_disp,
-                odds = game.black_elo - game.white_elo
+                avatar = game.white.avatar
             )
         }
 
-        fun getWinner(player: Player, game: Game): Int {
-            if (game.winner == CONTESTANT.WHITE) {
-                if (game.white == player) {
-                    return 1
-                }
-                return -1
-            }
-            if (game.winner == CONTESTANT.BLACK) {
-                if (game.black == player) {
-                    return 1
-                }
-                return -1
-            }
-            return 0
-        }
+
     }
 }

@@ -19,11 +19,8 @@ class Game(
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    var state: List<List<String>> = defaultState(),
+    var state: List<List<String>>? = null,
 
-    @Type(type = "jsonb")
-    @Column(columnDefinition = "jsonb")
-    var config: List<List<String>> = defaultConfig(),
     var status: STATUS = STATUS.PROPOSED,
     var outcome: OUTCOME = OUTCOME.TBD,
     var moves: Int = 0,
@@ -32,14 +29,14 @@ class Game(
     @JoinColumn(name = "white")
     var white: Player,
     var white_elo: Int = getElo(white),
-    var white_disp: Int = 0,
+    var white_disp: Int? = null,
     var white_skin: SKIN = SKIN.DEFAULT,
 
     @OneToOne
     @JoinColumn(name = "black")
     var black: Player,
     var black_elo: Int = getElo(black),
-    var black_disp: Int = 0,
+    var black_disp: Int? = null,
     var black_skin: SKIN = SKIN.DEFAULT,
 
     var challenger: CONTESTANT = CONTESTANT.NA,
@@ -63,13 +60,6 @@ class Game(
 
         fun getElo(player: Player): Int {
             return player.elo
-        }
-
-        fun defaultConfig(): List<List<String>> {
-            val row0: List<String> =
-                arrayListOf("Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook")
-            val row1: List<String> = arrayListOf("Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn")
-            return arrayListOf(row1, row0)
         }
 
         fun defaultState(): List<List<String>> {

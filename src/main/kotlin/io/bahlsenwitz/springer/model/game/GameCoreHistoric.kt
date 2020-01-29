@@ -32,7 +32,7 @@ class GameCoreHistoric(player: Player, game: Game) {
                     id = game.black.id.toString(),
                     username = game.black.username,
                     avatar = game.black.avatar,
-                    disp = game.white_disp,
+                    disp = game.white_disp!!,
                     odds = game.white_elo - game.black_elo
                 )
             }
@@ -40,7 +40,7 @@ class GameCoreHistoric(player: Player, game: Game) {
                 id = game.white.id.toString(),
                 username = game.white.username,
                 avatar = game.white.avatar,
-                disp = game.black_disp,
+                disp = game.black_disp!!,
                 odds = game.black_elo - game.white_elo
             )
         }
