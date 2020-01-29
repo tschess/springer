@@ -8,12 +8,10 @@ import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs
 import java.util.*
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.JoinColumn
-import javax.persistence.OneToOne
+import javax.persistence.*
 
 @Entity
+@Table(name = "game")
 @TypeDefs(TypeDef(name = "jsonb", typeClass = JsonBinaryType::class))
 class Game(
     id: UUID? = null,
