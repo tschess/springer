@@ -1,5 +1,6 @@
 package io.bahlsenwitz.springer.controller.game
 
+import io.bahlsenwitz.springer.controller.game.actual.GameActual
 import io.bahlsenwitz.springer.controller.game.historic.GameHistoric
 import io.bahlsenwitz.springer.controller.game.test.GameTest
 import io.bahlsenwitz.springer.repository.RepositoryGame
@@ -34,14 +35,19 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     }
 
     /**
-     * Other.swift
-     * &
-     * Historic.swift
+     * Actual.swift
      */
-    val gameHistoric = GameHistoric(
-        repositoryGame = repositoryGame,
-        repositoryPlayer = repositoryPlayer
-    )
+    val gameActual = GameActual(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+
+    @PostMapping("/actual")
+    fun actual(@Valid @RequestBody updateTest: GameActual.RequestActual): ResponseEntity<Any> {
+        return gameActual.actual(updateTest)
+    }
+
+    /**
+     * Other.swift & Historic.swift
+     */
+    val gameHistoric = GameHistoric(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
 
     @PostMapping("/historic")
     fun historic(@Valid @RequestBody updateTest: GameHistoric.RequestHistoric): ResponseEntity<Any> {

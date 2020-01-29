@@ -15,18 +15,18 @@ import java.util.*
 class GameHistoric(private val repositoryGame: RepositoryGame,
                    private val repositoryPlayer: RepositoryPlayer) {
 
-    fun historic(requestOther: RequestHistoric): ResponseEntity<Any> {
-        val uuid: UUID = UUID.fromString(requestOther.id)!!
-        val other: Player = repositoryPlayer.getById(uuid)
+    fun historic(requestHistoric: RequestHistoric): ResponseEntity<Any> {
+        val uuid: UUID = UUID.fromString(requestHistoric.id)!!
+        val player: Player = repositoryPlayer.getById(uuid)
         val playerList: List<Game> = repositoryGame.getPlayerList(uuid)
         val playerListResolved: List<Game> = playerList.filter { it.status == STATUS.RESOLVED }
         val playerListResolvedSorted: List<Game> = playerListResolved.sortedWith(ComparatorHistoric)
 
-        val gameListCore: MutableList<GameCoreHistoric> = mutableListOf()
+        val gameCoreHistoricList: MutableList<GameCoreHistoric> = mutableListOf()
         val gameList: List<Game>
 
-        val pageIndex: Int = requestOther.index
-        val pageSize: Int = requestOther.size
+        val pageIndex: Int = requestHistoric.index
+        val pageSize: Int = requestHistoric.size
 
         val indexFrom: Int = pageIndex * pageSize
         val indexTo: Int = indexFrom + pageSize
@@ -37,17 +37,17 @@ class GameHistoric(private val repositoryGame: RepositoryGame,
         if (playerListResolvedSorted.lastIndex + 1 <= indexTo) {
             gameList = playerListResolvedSorted.subList(indexFrom, playerListResolvedSorted.lastIndex + 1)
             for (game: Game in gameList) {
-                val gameCore = GameCoreHistoric(player = other, game = game)
-                gameListCore.add(gameCore)
+                val gameCore = GameCoreHistoric(player = player, game = game)
+                gameCoreHistoricList.add(gameCore)
             }
-            return ResponseEntity.ok(gameListCore)
+            return ResponseEntity.ok(gameCoreHistoricList)
         }
         gameList = playerListResolvedSorted.subList(indexFrom, indexTo + 1)
         for (game: Game in gameList) {
-            val gameCore = GameCoreHistoric(player = other, game = game)
-            gameListCore.add(gameCore)
+            val gameCore = GameCoreHistoric(player = player, game = game)
+            gameCoreHistoricList.add(gameCore)
         }
-        return ResponseEntity.ok(gameListCore)
+        return ResponseEntity.ok(gameCoreHistoricList)
     }
 
     data class RequestHistoric(
