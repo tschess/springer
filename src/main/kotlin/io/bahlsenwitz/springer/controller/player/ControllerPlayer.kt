@@ -42,6 +42,7 @@ class ControllerPlayer(repositoryPlayer: RepositoryPlayer) {
     fun clear(@PathVariable(value = "device") device: String): ResponseEntity<Any> {
         return playerProfile.clear(device)
     }
+
     @PostMapping("/avatar")
     fun avatar(@Valid @RequestBody updateAvatar: PlayerProfile.UpdateAvatar): ResponseEntity<Any> {
         return playerProfile.avatar(updateAvatar)
