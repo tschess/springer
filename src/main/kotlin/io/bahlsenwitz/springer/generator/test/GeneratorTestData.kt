@@ -246,6 +246,34 @@ class GeneratorTestData(
             date_create = DATE_TIME_GENERATOR.rightNowString())
         repositoryGame.save(invite00)
 
+        val invite01 = Game(
+            white = playerA,
+            black = player8,
+            status = STATUS.PROPOSED,
+            challenger = CONTESTANT.BLACK,
+            date_create = DATE_TIME_GENERATOR.rightNowString())
+        repositoryGame.save(invite01)
+
+        val invite02 = Game(
+            white = playerA,
+            black = player8,
+            status = STATUS.ONGOING,
+            challenger = CONTESTANT.BLACK,
+            date_create = DATE_TIME_GENERATOR.rightNowString(),
+            date_update = DATE_TIME_GENERATOR.rightNowString(),
+            turn = CONTESTANT.BLACK)
+        repositoryGame.save(invite02)
+
+        val invite03 = Game(
+            white = player9,
+            black = playerA,
+            status = STATUS.ONGOING,
+            challenger = CONTESTANT.BLACK,
+            date_create = DATE_TIME_GENERATOR.rightNowString(),
+            date_update = DATE_TIME_GENERATOR.rightNowString(),
+            turn = CONTESTANT.BLACK)
+        repositoryGame.save(invite03)
+
     }
 
     private fun cleanCollections() {
