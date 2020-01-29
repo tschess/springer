@@ -30,15 +30,15 @@ class Game(
     @OneToOne
     @JoinColumn(name = "white")
     var white: Player,
+    var white_elo: Int = getElo(white),
     var white_disp: Int = 0,
-    var white_elo: Int = 0,
     var white_skin: SKIN = SKIN.DEFAULT,
 
     @OneToOne
     @JoinColumn(name = "black")
     var black: Player,
+    var black_elo: Int = getElo(black),
     var black_disp: Int = 0,
-    var black_elo: Int = 0,
     var black_skin: SKIN = SKIN.DEFAULT,
 
     var challenger: CONTESTANT = CONTESTANT.NA,
@@ -59,6 +59,10 @@ class Game(
         val DATE_TIME_GENERATOR = DateTimeGenerator()
 
         const val PLACEHOLDER: String = "TBD"
+
+        fun getElo(player: Player): Int {
+            return player.elo
+        }
 
         fun defaultConfig(): List<List<String>> {
             val row0: List<String> =
