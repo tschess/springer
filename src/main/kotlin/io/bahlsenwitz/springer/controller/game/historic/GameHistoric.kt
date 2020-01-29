@@ -32,7 +32,7 @@ class GameHistoric(private val repositoryGame: RepositoryGame,
         val indexTo: Int = indexFrom + pageSize
 
         if (playerListResolvedSorted.lastIndex < indexFrom) {
-            return ResponseEntity.status(HttpStatus.OK).body("{\"other\": \"EOL\"}")
+            return ResponseEntity.status(HttpStatus.OK).body("{\"historic\": \"EOL\"}")
         }
         if (playerListResolvedSorted.lastIndex + 1 <= indexTo) {
             gameList = playerListResolvedSorted.subList(indexFrom, playerListResolvedSorted.lastIndex + 1)
