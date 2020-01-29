@@ -37,6 +37,12 @@ class GameCoreActual(player: Player, game: Game) {
                 if (player == game.white) {
                     inbound = true
                 }
+                return Info(
+                    invitation = invitation,
+                    inbound = inbound,
+                    date = date,
+                    username = game.white.username,
+                    avatar = game.white.avatar)
             }
             if (game.turn == CONTESTANT.WHITE) {
                 if (player == game.white) {
@@ -51,8 +57,7 @@ class GameCoreActual(player: Player, game: Game) {
                 inbound = inbound,
                 date = date,
                 username = game.white.username,
-                avatar = game.white.avatar
-            )
+                avatar = game.white.avatar)
         }
 
 
