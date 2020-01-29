@@ -83,26 +83,43 @@ class Game(
     }
 
     class Core(player: Player, game: Game) {
-        val id: String = game.id.toString()
-        val username: String = player.username
-        val avatar: String = player.avatar
-        val disp: Int = getDisp(player, game)
-        val odds: Int = getOdds(player, game)
+        private val info = getInfo(player, game)
+
+        val game_id: String = game.id.toString()
+        val date_end: String = game.date_end
+
+        val opponent_id: String = info.id
+        val opponent_avatar: String = info.avatar
+        val opponent_username: String = info.username
+        val disp: Int = info.disp
+        val odds: Int = info.odds
+
         val winner: Int = getWinner(player, game)
 
         companion object {
-            fun getDisp(player: Player, game: Game): Int {
-                if (game.white == player) {
-                    return game.white_disp
-                }
-                return game.black_disp
-            }
 
-            fun getOdds(player: Player, game: Game): Int {
+            data class Info(
+                val id: String,
+                val username: String,
+                val avatar: String,
+                val disp: Int,
+                val odds: Int)
+
+            fun getInfo(player: Player, game: Game): Info {
                 if (game.white == player) {
-                    return game.white_elo - game.black_elo
+                    return Info(
+                        id = game.black.id.toString(),
+                        username = game.black.username,
+                        avatar = game.black.avatar,
+                        disp = game.white_disp,
+                        odds = game.white_elo - game.black_elo)
                 }
-                return game.black_elo - game.white_elo
+                return Info(
+                    id = game.white.id.toString(),
+                    username = game.white.username,
+                    avatar = game.white.avatar,
+                    disp = game.black_disp,
+                    odds = game.black_elo - game.white_elo)
             }
 
             fun getWinner(player: Player, game: Game): Int {
