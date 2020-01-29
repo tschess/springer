@@ -5,9 +5,7 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.RequestBody
 import java.util.*
-import javax.validation.Valid
 
 class GameTest(
     private val repositoryGame: RepositoryGame,
