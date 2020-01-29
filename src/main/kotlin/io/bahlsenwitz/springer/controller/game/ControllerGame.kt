@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
+//curl --header "Content-Type: application/json" --request POST --data '{"test":"sme"}' http://3.12.121.89:8080/game/test/update
+
 @SpringBootApplication(scanBasePackages = ["io.bahlsenwitz.springer"])
 @RestController
 @RequestMapping("/game")
