@@ -28,45 +28,53 @@ class GameCoreActual(player: Player, game: Game) {
             var username: String = game.white.username
             var avatar: String = game.white.avatar
             var date: String = game.date_update
-            if (game.status == STATUS.PROPOSED) {
+
+            if (game.status == STATUS.PROPOSED) { //invite
                 invitation = true
                 date = game.date_create
-                if (game.challenger == CONTESTANT.WHITE) {
-                    if (player == game.black) {
+                if (game.challenger == CONTESTANT.WHITE) { //from white
+                    if (player == game.black) { //fetch by black
                         inbound = true
-                    }
+                        //invite, from white, fetch by black
+                        return Info(invitation = invitation, inbound = inbound, date = date, username = username, avatar = avatar)
+                    } //fetch by white
                     username = game.black.username
                     avatar = game.black.avatar
-                }
+                    //invite, from white, fetch by white
+                    return Info(invitation = invitation, inbound = inbound, date = date, username = username, avatar = avatar)
+                } // from black
                 if (player == game.white) {
                     inbound = true
                     username = game.black.username
                     avatar = game.black.avatar
+                    //invite, from black, fetch by white
+                    return Info(invitation = invitation, inbound = inbound, date = date, username = username, avatar = avatar)
                 }
-                return Info(
-                    invitation = invitation,
-                    inbound = inbound,
-                    date = date,
-                    username = username,
-                    avatar = avatar)
-            }
-            if (game.turn == CONTESTANT.WHITE) {
-                if (player == game.white) {
+                //invite, from black, fetch by black
+                return Info(invitation = invitation, inbound = inbound, date = date, username = username, avatar = avatar)
+            } //game
+            if (game.turn == CONTESTANT.WHITE) { //white move
+                if (player == game.white) { //fetched by white
                     inbound = true
                     username = game.black.username
                     avatar = game.black.avatar
+                    //game, white move, fetch by white
+                    return Info(invitation = invitation, inbound = inbound, date = date, username = username, avatar = avatar)
                 }
-            }
-            if (player == game.black) {
+                //game, white move, fetch by black
+                return Info(invitation = invitation, inbound = inbound, date = date, username = username, avatar = avatar)
+            } //black move
+            if (player == game.black) { //fetched by black
                 inbound = true
+                //game, black move, fetch by black
+                return Info(invitation = invitation, inbound = inbound, date = date, username = username, avatar = avatar)
             }
-            return Info(
-                invitation = invitation,
-                inbound = inbound,
-                date = date,
-                username = username,
-                avatar = avatar)
+            //game, black move, fetch by white
+            username = game.black.username
+            avatar = game.black.avatar
+            return Info(invitation = invitation, inbound = inbound, date = date, username = username, avatar = avatar)
         }
+
 
 
     }
