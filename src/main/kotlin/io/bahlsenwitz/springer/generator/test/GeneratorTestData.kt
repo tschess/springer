@@ -1,5 +1,7 @@
-package io.bahlsenwitz.springer.util
+package io.bahlsenwitz.springer.generator.test
 
+import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
+import io.bahlsenwitz.springer.generator.util.GeneratorAvatar
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player
@@ -8,12 +10,12 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import java.util.*
 
-class DataGeneratorToy(
+class GeneratorTestData(
     private val repositoryPlayer: RepositoryPlayer,
     private val repositoryGame: RepositoryGame
 ) {
 
-    private val DATE_TIME_GENERATOR = DateTimeGenerator()
+    private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
     fun defaultData() {
         this.cleanCollections()
@@ -23,7 +25,7 @@ class DataGeneratorToy(
         //0
         val idWhite: UUID = UUID.fromString("00000000-0000-0000-0000-000000000000")!!
         val usernameWhite = "white"
-        val avatarWhite = PhotoGenerator().getPhotoText("https://github.com/tschess/catacombes/raw/master/mr_white.jpg")
+        val avatarWhite = GeneratorAvatar().getPhotoText("https://github.com/tschess/catacombes/raw/master/mr_white.jpg")
         val playerWhite = Player(
             id = idWhite,
             username = usernameWhite,
@@ -38,7 +40,7 @@ class DataGeneratorToy(
         //1
         val idBlack: UUID = UUID.fromString("11111111-1111-1111-1111-111111111111")!!
         val usernameBlack = "black"
-        val avatarBlack = PhotoGenerator().getPhotoText("https://github.com/tschess/catacombes/raw/master/batman.png")
+        val avatarBlack = GeneratorAvatar().getPhotoText("https://github.com/tschess/catacombes/raw/master/batman.png")
         val playerBlack = Player(
             id = idBlack,
             username = usernameBlack,
@@ -54,7 +56,7 @@ class DataGeneratorToy(
         val idTest = UUID.fromString("22222222-2222-2222-2222-222222222222")
         val usernameTest = "test"
         val avatarTest =
-            PhotoGenerator().getPhotoText("https://github.com/tschess/catacombes/raw/master/skull_pink.png")
+            GeneratorAvatar().getPhotoText("https://github.com/tschess/catacombes/raw/master/skull_pink.png")
         val playerTest = Player(
             id = idTest,
             username = usernameTest,
@@ -235,6 +237,14 @@ class DataGeneratorToy(
             black_disp = -2
         )
         repositoryGame.save(game04)
+
+        val invite00 = Game(
+            white = player7,
+            black = playerA,
+            status = STATUS.PROPOSED,
+            challenger = CONTESTANT.BLACK,
+            date_create = DATE_TIME_GENERATOR.rightNowString())
+        repositoryGame.save(invite00)
 
     }
 

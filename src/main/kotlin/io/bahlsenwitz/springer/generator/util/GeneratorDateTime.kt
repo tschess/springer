@@ -1,11 +1,11 @@
-package io.bahlsenwitz.springer.util
+package io.bahlsenwitz.springer.generator.util
 
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
-class DateTimeGenerator {
+class GeneratorDateTime {
 
     private val PLACEHOLDER: String = "TBD"
     private val FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy_HH:mm:ss.SSSS")

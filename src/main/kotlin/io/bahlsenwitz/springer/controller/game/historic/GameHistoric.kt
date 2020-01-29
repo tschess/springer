@@ -6,7 +6,7 @@ import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.DateTimeGenerator
+import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.time.ZonedDateTime
@@ -60,7 +60,7 @@ class GameHistoric(private val repositoryGame: RepositoryGame,
 
         companion object: Comparator<Game> {
 
-            private val DATE_TIME_GENERATOR = DateTimeGenerator()
+            private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
             override fun compare(a: Game, b: Game): Int {
                 val dateA: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = a.date_end)

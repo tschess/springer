@@ -3,8 +3,8 @@ package io.bahlsenwitz.springer.model.player
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import io.bahlsenwitz.springer.model.common.EntityUUID
 import io.bahlsenwitz.springer.model.common.SKIN
-import io.bahlsenwitz.springer.util.DateTimeGenerator
-import io.bahlsenwitz.springer.util.PhotoGenerator
+import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
+import io.bahlsenwitz.springer.generator.util.GeneratorAvatar
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs
@@ -61,7 +61,7 @@ class Player(
     companion object {
         const val PLACEHOLDER: String = "TBD"
 
-       val DATE_TIME_GENERATOR =  DateTimeGenerator()
+       val DATE_TIME_GENERATOR = GeneratorDateTime()
 
         fun defaultConfig0(): List<List<String>> {
             val r0 = arrayListOf("","Bishop","Rook","Pawn","Pawn","Rook","Bishop","Pawn")
@@ -79,7 +79,7 @@ class Player(
             return arrayListOf(r0, r1)
         }
         fun defaultAvatar(): String {
-            val photoMap = PhotoGenerator().photoMap
+            val photoMap = GeneratorAvatar().photoMap
             val random = Random()
             return photoMap.entries.elementAt(random.nextInt(photoMap.size)).value
         }

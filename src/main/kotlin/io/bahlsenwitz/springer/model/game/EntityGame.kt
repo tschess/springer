@@ -4,7 +4,7 @@ import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.model.common.EntityUUID
 import io.bahlsenwitz.springer.model.common.SKIN
-import io.bahlsenwitz.springer.util.DateTimeGenerator
+import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs
@@ -54,7 +54,7 @@ class Game(
 ) : EntityUUID(id) {
     companion object {
 
-        val DATE_TIME_GENERATOR = DateTimeGenerator()
+        val DATE_TIME_GENERATOR = GeneratorDateTime()
 
         const val PLACEHOLDER: String = "TBD"
 
