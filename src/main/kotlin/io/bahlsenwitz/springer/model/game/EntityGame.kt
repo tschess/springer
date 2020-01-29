@@ -19,7 +19,7 @@ class Game(
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    var state: List<List<String>>? = null,
+    var state: List<List<String>> = defaultState(), //don't actuvlly need this in historic... here can be null
 
     var status: STATUS = STATUS.PROPOSED,
     var outcome: OUTCOME = OUTCOME.TBD,
@@ -29,14 +29,14 @@ class Game(
     @JoinColumn(name = "white")
     var white: Player,
     var white_elo: Int = getElo(white),
-    var white_disp: Int? = null,
+    var white_disp: Int = 0,
     var white_skin: SKIN = SKIN.DEFAULT,
 
     @OneToOne
     @JoinColumn(name = "black")
     var black: Player,
     var black_elo: Int = getElo(black),
-    var black_disp: Int? = null,
+    var black_disp: Int = 0,
     var black_skin: SKIN = SKIN.DEFAULT,
 
     var challenger: CONTESTANT = CONTESTANT.NA,
