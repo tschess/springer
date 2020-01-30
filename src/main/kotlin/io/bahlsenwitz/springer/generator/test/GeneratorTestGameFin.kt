@@ -23,7 +23,8 @@ class GeneratorTestGameFin(
             winner = CONTESTANT.WHITE,
             date_end = DATE_TIME_GENERATOR.rightNowString(),
             white_disp = 1,
-            black_disp = -7
+            black_disp = -7,
+            state = defaultState()
         )
         repositoryGame.save(game00)
 
@@ -36,7 +37,8 @@ class GeneratorTestGameFin(
             winner = CONTESTANT.WHITE,
             date_end = DATE_TIME_GENERATOR.rightNowString(),
             white_disp = -3,
-            black_disp = 1
+            black_disp = 1,
+            state = defaultState()
         )
         repositoryGame.save(game01)
 
@@ -49,7 +51,8 @@ class GeneratorTestGameFin(
             winner = CONTESTANT.BLACK,
             date_end = DATE_TIME_GENERATOR.rightNowString(),
             white_disp = -9,
-            black_disp = 0
+            black_disp = 0,
+            state = defaultState()
         )
         repositoryGame.save(game02)
 
@@ -62,7 +65,8 @@ class GeneratorTestGameFin(
             winner = CONTESTANT.NA,
             date_end = DATE_TIME_GENERATOR.rightNowString(),
             white_disp = 14,
-            black_disp = -4
+            black_disp = -4,
+            state = defaultState()
         )
         repositoryGame.save(game03)
 
@@ -73,7 +77,8 @@ class GeneratorTestGameFin(
             winner = CONTESTANT.BLACK,
             date_end = DATE_TIME_GENERATOR.rightNowString(),
             white_disp = 6,
-            black_disp = -2
+            black_disp = -2,
+            state = defaultState()
         )
         repositoryGame.save(game04)
     }
