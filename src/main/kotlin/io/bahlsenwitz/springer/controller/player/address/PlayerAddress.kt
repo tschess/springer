@@ -8,7 +8,7 @@ class PlayerAddress(private val repositoryPlayer: RepositoryPlayer) {
 
     fun address(updateAddress: UpdateAddress): ResponseEntity<Any> {
         val uuid: UUID = UUID.fromString(updateAddress.id)!!
-        val player = repositoryPlayer.getById(uuid)
+        val player = repositoryPlayer.findById(uuid).get()
         //val address: String = updateAddress.address
         //player.address = address
         //val name: String = updateAddress.id

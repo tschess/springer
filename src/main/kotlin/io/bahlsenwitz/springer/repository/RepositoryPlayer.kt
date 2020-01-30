@@ -8,10 +8,8 @@ import java.util.*
 @Repository
 interface RepositoryPlayer: JpaRepository<Player, UUID> {
 
-    fun getById(id: UUID): Player
+    fun findByUsername(username: String): Player?
 
-    fun getByUsername(username: String): Player?
-
-    fun getByDevice(device: String): Player?
+    fun findByDevice(device: String): Player? //this has to be unique...
 
 }

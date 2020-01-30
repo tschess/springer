@@ -1,5 +1,6 @@
 package io.bahlsenwitz.springer.controller.player.start
 
+import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -15,7 +16,7 @@ class PlayerStart(private val repositoryPlayer: RepositoryPlayer) {
         val device: String = requestLogin.device
         val updated: String = requestLogin.updated
 
-        val player = repositoryPlayer.getByUsername(username)
+        val player: Player = repositoryPlayer.findByUsername(username)
             ?: return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\": \"nonexistent\"}")
 
         if (BCryptPasswordEncoder().matches(password, player.password)) {

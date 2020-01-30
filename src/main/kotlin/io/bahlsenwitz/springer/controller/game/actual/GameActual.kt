@@ -19,8 +19,8 @@ class GameActual(
 
     fun actual(requestActual: RequestActual): ResponseEntity<Any> {
         val uuid: UUID = UUID.fromString(requestActual.id)!!
-        val player: Player = repositoryPlayer.getById(uuid)
-        val playerList: List<Game> = repositoryGame.getPlayerList(uuid)
+        val player: Player = repositoryPlayer.findById(uuid).get()
+        val playerList: List<Game> = repositoryGame.findPlayerList(uuid)
         val playerListFilter: List<Game> =
             playerList.filter { it.status == STATUS.PROPOSED || it.status == STATUS.ONGOING }
 

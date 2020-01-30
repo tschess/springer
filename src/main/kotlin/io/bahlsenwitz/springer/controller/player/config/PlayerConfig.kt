@@ -8,8 +8,8 @@ import java.util.*
 class PlayerConfig(private val repositoryPlayer: RepositoryPlayer) {
 
     fun config(updateConfig: UpdateConfig): ResponseEntity<Player> {
-        val id = UUID.fromString(updateConfig.id)!!
-        val player = repositoryPlayer.getById(id)
+        val uuid: UUID = UUID.fromString(updateConfig.id)!!
+        val player: Player = repositoryPlayer.findById(uuid).get()
         if(updateConfig.index == 0){
             player.config0 = updateConfig.config
         }

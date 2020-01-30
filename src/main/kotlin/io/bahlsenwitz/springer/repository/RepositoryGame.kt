@@ -14,6 +14,6 @@ interface RepositoryGame: JpaRepository<Game, UUID> {
             "FROM game " +
             "WHERE " +
             "(white = ?1 OR black = ?1)", nativeQuery = true)
-    fun getPlayerList(id: UUID): List<Game>
+    fun findPlayerList(id: UUID): List<Game>
 
 }

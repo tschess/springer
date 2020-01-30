@@ -17,8 +17,8 @@ class GameHistoric(private val repositoryGame: RepositoryGame,
 
     fun historic(requestHistoric: RequestHistoric): ResponseEntity<Any> {
         val uuid: UUID = UUID.fromString(requestHistoric.id)!!
-        val player: Player = repositoryPlayer.getById(uuid)
-        val playerList: List<Game> = repositoryGame.getPlayerList(uuid)
+        val player: Player = repositoryPlayer.findById(uuid).get()
+        val playerList: List<Game> = repositoryGame.findPlayerList(uuid)
         val playerListResolved: List<Game> = playerList.filter { it.status == STATUS.RESOLVED }
         val playerListResolvedSorted: List<Game> = playerListResolved.sortedWith(ComparatorHistoric)
 
