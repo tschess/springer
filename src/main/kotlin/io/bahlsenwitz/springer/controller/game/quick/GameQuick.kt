@@ -7,7 +7,6 @@ import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.util.*
 
@@ -15,7 +14,7 @@ import java.util.*
 class GameQuick(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
-) { //returns a Game
+) {
 
     fun quick(requestQuick: RequestQuick): ResponseEntity<Any> {
 
@@ -65,8 +64,9 @@ class GameQuick(
         private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
         fun traditionalConfig(): List<List<String>> {
-            val row0: List<String> = arrayListOf("Rook","Knight","Bishop","Queen","King","Bishop","Knight","Rook")
-            val row1: List<String> = arrayListOf("Pawn","Pawn","Pawn","Pawn","Pawn","Pawn","Pawn","Pawn")
+            val row0: List<String> =
+                arrayListOf("Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook")
+            val row1: List<String> = arrayListOf("Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn")
             return arrayListOf(row0, row1)
         }
 
@@ -78,7 +78,8 @@ class GameQuick(
             val row4: List<String> = arrayListOf("", "", "", "", "", "", "", "")
             val row5: List<String> = arrayListOf("", "", "", "", "", "", "", "")
             val row6: List<String> = arrayListOf("Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn")
-            val row7: List<String> = arrayListOf("Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook")
+            val row7: List<String> =
+                arrayListOf("Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook")
             return arrayListOf(row0, row1, row2, row3, row4, row5, row6, row7)
         }
     }
