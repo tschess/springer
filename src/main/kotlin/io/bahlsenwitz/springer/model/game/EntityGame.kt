@@ -3,6 +3,7 @@ package io.bahlsenwitz.springer.model.game
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.common.EntityUUID
+import io.bahlsenwitz.springer.model.common.SKIN
 import io.bahlsenwitz.springer.model.player.Player
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
@@ -29,14 +30,14 @@ class Game(
     var white: Player,
     var white_elo: Int = getElo(white),
     var white_disp: Int? = null,//0,
-    //var white_skin: SKIN = SKIN.DEFAULT,
+    var white_skin: SKIN = SKIN.DEFAULT,
 
     @OneToOne
     @JoinColumn(name = "black")
     var black: Player,
     var black_elo: Int = getElo(black),
     var black_disp: Int? = null,//0,
-    //var black_skin: SKIN = SKIN.DEFAULT,
+    var black_skin: SKIN = SKIN.DEFAULT,
 
     var challenger: CONTESTANT = CONTESTANT.NA,
     var turn: CONTESTANT = CONTESTANT.WHITE,

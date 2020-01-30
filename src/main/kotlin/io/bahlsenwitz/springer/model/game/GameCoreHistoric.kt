@@ -58,7 +58,7 @@ class GameCoreHistoric(player: Player, game: Game) {
                 }
                 return -1
             }
-            return 0
+            return 0 //DRAW
         }
     }
 }

@@ -1,7 +1,9 @@
 package io.bahlsenwitz.springer.controller.game
 
 import io.bahlsenwitz.springer.controller.game.actual.GameActual
+import io.bahlsenwitz.springer.controller.game.challenge.GameChallenge
 import io.bahlsenwitz.springer.controller.game.historic.GameHistoric
+import io.bahlsenwitz.springer.controller.game.quick.GameQuick
 import io.bahlsenwitz.springer.controller.game.snapshot.GameSnapshot
 import io.bahlsenwitz.springer.controller.game.test.GameTest
 import io.bahlsenwitz.springer.repository.RepositoryGame
@@ -63,6 +65,26 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     @PostMapping("/snapshot")
     fun snapshot(@Valid @RequestBody requestSnapshot: GameSnapshot.RequestSnapshot): ResponseEntity<Any> {
         return gameSnapshot.snapshot(requestSnapshot)
+    }
+
+    /**
+     * Challenge.swift
+     */
+    val gameChallenge = GameChallenge(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+
+    @PostMapping("/challenge")
+    fun challenge(@Valid @RequestBody requestChallenge: GameChallenge.RequestChallenge): ResponseEntity<Any> {
+        return gameChallenge.challenge(requestChallenge)
+    }
+
+    /**
+     * Quick.swift
+     */
+    val gameQuick = GameQuick(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+
+    @PostMapping("/quick")
+    fun quick(@Valid @RequestBody requestQuick: GameQuick.RequestQuick): ResponseEntity<Any> {
+        return gameQuick.quick(requestQuick)
     }
 }
 

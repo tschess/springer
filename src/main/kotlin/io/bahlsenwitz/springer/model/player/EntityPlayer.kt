@@ -4,6 +4,7 @@ import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import io.bahlsenwitz.springer.generator.util.GeneratorAvatar
 import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.common.EntityUUID
+import io.bahlsenwitz.springer.model.common.SKIN
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs
@@ -44,9 +45,9 @@ class Player(
     @Column(columnDefinition = "jsonb")
     var config2: List<List<String>> = defaultConfig2(),
 
-    //@Type(type = "jsonb")
-    //@Column(columnDefinition = "jsonb")
-    //var skinList: List<SKIN> = arrayListOf(SKIN.DEFAULT),
+    @Type(type = "jsonb")
+    @Column(columnDefinition = "jsonb")
+    var skinList: List<SKIN> = arrayListOf(SKIN.DEFAULT),
 
     //var email: String = PLACEHOLDER,
     //var name: String = PLACEHOLDER,
