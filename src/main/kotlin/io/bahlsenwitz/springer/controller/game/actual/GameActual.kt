@@ -60,7 +60,6 @@ class GameActual(
         val size: Int
     )
 
-
     class ComparatorGameCoreActual {
 
         companion object : Comparator<GameCoreActual> {
@@ -68,71 +67,43 @@ class GameActual(
             private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
             override fun compare(a: GameCoreActual, b: GameCoreActual): Int {
-
                 val inboundA: Boolean = a.inbound
                 val inboundB: Boolean = b.inbound
-
+                val invitationA: Boolean = a.invitation
+                val invitationB: Boolean = b.invitation
+                val updateA: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = a.date)
+                val updateB: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = b.date)
+                val updateAB: Boolean = updateA.isBefore(updateB)
                 if(inboundA) { //a in
                     if(inboundB) { //b in
-
-                        val invitationA: Boolean = a.invitation
-                        val invitationB: Boolean = b.invitation
-
                         if(!invitationA) { //a game
                             if(!invitationB) { //b game
-
-                                val updateA: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = a.date)
-                                val updateB: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = b.date)
-
-                                val updateAB: Boolean = updateA.isBefore(updateB)
                                 if (updateAB) {
                                     return -1 //a < b
                                 }
                                 return 1 //b < a
-                            }
-                            //a is an inbound game
-                            //b is an inbound invitation
+                            } //a is an inbound game, b is an inbound invitation
                             return -1 //a < b
-                        }
-                        //a is an inbound invitation
-                        if(!invitationB) {
-                            //b is an inbound game
+                        } //a is an inbound invitation
+                        if(!invitationB) { //b is an inbound game
                             return 1 //b < a
                         }
-                    }
-                    // b is outbound
-                    // a is inbound
+                    } // b is outbound, a is inbound
                     return -1 //a < b
-                }
-                //a is outbound
-                if(!inboundB){
-                    //b is outbound
-                    val invitationA: Boolean = a.invitation
-                    val invitationB: Boolean = b.invitation
-                    if(!invitationA) {
-                        //a is game
-                        if(!invitationB) {
-                            //b is game
-                            val updateA: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = a.date)
-                            val updateB: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = b.date)
-                            val updateAB: Boolean = updateA.isBefore(updateB)
+                } //a is outbound
+                if(!inboundB){ //b is outbound
+                    if(!invitationA) { //a is game
+                        if(!invitationB) { //b is game
                             if (updateAB) {
                                 return -1 //a < b
                             }
                             return 1 //b < a
-                        }
-                        //b is invite
+                        } //b is invite
                         return -1 //a < b
-                    }
-                    //a is invite
-                    if(!invitationB) {
-                        //b is game
+                    } //a is invite
+                    if(!invitationB) { //b is game
                         return 1 //b < a
-                    }
-                    // both outbound invite
-                    val updateA: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = a.date)
-                    val updateB: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = b.date)
-                    val updateAB: Boolean = updateA.isBefore(updateB)
+                    } // both outbound invite
                     if (updateAB) {
                         return -1 //a < b
                     }
