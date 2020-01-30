@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
-//curl --header "Content-Type: application/json" --request POST --data '{"id":"97b8d685-7745-49a6-a858-b403b2d2f059", "index": 0, "size": 1}' http://3.12.121.89:8080/game/actual
+//curl --header "Content-Type: application/json" --request POST --data '{"id":"efac3243-c71c-42f3-9f12-117cc7de6fa7", "index": 0, "size": 1}' http://localhost:8080/game/historic
 
 @SpringBootApplication(scanBasePackages = ["io.bahlsenwitz.springer"])
 @RestController

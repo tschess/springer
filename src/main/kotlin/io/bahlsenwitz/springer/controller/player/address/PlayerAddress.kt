@@ -9,16 +9,16 @@ class PlayerAddress(private val repositoryPlayer: RepositoryPlayer) {
     fun address(updateAddress: UpdateAddress): ResponseEntity<Any> {
         val uuid: UUID = UUID.fromString(updateAddress.id)!!
         val player = repositoryPlayer.getById(uuid)
-        val address: String = updateAddress.address
-        player.address = address
-        val name: String = updateAddress.id
-        player.name = name
-        val surname: String = updateAddress.surname
-        player.surname = surname
-        val email: String = updateAddress.email
-        player.email = email
-        val updated: String = updateAddress.updated
-        player.updated = updated
+        //val address: String = updateAddress.address
+        //player.address = address
+        //val name: String = updateAddress.id
+        //player.name = name
+        //val surname: String = updateAddress.surname
+        //player.surname = surname
+        //val email: String = updateAddress.email
+        //player.email = email
+        //val updated: String = updateAddress.updated
+        //player.updated = updated
         return ResponseEntity.ok(repositoryPlayer.save(player))
     }
 

@@ -33,10 +33,7 @@ class Player(
     var disp: Int = 0,
     var date: String = PLACEHOLDER,
 
-    var email: String = PLACEHOLDER,
-    var name: String = PLACEHOLDER,
-    var surname: String = PLACEHOLDER,
-    var address: String = PLACEHOLDER,
+    var notify: Boolean = false,
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
@@ -48,9 +45,14 @@ class Player(
     @Column(columnDefinition = "jsonb")
     var config2: List<List<String>> = defaultConfig2(),
 
-    @Type(type = "jsonb")
-    @Column(columnDefinition = "jsonb")
-    var skinList: List<SKIN> = arrayListOf(SKIN.DEFAULT),
+    //@Type(type = "jsonb")
+    //@Column(columnDefinition = "jsonb")
+    //var skinList: List<SKIN> = arrayListOf(SKIN.DEFAULT),
+
+    //var email: String = PLACEHOLDER,
+    //var name: String = PLACEHOLDER,
+    //var surname: String = PLACEHOLDER,
+    //var address: String = PLACEHOLDER,
 
     var device: String = PLACEHOLDER,
     var updated: String = PLACEHOLDER,

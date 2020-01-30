@@ -177,8 +177,7 @@ class GeneratorTestData(
         val testGame = Game(
             id = testGameId,
             white = playerWhite,
-            black = playerBlack
-        )
+            black = playerBlack)
         repositoryGame.save(testGame)
 
         val game00 = Game(
@@ -186,7 +185,9 @@ class GeneratorTestData(
             black = playerB,
             status = STATUS.RESOLVED,
             winner = CONTESTANT.WHITE,
-            date_end = DATE_TIME_GENERATOR.rightNowString()
+            date_end = DATE_TIME_GENERATOR.rightNowString(),
+            white_disp = 1,
+            black_disp = -7
         )
         repositoryGame.save(game00)
 
@@ -210,7 +211,9 @@ class GeneratorTestData(
             black = playerD,
             status = STATUS.RESOLVED,
             winner = CONTESTANT.BLACK,
-            date_end = DATE_TIME_GENERATOR.rightNowString()
+            date_end = DATE_TIME_GENERATOR.rightNowString(),
+            white_disp = -9,
+            black_disp = 0
         )
         repositoryGame.save(game02)
 
