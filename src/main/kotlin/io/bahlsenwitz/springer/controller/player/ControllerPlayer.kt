@@ -4,7 +4,7 @@ import io.bahlsenwitz.springer.controller.player.address.PlayerAddress
 import io.bahlsenwitz.springer.controller.player.config.PlayerConfig
 import io.bahlsenwitz.springer.controller.player.home.PlayerHome
 import io.bahlsenwitz.springer.controller.player.init.PlayerInit
-import io.bahlsenwitz.springer.controller.player.home.PlayerPolling
+import io.bahlsenwitz.springer.controller.player.notify.PlayerNotify
 import io.bahlsenwitz.springer.controller.player.profile.PlayerProfile
 import io.bahlsenwitz.springer.controller.player.quick.PlayerQuick
 import io.bahlsenwitz.springer.controller.player.start.PlayerStart
@@ -92,11 +92,17 @@ class ControllerPlayer(repositoryPlayer: RepositoryPlayer) {
      * Home.swift
      */
     val playerHome = PlayerHome(repositoryPlayer)
-    val playerPolling = PlayerPolling(repositoryPlayer)
 
     @PostMapping("/leaderboard")
     fun leaderboard(@Valid @RequestBody requestPage: PlayerHome.RequestPage): ResponseEntity<Any> {
         return playerHome.leaderboard(requestPage)
+    }
+
+    val playerNotify = PlayerNotify(repositoryPlayer)
+
+    @GetMapping("/notify/{id}")
+    fun notify(@PathVariable(value = "id") id: String): Any {
+        return playerNotify.notify(id)
     }
 
 }

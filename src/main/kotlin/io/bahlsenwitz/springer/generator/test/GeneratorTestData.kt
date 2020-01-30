@@ -33,7 +33,8 @@ class GeneratorTestData(
             avatar = avatarWhite,
             elo = 1200,
             rank = 1,
-            disp = 3
+            disp = 3,
+            notify = true
         )
         repositoryPlayer.save(playerWhite)
 
