@@ -23,7 +23,6 @@ class GameActual(
         val playerList: List<Game> = repositoryGame.getPlayerList(uuid)
         val playerListFilter: List<Game> =
             playerList.filter { it.status == STATUS.PROPOSED || it.status == STATUS.ONGOING }
-        val playerListSort: List<Game> = playerListFilter.sortedWith(ComparatorActual)
 
         val gameCoreActualList: MutableList<GameCoreActual> = mutableListOf()
         val gameList: List<Game>
@@ -34,23 +33,25 @@ class GameActual(
         val indexFrom: Int = pageIndex * pageSize
         val indexTo: Int = indexFrom + pageSize
 
-        if (playerListSort.lastIndex < indexFrom) {
+        if (playerListFilter.lastIndex < indexFrom) {
             return ResponseEntity.status(HttpStatus.OK).body("{\"actual\": \"EOL\"}")
         }
-        if (playerListSort.lastIndex + 1 <= indexTo) {
-            gameList = playerListSort.subList(indexFrom, playerListSort.lastIndex + 1)
+        if (playerListFilter.lastIndex + 1 <= indexTo) {
+            gameList = playerListFilter.subList(indexFrom, playerListFilter.lastIndex + 1)
             for (game: Game in gameList) {
                 val gameCoreActual = GameCoreActual(player = player, game = game)
                 gameCoreActualList.add(gameCoreActual)
             }
-            return ResponseEntity.ok(gameCoreActualList)
+            val gameCoreActualSort: List<GameCoreActual> = gameCoreActualList.sortedWith(ComparatorGameCoreActual)
+            return ResponseEntity.ok(gameCoreActualSort)
         }
-        gameList = playerListSort.subList(indexFrom, indexTo + 1)
+        gameList = playerListFilter.subList(indexFrom, indexTo + 1)
         for (game: Game in gameList) {
             val gameCoreActual = GameCoreActual(player = player, game = game)
             gameCoreActualList.add(gameCoreActual)
         }
-        return ResponseEntity.ok(gameCoreActualList)
+        val gameCoreActualSort: List<GameCoreActual> = gameCoreActualList.sortedWith(ComparatorGameCoreActual)
+        return ResponseEntity.ok(gameCoreActualSort)
     }
 
     data class RequestActual(
@@ -59,40 +60,85 @@ class GameActual(
         val size: Int
     )
 
-    class ComparatorActual {
 
-        companion object : Comparator<Game> {
+    class ComparatorGameCoreActual {
+
+        companion object : Comparator<GameCoreActual> {
 
             private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
-            override fun compare(a: Game, b: Game): Int {
-                val statusA: STATUS = a.status
-                val statusB: STATUS = b.status
+            override fun compare(a: GameCoreActual, b: GameCoreActual): Int {
 
-                if (statusA == STATUS.PROPOSED) {
-                    if (statusB == STATUS.PROPOSED) {
-                        val createdA: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = a.date_create)
-                        val createdB: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = b.date_create)
+                val inboundA: Boolean = a.inbound
+                val inboundB: Boolean = b.inbound
 
-                        val createdAB: Boolean = createdA.isBefore(createdB)
-                        if (createdAB) {
-                            return -1
+                if(inboundA) { //a in
+                    if(inboundB) { //b in
+
+                        val invitationA: Boolean = a.invitation
+                        val invitationB: Boolean = b.invitation
+
+                        if(!invitationA) { //a game
+                            if(!invitationB) { //b game
+
+                                val updateA: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = a.date)
+                                val updateB: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = b.date)
+
+                                val updateAB: Boolean = updateA.isBefore(updateB)
+                                if (updateAB) {
+                                    return -1 //a < b
+                                }
+                                return 1 //b < a
+                            }
+                            //a is an inbound game
+                            //b is an inbound invitation
+                            return -1 //a < b
                         }
-                        return 1
-                    } //b is going...
-                    return -1
-                } //for sure a is ongoing... gotta check if also is b...
-                if (statusB == STATUS.ONGOING) {
-                    val updatedA: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = a.date_update)
-                    val updatedB: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = b.date_update)
-
-                    val updatedAB: Boolean = updatedA.isBefore(updatedB)
-                    if (updatedAB) {
-                        return -1
+                        //a is an inbound invitation
+                        if(!invitationB) {
+                            //b is an inbound game
+                            return 1 //b < a
+                        }
                     }
-                    return 1
+                    // b is outbound
+                    // a is inbound
+                    return -1 //a < b
                 }
-                return 1
+                //a is outbound
+                if(!inboundB){
+                    //b is outbound
+                    val invitationA: Boolean = a.invitation
+                    val invitationB: Boolean = b.invitation
+                    if(!invitationA) {
+                        //a is game
+                        if(!invitationB) {
+                            //b is game
+                            val updateA: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = a.date)
+                            val updateB: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = b.date)
+                            val updateAB: Boolean = updateA.isBefore(updateB)
+                            if (updateAB) {
+                                return -1 //a < b
+                            }
+                            return 1 //b < a
+                        }
+                        //b is invite
+                        return -1 //a < b
+                    }
+                    //a is invite
+                    if(!invitationB) {
+                        //b is game
+                        return 1 //b < a
+                    }
+                    // both outbound invite
+                    val updateA: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = a.date)
+                    val updateB: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = b.date)
+                    val updateAB: Boolean = updateA.isBefore(updateB)
+                    if (updateAB) {
+                        return -1 //a < b
+                    }
+                    return 1 //b < a
+                }
+                return 0
             }
         }
     }
