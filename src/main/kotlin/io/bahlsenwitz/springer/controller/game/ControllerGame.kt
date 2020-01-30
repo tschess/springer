@@ -2,6 +2,7 @@ package io.bahlsenwitz.springer.controller.game
 
 import io.bahlsenwitz.springer.controller.game.actual.GameActual
 import io.bahlsenwitz.springer.controller.game.historic.GameHistoric
+import io.bahlsenwitz.springer.controller.game.snapshot.GameSnapshot
 import io.bahlsenwitz.springer.controller.game.test.GameTest
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
@@ -53,4 +54,41 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     fun historic(@Valid @RequestBody updateTest: GameHistoric.RequestHistoric): ResponseEntity<Any> {
         return gameHistoric.historic(updateTest)
     }
+
+    /**
+     * EndgameSnapshot.swift
+     */
+    val gameSnapshot = GameSnapshot(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+
+    @PostMapping("/snapshot")
+    fun snapshot(@Valid @RequestBody requestSnapshot: GameSnapshot.RequestSnapshot): ResponseEntity<Any> {
+        return gameSnapshot.snapshot(requestSnapshot)
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
