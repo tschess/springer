@@ -1,8 +1,8 @@
 package io.bahlsenwitz.springer
 
+import io.bahlsenwitz.springer.generator.test.*
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.generator.test.GeneratorTestData
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -15,11 +15,12 @@ class SpringerApplication(
 
     override fun run(args: ApplicationArguments?) {
 
-        val dataGeneratorToy = GeneratorTestData(
-            repositoryPlayer = repositoryPlayer,
-            repositoryGame = repositoryGame
-        )
-        dataGeneratorToy.defaultData()
+        val generatorTestPlayer = GeneratorTestPlayer(repositoryPlayer)
+        generatorTestPlayer.generate()
+
+        GeneratorTestGameAct(repositoryGame, generatorTestPlayer).generate()
+        GeneratorTestGameFin(repositoryGame, generatorTestPlayer).generate()
+        GeneratorTestGamePro(repositoryGame, generatorTestPlayer).generate()
     }
 }
 

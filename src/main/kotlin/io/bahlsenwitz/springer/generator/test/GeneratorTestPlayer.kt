@@ -9,6 +9,12 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
 
     private val PASSWORD = "\$2a\$10\$paasde3Qy5jcxzZONo4a1OT3d4qgBIriGdyvO1qfeDWb2ksXSjycO"
 
+    private var testPlayerList = mutableListOf<Player>()
+
+    fun findByName(username: String): Player {
+        return this.testPlayerList.filter { it.username == username }[0]
+    }
+
     fun generate() {
         repositoryPlayer.deleteAll()
 
@@ -22,7 +28,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             disp = 3,
             notify = true
         )
-        repositoryPlayer.save(white) //0
+        testPlayerList.add(white) //0
 
         val black = Player(
             id = UUID.fromString("11111111-1111-1111-1111-111111111111")!!,
@@ -33,7 +39,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             rank = 2,
             disp = 1
         )
-        repositoryPlayer.save(black) //1
+        testPlayerList.add(black) //1
 
         val test = Player(
             id = UUID.fromString("22222222-2222-2222-2222-222222222222")!!,
@@ -44,7 +50,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             rank = 3,
             disp = -3
         )
-        repositoryPlayer.save(test) //2
+        testPlayerList.add(test) //2
 
         val playerA = Player(
             username = "aaa",
@@ -53,7 +59,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             rank = 4,
             disp = -1
         )
-        repositoryPlayer.save(playerA) //3
+        testPlayerList.add(playerA) //3
 
         val playerB = Player(
             username = "bbb",
@@ -62,7 +68,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             rank = 5,
             disp = 0
         )
-        repositoryPlayer.save(playerB) //4
+        testPlayerList.add(playerB) //4
 
         val playerC = Player(
             username = "ccc",
@@ -71,7 +77,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             rank = 6,
             disp = -5
         )
-        repositoryPlayer.save(playerC) //5
+        testPlayerList.add(playerC) //5
 
         val playerD = Player(
             username = "ddd",
@@ -80,7 +86,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             rank = 7,
             disp = 1
         )
-        repositoryPlayer.save(playerD) //6
+        testPlayerList.add(playerD) //6
 
         val playerE = Player(
             username = "eee",
@@ -89,7 +95,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             rank = 8,
             disp = -3
         )
-        repositoryPlayer.save(playerE) //7
+        testPlayerList.add(playerE) //7
 
         val playerF = Player(
             username = "fff",
@@ -98,7 +104,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             rank = 9,
             disp = 1
         )
-        repositoryPlayer.save(playerF) //8
+        testPlayerList.add(playerF) //8
 
         val player9 = Player(
             username = "999",
@@ -107,7 +113,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             rank = 10,
             disp = 0
         )
-        repositoryPlayer.save(player9) //9
+        testPlayerList.add(player9) //9
 
         val player8 = Player(
             username = "888",
@@ -116,7 +122,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             rank = 11,
             disp = 3
         )
-        repositoryPlayer.save(player8) //10
+        testPlayerList.add(player8) //10
 
         Thread.sleep(1_000)
 
@@ -127,6 +133,10 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             rank = 11,
             disp = 3
         )
-        repositoryPlayer.save(player7) //11
+        testPlayerList.add(player7) //11
+
+        for (player: Player in this.testPlayerList) {
+            repositoryPlayer.save(player)
+        }
     }
 }
