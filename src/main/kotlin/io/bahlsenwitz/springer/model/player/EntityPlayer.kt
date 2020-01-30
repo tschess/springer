@@ -1,10 +1,9 @@
 package io.bahlsenwitz.springer.model.player
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
-import io.bahlsenwitz.springer.model.common.EntityUUID
-import io.bahlsenwitz.springer.model.common.SKIN
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.generator.util.GeneratorAvatar
+import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
+import io.bahlsenwitz.springer.model.common.EntityUUID
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs

@@ -3,8 +3,10 @@ package io.bahlsenwitz.springer.generator.test
 import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
+import io.bahlsenwitz.springer.model.game.OUTCOME
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.repository.RepositoryGame
+import java.util.*
 
 class GeneratorTestGameFin(
     private val repositoryGame: RepositoryGame,
@@ -15,6 +17,19 @@ class GeneratorTestGameFin(
 
     fun generate() {
         repositoryGame.deleteAll()
+
+        val snap = Game(
+            id = UUID.fromString("11111111-1111-1111-1111-111111111111")!!,
+            white = generatorTestPlayer.findByName(username = "999"),
+            black = generatorTestPlayer.findByName(username = "888"),
+            state = defaultState(),
+            moves = 33,
+            outcome = OUTCOME.CHECKMATE,
+            winner = CONTESTANT.WHITE,
+            date_end = DATE_TIME_GENERATOR.rightNowString(),
+            status = STATUS.RESOLVED
+        )
+        repositoryGame.save(snap)
 
         val game00 = Game(
             white = generatorTestPlayer.findByName(username = "aaa"),

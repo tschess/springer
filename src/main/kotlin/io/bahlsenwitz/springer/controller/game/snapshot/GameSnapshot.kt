@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity
 import java.util.*
 
 
-//curl --header "Content-Type: application/json" --request POST --data '{"id":"efac3243-c71c-42f3-9f12-117cc7de6fa7", "index": 0, "size": 1}' http://localhost:8080/game/snapshot
+//curl --header "Content-Type: application/json" --request POST --data '{"game":"11111111-1111-1111-1111-111111111111", "player": "99999999-9999-9999-9999-999999999999"}' http://localhost:8080/game/snapshot
 class GameSnapshot(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
