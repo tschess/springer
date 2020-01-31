@@ -98,17 +98,17 @@ class GeneratorTestGameFin(
         repositoryGame.save(game04)
     }
 
-    fun defaultState(): List<List<String>> {
+    private fun defaultState(): List<List<String>> {
         val row0: List<String> =
-            arrayListOf("Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook")
-        val row1: List<String> = arrayListOf("Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn")
+            arrayListOf("WhiteRook", "WhiteKnight", "WhiteBishop", "WhiteQueen", "WhiteKing", "WhiteBishop", "WhiteKnight", "WhiteRook")
+        val row1: List<String> = arrayListOf("WhitePawn", "WhitePawn", "WhitePawn", "WhitePawn", "WhitePawn", "WhitePawn", "WhitePawn", "WhitePawn")
         val row2: List<String> = arrayListOf("", "", "", "", "", "", "", "")
         val row3: List<String> = arrayListOf("", "", "", "", "", "", "", "")
         val row4: List<String> = arrayListOf("", "", "", "", "", "", "", "")
         val row5: List<String> = arrayListOf("", "", "", "", "", "", "", "")
-        val row6: List<String> = arrayListOf("Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn")
+        val row6: List<String> = arrayListOf("BlackPawn", "BlackPawn", "BlackPawn", "BlackPawn", "BlackPawn", "BlackPawn", "BlackPawn", "BlackPawn")
         val row7: List<String> =
-            arrayListOf("Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook")
+            arrayListOf("BlackRook", "BlackKnight", "BlackBishop", "BlackQueen", "BlackKing", "BlackBishop", "BlackKnight", "BlackRook")
         return arrayListOf(row0, row1, row2, row3, row4, row5, row6, row7)
     }
 }
