@@ -35,7 +35,7 @@ class GameNack(
     }
 
     data class UpdateNack(
-        val game: String,
-        val player: String
+        val id_game: String,
+        val id_player: String
     )
 }
