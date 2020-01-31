@@ -45,10 +45,9 @@ class Player(
     @Column(columnDefinition = "jsonb")
     var config2: List<List<String>> = defaultConfig2(),
 
-    @Type(type = "jsonb")
-    @Column(columnDefinition = "jsonb")
-    var skinList: List<SKIN> = arrayListOf(SKIN.DEFAULT),
-
+    //@Type(type = "jsonb")
+    //@Column(columnDefinition = "jsonb")
+    //var skinList: List<SKIN> = arrayListOf(SKIN.DEFAULT),
     //var email: String = PLACEHOLDER,
     //var name: String = PLACEHOLDER,
     //var surname: String = PLACEHOLDER,
