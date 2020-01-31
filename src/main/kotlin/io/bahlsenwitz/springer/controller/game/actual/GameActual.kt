@@ -22,7 +22,7 @@ class GameActual(
         val player: Player = repositoryPlayer.findById(uuid).get()
         player.notify = false
         repositoryPlayer.save(player)
-        
+
         val playerList: List<Game> = repositoryGame.findPlayerList(uuid)
         val playerListFilter: List<Game> =
             playerList.filter { it.status == STATUS.PROPOSED || it.status == STATUS.ONGOING }

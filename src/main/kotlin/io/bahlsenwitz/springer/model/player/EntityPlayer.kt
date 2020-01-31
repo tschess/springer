@@ -33,6 +33,7 @@ class Player(
     var disp: Int = 0,
     var date: String = PLACEHOLDER,
 
+    @Column(insertable = true, updatable = true)
     var notify: Boolean = false,
 
     @Type(type = "jsonb")
