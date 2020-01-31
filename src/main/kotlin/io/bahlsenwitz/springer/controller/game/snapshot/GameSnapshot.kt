@@ -18,60 +18,64 @@ class GameSnapshot(
 
     fun snapshot(requestSnapshot: RequestSnapshot): ResponseEntity<Any> {
 
-        val gameID: UUID = UUID.fromString(requestSnapshot.game)!!
-        val game: Game = repositoryGame.findById(gameID).get()
+        val game_id: UUID = UUID.fromString(requestSnapshot.game_id)!!
+        val game: Game = repositoryGame.findById(game_id).get()
 
-        val playerID: UUID = UUID.fromString(requestSnapshot.player)!!
-        val player: Player = repositoryPlayer.findById(playerID).get()
+        val self_id: UUID = UUID.fromString(requestSnapshot.self_id)!!
+        val player: Player = repositoryPlayer.findById(self_id).get()
 
         return ResponseEntity.ok(GameSnapshotEndgame(player, game))
     }
 
     data class RequestSnapshot(
-        val game: String,
-        val player: String
+        val game_id: String,
+        val self_id: String
     )
 
     class GameSnapshotEndgame(player: Player, game: Game) {
         private val info: Info = getInfo(player, game)
 
         val state: List<List<String>> = game.state!!
-        val moves: Int = game.moves
         val outcome: OUTCOME = game.outcome
-        val white: Boolean = info.white
-        val skin: SKIN = info.skin
+        val moves: Int = game.moves
+        val username_white: String = game.white.username
+        val username_black: String = game.black.username
+
+        val canonical: Boolean = info.canonical
+        val winner_skin: SKIN = info.skin_winner
 
         companion object {
 
             data class Info(
-                val white: Boolean,
-                val skin: SKIN
+                val canonical: Boolean,
+                val skin_winner: SKIN
             )
 
             fun getInfo(player: Player, game: Game): Info {
-                var white: Boolean = true
-                var skin: SKIN = game.white_skin
-                if (game.winner == CONTESTANT.WHITE) {
-                    if (game.white == player) {
-                        return Info(white, skin)
+                var canonical: Boolean = true
+                var skin_winner: SKIN = SKIN.DEFAULT
+
+                if(game.white == player){ //playing white
+                    if (game.winner == CONTESTANT.WHITE) { //white wins
+                        skin_winner = game.white_skin
+                        return Info(canonical, skin_winner)
+                    } //white lost, or draw...
+                    if (game.winner == CONTESTANT.BLACK) { //black won
+                        skin_winner = game.black_skin
+                        return Info(canonical, skin_winner)
                     }
-                    white = false
-                    return Info(white, skin)
+                    return Info(canonical, skin_winner)
+                } //playing black
+                canonical = false
+                if (game.winner == CONTESTANT.BLACK) { //black won
+                    skin_winner = game.black_skin
+                    return Info(canonical, skin_winner)
                 }
-                if (game.winner == CONTESTANT.BLACK) {
-                    skin = game.black_skin
-                    if (game.black == player) {
-                        white = false
-                        return Info(white, skin)
-                    }
-                    return Info(white, skin)
-                } //DRAW
-                skin = SKIN.DEFAULT
-                if (game.black == player) {
-                    white = false
-                    return Info(white, skin)
+                if (game.winner == CONTESTANT.WHITE) { //white wins
+                    skin_winner = game.white_skin
+                    return Info(canonical, skin_winner)
                 }
-                return Info(white, skin)
+                return Info(canonical, skin_winner)
             }
         }
     }
