@@ -1,8 +1,10 @@
 package io.bahlsenwitz.springer.controller.game
 
+import io.bahlsenwitz.springer.controller.game.ack.GameAck
 import io.bahlsenwitz.springer.controller.game.actual.GameActual
 import io.bahlsenwitz.springer.controller.game.challenge.GameChallenge
 import io.bahlsenwitz.springer.controller.game.historic.GameHistoric
+import io.bahlsenwitz.springer.controller.game.nack.GameNack
 import io.bahlsenwitz.springer.controller.game.quick.GameQuick
 import io.bahlsenwitz.springer.controller.game.rematch.GameRematch
 import io.bahlsenwitz.springer.controller.game.snapshot.GameSnapshot
@@ -45,6 +47,20 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     @PostMapping("/actual")
     fun actual(@Valid @RequestBody updateTest: GameActual.RequestActual): ResponseEntity<Any> {
         return gameActual.actual(updateTest)
+    }
+
+    val gameNack = GameNack(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+
+    @PostMapping("/nack")
+    fun nack(@Valid @RequestBody updateNack: GameNack.UpdateNack): ResponseEntity<Any> {
+        return gameNack.nack(updateNack)
+    }
+
+    val gameAck = GameAck(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+
+    @PostMapping("/ack")
+    fun ack(@Valid @RequestBody requestAck: GameAck.RequestAck): ResponseEntity<Any> {
+        return gameAck.ack(requestAck)
     }
 
     /**
@@ -96,6 +112,8 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     fun rematch(@Valid @RequestBody requestRematch: GameRematch.RequestRematch): ResponseEntity<Any> {
         return gameRematch.rematch(requestRematch)
     }
+
+
 }
 
 
