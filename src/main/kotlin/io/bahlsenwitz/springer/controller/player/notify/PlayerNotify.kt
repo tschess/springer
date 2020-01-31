@@ -13,7 +13,7 @@ class PlayerNotify(private val repositoryPlayer: RepositoryPlayer) {
         val uuid: UUID = UUID.fromString(id)!!
         val player: Player = repositoryPlayer.findById(uuid).get()
         if(player.notify){
-            return ResponseEntity.status(HttpStatus.OK).body("{\"notify\": \"${true}\"}")
+            return ResponseEntity.status(HttpStatus.OK).body("{\"notify\":${true}}")
         }
         return ResponseEntity.EMPTY
     }
