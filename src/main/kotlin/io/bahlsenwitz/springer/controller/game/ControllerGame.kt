@@ -4,6 +4,7 @@ import io.bahlsenwitz.springer.controller.game.actual.GameActual
 import io.bahlsenwitz.springer.controller.game.challenge.GameChallenge
 import io.bahlsenwitz.springer.controller.game.historic.GameHistoric
 import io.bahlsenwitz.springer.controller.game.quick.GameQuick
+import io.bahlsenwitz.springer.controller.game.rematch.GameRematch
 import io.bahlsenwitz.springer.controller.game.snapshot.GameSnapshot
 import io.bahlsenwitz.springer.controller.game.test.GameTest
 import io.bahlsenwitz.springer.repository.RepositoryGame
@@ -84,6 +85,16 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     @PostMapping("/quick")
     fun quick(@Valid @RequestBody requestQuick: GameQuick.RequestQuick): ResponseEntity<Any> {
         return gameQuick.quick(requestQuick)
+    }
+
+    /**
+     * Historic.swift
+     */
+    val gameRematch = GameRematch(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+
+    @PostMapping("/rematch")
+    fun rematch(@Valid @RequestBody requestRematch: GameRematch.RequestRematch): ResponseEntity<Any> {
+        return gameRematch.rematch(requestRematch)
     }
 }
 
