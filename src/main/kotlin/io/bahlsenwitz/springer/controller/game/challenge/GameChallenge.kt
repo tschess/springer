@@ -19,14 +19,14 @@ class GameChallenge(
 
     fun challenge(requestChallenge: RequestChallenge): ResponseEntity<Any> {
 
-        val uuid0: UUID = UUID.fromString(requestChallenge.id_self)!! //opp
+        val uuid0: UUID = UUID.fromString(requestChallenge.id_other)!! //opp
         val white: Player = repositoryPlayer.findById(uuid0).get()
 
 
         //TODO: VALIDATION CRITERIA...
 
 
-        val uuid1: UUID = UUID.fromString(requestChallenge.id_other)!! //self
+        val uuid1: UUID = UUID.fromString(requestChallenge.id_self)!! //self
         val black: Player = repositoryPlayer.findById(uuid1).get()
         val black_skin: SKIN = SKIN.valueOf(requestChallenge.skin)
 
@@ -46,7 +46,7 @@ class GameChallenge(
             black = black,
             black_skin = black_skin,
             challenger = CONTESTANT.BLACK,
-            state = config,
+            state = generateState(config),
             date_create = DATE_TIME_GENERATOR.rightNowString()
         )
         repositoryGame.save(game)
@@ -72,6 +72,18 @@ class GameChallenge(
             val r0 = arrayListOf("Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook")
             val r1 = arrayListOf("Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn")
             return arrayListOf(r1, r0)
+        }
+
+        fun generateState(config: List<List<String>>): List<List<String>> {
+            val row0: List<String> = arrayListOf("", "", "", "", "", "", "", "")
+            val row1: List<String> = arrayListOf("", "", "", "", "", "", "", "")
+            val row2: List<String> = arrayListOf("", "", "", "", "", "", "", "")
+            val row3: List<String> = arrayListOf("", "", "", "", "", "", "", "")
+            val row4: List<String> = arrayListOf("", "", "", "", "", "", "", "")
+            val row5: List<String> = arrayListOf("", "", "", "", "", "", "", "")
+            val row6: List<String> = config[1]
+            val row7: List<String> = config[0]
+            return arrayListOf(row0, row1, row2, row3, row4, row5, row6, row7)
         }
     }
 }
