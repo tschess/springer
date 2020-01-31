@@ -7,6 +7,7 @@ import io.bahlsenwitz.springer.controller.game.historic.GameHistoric
 import io.bahlsenwitz.springer.controller.game.nack.GameNack
 import io.bahlsenwitz.springer.controller.game.quick.GameQuick
 import io.bahlsenwitz.springer.controller.game.rematch.GameRematch
+import io.bahlsenwitz.springer.controller.game.resolve.GameResolve
 import io.bahlsenwitz.springer.controller.game.snapshot.GameSnapshot
 import io.bahlsenwitz.springer.controller.game.test.GameTest
 import io.bahlsenwitz.springer.repository.RepositoryGame
@@ -25,18 +26,13 @@ class ControllerGame @Autowired
 constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) {
 
     /**
-     * Start.swift
+     * Tschess.swift
      */
-    val gameTest = GameTest(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+    val gameResolve = GameResolve(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
 
-    @PostMapping("/test/update")
-    fun updateTest(@Valid @RequestBody updateTest: GameTest.UpdateTest): ResponseEntity<Any> {
-        return gameTest.updateTest(updateTest)
-    }
-
-    @GetMapping("/test/request")
-    fun requestTest(@Valid @RequestBody requestTest: GameTest.RequestTest): ResponseEntity<Any> {
-        return gameTest.requestTest(requestTest)
+    @PostMapping("/resolve")
+    fun resolve(@Valid @RequestBody requestResolve: GameResolve.RequestResolve): ResponseEntity<Any> {
+        return gameResolve.resolve(requestResolve)
     }
 
     /**
@@ -49,18 +45,18 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
         return gameActual.actual(updateTest)
     }
 
-    val gameNack = GameNack(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
-
-    @PostMapping("/nack")
-    fun nack(@Valid @RequestBody updateNack: GameNack.UpdateNack): ResponseEntity<Any> {
-        return gameNack.nack(updateNack)
-    }
-
     val gameAck = GameAck(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
 
     @PostMapping("/ack")
     fun ack(@Valid @RequestBody requestAck: GameAck.RequestAck): ResponseEntity<Any> {
         return gameAck.ack(requestAck)
+    }
+
+    val gameNack = GameNack(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+
+    @PostMapping("/nack")
+    fun nack(@Valid @RequestBody updateNack: GameNack.UpdateNack): ResponseEntity<Any> {
+        return gameNack.nack(updateNack)
     }
 
     /**
@@ -113,6 +109,20 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
         return gameRematch.rematch(requestRematch)
     }
 
+    /**
+     * Start.swift
+     */
+    val gameTest = GameTest(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+
+    @PostMapping("/test/update")
+    fun updateTest(@Valid @RequestBody updateTest: GameTest.UpdateTest): ResponseEntity<Any> {
+        return gameTest.updateTest(updateTest)
+    }
+
+    @GetMapping("/test/request")
+    fun requestTest(@Valid @RequestBody requestTest: GameTest.RequestTest): ResponseEntity<Any> {
+        return gameTest.requestTest(requestTest)
+    }
 
 }
 
