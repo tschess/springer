@@ -17,13 +17,13 @@ class GameNack(
 
     fun nack(updateNack: UpdateNack): ResponseEntity<Any> {
 
-        val uuid0: UUID = UUID.fromString(updateNack.game)!!
+        val uuid0: UUID = UUID.fromString(updateNack.id_game)!!
         val game: Game = repositoryGame.findById(uuid0).get()
         game.status = STATUS.DECLINED
         repositoryGame.save(game)
 
 
-        val uuid1: UUID = UUID.fromString(updateNack.game)!!
+        val uuid1: UUID = UUID.fromString(updateNack.id_player)!!
         val player: Player = repositoryPlayer.findById(uuid1).get()
         //player.elo -= ...
         //TODO: ^^^reduce elo
