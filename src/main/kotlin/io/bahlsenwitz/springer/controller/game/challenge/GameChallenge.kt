@@ -19,14 +19,14 @@ class GameChallenge(
 
     fun challenge(requestChallenge: RequestChallenge): ResponseEntity<Any> {
 
-        val uuid0: UUID = UUID.fromString(requestChallenge.white)!! //opp
+        val uuid0: UUID = UUID.fromString(requestChallenge.id_self)!! //opp
         val white: Player = repositoryPlayer.findById(uuid0).get()
 
 
         //TODO: VALIDATION CRITERIA...
 
 
-        val uuid1: UUID = UUID.fromString(requestChallenge.black)!! //self
+        val uuid1: UUID = UUID.fromString(requestChallenge.id_other)!! //self
         val black: Player = repositoryPlayer.findById(uuid1).get()
         val black_skin: SKIN = SKIN.valueOf(requestChallenge.skin)
 
@@ -58,9 +58,9 @@ class GameChallenge(
     }
 
     data class RequestChallenge(
-        val white: String,
-        val black: String, //self
-        val skin: String, //skin_black
+        val id_self: String,
+        val id_other: String,
+        val skin: String,
         val config: Int //0, 1, 2, 3
     )
 
