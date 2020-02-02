@@ -18,10 +18,10 @@ class GameAck(
 
     fun ack(requestAck: RequestAck): ResponseEntity<Any> {
 
-        val uuid0: UUID = UUID.fromString(requestAck.game)!!
+        val uuid0: UUID = UUID.fromString(requestAck.id_game)!!
         val game: Game = repositoryGame.findById(uuid0).get()
 
-        val uuid1: UUID = UUID.fromString(requestAck.player)!!
+        val uuid1: UUID = UUID.fromString(requestAck.id_player)!!
         val player: Player = repositoryPlayer.findById(uuid1).get()
 
         var config: List<List<String>> = traditionalConfig()
@@ -54,9 +54,9 @@ class GameAck(
     }
 
     data class RequestAck(
-        val game: String,
-        val player: String, //self
-        val skin: String, //skin_black
+        val id_game: String,
+        val id_player: String,
+        val skin: String,
         val config: Int //0, 1, 2, 3
     )
 

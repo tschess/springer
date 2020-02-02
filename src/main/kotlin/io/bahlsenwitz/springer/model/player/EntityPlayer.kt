@@ -18,7 +18,7 @@ import javax.persistence.Table
 @Table(name = "player")
 @TypeDefs(TypeDef(name = "jsonb", typeClass = JsonBinaryType::class))
 class Player(
-    id: UUID? = null,
+    id_player: UUID? = null,
 
     @Column(unique = true)
     var username: String,
@@ -58,7 +58,7 @@ class Player(
     var updated: String = PLACEHOLDER,
     var created: String = DATE_TIME_GENERATOR.rightNowString()
 
-): EntityUUID(id), Comparable<Player> {
+): EntityUUID(id_player), Comparable<Player> {
 
     companion object {
         const val PLACEHOLDER: String = "TBD"

@@ -15,7 +15,7 @@ import javax.persistence.*
 @Table(name = "game")
 @TypeDefs(TypeDef(name = "jsonb", typeClass = JsonBinaryType::class))
 class Game(
-    id: UUID? = null,
+    id_game: UUID? = null,
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
@@ -39,19 +39,19 @@ class Game(
     var black_disp: Int? = null,//0,
     var black_skin: SKIN = SKIN.DEFAULT,
 
-    var challenger: CONTESTANT = CONTESTANT.NA,
+    var challenger: CONTESTANT? = null,
+    var winner: CONTESTANT? = null,
     var turn: CONTESTANT = CONTESTANT.WHITE,
-    var winner: CONTESTANT = CONTESTANT.NA,
 
-    var highlight: String = PLACEHOLDER,
-    var check_on: Boolean = false,
+    var on_check: Boolean = false,
+    var highlight: List<Int> = listOf(-1, -1, -1, -1),
 
     var date_start: String = PLACEHOLDER,
     var date_end: String = PLACEHOLDER,
     var date_update: String = PLACEHOLDER,
     var date_create: String = DATE_TIME_GENERATOR.rightNowString()
 
-) : EntityUUID(id) {
+) : EntityUUID(id_game) {
     companion object {
         val DATE_TIME_GENERATOR = GeneratorDateTime()
 
@@ -65,14 +65,14 @@ class Game(
 
 enum class CONTESTANT {
     WHITE,
-    BLACK,
-    NA
+    BLACK
 }
 
 enum class STATUS {
     PROPOSED,
-    DECLINED, // expired or refused
+    DECLINED, //expired or refused
     ONGOING,
+    PENDING, //pending draw...
     RESOLVED
 }
 
