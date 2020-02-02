@@ -44,7 +44,7 @@ class Game(
     var turn: CONTESTANT = CONTESTANT.WHITE,
 
     var on_check: Boolean = false,
-    var highlight: List<Int> = listOf(-1, -1, -1, -1),
+    var highlight: String = PLACEHOLDER,
 
     var date_start: String = PLACEHOLDER,
     var date_end: String = PLACEHOLDER,

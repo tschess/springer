@@ -19,7 +19,7 @@ class GeneratorTestGameFin(
         repositoryGame.deleteAll()
 
         val snap = Game(
-            id = UUID.fromString("11111111-1111-1111-1111-111111111111")!!,
+            id_game = UUID.fromString("11111111-1111-1111-1111-111111111111")!!,
             white = generatorTestPlayer.findByName(username = "999"),
             black = generatorTestPlayer.findByName(username = "888"),
             state = defaultState(),
@@ -77,7 +77,6 @@ class GeneratorTestGameFin(
             white = generatorTestPlayer.findByName(username = "aaa"),
             black = generatorTestPlayer.findByName(username = "eee"),
             status = STATUS.RESOLVED,
-            winner = CONTESTANT.NA,
             date_end = DATE_TIME_GENERATOR.rightNowString(),
             white_disp = 14,
             black_disp = -4,
