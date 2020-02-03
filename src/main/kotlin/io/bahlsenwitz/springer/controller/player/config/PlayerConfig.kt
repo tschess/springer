@@ -27,7 +27,7 @@ class PlayerConfig(private val repositoryPlayer: RepositoryPlayer) {
         val config: List<List<String>>,
         val index: Int,
         val id: String,
-        val updated: String
+        val updated: String //shouldn't pass this from client...
     )
 
 }

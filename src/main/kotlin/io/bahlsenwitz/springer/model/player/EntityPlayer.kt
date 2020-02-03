@@ -4,7 +4,6 @@ import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import io.bahlsenwitz.springer.generator.util.GeneratorAvatar
 import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.common.EntityUUID
-import io.bahlsenwitz.springer.model.common.SKIN
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs
@@ -13,6 +12,7 @@ import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Table
+import kotlin.collections.HashMap
 
 @Entity
 @Table(name = "player")
@@ -81,7 +81,7 @@ class Player(
             return arrayListOf(r0, r1)
         }
         fun defaultAvatar(): String {
-            val photoMap = GeneratorAvatar().photoMap
+            val photoMap: HashMap<String,String> = GeneratorAvatar().photoMap
             val random = Random()
             return photoMap.entries.elementAt(random.nextInt(photoMap.size)).value
         }
