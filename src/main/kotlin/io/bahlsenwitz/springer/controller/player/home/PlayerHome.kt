@@ -15,8 +15,8 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
         val pageIndex: Int = requestPage.index
         val pageSize: Int = requestPage.size
 
-        val indexFrom: Int = pageIndex * pageSize + 1
-        val indexTo: Int = indexFrom + pageSize
+        val indexFrom: Int = pageIndex * pageSize
+        val indexTo: Int = indexFrom + pageSize - 1
 
         if (playerListFindAll.lastIndex < indexFrom) {
             return ResponseEntity.status(HttpStatus.OK).body("{\"leaderboard\": \"EOL\"}")
