@@ -99,7 +99,7 @@ class GameAck(
                 arrayListOf("", "", "", "", "", "", "", ""),
                 setOrientation(row = state[1], color = "Black"),
                 setOrientation(row = state[0], color = "Black")
-            )
+            ).reversed()
         }
     }
 
