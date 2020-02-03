@@ -93,12 +93,12 @@ class GameAck(
             return arrayListOf(
                 setOrientation(row = config[0], color = "White"),
                 setOrientation(row = config[1], color = "White"),
-                state[2],
-                state[3],
-                state[4],
-                state[5],
-                setOrientation(row = state[6], color = "Black"),
-                setOrientation(row = state[7], color = "Black")
+                arrayListOf("", "", "", "", "", "", "", ""),
+                arrayListOf("", "", "", "", "", "", "", ""),
+                arrayListOf("", "", "", "", "", "", "", ""),
+                arrayListOf("", "", "", "", "", "", "", ""),
+                setOrientation(row = state[1], color = "Black"),
+                setOrientation(row = state[0], color = "Black")
             )
         }
     }

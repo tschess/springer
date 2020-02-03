@@ -23,7 +23,7 @@ class GeneratorTestGamePro(
             black = generatorTestPlayer.findByName(username = "aaa"),
             black_skin = SKIN.DEFAULT,
             challenger = CONTESTANT.BLACK,
-            state = generateState(config = traditionalConfig()),
+            state = traditionalConfig(),
             date_create = DATE_TIME_GENERATOR.rightNowString()
         )
         repositoryGame.save(ack)
@@ -73,10 +73,5 @@ class GeneratorTestGamePro(
         val r1 = arrayListOf("Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn")
         val r0 = arrayListOf("Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook")
         return arrayListOf(r0, r1)
-    }
-
-    private fun generateState(config: List<List<String>>): List<List<String>> {
-        val empty: List<String> = arrayListOf("", "", "", "", "", "", "", "")
-        return arrayListOf(empty, empty, empty, empty, empty, empty, config[1], config[0])
     }
 }
