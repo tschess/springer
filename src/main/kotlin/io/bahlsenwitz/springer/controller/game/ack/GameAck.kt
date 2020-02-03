@@ -10,7 +10,7 @@ import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.ResponseEntity
 import java.util.*
 
-//curl --header "Content-Type: application/json" --request POST --data '{"id_game":"11111111-1111-1111-1111-111111111111", "id_player": "99999999-9999-9999-9999-999999999999"}' http://localhost:8080/game/ack
+//curl --header "Content-Type: application/json" --request POST --data '{"id_game":"99999999-9999-9999-9999-999999999999", "id_player": "99999999-9999-9999-9999-999999999999"}' http://localhost:8080/game/ack
 class GameAck(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
@@ -78,15 +78,20 @@ class GameAck(
         fun traditionalConfig(): List<List<String>> {
             val r0 = arrayListOf("Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook")
             val r1 = arrayListOf("Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn")
-            return arrayListOf(r1, r0)
+            return arrayListOf(r0, r1)
         }
 
         fun generateState(config: List<List<String>>, state: List<List<String>>): List<List<String>> {
-            val empty: List<String> = arrayListOf("", "", "", "", "", "", "", "")
-            if (state[0] == empty) {
-                return arrayListOf(config[0], config[1], empty, empty, empty, empty, empty, empty)
-            }
-            return arrayListOf(empty, empty, empty, empty, empty, empty, config[0], config[1])
+            return arrayListOf(
+                config[0],
+                config[1],
+                state[2],
+                state[3],
+                state[4],
+                state[5],
+                state[6],
+                state[7]
+            )
         }
     }
 

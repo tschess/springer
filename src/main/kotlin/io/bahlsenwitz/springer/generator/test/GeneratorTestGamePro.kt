@@ -70,20 +70,13 @@ class GeneratorTestGamePro(
     }
 
     private fun traditionalConfig(): List<List<String>> {
-        val r0 = arrayListOf("Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook")
         val r1 = arrayListOf("Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn")
-        return arrayListOf(r1, r0)
+        val r0 = arrayListOf("Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook")
+        return arrayListOf(r0, r1)
     }
 
     private fun generateState(config: List<List<String>>): List<List<String>> {
-        val row0: List<String> = arrayListOf("", "", "", "", "", "", "", "")
-        val row1: List<String> = arrayListOf("", "", "", "", "", "", "", "")
-        val row2: List<String> = arrayListOf("", "", "", "", "", "", "", "")
-        val row3: List<String> = arrayListOf("", "", "", "", "", "", "", "")
-        val row4: List<String> = arrayListOf("", "", "", "", "", "", "", "")
-        val row5: List<String> = arrayListOf("", "", "", "", "", "", "", "")
-        val row6: List<String> = config[1]
-        val row7: List<String> = config[0]
-        return arrayListOf(row0, row1, row2, row3, row4, row5, row6, row7)
+        val empty: List<String> = arrayListOf("", "", "", "", "", "", "", "")
+        return arrayListOf(empty, empty, empty, empty, empty, empty, config[1], config[0])
     }
 }

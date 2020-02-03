@@ -66,18 +66,18 @@ class Player(
        val DATE_TIME_GENERATOR = GeneratorDateTime()
 
         fun defaultConfig0(): List<List<String>> {
-            val r0 = arrayListOf("","Bishop","Rook","Pawn","Pawn","Rook","Bishop","Pawn")
-            val r1 = arrayListOf("Bishop","","Rook","Knight","King","Rook","","Bishop")
+            val r1: List<String> = arrayListOf("","Bishop","Rook","Pawn","Pawn","Rook","Bishop","Pawn")
+            val r0: List<String> = arrayListOf("Bishop","","Rook","Knight","King","Rook","","Bishop")
             return arrayListOf(r0, r1)
         }
         fun defaultConfig1(): List<List<String>> {
-            val r0 = arrayListOf("Rook","Knight","Bishop","Queen","King","Bishop","Knight","Rook")
-            val r1 = arrayListOf("Pawn","Pawn","Pawn","Pawn","Pawn","Pawn","Pawn","Pawn")
-            return arrayListOf(r1, r0)
+            val r1: List<String> = arrayListOf("Pawn","Pawn","Pawn","Pawn","Pawn","Pawn","Pawn","Pawn")
+            val r0: List<String> = arrayListOf("Rook","Knight","Bishop","Queen","King","Bishop","Knight","Rook")
+            return arrayListOf(r0, r1)
         }
         fun defaultConfig2(): List<List<String>> {
-            val r0 = arrayListOf("","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop")
-            val r1 = arrayListOf("","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop","King")
+            val r1: List<String> = arrayListOf("","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop")
+            val r0: List<String> = arrayListOf("","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop","King")
             return arrayListOf(r0, r1)
         }
         fun defaultAvatar(): String {
