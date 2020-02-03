@@ -97,8 +97,8 @@ class GameAck(
                 arrayListOf("", "", "", "", "", "", "", ""),
                 arrayListOf("", "", "", "", "", "", "", ""),
                 arrayListOf("", "", "", "", "", "", "", ""),
-                setOrientation(row = config[0], color = "White"),
-                setOrientation(row = config[1], color = "White")
+                setOrientation(row = config[1], color = "White"),
+                setOrientation(row = config[0], color = "White")
             )
         }
     }
