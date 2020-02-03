@@ -1,12 +1,13 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-plugins {
-    kotlin("jvm") version "1.3.50"
-    kotlin("kapt") version "1.3.50"
-    kotlin("plugin.jpa") version "1.3.50"
-    kotlin("plugin.spring") version "1.3.50"
 
-    id("org.jetbrains.kotlin.plugin.allopen") version "1.3.50"
+plugins {
+    kotlin("jvm") version "1.3.60"
+    kotlin("kapt") version "1.3.60"
+    kotlin("plugin.jpa") version "1.3.60"
+    kotlin("plugin.spring") version "1.3.60"
+
+    id("org.jetbrains.kotlin.plugin.allopen") version "1.3.60"
     id("org.springframework.boot") version "2.1.8.RELEASE"
     id("io.spring.dependency-management") version "1.0.8.RELEASE"
 }
