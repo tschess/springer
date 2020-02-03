@@ -108,6 +108,7 @@ class GameAck(
         val white: Boolean = info.white
         val skin: SKIN = info.skin
         val state: List<List<String>> = game.state!!
+        val date: String = game.date_update
 
         companion object {
             data class Info(
