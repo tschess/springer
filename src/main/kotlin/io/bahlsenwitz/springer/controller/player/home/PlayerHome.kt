@@ -17,7 +17,7 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
 
         var indexFrom: Int = pageIndex * pageSize
         if(indexFrom > 0){
-            indexFrom -= 1
+            indexFrom += 1
         }
         val indexTo: Int = indexFrom + pageSize
 
