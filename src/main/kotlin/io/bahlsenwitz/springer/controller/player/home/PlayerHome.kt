@@ -15,7 +15,7 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
         val pageIndex: Int = requestPage.index
         val pageSize: Int = requestPage.size
 
-        val indexFrom: Int = pageIndex * pageSize
+        val indexFrom: Int = pageIndex * pageSize + 1
         val indexTo: Int = indexFrom + pageSize
 
         if (playerListFindAll.lastIndex < indexFrom) {
