@@ -29,7 +29,7 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
             }
             return ResponseEntity.ok(opponentPageList)
         }
-        opponentPlayerList = playerListFindAll.subList(indexFrom, indexTo + 1)
+        opponentPlayerList = playerListFindAll.subList(indexFrom, indexTo)
             for (opponentPlayer: Player in opponentPlayerList) {
                 val opponent = Player.Core(opponentPlayer)
                 opponentPageList.add(opponent)
