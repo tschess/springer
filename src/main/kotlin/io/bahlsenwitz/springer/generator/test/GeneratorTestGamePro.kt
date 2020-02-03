@@ -1,10 +1,12 @@
 package io.bahlsenwitz.springer.generator.test
 
 import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
+import io.bahlsenwitz.springer.model.common.SKIN
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.repository.RepositoryGame
+import java.util.*
 
 class GeneratorTestGamePro(
     private val repositoryGame: RepositoryGame,
@@ -14,6 +16,17 @@ class GeneratorTestGamePro(
     private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
     fun generate() {
+
+        val ack = Game(
+            id_game = UUID.fromString("99999999-9999-9999-9999-999999999999")!!,
+            white = generatorTestPlayer.findByName(username = "999"),
+            black = generatorTestPlayer.findByName(username = "aaa"),
+            black_skin = SKIN.DEFAULT,
+            challenger = CONTESTANT.BLACK,
+            state = generateState(config = traditionalConfig()),
+            date_create = DATE_TIME_GENERATOR.rightNowString()
+        )
+        repositoryGame.save(ack)
 
         val invite00 = Game(
             white = generatorTestPlayer.findByName(username = "777"),
@@ -54,5 +67,23 @@ class GeneratorTestGamePro(
             turn = CONTESTANT.BLACK
         )
         repositoryGame.save(invite03)
+    }
+
+    private fun traditionalConfig(): List<List<String>> {
+        val r0 = arrayListOf("Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook")
+        val r1 = arrayListOf("Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn")
+        return arrayListOf(r1, r0)
+    }
+
+    private fun generateState(config: List<List<String>>): List<List<String>> {
+        val row0: List<String> = arrayListOf("", "", "", "", "", "", "", "")
+        val row1: List<String> = arrayListOf("", "", "", "", "", "", "", "")
+        val row2: List<String> = arrayListOf("", "", "", "", "", "", "", "")
+        val row3: List<String> = arrayListOf("", "", "", "", "", "", "", "")
+        val row4: List<String> = arrayListOf("", "", "", "", "", "", "", "")
+        val row5: List<String> = arrayListOf("", "", "", "", "", "", "", "")
+        val row6: List<String> = config[1]
+        val row7: List<String> = config[0]
+        return arrayListOf(row0, row1, row2, row3, row4, row5, row6, row7)
     }
 }
