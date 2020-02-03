@@ -81,16 +81,24 @@ class GameAck(
             return arrayListOf(r0, r1)
         }
 
+        private fun setOrientation(row: List<String>, color: String): List<String> {
+            val colorRow: MutableList<String> = mutableListOf()
+            for (element: String in row) {
+                colorRow.add("${color}${element}")
+            }
+            return colorRow
+        }
+
         fun generateState(config: List<List<String>>, state: List<List<String>>): List<List<String>> {
             return arrayListOf(
-                config[0],
-                config[1],
+                setOrientation(row = config[0], color = "White"),
+                setOrientation(row = config[1], color = "White"),
                 state[2],
                 state[3],
                 state[4],
                 state[5],
-                state[6],
-                state[7]
+                setOrientation(row = state[6], color = "Black"),
+                setOrientation(row = state[7], color = "Black")
             )
         }
     }
