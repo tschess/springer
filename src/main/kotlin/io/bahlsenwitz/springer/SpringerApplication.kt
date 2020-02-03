@@ -18,9 +18,9 @@ class SpringerApplication(
         val generatorTestPlayer = GeneratorTestPlayer(repositoryPlayer)
         generatorTestPlayer.generate()
 
-        GeneratorTestGameAct(repositoryGame, generatorTestPlayer).generate()
-        GeneratorTestGameFin(repositoryGame, generatorTestPlayer).generate()
-        GeneratorTestGamePro(repositoryGame, generatorTestPlayer).generate()
+        //GeneratorTestGameAct(repositoryGame, generatorTestPlayer).generate()
+        //GeneratorTestGameFin(repositoryGame, generatorTestPlayer).generate()
+        //GeneratorTestGamePro(repositoryGame, generatorTestPlayer).generate()
     }
 }
 

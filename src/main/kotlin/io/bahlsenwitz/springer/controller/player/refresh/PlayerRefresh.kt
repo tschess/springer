@@ -5,15 +5,19 @@ import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.ResponseEntity
 import java.util.*
 
+//val testList: MutableList<Int> = mutableListOf()
+//for (playerX: Player in playerList) {
+//    testList.add(playerX.rank)
+//}
+//return ResponseEntity.ok(testList)
+//curl --header "Content-Type: application/json" --request POST --data '{"id_player": "99999999-9999-9999-9999-999999999999", "size": 9}' http://localhost:8080/player/refresh
 class PlayerRefresh(private val repositoryPlayer: RepositoryPlayer) {
 
     fun refresh(requestRefresh: RequestRefresh): ResponseEntity<Any> {
-
         val uuid: UUID = UUID.fromString(requestRefresh.id_player)!!
         val player: Player = repositoryPlayer.findById(uuid).get()
 
-        val size: Int = requestRefresh.page_size + 1
-
+        val size: Int = requestRefresh.size
         val playerList: List<Player> = repositoryPlayer.findAll().sorted().subList(0, size)
 
         val playerRefreshCore: PlayerRefreshCore = PlayerRefreshCore(player = player, playerList = playerList)
@@ -22,7 +26,7 @@ class PlayerRefresh(private val repositoryPlayer: RepositoryPlayer) {
 
     data class RequestRefresh(
         val id_player: String,
-        val page_size: Int
+        val size: Int
     )
 
     class PlayerRefreshCore(player: Player, playerList: List<Player>) {
