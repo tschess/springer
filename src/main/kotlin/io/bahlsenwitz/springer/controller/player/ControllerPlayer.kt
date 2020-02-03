@@ -7,6 +7,7 @@ import io.bahlsenwitz.springer.controller.player.init.PlayerInit
 import io.bahlsenwitz.springer.controller.player.notify.PlayerNotify
 import io.bahlsenwitz.springer.controller.player.profile.PlayerProfile
 import io.bahlsenwitz.springer.controller.player.quick.PlayerQuick
+import io.bahlsenwitz.springer.controller.player.refresh.PlayerRefresh
 import io.bahlsenwitz.springer.controller.player.start.PlayerStart
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
@@ -96,6 +97,13 @@ class ControllerPlayer(repositoryPlayer: RepositoryPlayer) {
     @PostMapping("/leaderboard")
     fun leaderboard(@Valid @RequestBody requestPage: PlayerHome.RequestPage): ResponseEntity<Any> {
         return playerHome.leaderboard(requestPage)
+    }
+
+    val playerRefresh = PlayerRefresh(repositoryPlayer)
+
+    @PostMapping("/refresh")
+    fun refresh(@Valid @RequestBody requestRefresh: PlayerRefresh.RequestRefresh): ResponseEntity<Any> {
+        return playerRefresh.refresh(requestRefresh)
     }
 
     val playerNotify = PlayerNotify(repositoryPlayer)
