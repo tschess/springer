@@ -3,6 +3,7 @@ package io.bahlsenwitz.springer.controller.game
 import io.bahlsenwitz.springer.controller.game.ack.GameAck
 import io.bahlsenwitz.springer.controller.game.actual.GameActual
 import io.bahlsenwitz.springer.controller.game.challenge.GameChallenge
+import io.bahlsenwitz.springer.controller.game.connect.GameConnect
 import io.bahlsenwitz.springer.controller.game.historic.GameHistoric
 import io.bahlsenwitz.springer.controller.game.nack.GameNack
 import io.bahlsenwitz.springer.controller.game.quick.GameQuick
@@ -44,6 +45,17 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     fun actual(@Valid @RequestBody updateTest: GameActual.RequestActual): ResponseEntity<Any> {
         return gameActual.actual(updateTest)
     }
+
+    val gameConnect = GameConnect(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+
+    @PostMapping("/connect")
+    fun connect(@Valid @RequestBody requestConnect: GameConnect.RequestConnect): ResponseEntity<Any> {
+        return gameConnect.connect(requestConnect)
+    }
+
+    /**
+     * Ack.swift
+     */
 
     val gameAck = GameAck(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
 
