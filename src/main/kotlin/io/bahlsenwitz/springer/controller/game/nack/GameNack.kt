@@ -8,7 +8,6 @@ import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.util.*
 
@@ -39,7 +38,7 @@ class GameNack(
          */
         val playerFindAllList: List<Player> = repositoryPlayer.findAll().sorted()
         playerFindAllList.forEachIndexed forEach@{ index, player ->
-            if(player.rank == index){
+            if (player.rank == index) {
                 return@forEach
             }
             val disp: Int = player.rank - index
@@ -51,8 +50,9 @@ class GameNack(
             repositoryPlayer.save(player)
         }
         //^^^
-        
-        return ResponseEntity.status(HttpStatus.OK).body("{\"nack\": \"${game.id}\"}")
+
+        val playerX: Player = repositoryPlayer.findById(uuid1).get()
+        return ResponseEntity.ok(playerX)
     }
 
     data class UpdateNack(
