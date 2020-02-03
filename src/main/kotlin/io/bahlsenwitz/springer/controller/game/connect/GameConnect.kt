@@ -3,7 +3,6 @@ package io.bahlsenwitz.springer.controller.game.connect
 import io.bahlsenwitz.springer.model.common.SKIN
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
-import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
@@ -37,7 +36,7 @@ class GameConnect(
         val state: List<List<String>> = game.state!!
         val date: String = game.date_update
         val turn: CONTESTANT = game.turn
-        val status: STATUS = game.status
+        val status: String = game.status.toString()
         val highlight: String = game.highlight
         val on_check: Boolean = game.on_check
 
