@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity
 class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
 
     fun leaderboard(requestPage: RequestPage): ResponseEntity<Any> {
-        val testList: MutableList<Int> = mutableListOf()
+        //val testList: MutableList<Int> = mutableListOf()
 
         val playerListFindAll: List<Player> = repositoryPlayer.findAll().sorted()
         val opponentPlayerList: List<Player>
@@ -35,7 +35,7 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
             for (opponentPlayer: Player in opponentPlayerList) {
                 val opponent = Player.Core(opponentPlayer)
                 pageList.add(opponent)
-                testList.add(opponentPlayer.rank)
+                //testList.add(opponentPlayer.rank)
             }
             //return ResponseEntity.ok(testList)
             return ResponseEntity.ok(pageList)
@@ -44,7 +44,7 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
         for (opponentPlayer: Player in opponentPlayerList) {
             val opponent = Player.Core(opponentPlayer)
             pageList.add(opponent)
-            testList.add(opponentPlayer.rank)
+            //testList.add(opponentPlayer.rank)
         }
         //return ResponseEntity.ok(testList)
         return ResponseEntity.ok(pageList)
