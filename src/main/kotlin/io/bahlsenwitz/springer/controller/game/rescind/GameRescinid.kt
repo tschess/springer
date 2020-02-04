@@ -1,8 +1,6 @@
-package io.bahlsenwitz.springer.controller.game.nack
+package io.bahlsenwitz.springer.controller.game.rescind
 
 import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
-import io.bahlsenwitz.springer.model.common.Elo
-import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.OUTCOME
 import io.bahlsenwitz.springer.model.game.STATUS
@@ -12,27 +10,24 @@ import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.ResponseEntity
 import java.util.*
 
-class GameNack(
+class GameRescind(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
 ) {
     val DATE_TIME_GENERATOR = GeneratorDateTime()
 
-    fun nack(updateNack: UpdateNack): ResponseEntity<Any> {
-        val uuid0: UUID = UUID.fromString(updateNack.id_game)!!
+    fun rescind(updateRescind: UpdateRescind): ResponseEntity<Any> {
+        val uuid0: UUID = UUID.fromString(updateRescind.id_game)!!
         val game: Game = repositoryGame.findById(uuid0).get()
         game.status = STATUS.RESOLVED
-        game.outcome = OUTCOME.REFUSED
+        game.outcome = OUTCOME.RESCIND
         repositoryGame.save(game)
 
-        val uuid1: UUID = UUID.fromString(updateNack.id_player)!!
+        val uuid1: UUID = UUID.fromString(updateRescind.id_player)!!
         val player0: Player = repositoryPlayer.findById(uuid1).get()
 
-        val elo0: Int = player0.elo
-        val elo: Elo = Elo(elo0)
-        val elo1: Int = elo.update(resultActual = RESULT.LOSS, eloOpponent = elo0)
-
-        player0.elo = elo1
+        val elo: Int = player0.elo - 1
+        player0.elo = elo
         repositoryPlayer.save(player0)
 
         /**
@@ -59,7 +54,7 @@ class GameNack(
         return ResponseEntity.ok(playerX) //in fact ~ this only needs to return the header info...
     }
 
-    data class UpdateNack(
+    data class UpdateRescind(
         val id_game: String,
         val id_player: String
     )

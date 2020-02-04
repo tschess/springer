@@ -27,11 +27,11 @@ class GameCoreActual(player: Player, game: Game) {
             var invitation: Boolean = false
             var username: String = game.white.username
             var avatar: String = game.white.avatar
-            var date: String = game.date_update
+            var date: String = game.updated
 
             if (game.status == STATUS.PROPOSED) { //invite
                 invitation = true
-                date = game.date_create
+                date = game.created
                 if (game.challenger == CONTESTANT.WHITE) { //from white
                     if (player == game.black) { //fetch by black
                         inbound = true

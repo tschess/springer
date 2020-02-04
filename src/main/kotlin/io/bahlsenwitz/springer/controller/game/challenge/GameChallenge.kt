@@ -46,9 +46,7 @@ class GameChallenge(
             black = black,
             black_skin = black_skin,
             challenger = CONTESTANT.BLACK,
-            state = config,
-            date_create = DATE_TIME_GENERATOR.rightNowString()
-        )
+            state = config)
         repositoryGame.save(game)
 
         white.notify = true

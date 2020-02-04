@@ -6,7 +6,7 @@ class GameCoreHistoric(player: Player, game: Game) {
     private val info = getInfo(player, game)
 
     val game_id: String = game.id.toString()
-    val date_end: String = game.date_end
+    val date_end: String = game.updated
 
     val opponent_id: String = info.id
     val opponent_avatar: String = info.avatar

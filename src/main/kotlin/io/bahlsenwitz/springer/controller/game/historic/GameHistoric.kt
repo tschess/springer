@@ -63,8 +63,8 @@ class GameHistoric(private val repositoryGame: RepositoryGame,
             private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
             override fun compare(a: Game, b: Game): Int {
-                val dateA: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = a.date_end)
-                val dateB: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = b.date_end)
+                val dateA: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = a.updated)
+                val dateB: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = b.updated)
                 if (dateA.isBefore(dateB)) {
                     return -1
                 }

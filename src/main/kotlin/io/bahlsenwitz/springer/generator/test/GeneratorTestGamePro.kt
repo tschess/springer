@@ -23,27 +23,21 @@ class GeneratorTestGamePro(
             black = generatorTestPlayer.findByName(username = "aaa"),
             black_skin = SKIN.DEFAULT,
             challenger = CONTESTANT.BLACK,
-            state = traditionalConfig(),
-            date_create = DATE_TIME_GENERATOR.rightNowString()
-        )
+            state = traditionalConfig())
         repositoryGame.save(ack)
 
         val invite00 = Game(
             white = generatorTestPlayer.findByName(username = "777"),
             black = generatorTestPlayer.findByName(username = "aaa"),
             status = STATUS.PROPOSED,
-            challenger = CONTESTANT.BLACK,
-            date_create = DATE_TIME_GENERATOR.rightNowString()
-        )
+            challenger = CONTESTANT.BLACK)
         repositoryGame.save(invite00)
 
         val invite01 = Game(
             white = generatorTestPlayer.findByName(username = "aaa"),
             black = generatorTestPlayer.findByName(username = "ccc"),
             status = STATUS.PROPOSED,
-            challenger = CONTESTANT.BLACK,
-            date_create = DATE_TIME_GENERATOR.rightNowString()
-        )
+            challenger = CONTESTANT.BLACK)
         repositoryGame.save(invite01)
 
         val invite02 = Game(
@@ -51,10 +45,7 @@ class GeneratorTestGamePro(
             black = generatorTestPlayer.findByName(username = "888"),
             status = STATUS.ONGOING,
             challenger = CONTESTANT.BLACK,
-            date_create = DATE_TIME_GENERATOR.rightNowString(),
-            date_update = DATE_TIME_GENERATOR.rightNowString(),
-            turn = CONTESTANT.BLACK
-        )
+            turn = CONTESTANT.BLACK)
         repositoryGame.save(invite02)
 
         val invite03 = Game(
@@ -62,10 +53,7 @@ class GeneratorTestGamePro(
             black = generatorTestPlayer.findByName(username = "aaa"),
             status = STATUS.ONGOING,
             challenger = CONTESTANT.BLACK,
-            date_create = DATE_TIME_GENERATOR.rightNowString(),
-            date_update = DATE_TIME_GENERATOR.rightNowString(),
-            turn = CONTESTANT.BLACK
-        )
+            turn = CONTESTANT.BLACK)
         repositoryGame.save(invite03)
     }
 

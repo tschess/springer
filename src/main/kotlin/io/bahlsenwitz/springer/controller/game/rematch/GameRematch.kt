@@ -60,7 +60,7 @@ class GameRematch(
             white_skin = white_skin,
             black_skin = black_skin,
             state = state,
-            date_create = DATE_TIME_GENERATOR.rightNowString()
+            created = DATE_TIME_GENERATOR.rightNowString()
         )
         repositoryGame.save(game1)
         return ResponseEntity.status(HttpStatus.OK).body("{\"challenge\": \"${game1.id}\"}")

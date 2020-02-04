@@ -38,7 +38,7 @@ class GameAck(
 
         game.state = state
         game.status = STATUS.ONGOING
-        game.date_update = DATE_TIME_GENERATOR.rightNowString()
+        game.updated = DATE_TIME_GENERATOR.rightNowString()
 
         var white: Boolean = false
         if (game.white == player) {
@@ -108,7 +108,7 @@ class GameAck(
         val white: Boolean = info.white
         val skin: SKIN = info.skin
         val state: List<List<String>> = game.state!!
-        val date: String = game.date_update
+        val date: String = game.updated
 
         companion object {
             data class Info(

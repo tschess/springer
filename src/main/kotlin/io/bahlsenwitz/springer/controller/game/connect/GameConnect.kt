@@ -34,7 +34,7 @@ class GameConnect(
         val white: Boolean = info.white
         val skin: SKIN = info.skin
         val state: List<List<String>> = game.state!!
-        val date: String = game.date_update
+        val date: String = game.updated
         val turn: CONTESTANT = game.turn
         val status: String = game.status.toString()
         val highlight: String = game.highlight

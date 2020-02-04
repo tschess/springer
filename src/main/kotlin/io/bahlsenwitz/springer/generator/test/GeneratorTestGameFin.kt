@@ -26,7 +26,7 @@ class GeneratorTestGameFin(
             moves = 33,
             outcome = OUTCOME.CHECKMATE,
             winner = CONTESTANT.WHITE,
-            date_end = DATE_TIME_GENERATOR.rightNowString(),
+            updated = DATE_TIME_GENERATOR.rightNowString(),
             status = STATUS.RESOLVED
         )
         repositoryGame.save(snap)
@@ -36,7 +36,7 @@ class GeneratorTestGameFin(
             black = generatorTestPlayer.findByName(username = "bbb"),
             status = STATUS.RESOLVED,
             winner = CONTESTANT.WHITE,
-            date_end = DATE_TIME_GENERATOR.rightNowString(),
+            updated = DATE_TIME_GENERATOR.rightNowString(),
             white_disp = 1,
             black_disp = -7,
             state = defaultState()
@@ -50,7 +50,7 @@ class GeneratorTestGameFin(
             black = generatorTestPlayer.findByName(username = "ccc"),
             status = STATUS.RESOLVED,
             winner = CONTESTANT.WHITE,
-            date_end = DATE_TIME_GENERATOR.rightNowString(),
+            updated = DATE_TIME_GENERATOR.rightNowString(),
             white_disp = -3,
             black_disp = 1,
             state = defaultState()
@@ -64,7 +64,7 @@ class GeneratorTestGameFin(
             black = generatorTestPlayer.findByName(username = "ddd"),
             status = STATUS.RESOLVED,
             winner = CONTESTANT.BLACK,
-            date_end = DATE_TIME_GENERATOR.rightNowString(),
+            updated = DATE_TIME_GENERATOR.rightNowString(),
             white_disp = -9,
             black_disp = 0,
             state = defaultState()
@@ -77,7 +77,7 @@ class GeneratorTestGameFin(
             white = generatorTestPlayer.findByName(username = "aaa"),
             black = generatorTestPlayer.findByName(username = "eee"),
             status = STATUS.RESOLVED,
-            date_end = DATE_TIME_GENERATOR.rightNowString(),
+            updated = DATE_TIME_GENERATOR.rightNowString(),
             white_disp = 14,
             black_disp = -4,
             state = defaultState()
@@ -89,7 +89,7 @@ class GeneratorTestGameFin(
             black = generatorTestPlayer.findByName(username = "fff"),
             status = STATUS.RESOLVED,
             winner = CONTESTANT.BLACK,
-            date_end = DATE_TIME_GENERATOR.rightNowString(),
+            updated = DATE_TIME_GENERATOR.rightNowString(),
             white_disp = 6,
             black_disp = -2,
             state = defaultState()

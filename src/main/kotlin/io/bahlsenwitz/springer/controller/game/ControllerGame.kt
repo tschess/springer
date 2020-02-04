@@ -8,6 +8,8 @@ import io.bahlsenwitz.springer.controller.game.historic.GameHistoric
 import io.bahlsenwitz.springer.controller.game.nack.GameNack
 import io.bahlsenwitz.springer.controller.game.quick.GameQuick
 import io.bahlsenwitz.springer.controller.game.rematch.GameRematch
+import io.bahlsenwitz.springer.controller.game.rescind.GameRescind
+import io.bahlsenwitz.springer.controller.game.resign.GameResign
 import io.bahlsenwitz.springer.controller.game.resolve.GameResolve
 import io.bahlsenwitz.springer.controller.game.snapshot.GameSnapshot
 import io.bahlsenwitz.springer.controller.game.test.GameTest
@@ -29,6 +31,14 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     /**
      * Tschess.swift
      */
+
+    val gameResign = GameResign(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+
+    @PostMapping("/resign")
+    fun resign(@Valid @RequestBody updateResign: GameResign.UpdateResign): ResponseEntity<Any> {
+        return gameResign.resign(updateResign)
+    }
+
     val gameResolve = GameResolve(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
 
     @PostMapping("/resolve")
@@ -69,6 +79,13 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     @PostMapping("/nack")
     fun nack(@Valid @RequestBody updateNack: GameNack.UpdateNack): ResponseEntity<Any> {
         return gameNack.nack(updateNack)
+    }
+
+    val gameRescind = GameRescind(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+
+    @PostMapping("/rescind")
+    fun rescind(@Valid @RequestBody updateRescind: GameRescind.UpdateRescind): ResponseEntity<Any> {
+        return gameRescind.rescind(updateRescind)
     }
 
     /**

@@ -46,10 +46,8 @@ class Game(
     var on_check: Boolean = false,
     var highlight: String = PLACEHOLDER,
 
-    var date_start: String = PLACEHOLDER,
-    var date_end: String = PLACEHOLDER,
-    var date_update: String = PLACEHOLDER,
-    var date_create: String = DATE_TIME_GENERATOR.rightNowString()
+    var updated: String = DATE_TIME_GENERATOR.rightNowString(),
+    var created: String = DATE_TIME_GENERATOR.rightNowString()
 
 ) : EntityUUID(id_game) {
     companion object {
@@ -70,7 +68,6 @@ enum class CONTESTANT {
 
 enum class STATUS {
     PROPOSED,
-    DECLINED, //expired or refused
     ONGOING,
     PENDING, //pending draw...
     RESOLVED
@@ -83,6 +80,7 @@ enum class OUTCOME {
     DRAW,
     EXPIRED, //of an invitation
     REFUSED, //of an invitation
+    RESCIND, //of an invitation
     TBD
 }
 

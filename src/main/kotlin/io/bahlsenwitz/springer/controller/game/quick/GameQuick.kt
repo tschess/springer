@@ -46,9 +46,7 @@ class GameQuick(
             white_skin = white_skin,
             black = black,
             black_skin = black_skin,
-            challenger = CONTESTANT.WHITE,
-            date_create = DATE_TIME_GENERATOR.rightNowString()
-        )
+            challenger = CONTESTANT.WHITE)
         return ResponseEntity.ok(repositoryGame.save(game))
     }
 
