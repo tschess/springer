@@ -37,12 +37,12 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.2")
     implementation("org.json:json:20190722")
     implementation("com.squareup.moshi:moshi-kotlin:1.9.2")
-    implementation("org.apache.httpcomponents:httpclient:4.5.11")
+    implementation("org.apache.httpcomponents:httpclient:4.5.10")
     runtimeOnly("org.postgresql:postgresql:42.2.9")
 
-    testImplementation("io.kotlintest:kotlintest-core:3.1.2")
-    testImplementation("io.kotlintest:kotlintest-assertions:3.4.2")
-    testImplementation("io.kotlintest:kotlintest-runner-junit5:3.3.2")
+    testImplementation("io.kotlintest:kotlintest-core:3.0.2")
+    testImplementation("io.kotlintest:kotlintest-assertions:3.0.2")
+    testImplementation("io.kotlintest:kotlintest-runner-junit5:3.0.2")
     testImplementation("org.assertj:assertj-core")
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.2.4.RELEASE")
 }
