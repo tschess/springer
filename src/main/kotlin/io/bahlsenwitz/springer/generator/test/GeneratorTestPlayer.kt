@@ -24,7 +24,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             password = PASSWORD,
             avatar = GeneratorAvatar().getPhotoText("https://github.com/tschess/catacombes/raw/master/mr_white.jpg"),
             elo = 1200,
-            rank = 0,
+            rank = 1,
             disp = 3,
             notify = true
         )
@@ -36,7 +36,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             password = PASSWORD,
             avatar = GeneratorAvatar().getPhotoText("https://github.com/tschess/catacombes/raw/master/batman.png"),
             elo = 1199,
-            rank = 1,
+            rank = 2,
             disp = 1
         )
         testPlayerList.add(black) //1
@@ -47,7 +47,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             password = PASSWORD,
             avatar = GeneratorAvatar().getPhotoText("https://github.com/tschess/catacombes/raw/master/skull_pink.png"),
             elo = 1198,
-            rank = 2,
+            rank = 3,
             disp = -3
         )
         testPlayerList.add(test) //2
@@ -56,7 +56,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             username = "aaa",
             password = PASSWORD,
             elo = 1197,
-            rank = 3,
+            rank = 4,
             disp = -1
         )
         testPlayerList.add(playerA) //3
@@ -65,7 +65,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             username = "bbb",
             password = PASSWORD,
             elo = 1196,
-            rank = 4,
+            rank = 5,
             disp = 0
         )
         testPlayerList.add(playerB) //4
@@ -74,7 +74,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             username = "ccc",
             password = PASSWORD,
             elo = 1195,
-            rank = 5,
+            rank = 6,
             disp = -5
         )
         testPlayerList.add(playerC) //5
@@ -83,7 +83,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             username = "ddd",
             password = PASSWORD,
             elo = 1194,
-            rank = 6,
+            rank = 7,
             disp = 1
         )
         testPlayerList.add(playerD) //6
@@ -92,7 +92,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             username = "eee",
             password = PASSWORD,
             elo = 1193,
-            rank = 7,
+            rank = 8,
             disp = -3
         )
         testPlayerList.add(playerE) //7
@@ -101,7 +101,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             username = "fff",
             password = PASSWORD,
             elo = 1192,
-            rank = 8,
+            rank = 9,
             disp = 1
         )
         testPlayerList.add(playerF) //8
@@ -111,7 +111,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             username = "999",
             password = PASSWORD,
             elo = 1191,
-            rank = 9,
+            rank = 10,
             disp = 0
         )
         testPlayerList.add(player9) //9
@@ -120,7 +120,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             username = "888",
             password = PASSWORD,
             elo = 1190,
-            rank = 10,
+            rank = 11,
             disp = 3
         )
         testPlayerList.add(player8) //10
@@ -131,7 +131,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             username = "777",
             password = PASSWORD,
             elo = 1190,
-            rank = 11,
+            rank = 12,
             disp = 3
         )
         testPlayerList.add(player7) //11

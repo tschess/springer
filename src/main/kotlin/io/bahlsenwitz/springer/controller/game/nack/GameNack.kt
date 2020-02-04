@@ -37,16 +37,19 @@ class GameNack(
          * LEADERBOARD RECALC
          */
         val playerFindAllList: List<Player> = repositoryPlayer.findAll().sorted()
-        playerFindAllList.forEachIndexed { index, player ->
-            if (player.rank != index) {
-                val disp: Int = player.rank - index
-                player.disp = disp
-                val date: String = DATE_TIME_GENERATOR.rightNowString()
-                player.date = date
-                val rank: Int = index
-                player.rank = rank
+        playerFindAllList.forEachIndexed forEach@{ index, player ->
+            if (player.rank == index + 1) {
+                player.disp = 0
                 repositoryPlayer.save(player)
+                return@forEach
             }
+            val disp: Int = player.rank - (index + 1)
+            player.disp = disp
+            val date: String = DATE_TIME_GENERATOR.rightNowString()
+            player.date = date
+            val rank: Int = (index + 1)
+            player.rank = rank
+            repositoryPlayer.save(player)
         }
         //^^^
 
