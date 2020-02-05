@@ -15,7 +15,7 @@ import javax.persistence.*
 @Table(name = "game")
 @TypeDefs(TypeDef(name = "jsonb", typeClass = JsonBinaryType::class))
 class Game(
-    id_game: UUID? = null,
+    id: UUID? = null,
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
@@ -49,7 +49,7 @@ class Game(
     var updated: String = DATE_TIME_GENERATOR.rightNowString(),
     var created: String = DATE_TIME_GENERATOR.rightNowString()
 
-) : EntityUUID(id_game) {
+) : EntityUUID(id) {
     companion object {
         val DATE_TIME_GENERATOR = GeneratorDateTime()
 

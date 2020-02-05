@@ -18,7 +18,7 @@ import kotlin.collections.HashMap
 @Table(name = "player")
 @TypeDefs(TypeDef(name = "jsonb", typeClass = JsonBinaryType::class))
 class Player(
-    id_player: UUID? = null,
+    id: UUID? = null,
 
     @Column(unique = true)
     var username: String,
@@ -58,7 +58,7 @@ class Player(
     var updated: String = DATE_TIME_GENERATOR.rightNowString(),
     var created: String = DATE_TIME_GENERATOR.rightNowString()
 
-): EntityUUID(id_player), Comparable<Player> {
+): EntityUUID(id), Comparable<Player> {
 
     companion object {
         const val PLACEHOLDER: String = "TBD"
@@ -102,14 +102,14 @@ class Player(
         return 1
     }
 
-    class Core(player: Player) {
-        val id: String = player.id.toString()
-        val username: String = player.username
-        val avatar: String = player.avatar
-        val elo: Int = player.elo
-        val rank: Int = player.rank
-        val date: String = player.date
-        val disp: Int = player.disp
-    }
+//    class Core(player: Player) {
+//        val id: String = player.id.toString()
+//        val username: String = player.username
+//        val avatar: String = player.avatar
+//        val elo: Int = player.elo
+//        val rank: Int = player.rank
+//        val date: String = player.date
+//        val disp: Int = player.disp
+//    }
 }
 

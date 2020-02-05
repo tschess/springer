@@ -19,7 +19,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
         repositoryPlayer.deleteAll()
 
         val white = Player(
-            id_player = UUID.fromString("00000000-0000-0000-0000-000000000000")!!,
+            id = UUID.fromString("00000000-0000-0000-0000-000000000000")!!,
             username = "white",
             password = PASSWORD,
             avatar = GeneratorAvatar().getPhotoText("https://github.com/tschess/catacombes/raw/master/mr_white.jpg"),
@@ -31,7 +31,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
         testPlayerList.add(white) //0
 
         val black = Player(
-            id_player = UUID.fromString("11111111-1111-1111-1111-111111111111")!!,
+            id = UUID.fromString("11111111-1111-1111-1111-111111111111")!!,
             username = "black",
             password = PASSWORD,
             avatar = GeneratorAvatar().getPhotoText("https://github.com/tschess/catacombes/raw/master/batman.png"),
@@ -42,7 +42,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
         testPlayerList.add(black) //1
 
         val test = Player(
-            id_player = UUID.fromString("22222222-2222-2222-2222-222222222222")!!,
+            id = UUID.fromString("22222222-2222-2222-2222-222222222222")!!,
             username = "test",
             password = PASSWORD,
             avatar = GeneratorAvatar().getPhotoText("https://github.com/tschess/catacombes/raw/master/skull_pink.png"),
@@ -107,7 +107,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
         testPlayerList.add(playerF) //8
 
         val player9 = Player(
-            id_player = UUID.fromString("99999999-9999-9999-9999-999999999999")!!,
+            id = UUID.fromString("99999999-9999-9999-9999-999999999999")!!,
             username = "999",
             password = PASSWORD,
             elo = 1191,

@@ -11,7 +11,7 @@ class GeneratorTestGameAct(
 
     fun generate() {
         val test = Game(
-            id_game = UUID.fromString("00000000-0000-0000-0000-000000000000")!!,
+            id = UUID.fromString("00000000-0000-0000-0000-000000000000")!!,
             white = generatorTestPlayer.findByName(username = "white"),
             black = generatorTestPlayer.findByName(username = "black")
         )

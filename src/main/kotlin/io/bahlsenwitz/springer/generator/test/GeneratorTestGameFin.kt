@@ -19,7 +19,7 @@ class GeneratorTestGameFin(
         repositoryGame.deleteAll()
 
         val snap = Game(
-            id_game = UUID.fromString("11111111-1111-1111-1111-111111111111")!!,
+            id = UUID.fromString("11111111-1111-1111-1111-111111111111")!!,
             white = generatorTestPlayer.findByName(username = "999"),
             black = generatorTestPlayer.findByName(username = "888"),
             state = defaultState(),

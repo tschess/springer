@@ -18,7 +18,7 @@ class GeneratorTestGamePro(
     fun generate() {
 
         val ack = Game(
-            id_game = UUID.fromString("99999999-9999-9999-9999-999999999999")!!,
+            id = UUID.fromString("99999999-9999-9999-9999-999999999999")!!,
             white = generatorTestPlayer.findByName(username = "999"),
             black = generatorTestPlayer.findByName(username = "aaa"),
             black_skin = SKIN.DEFAULT,

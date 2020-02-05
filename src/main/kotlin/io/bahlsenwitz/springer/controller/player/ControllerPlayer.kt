@@ -80,7 +80,7 @@ class ControllerPlayer(repositoryPlayer: RepositoryPlayer) {
     val playerQuick = PlayerQuick(repositoryPlayer)
 
     @GetMapping("/quick/{id}")
-    fun quick(@PathVariable(value = "id") id: String): ResponseEntity<Player.Core> {
+    fun quick(@PathVariable(value = "id") id: String): ResponseEntity<Player> {
         return playerQuick.quick(id)
     }
 
