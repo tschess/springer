@@ -55,7 +55,7 @@ class Player(
     //var address: String = PLACEHOLDER,
 
     @Column(unique = true)
-    var device: String = PLACEHOLDER,
+    var device: String? = null,
     var updated: String = PLACEHOLDER,
     var created: String = DATE_TIME_GENERATOR.rightNowString()
 
