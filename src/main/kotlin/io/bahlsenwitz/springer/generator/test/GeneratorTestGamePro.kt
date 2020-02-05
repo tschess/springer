@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.generator.test
 
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.common.SKIN
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
@@ -13,8 +12,6 @@ class GeneratorTestGamePro(
     private val generatorTestPlayer: GeneratorTestPlayer
 ) {
 
-    private val DATE_TIME_GENERATOR = GeneratorDateTime()
-
     fun generate() {
 
         val ack = Game(
@@ -23,21 +20,24 @@ class GeneratorTestGamePro(
             black = generatorTestPlayer.findByName(username = "aaa"),
             black_skin = SKIN.DEFAULT,
             challenger = CONTESTANT.BLACK,
-            state = traditionalConfig())
+            state = traditionalConfig()
+        )
         repositoryGame.save(ack)
 
         val invite00 = Game(
             white = generatorTestPlayer.findByName(username = "777"),
             black = generatorTestPlayer.findByName(username = "aaa"),
             status = STATUS.PROPOSED,
-            challenger = CONTESTANT.BLACK)
+            challenger = CONTESTANT.BLACK
+        )
         repositoryGame.save(invite00)
 
         val invite01 = Game(
             white = generatorTestPlayer.findByName(username = "aaa"),
             black = generatorTestPlayer.findByName(username = "ccc"),
             status = STATUS.PROPOSED,
-            challenger = CONTESTANT.BLACK)
+            challenger = CONTESTANT.BLACK
+        )
         repositoryGame.save(invite01)
 
         val invite02 = Game(
@@ -45,7 +45,8 @@ class GeneratorTestGamePro(
             black = generatorTestPlayer.findByName(username = "888"),
             status = STATUS.ONGOING,
             challenger = CONTESTANT.BLACK,
-            turn = CONTESTANT.BLACK)
+            turn = CONTESTANT.BLACK
+        )
         repositoryGame.save(invite02)
 
         val invite03 = Game(
@@ -53,7 +54,8 @@ class GeneratorTestGamePro(
             black = generatorTestPlayer.findByName(username = "aaa"),
             status = STATUS.ONGOING,
             challenger = CONTESTANT.BLACK,
-            turn = CONTESTANT.BLACK)
+            turn = CONTESTANT.BLACK
+        )
         repositoryGame.save(invite03)
     }
 
