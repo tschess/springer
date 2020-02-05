@@ -16,12 +16,12 @@ class PlayerRefresh(private val repositoryPlayer: RepositoryPlayer) {
     fun refresh(requestRefresh: RequestRefresh): ResponseEntity<Any> {
         val refreshList: MutableList<Player> = mutableListOf()
 
-        val uuid: UUID = UUID.fromString(requestRefresh.id_player)!!
-        val player: Player = repositoryPlayer.findById(uuid).get()
-        refreshList.add(player)
-
         val size: Int = requestRefresh.size
         repositoryPlayer.findAll().sorted().subList(0, size).forEach { refreshList.add(it) }
+
+        val uuid: UUID = UUID.fromString(requestRefresh.id_player)!!
+        val player: Player = repositoryPlayer.findById(uuid).get()
+        refreshList.add(player) //easier to remove at end...
 
         return ResponseEntity.ok(refreshList)
     }
