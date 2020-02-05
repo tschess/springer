@@ -29,11 +29,6 @@ class ControllerPlayer(repositoryPlayer: RepositoryPlayer) {
         return playerInit.device(device)
     }
 
-    @PostMapping("/refresh/{id}")
-    fun refresh(@PathVariable(value = "id") id: String): ResponseEntity<Any> {
-        return playerInit.refresh(id)
-    }
-
     /**
      * Profile.swift
      */

@@ -7,9 +7,14 @@ import org.springframework.http.ResponseEntity
 
 class PlayerInit(private val repositoryPlayer: RepositoryPlayer) {
 
-    // TODO: Refresh (minimize then reopen the app...)...
+//     TODO: Refresh (minimize then reopen the app...)...
 //    fun refresh(id: String): ResponseEntity<Any> {
 //        return ResponseEntity.badRequest().body("{\"TODO\": \"IMPLEMENT_ME\"}")
+//    }
+//
+//    @PostMapping("/refresh/{id}")
+//    fun refresh(@PathVariable(value = "id") id: String): ResponseEntity<Any> {
+//        return playerInit.refresh(id)
 //    }
 
     fun device(device: String): ResponseEntity<Any> {
