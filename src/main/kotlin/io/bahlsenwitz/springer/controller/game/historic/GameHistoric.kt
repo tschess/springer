@@ -1,19 +1,20 @@
 package io.bahlsenwitz.springer.controller.game.historic
 
+import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.game.Game
-import io.bahlsenwitz.springer.model.game.GameCoreHistoric
-import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.model.game.STATUS
+import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.time.ZonedDateTime
 import java.util.*
 
-class GameHistoric(private val repositoryGame: RepositoryGame,
-                   private val repositoryPlayer: RepositoryPlayer) {
+class GameHistoric(
+    private val repositoryGame: RepositoryGame,
+    private val repositoryPlayer: RepositoryPlayer
+) {
 
     fun historic(requestHistoric: RequestHistoric): ResponseEntity<Any> {
         val uuid: UUID = UUID.fromString(requestHistoric.id)!!
@@ -22,7 +23,7 @@ class GameHistoric(private val repositoryGame: RepositoryGame,
         val playerListResolved: List<Game> = playerList.filter { it.status == STATUS.RESOLVED }
         val playerListResolvedSorted: List<Game> = playerListResolved.sortedWith(ComparatorHistoric)
 
-        val gameCoreHistoricList: MutableList<GameCoreHistoric> = mutableListOf()
+        val gameCoreHistoricList: MutableList<Game> = mutableListOf()
         val gameList: List<Game>
 
         val pageIndex: Int = requestHistoric.index
@@ -37,15 +38,15 @@ class GameHistoric(private val repositoryGame: RepositoryGame,
         if (playerListResolvedSorted.lastIndex + 1 <= indexTo) {
             gameList = playerListResolvedSorted.subList(indexFrom, playerListResolvedSorted.lastIndex + 1)
             for (game: Game in gameList) {
-                val gameCore = GameCoreHistoric(player = player, game = game)
-                gameCoreHistoricList.add(gameCore)
+                //val gameCore = GameCoreHistoric(player = player, game = game)
+                gameCoreHistoricList.add(game)
             }
             return ResponseEntity.ok(gameCoreHistoricList)
         }
         gameList = playerListResolvedSorted.subList(indexFrom, indexTo + 1)
         for (game: Game in gameList) {
-            val gameCore = GameCoreHistoric(player = player, game = game)
-            gameCoreHistoricList.add(gameCore)
+            //val gameCore = GameCoreHistoric(player = player, game = game)
+            gameCoreHistoricList.add(game)
         }
         return ResponseEntity.ok(gameCoreHistoricList)
     }
@@ -58,7 +59,7 @@ class GameHistoric(private val repositoryGame: RepositoryGame,
 
     class ComparatorHistoric {
 
-        companion object: Comparator<Game> {
+        companion object : Comparator<Game> {
 
             private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
