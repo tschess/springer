@@ -28,7 +28,8 @@ class GeneratorTestGamePro(
             white = generatorTestPlayer.findByName(username = "777"),
             black = generatorTestPlayer.findByName(username = "aaa"),
             status = STATUS.PROPOSED,
-            challenger = CONTESTANT.BLACK
+            challenger = CONTESTANT.BLACK,
+            state = traditionalConfig()
         )
         repositoryGame.save(invite00)
 
@@ -36,7 +37,8 @@ class GeneratorTestGamePro(
             white = generatorTestPlayer.findByName(username = "aaa"),
             black = generatorTestPlayer.findByName(username = "ccc"),
             status = STATUS.PROPOSED,
-            challenger = CONTESTANT.BLACK
+            challenger = CONTESTANT.BLACK,
+            state = traditionalConfig()
         )
         repositoryGame.save(invite01)
 
@@ -45,7 +47,8 @@ class GeneratorTestGamePro(
             black = generatorTestPlayer.findByName(username = "888"),
             status = STATUS.ONGOING,
             challenger = CONTESTANT.BLACK,
-            turn = CONTESTANT.BLACK
+            turn = CONTESTANT.BLACK,
+            state = traditionalConfig()
         )
         repositoryGame.save(invite02)
 
@@ -54,14 +57,34 @@ class GeneratorTestGamePro(
             black = generatorTestPlayer.findByName(username = "aaa"),
             status = STATUS.ONGOING,
             challenger = CONTESTANT.BLACK,
-            turn = CONTESTANT.BLACK
+            turn = CONTESTANT.BLACK,
+            state = traditionalConfig()
         )
         repositoryGame.save(invite03)
     }
 
     private fun traditionalConfig(): List<List<String>> {
-        val r1 = arrayListOf("Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn")
-        val r0 = arrayListOf("Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook")
-        return arrayListOf(r0, r1)
+        val r1 = arrayListOf(
+            "PawnBlack",
+            "PawnBlack",
+            "PawnBlack",
+            "PawnBlack",
+            "PawnBlack",
+            "PawnBlack",
+            "PawnBlack",
+            "PawnBlack"
+        )
+        val r0 = arrayListOf(
+            "RookBlack",
+            "KnightBlack",
+            "BishopBlack",
+            "QueenBlack",
+            "KingBlack",
+            "BishopBlack",
+            "KnightBlack",
+            "RookBlack"
+        )
+        val re = arrayListOf("", "", "", "", "", "", "", "")
+        return arrayListOf(r0, r1, re, re, re, re, re, re)
     }
 }
