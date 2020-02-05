@@ -85,7 +85,8 @@ class GeneratorTestGameFin(
             white_disp = 14,
             black_disp = -4,
             state = defaultState(),
-            challenger = CONTESTANT.WHITE
+            challenger = CONTESTANT.WHITE,
+            winner = CONTESTANT.WHITE
         )
         repositoryGame.save(game03)
 
