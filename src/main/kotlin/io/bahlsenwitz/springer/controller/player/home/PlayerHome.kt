@@ -19,7 +19,8 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
         val playerListFindAll: List<Player> = repositoryPlayer.findAll().sorted()
         val opponentPlayerList: List<Player>
 
-        val pageList: MutableList<Player.Core> = mutableListOf()
+        //val pageList: MutableList<Player.Core> = mutableListOf()
+        val pageList: MutableList<Player> = mutableListOf()
 
         val pageIndex: Int = requestPage.index
         val pageSize: Int = requestPage.size
@@ -33,8 +34,8 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
         if (playerListFindAll.lastIndex <= indexTo) {
             opponentPlayerList = playerListFindAll.subList(indexFrom, playerListFindAll.lastIndex + 1)
             for (opponentPlayer: Player in opponentPlayerList) {
-                val opponent = Player.Core(opponentPlayer)
-                pageList.add(opponent)
+                //val opponent = Player.Core(opponentPlayer)
+                pageList.add(opponentPlayer)
                 //testList.add(opponentPlayer.rank)
             }
             //return ResponseEntity.ok(testList)
@@ -42,8 +43,8 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
         }
         opponentPlayerList = playerListFindAll.subList(indexFrom, indexTo)
         for (opponentPlayer: Player in opponentPlayerList) {
-            val opponent = Player.Core(opponentPlayer)
-            pageList.add(opponent)
+            //val opponent = Player.Core(opponentPlayer)
+            pageList.add(opponentPlayer)
             //testList.add(opponentPlayer.rank)
         }
         //return ResponseEntity.ok(testList)
