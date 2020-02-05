@@ -10,6 +10,6 @@ interface RepositoryPlayer: JpaRepository<Player, UUID> {
 
     fun findByUsername(username: String): Player?
 
-    fun findByDevice(device: String): Player? //this has to be unique...
+    fun findByDevice(device: String): Player?
 
 }

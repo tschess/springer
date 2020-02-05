@@ -16,7 +16,14 @@ class PlayerStart(private val repositoryPlayer: RepositoryPlayer) {
     fun login(@Valid @RequestBody requestLogin: RequestLogin): ResponseEntity<Any> {
         val username: String = requestLogin.username
         val password: String = requestLogin.password
+
         val device: String = requestLogin.device
+        val playerD: Player? = repositoryPlayer.findByDevice(device)
+        if(playerD != null){
+            playerD.device = "TBD"
+            repositoryPlayer.save(playerD)
+        }
+
         val updated: String = DATE_TIME_GENERATOR.rightNowString()
 
         val player: Player = repositoryPlayer.findByUsername(username)

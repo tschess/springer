@@ -54,6 +54,7 @@ class Player(
     //var surname: String = PLACEHOLDER,
     //var address: String = PLACEHOLDER,
 
+    @Column(unique = true)
     var device: String = PLACEHOLDER,
     var updated: String = PLACEHOLDER,
     var created: String = DATE_TIME_GENERATOR.rightNowString()
