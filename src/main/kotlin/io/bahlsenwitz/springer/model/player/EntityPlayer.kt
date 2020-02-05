@@ -19,7 +19,6 @@ import kotlin.collections.HashMap
 @TypeDefs(TypeDef(name = "jsonb", typeClass = JsonBinaryType::class))
 class Player(
     id: UUID? = null,
-    var created: String = DATE_TIME_GENERATOR.rightNowString(),
 
     @Column(unique = true)
     var username: String,
@@ -32,7 +31,7 @@ class Player(
     var elo: Int = 1200,
     var rank: Int = 0,
     var disp: Int = 0,
-    var date: String = created,
+    var date: String = PLACEHOLDER,
 
     @Column(insertable = true, updatable = true)
     var notify: Boolean = false,
@@ -56,8 +55,8 @@ class Player(
     //var address: String = PLACEHOLDER,
 
     var device: String = PLACEHOLDER,
-    var updated: String = created
-
+    var updated: String = PLACEHOLDER,
+    var created: String = DATE_TIME_GENERATOR.rightNowString()
 
 ): EntityUUID(id), Comparable<Player> {
 
@@ -103,14 +102,14 @@ class Player(
         return 1
     }
 
-//    class Core(player: Player) {
-//        val id: String = player.id.toString()
-//        val username: String = player.username
-//        val avatar: String = player.avatar
-//        val elo: Int = player.elo
-//        val rank: Int = player.rank
-//        val date: String = player.date
-//        val disp: Int = player.disp
-//    }
+    class Core(player: Player) {
+        val id: String = player.id.toString()
+        val username: String = player.username
+        val avatar: String = player.avatar
+        val elo: Int = player.elo
+        val rank: Int = player.rank
+        val date: String = player.date
+        val disp: Int = player.disp
+    }
 }
 

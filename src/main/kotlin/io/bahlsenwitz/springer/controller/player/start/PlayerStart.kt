@@ -1,5 +1,6 @@
 package io.bahlsenwitz.springer.controller.player.start
 
+import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.HttpStatus
@@ -10,11 +11,13 @@ import javax.validation.Valid
 
 class PlayerStart(private val repositoryPlayer: RepositoryPlayer) {
 
+    private val DATE_TIME_GENERATOR = GeneratorDateTime()
+
     fun login(@Valid @RequestBody requestLogin: RequestLogin): ResponseEntity<Any> {
         val username: String = requestLogin.username
         val password: String = requestLogin.password
         val device: String = requestLogin.device
-        val updated: String = requestLogin.updated
+        val updated: String = DATE_TIME_GENERATOR.rightNowString()
 
         val player: Player = repositoryPlayer.findByUsername(username)
             ?: return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\": \"nonexistent\"}")
