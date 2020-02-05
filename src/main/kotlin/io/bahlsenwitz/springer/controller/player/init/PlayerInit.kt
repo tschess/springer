@@ -18,8 +18,8 @@ class PlayerInit(private val repositoryPlayer: RepositoryPlayer) {
 //    }
 
     fun device(device: String): ResponseEntity<Any> {
-        val player: Player? = repositoryPlayer.findByDevice(device)
+        val player: Player = repositoryPlayer.findByDevice(device)
             ?: return ResponseEntity.status(HttpStatus.OK).body("{\"info\": \"unassigned\"}")
-        return ResponseEntity.ok(player!!)
+        return ResponseEntity.ok(player)
     }
 }
