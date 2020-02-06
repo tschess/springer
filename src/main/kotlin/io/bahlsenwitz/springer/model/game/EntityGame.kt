@@ -69,7 +69,6 @@ enum class CONTESTANT {
 enum class STATUS {
     PROPOSED,
     ONGOING,
-    PENDING, //pending draw...
     RESOLVED
 }
 
@@ -78,6 +77,7 @@ enum class OUTCOME {
     TIMEOUT,
     RESIGN,
     DRAW,
+    PENDING, //pending draw...
     EXPIRED, //of an invitation
     REFUSED, //of an invitation
     RESCIND, //of an invitation

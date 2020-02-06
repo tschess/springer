@@ -2,6 +2,7 @@ package io.bahlsenwitz.springer.controller.game.historic
 
 import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.game.Game
+import io.bahlsenwitz.springer.model.game.OUTCOME
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
@@ -20,7 +21,10 @@ class GameHistoric(
         val uuid: UUID = UUID.fromString(requestHistoric.id)!!
         val player: Player = repositoryPlayer.findById(uuid).get()
         val playerList: List<Game> = repositoryGame.findPlayerList(uuid)
-        val playerListResolved: List<Game> = playerList.filter { it.status == STATUS.RESOLVED }
+        val playerListResolved: List<Game> = playerList.filter {
+            it.status == STATUS.RESOLVED && it.outcome != OUTCOME.REFUSED && it.outcome != OUTCOME.RESCIND
+        }
+        
         val playerListResolvedSorted: List<Game> = playerListResolved.sortedWith(ComparatorHistoric)
 
         val gameCoreHistoricList: MutableList<Game> = mutableListOf()
