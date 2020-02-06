@@ -24,6 +24,8 @@ class GeneratorTestGameFin(
             black = generatorTestPlayer.findByName(username = "888"),
             state = defaultState(),
             moves = 33,
+            white_disp = 1,
+            black_disp = -7,
             outcome = OUTCOME.CHECKMATE,
             winner = CONTESTANT.WHITE,
             updated = DATE_TIME_GENERATOR.rightNowString(),

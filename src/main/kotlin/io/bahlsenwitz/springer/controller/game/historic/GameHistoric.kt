@@ -24,7 +24,7 @@ class GameHistoric(
         val playerListResolved: List<Game> = playerList.filter {
             it.status == STATUS.RESOLVED && it.outcome != OUTCOME.REFUSED && it.outcome != OUTCOME.RESCIND
         }
-        
+
         val playerListResolvedSorted: List<Game> = playerListResolved.sortedWith(ComparatorHistoric)
 
         val gameCoreHistoricList: MutableList<Game> = mutableListOf()
