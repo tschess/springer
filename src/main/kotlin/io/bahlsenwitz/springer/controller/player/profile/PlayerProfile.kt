@@ -10,7 +10,7 @@ class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
     fun clear(device: String): ResponseEntity<Any> {
         val player: Player? = repositoryPlayer.findByDevice(device)
         if(player != null){
-            player.device = "TBD"
+            player.device = null
             return ResponseEntity.ok(repositoryPlayer.save(player))
         }
         return ResponseEntity.ok("{\"result\": \"ok\"}")
