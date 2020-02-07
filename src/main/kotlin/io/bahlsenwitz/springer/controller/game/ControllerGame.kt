@@ -66,7 +66,6 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     /**
      * Ack.swift
      */
-
     val gameAck = GameAck(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
 
     @PostMapping("/ack")

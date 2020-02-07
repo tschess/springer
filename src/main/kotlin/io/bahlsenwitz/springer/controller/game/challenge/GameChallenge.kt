@@ -55,6 +55,10 @@ class GameChallenge(
         return ResponseEntity.status(HttpStatus.OK).body("{\"challenge\": \"${game.id}\"}")
     }
 
+
+
+    //ACK - requestPayload: []
+
     data class RequestChallenge(
         val player_self: String,
         val player_oppo: String,

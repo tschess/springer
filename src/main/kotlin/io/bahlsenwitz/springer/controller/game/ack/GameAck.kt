@@ -10,7 +10,7 @@ import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.ResponseEntity
 import java.util.*
 
-//curl --header "Content-Type: application/json" --request POST --data '{"id_game":"99999999-9999-9999-9999-999999999999", "id_player": "99999999-9999-9999-9999-999999999999"}' http://localhost:8080/game/ack
+//
 class GameAck(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
@@ -83,6 +83,9 @@ class GameAck(
         private fun setOrientation(row: List<String>, color: String): List<String> {
             val colorRow: MutableList<String> = mutableListOf()
             for (element: String in row) {
+                if(element == ""){
+                    continue
+                }
                 colorRow.add("${color}${element}")
             }
             return colorRow
