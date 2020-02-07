@@ -17,7 +17,9 @@ class GeneratorTestGameAct(
             id = UUID.fromString("00000000-0000-0000-0000-000000000000")!!,
             white = generatorTestPlayer.findByName(username = "white"),
             black = generatorTestPlayer.findByName(username = "black"),
-            state = defaultState()
+            state = defaultState(),
+            challenger = CONTESTANT.WHITE,
+            status = STATUS.ONGOING
         )
         repositoryGame.save(test)
     }
