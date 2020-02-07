@@ -134,7 +134,7 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
      */
     val gameTest = GameTest(repositoryGame = repositoryGame)
 
-    @GetMapping("/test")
+    @PostMapping("/test")
     fun requestTest(@Valid @RequestBody requestTest: GameTest.RequestTest): ResponseEntity<Any> {
         return gameTest.requestTest(requestTest)
     }

@@ -19,7 +19,6 @@ class GameTest(private val repositoryGame: RepositoryGame) {
     }
 
     data class RequestTest(
-        //val id_test: String,
-        val state: List<List<String>> = arrayListOf(arrayListOf(""))
+        val state: List<List<String>>
     )
 }

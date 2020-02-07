@@ -1,6 +1,9 @@
 package io.bahlsenwitz.springer.generator.test
 
+import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
+import io.bahlsenwitz.springer.model.game.OUTCOME
+import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import java.util.*
 
@@ -17,7 +20,6 @@ class GeneratorTestGameAct(
             state = defaultState()
         )
         repositoryGame.save(test)
-
     }
 
     private fun defaultState(): List<List<String>> {
