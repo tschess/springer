@@ -84,7 +84,7 @@ class GameAck(
             val colorRow: MutableList<String> = mutableListOf()
             for (element: String in row) {
                 if(element != "") {
-                    colorRow.add("${color}${element}")
+                    colorRow.add("${element}${color}")
                 }
                 colorRow.add("")
             }
