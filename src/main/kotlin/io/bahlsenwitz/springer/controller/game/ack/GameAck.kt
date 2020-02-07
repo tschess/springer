@@ -83,10 +83,10 @@ class GameAck(
         private fun setOrientation(row: List<String>, color: String): List<String> {
             val colorRow: MutableList<String> = mutableListOf()
             for (element: String in row) {
-                if(element == ""){
-                    continue
+                if(element != "") {
+                    colorRow.add("${color}${element}")
                 }
-                colorRow.add("${color}${element}")
+                colorRow.add("")
             }
             return colorRow
         }
