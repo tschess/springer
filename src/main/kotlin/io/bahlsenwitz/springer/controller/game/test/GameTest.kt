@@ -12,7 +12,7 @@ class GameTest(private val repositoryGame: RepositoryGame) {
     fun requestTest(requestTest: RequestTest): ResponseEntity<Any> {
         val id: UUID = UUID.fromString("00000000-0000-0000-0000-000000000000")
         val game: Game = repositoryGame.findById(id).get()
-        if(requestTest.state != null){
+        if(requestTest.state != arrayListOf(arrayListOf(""))){
             game.state = requestTest.state
         }
         return ResponseEntity.ok(repositoryGame.save(game))
@@ -20,6 +20,6 @@ class GameTest(private val repositoryGame: RepositoryGame) {
 
     data class RequestTest(
         //val id_test: String,
-        val state: List<List<String>>? = null
+        val state: List<List<String>> = arrayListOf(arrayListOf(""))
     )
 }
