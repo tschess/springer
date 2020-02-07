@@ -50,8 +50,7 @@ class GameAck(
             game.black_skin = SKIN.valueOf(requestAck.skin)
         }
         setNotification(game = game, player = player, repositoryPlayer = repositoryPlayer)
-        repositoryGame.save(game)
-        return ResponseEntity.ok(GameAck(player = player, game = game))
+        return ResponseEntity.ok(repositoryGame.save(game))
     }
 
     data class RequestAck(
@@ -100,32 +99,6 @@ class GameAck(
                 setOrientation(row = config[1], color = "White"),
                 setOrientation(row = config[0], color = "White")
             )
-        }
-    }
-
-    class GameAck(player: Player, game: Game) {
-        private val info: Info = getInfo(player, game)
-        val white: Boolean = info.white
-        val skin: SKIN = info.skin
-        val state: List<List<String>> = game.state!!
-        val date: String = game.updated
-
-        companion object {
-            data class Info(
-                val white: Boolean,
-                val skin: SKIN
-            )
-
-            fun getInfo(player: Player, game: Game): Info {
-                var white: Boolean = true
-                var skin: SKIN = game.white_skin
-                if (game.white == player) {
-                    return Info(white, skin)
-                }
-                white = false
-                skin = game.black_skin
-                return Info(white, skin)
-            }
         }
     }
 }
