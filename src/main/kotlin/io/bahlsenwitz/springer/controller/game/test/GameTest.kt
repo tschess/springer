@@ -2,11 +2,10 @@ package io.bahlsenwitz.springer.controller.game.test
 
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.repository.RepositoryGame
-import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.util.*
 
+//curl --header "Content-Type: application/json" --request POST --data '{"state":[[""]]}' http://localhost:8080/game/test 
 class GameTest(private val repositoryGame: RepositoryGame) {
 
     fun requestTest(requestTest: RequestTest): ResponseEntity<Any> {
