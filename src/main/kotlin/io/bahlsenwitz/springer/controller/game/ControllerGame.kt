@@ -7,17 +7,21 @@ import io.bahlsenwitz.springer.controller.game.historic.GameHistoric
 import io.bahlsenwitz.springer.controller.game.nack.GameNack
 import io.bahlsenwitz.springer.controller.game.quick.GameQuick
 import io.bahlsenwitz.springer.controller.game.rematch.GameRematch
+import io.bahlsenwitz.springer.controller.game.request.GameRequest
 import io.bahlsenwitz.springer.controller.game.rescind.GameRescind
 import io.bahlsenwitz.springer.controller.game.resign.GameResign
 import io.bahlsenwitz.springer.controller.game.resolve.GameResolve
 import io.bahlsenwitz.springer.controller.game.snapshot.GameSnapshot
 import io.bahlsenwitz.springer.controller.game.test.GameTest
+import io.bahlsenwitz.springer.controller.game.update.GameUpdate
+import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.util.*
 import javax.validation.Valid
 
 //curl --header "Content-Type: application/json" --request POST --data '{"id":"efac3243-c71c-42f3-9f12-117cc7de6fa7", "index": 0, "size": 1}' http://localhost:8080/game/historic
@@ -26,24 +30,6 @@ import javax.validation.Valid
 @RequestMapping("/game")
 class ControllerGame @Autowired
 constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) {
-
-    /**
-     * Tschess.swift
-     */
-
-    val gameResign = GameResign(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
-
-    @PostMapping("/resign")
-    fun resign(@Valid @RequestBody updateResign: GameResign.UpdateResign): ResponseEntity<Any> {
-        return gameResign.resign(updateResign)
-    }
-
-    val gameResolve = GameResolve(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
-
-    @PostMapping("/resolve")
-    fun resolve(@Valid @RequestBody requestResolve: GameResolve.RequestResolve): ResponseEntity<Any> {
-        return gameResolve.resolve(requestResolve)
-    }
 
     /**
      * Actual.swift
@@ -135,10 +121,41 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     val gameTest = GameTest(repositoryGame = repositoryGame)
 
     @PostMapping("/test")
-    fun requestTest(@Valid @RequestBody requestTest: GameTest.RequestTest): ResponseEntity<Any> {
-        return gameTest.requestTest(requestTest)
+    fun test(@Valid @RequestBody requestTest: GameTest.RequestTest): ResponseEntity<Any> {
+        return gameTest.test(requestTest)
     }
 
+    /**
+     * Tschess.swift
+     */
+
+    val gameResign = GameResign(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+
+    @PostMapping("/resign")
+    fun resign(@Valid @RequestBody updateResign: GameResign.UpdateResign): ResponseEntity<Any> {
+        return gameResign.resign(updateResign)
+    }
+
+    val gameResolve = GameResolve(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+
+    @PostMapping("/resolve")
+    fun resolve(@Valid @RequestBody requestResolve: GameResolve.RequestResolve): ResponseEntity<Any> {
+        return gameResolve.resolve(requestResolve)
+    }
+
+    val gameUpdate = GameUpdate(repositoryGame = repositoryGame)
+
+    @PostMapping("/update")
+    fun update(@Valid @RequestBody updateGame: GameUpdate.UpdateGame): ResponseEntity<Any> {
+        return gameUpdate.update(updateGame)
+    }
+
+    val gameRequest = GameRequest(repositoryGame = repositoryGame)
+
+    @GetMapping("/request/{id_game}")
+    fun request(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any> {
+        return gameRequest.request(id_game)
+    }
 }
 
 

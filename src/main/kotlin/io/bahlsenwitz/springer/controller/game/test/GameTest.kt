@@ -8,7 +8,7 @@ import java.util.*
 //curl --header "Content-Type: application/json" --request POST --data '{"state":[[""]]}' http://localhost:8080/game/test
 class GameTest(private val repositoryGame: RepositoryGame) {
 
-    fun requestTest(requestTest: RequestTest): ResponseEntity<Any> {
+    fun test(requestTest: RequestTest): ResponseEntity<Any> {
         val id: UUID = UUID.fromString("00000000-0000-0000-0000-000000000000")
         val game: Game = repositoryGame.findById(id).get()
         if(requestTest.state != arrayListOf(arrayListOf(""))){
