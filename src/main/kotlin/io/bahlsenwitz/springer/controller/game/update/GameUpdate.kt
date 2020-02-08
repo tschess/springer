@@ -18,6 +18,7 @@ class GameUpdate(private val repositoryGame: RepositoryGame) {
         game.moves += 1
         game.updated = DATE_TIME_GENERATOR.rightNowString()
         game.turn = setTurn(turn = game.turn)
+        repositoryGame.save(game)
         return ResponseEntity.ok("{\"success\": \"ok\"}")
     }
 
