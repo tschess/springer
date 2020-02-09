@@ -18,6 +18,7 @@ class GameUpdate(private val repositoryGame: RepositoryGame) {
         game.moves += 1
         game.updated = DATE_TIME_GENERATOR.rightNowString()
         game.turn = setTurn(turn = game.turn)
+        game.highlight = updateGame.highlight
         repositoryGame.save(game)
         return ResponseEntity.ok("{\"success\": \"ok\"}")
     }
@@ -31,6 +32,7 @@ class GameUpdate(private val repositoryGame: RepositoryGame) {
 
     data class UpdateGame(
         val id_game: String,
-        val state: List<List<String>>
+        val state: List<List<String>>,
+        val highlight: String
     )
 }
