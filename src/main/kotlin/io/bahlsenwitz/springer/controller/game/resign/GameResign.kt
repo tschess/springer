@@ -73,7 +73,8 @@ class GameResign(
             game.winner = CONTESTANT.WHITE
         }
         game.updated = DATE_TIME_GENERATOR.rightNowString()
-        return ResponseEntity.ok(repositoryGame.save(game)) //what does this need to return? the game I guess...
+        repositoryGame.save(game)
+        return ResponseEntity.ok("{\"success\": \"ok\"}") //what does this need to return? the game I guess...
     }
 
     data class UpdateResign(
