@@ -72,6 +72,7 @@ class GameResign(
             game.black_disp = repositoryPlayer.findById(uuid1).get().disp
             game.winner = CONTESTANT.WHITE
         }
+        game.highlight = "TBD"
         game.updated = DATE_TIME_GENERATOR.rightNowString()
         repositoryGame.save(game)
         return ResponseEntity.ok("{\"success\": \"ok\"}") //what does this need to return? the game I guess...
