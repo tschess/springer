@@ -3,8 +3,10 @@ package io.bahlsenwitz.springer.controller.game
 import io.bahlsenwitz.springer.controller.game.ack.GameAck
 import io.bahlsenwitz.springer.controller.game.actual.GameActual
 import io.bahlsenwitz.springer.controller.game.challenge.GameChallenge
+import io.bahlsenwitz.springer.controller.game.eval.GameEval
 import io.bahlsenwitz.springer.controller.game.historic.GameHistoric
 import io.bahlsenwitz.springer.controller.game.nack.GameNack
+import io.bahlsenwitz.springer.controller.game.prop.GameProp
 import io.bahlsenwitz.springer.controller.game.quick.GameQuick
 import io.bahlsenwitz.springer.controller.game.rematch.GameRematch
 import io.bahlsenwitz.springer.controller.game.request.GameRequest
@@ -150,11 +152,25 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
         return gameUpdate.update(updateGame)
     }
 
+    val gameEval = GameEval(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+
+    @PostMapping("/eval")
+    fun eval(@Valid @RequestBody evalUpdate: GameEval.EvalUpdate): ResponseEntity<Any> {
+        return gameEval.eval(evalUpdate)
+    }
+
     val gameRequest = GameRequest(repositoryGame = repositoryGame)
 
     @GetMapping("/request/{id_game}")
     fun request(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any> {
         return gameRequest.request(id_game)
+    }
+
+    val gameProp = GameProp(repositoryGame = repositoryGame)
+
+    @PostMapping("/prop/{id_game}")
+    fun prop(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any> {
+        return gameProp.prop(id_game)
     }
 }
 
