@@ -168,7 +168,7 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
 
     val gameProp = GameProp(repositoryGame = repositoryGame)
 
-    @PostMapping("/prop/{id_game}")
+    @GetMapping("/prop/{id_game}")
     fun prop(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any> {
         return gameProp.prop(id_game)
     }
