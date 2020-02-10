@@ -3,6 +3,7 @@ package io.bahlsenwitz.springer.controller.game.test
 import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
+import io.bahlsenwitz.springer.model.game.OUTCOME
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import org.springframework.http.ResponseEntity
@@ -30,6 +31,7 @@ class GameTest(private val repositoryGame: RepositoryGame) {
         }
         game.winner = null
         game.status = STATUS.ONGOING
+        game.outcome = OUTCOME.TBD
         game.highlight = "TBD"
         game.updated = DATE_TIME_GENERATOR.rightNowString()
         return ResponseEntity.ok(repositoryGame.save(game))
