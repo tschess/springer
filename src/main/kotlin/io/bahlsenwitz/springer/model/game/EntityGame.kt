@@ -72,7 +72,8 @@ enum class STATUS {
     RESOLVED
 }
 
-enum class OUTCOME {
+enum class OUTCOME {//not really outcome
+    CHECK, //currently in check...
     CHECKMATE,
     TIMEOUT,
     RESIGN,

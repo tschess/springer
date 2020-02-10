@@ -3,6 +3,7 @@ package io.bahlsenwitz.springer.controller.game
 import io.bahlsenwitz.springer.controller.game.ack.GameAck
 import io.bahlsenwitz.springer.controller.game.actual.GameActual
 import io.bahlsenwitz.springer.controller.game.challenge.GameChallenge
+import io.bahlsenwitz.springer.controller.game.check.GameCheck
 import io.bahlsenwitz.springer.controller.game.eval.GameEval
 import io.bahlsenwitz.springer.controller.game.historic.GameHistoric
 import io.bahlsenwitz.springer.controller.game.nack.GameNack
@@ -171,6 +172,13 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     @GetMapping("/prop/{id_game}")
     fun prop(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any> {
         return gameProp.prop(id_game)
+    }
+
+    val gameCheck = GameCheck(repositoryGame = repositoryGame)
+
+    @GetMapping("/check/{id_game}")
+    fun check(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any> {
+        return gameCheck.check(id_game)
     }
 }
 
