@@ -8,6 +8,7 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import org.springframework.http.ResponseEntity
 import java.util.*
 
+//private val repositoryPlayer: RepositoryPlayer <-- gotta notifyu these guys...
 class GameProp(private val repositoryGame: RepositoryGame) {
 
     val DATE_TIME_GENERATOR = GeneratorDateTime()

@@ -13,6 +13,7 @@ import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.ResponseEntity
 import java.util.*
 
+//private val repositoryPlayer: RepositoryPlayer <-- gotta notifyu these guys...
 class GameEval(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
