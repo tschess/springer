@@ -50,7 +50,8 @@ class GameQuick(
             black = black,
             black_skin = black_skin,
             challenger = CONTESTANT.WHITE,
-            updated = DATE_TIME_GENERATOR.rightNowString())
+            updated = DATE_TIME_GENERATOR.rightNowString()
+        )
         game.status = STATUS.ONGOING
         return ResponseEntity.ok(repositoryGame.save(game))
     }
@@ -78,16 +79,34 @@ class GameQuick(
             val row3: List<String> = arrayListOf("", "", "", "", "", "", "", "")
             val row4: List<String> = arrayListOf("", "", "", "", "", "", "", "")
             val row5: List<String> = arrayListOf("", "", "", "", "", "", "", "")
-            val row6: List<String> = arrayListOf("PawnBlack", "PawnBlack", "PawnBlack", "PawnBlack", "PawnBlack", "PawnBlack", "PawnBlack", "PawnBlack")
+            val row6: List<String> = arrayListOf(
+                "PawnBlack",
+                "PawnBlack",
+                "PawnBlack",
+                "PawnBlack",
+                "PawnBlack",
+                "PawnBlack",
+                "PawnBlack",
+                "PawnBlack"
+            )
             val row7: List<String> =
-                arrayListOf("RookBlack", "KnightBlack", "BishopBlack", "QueenBlack", "KingBlack", "BishopBlack", "KnightBlack", "RookBlack")
+                arrayListOf(
+                    "RookBlack",
+                    "KnightBlack",
+                    "BishopBlack",
+                    "QueenBlack",
+                    "KingBlack",
+                    "BishopBlack",
+                    "KnightBlack",
+                    "RookBlack"
+                )
             return arrayListOf(row0, row1, row2, row3, row4, row5, row6, row7)
         }
 
         private fun setOrientation(row: List<String>, color: String): List<String> {
             val colorRow: MutableList<String> = mutableListOf()
             for (element: String in row) {
-                if(element == "") {
+                if (element == "") {
                     colorRow.add(element)
                     continue
                 }
