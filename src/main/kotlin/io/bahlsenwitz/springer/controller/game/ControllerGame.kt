@@ -174,7 +174,7 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
 
     val gameMate = GameMate(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
 
-    @PostMapping("/mate/{id_game}")
+    @GetMapping("/mate/{id_game}")
     fun mate(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any> {
         return gameMate.mate(id_game)
     }
