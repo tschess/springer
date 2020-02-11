@@ -24,13 +24,13 @@ class GameAck(
         val player: Player = repositoryPlayer.findById(uuid1).get()
 
         var config: List<List<String>> = traditionalConfig()
-        if (requestAck.config == 0) {
+        if (requestAck.index == 0) {
             config = player.config0
         }
-        if (requestAck.config == 1) {
+        if (requestAck.index == 1) {
             config = player.config1
         }
-        if (requestAck.config == 2) {
+        if (requestAck.index == 2) {
             config = player.config2
         }
         val state: List<List<String>> = generateState(config, game.state!!)
@@ -56,7 +56,7 @@ class GameAck(
         val id_game: String,
         val id_player: String,
         val skin: String,
-        val config: Int //0, 1, 2, 3
+        val index: Int //0, 1, 2, 3
     )
 
     companion object {
