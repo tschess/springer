@@ -16,6 +16,8 @@ class GameQuick(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
+    private val DATE_TIME_GENERATOR = GeneratorDateTime()
+
     fun quick(requestQuick: RequestQuick): ResponseEntity<Any> {
 
         val uuid0: UUID = UUID.fromString(requestQuick.id_self)!!
@@ -59,8 +61,6 @@ class GameQuick(
     )
 
     companion object {
-
-        private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
         fun traditionalConfig(): List<List<String>> {
             val row0: List<String> =

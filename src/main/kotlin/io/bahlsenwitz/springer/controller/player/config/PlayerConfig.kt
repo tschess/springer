@@ -1,11 +1,14 @@
 package io.bahlsenwitz.springer.controller.player.config
 
+import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.ResponseEntity
 import java.util.*
 
 class PlayerConfig(private val repositoryPlayer: RepositoryPlayer) {
+
+    private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
     fun config(updateConfig: UpdateConfig): ResponseEntity<Player> {
         val uuid: UUID = UUID.fromString(updateConfig.id)!!
@@ -19,15 +22,14 @@ class PlayerConfig(private val repositoryPlayer: RepositoryPlayer) {
         if(updateConfig.index == 2){
             player.config2 = updateConfig.config
         }
-        player.updated = updateConfig.updated
+        player.updated = DATE_TIME_GENERATOR.rightNowString()
         return ResponseEntity.ok(repositoryPlayer.save(player))
     }
 
     data class UpdateConfig (
         val config: List<List<String>>,
         val index: Int,
-        val id: String,
-        val updated: String //shouldn't pass this from client...
+        val id: String
     )
 
 }
