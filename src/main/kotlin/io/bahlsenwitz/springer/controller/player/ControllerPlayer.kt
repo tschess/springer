@@ -2,6 +2,7 @@ package io.bahlsenwitz.springer.controller.player
 
 import io.bahlsenwitz.springer.controller.player.address.PlayerAddress
 import io.bahlsenwitz.springer.controller.player.config.PlayerConfig
+import io.bahlsenwitz.springer.controller.player.create.PlayerCreate
 import io.bahlsenwitz.springer.controller.player.home.PlayerHome
 import io.bahlsenwitz.springer.controller.player.init.PlayerInit
 import io.bahlsenwitz.springer.controller.player.notify.PlayerNotify
@@ -47,6 +48,14 @@ class ControllerPlayer(repositoryPlayer: RepositoryPlayer) {
     /**
      * Start.swift
      */
+
+    val playerCreate = PlayerCreate(repositoryPlayer)
+
+    @PostMapping("/create")
+    fun create(@Valid @RequestBody requestCreate: PlayerCreate.RequestCreate): ResponseEntity<Any> {
+        return playerCreate.create(requestCreate)
+    }
+
     val playerStart = PlayerStart(repositoryPlayer)
 
     @PostMapping("/login")

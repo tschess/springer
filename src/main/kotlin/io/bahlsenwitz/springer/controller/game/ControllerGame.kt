@@ -14,7 +14,6 @@ import io.bahlsenwitz.springer.controller.game.rematch.GameRematch
 import io.bahlsenwitz.springer.controller.game.request.GameRequest
 import io.bahlsenwitz.springer.controller.game.rescind.GameRescind
 import io.bahlsenwitz.springer.controller.game.resign.GameResign
-import io.bahlsenwitz.springer.controller.game.snapshot.GameSnapshot
 import io.bahlsenwitz.springer.controller.game.test.GameTest
 import io.bahlsenwitz.springer.controller.game.update.GameUpdate
 import io.bahlsenwitz.springer.repository.RepositoryGame
@@ -74,16 +73,6 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     @PostMapping("/historic")
     fun historic(@Valid @RequestBody updateTest: GameHistoric.RequestHistoric): ResponseEntity<Any> {
         return gameHistoric.historic(updateTest)
-    }
-
-    /**
-     * EndgameSnapshot.swift
-     */
-    val gameSnapshot = GameSnapshot(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
-
-    @PostMapping("/snapshot")
-    fun snapshot(@Valid @RequestBody requestSnapshot: GameSnapshot.RequestSnapshot): ResponseEntity<Any> {
-        return gameSnapshot.snapshot(requestSnapshot)
     }
 
     /**
