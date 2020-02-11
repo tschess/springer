@@ -34,7 +34,7 @@ class GameAck(
         if (requestAck.config == 2) {
             config = player.config2
         }
-        val state: List<List<String>> = generateState(config, game.state!!)
+        val state: List<List<String>> = generateState(game.state!!, config)
 
         game.state = state
         game.status = STATUS.ONGOING
