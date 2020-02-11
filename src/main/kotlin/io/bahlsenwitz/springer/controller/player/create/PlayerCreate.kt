@@ -46,8 +46,9 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer) {
             repositoryPlayer.save(player)
         }
         //^^^
+        player.disp = 0 //moral purposes...
 
-        return ResponseEntity.ok(player)
+        return ResponseEntity.ok(repositoryPlayer.save(player))
     }
 
     data class RequestCreate(
