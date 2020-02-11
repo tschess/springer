@@ -6,6 +6,7 @@ import io.bahlsenwitz.springer.controller.game.challenge.GameChallenge
 import io.bahlsenwitz.springer.controller.game.check.GameCheck
 import io.bahlsenwitz.springer.controller.game.eval.GameEval
 import io.bahlsenwitz.springer.controller.game.historic.GameHistoric
+import io.bahlsenwitz.springer.controller.game.mate.GameMate
 import io.bahlsenwitz.springer.controller.game.nack.GameNack
 import io.bahlsenwitz.springer.controller.game.prop.GameProp
 import io.bahlsenwitz.springer.controller.game.quick.GameQuick
@@ -13,18 +14,15 @@ import io.bahlsenwitz.springer.controller.game.rematch.GameRematch
 import io.bahlsenwitz.springer.controller.game.request.GameRequest
 import io.bahlsenwitz.springer.controller.game.rescind.GameRescind
 import io.bahlsenwitz.springer.controller.game.resign.GameResign
-import io.bahlsenwitz.springer.controller.game.resolve.GameResolve
 import io.bahlsenwitz.springer.controller.game.snapshot.GameSnapshot
 import io.bahlsenwitz.springer.controller.game.test.GameTest
 import io.bahlsenwitz.springer.controller.game.update.GameUpdate
-import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.util.*
 import javax.validation.Valid
 
 //curl --header "Content-Type: application/json" --request POST --data '{"id":"efac3243-c71c-42f3-9f12-117cc7de6fa7", "index": 0, "size": 1}' http://localhost:8080/game/historic
@@ -139,13 +137,6 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
         return gameResign.resign(updateResign)
     }
 
-    val gameResolve = GameResolve(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
-
-    @PostMapping("/resolve")
-    fun resolve(@Valid @RequestBody requestResolve: GameResolve.RequestResolve): ResponseEntity<Any> {
-        return gameResolve.resolve(requestResolve)
-    }
-
     val gameUpdate = GameUpdate(repositoryGame = repositoryGame)
 
     @PostMapping("/update")
@@ -179,6 +170,13 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     @GetMapping("/check/{id_game}")
     fun check(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any> {
         return gameCheck.check(id_game)
+    }
+
+    val gameMate = GameMate(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+
+    @PostMapping("/mate/{id_game}")
+    fun mate(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any> {
+        return gameMate.mate(id_game)
     }
 }
 
