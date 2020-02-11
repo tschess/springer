@@ -22,7 +22,8 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer) {
         val player = Player(
             username = requestCreate.username,
             password = BCryptPasswordEncoder().encode(requestCreate.password),
-            date = DATE_TIME_GENERATOR.rightNowString()
+            date = DATE_TIME_GENERATOR.rightNowString(),
+            device = requestCreate.device
         )
         repositoryPlayer.save(player)
 
