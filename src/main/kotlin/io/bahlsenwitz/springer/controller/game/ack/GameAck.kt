@@ -34,7 +34,7 @@ class GameAck(
         if (requestAck.config == 2) {
             config = player.config2
         }
-        val state: List<List<String>> = generateState(game.state!!, config)
+        val state: List<List<String>> = generateState(config, game.state!!)
 
         game.state = state
         game.status = STATUS.ONGOING
@@ -94,14 +94,14 @@ class GameAck(
 
         fun generateState(config: List<List<String>>, state: List<List<String>>): List<List<String>> {
             return arrayListOf(
-                setOrientation(row = config[0], color = "Black"),
-                setOrientation(row = config[1], color = "Black"),
+                setOrientation(row = config[0], color = "White"),
+                setOrientation(row = config[1], color = "White"),
                 arrayListOf("", "", "", "", "", "", "", ""),
                 arrayListOf("", "", "", "", "", "", "", ""),
                 arrayListOf("", "", "", "", "", "", "", ""),
                 arrayListOf("", "", "", "", "", "", "", ""),
-                setOrientation(row = state[1], color = "White"),
-                setOrientation(row = state[0], color = "White")
+                setOrientation(row = state[1], color = "Black"),
+                setOrientation(row = state[0], color = "Black")
             )
         }
     }
