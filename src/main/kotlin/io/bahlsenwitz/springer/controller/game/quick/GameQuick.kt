@@ -4,6 +4,7 @@ import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.common.SKIN
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
+import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
@@ -50,6 +51,7 @@ class GameQuick(
             black_skin = black_skin,
             challenger = CONTESTANT.WHITE,
             updated = DATE_TIME_GENERATOR.rightNowString())
+        game.status = STATUS.ONGOING
         return ResponseEntity.ok(repositoryGame.save(game))
     }
 
