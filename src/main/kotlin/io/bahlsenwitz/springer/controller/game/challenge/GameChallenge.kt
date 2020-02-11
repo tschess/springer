@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.game.challenge
 
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.common.SKIN
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
@@ -19,14 +18,14 @@ class GameChallenge(
 
     fun challenge(requestChallenge: RequestChallenge): ResponseEntity<Any> {
 
-        val uuid0: UUID = UUID.fromString(requestChallenge.player_oppo)!! //opp
+        val uuid0: UUID = UUID.fromString(requestChallenge.id_other)!! //other
         val white: Player = repositoryPlayer.findById(uuid0).get()
 
 
         //TODO: VALIDATION CRITERIA...
 
 
-        val uuid1: UUID = UUID.fromString(requestChallenge.player_self)!! //self
+        val uuid1: UUID = UUID.fromString(requestChallenge.id_self)!! //self
         val black: Player = repositoryPlayer.findById(uuid1).get()
         val black_skin: SKIN = SKIN.valueOf(requestChallenge.skin)
 
@@ -46,7 +45,8 @@ class GameChallenge(
             black = black,
             black_skin = black_skin,
             challenger = CONTESTANT.BLACK,
-            state = config)
+            state = config
+        )
         repositoryGame.save(game)
 
         white.notify = true
@@ -55,20 +55,14 @@ class GameChallenge(
         return ResponseEntity.status(HttpStatus.OK).body("{\"challenge\": \"${game.id}\"}")
     }
 
-
-
-    //ACK - requestPayload: []
-
     data class RequestChallenge(
-        val player_self: String,
-        val player_oppo: String,
+        val id_self: String,
+        val id_other: String, //white
         val skin: String,
         val config: Int //0, 1, 2, 3
     )
 
     companion object {
-
-        private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
         fun traditionalConfig(): List<List<String>> {
             val r0 = arrayListOf("Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook")

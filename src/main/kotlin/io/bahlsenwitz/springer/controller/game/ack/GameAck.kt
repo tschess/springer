@@ -10,7 +10,6 @@ import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.ResponseEntity
 import java.util.*
 
-//
 class GameAck(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
