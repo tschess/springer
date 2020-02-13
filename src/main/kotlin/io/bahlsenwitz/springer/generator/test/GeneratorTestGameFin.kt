@@ -1,6 +1,7 @@
 package io.bahlsenwitz.springer.generator.test
 
 import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
+import io.bahlsenwitz.springer.model.common.SKIN
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.OUTCOME
@@ -25,6 +26,8 @@ class GeneratorTestGameFin(
             state = defaultState(),
             moves = 33,
             white_disp = 1,
+            white_skin = SKIN.CALYPSO,
+            black_skin = SKIN.HYPERION,
             black_disp = -7,
             outcome = OUTCOME.CHECKMATE,
             winner = CONTESTANT.WHITE,
@@ -41,6 +44,8 @@ class GeneratorTestGameFin(
             winner = CONTESTANT.WHITE,
             updated = DATE_TIME_GENERATOR.rightNowString(),
             white_disp = 1,
+            white_skin = SKIN.CALYPSO,
+            black_skin = SKIN.NEPTUNE,
             black_disp = -7,
             state = defaultState(),
             challenger = CONTESTANT.WHITE
@@ -57,6 +62,8 @@ class GeneratorTestGameFin(
             updated = DATE_TIME_GENERATOR.rightNowString(),
             white_disp = -3,
             black_disp = 1,
+            white_skin = SKIN.CALYPSO,
+            black_skin = SKIN.IAPETUS,
             state = defaultState(),
             challenger = CONTESTANT.WHITE
         )
@@ -86,6 +93,8 @@ class GeneratorTestGameFin(
             updated = DATE_TIME_GENERATOR.rightNowString(),
             white_disp = 14,
             black_disp = -4,
+            white_skin = SKIN.CALYPSO,
+            black_skin = SKIN.DEFAULT,
             state = defaultState(),
             challenger = CONTESTANT.WHITE,
             winner = CONTESTANT.WHITE
@@ -100,6 +109,8 @@ class GeneratorTestGameFin(
             updated = DATE_TIME_GENERATOR.rightNowString(),
             white_disp = 6,
             black_disp = -2,
+            white_skin = SKIN.CALYPSO,
+            black_skin = SKIN.NEPTUNE,
             state = defaultState(),
             challenger = CONTESTANT.WHITE
         )
