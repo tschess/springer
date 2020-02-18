@@ -1,21 +1,21 @@
 package io.bahlsenwitz.springer.controller.game
 
-import io.bahlsenwitz.springer.controller.game.ack.GameAck
-import io.bahlsenwitz.springer.controller.game.actual.GameActual
-import io.bahlsenwitz.springer.controller.game.challenge.GameChallenge
-import io.bahlsenwitz.springer.controller.game.check.GameCheck
-import io.bahlsenwitz.springer.controller.game.eval.GameEval
-import io.bahlsenwitz.springer.controller.game.historic.GameHistoric
-import io.bahlsenwitz.springer.controller.game.mate.GameMate
-import io.bahlsenwitz.springer.controller.game.nack.GameNack
-import io.bahlsenwitz.springer.controller.game.prop.GameProp
-import io.bahlsenwitz.springer.controller.game.quick.GameQuick
-import io.bahlsenwitz.springer.controller.game.rematch.GameRematch
-import io.bahlsenwitz.springer.controller.game.request.GameRequest
-import io.bahlsenwitz.springer.controller.game.rescind.GameRescind
-import io.bahlsenwitz.springer.controller.game.resign.GameResign
-import io.bahlsenwitz.springer.controller.game.test.GameTest
-import io.bahlsenwitz.springer.controller.game.update.GameUpdate
+import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
+import io.bahlsenwitz.springer.controller.game.menu.actual.GameActual
+import io.bahlsenwitz.springer.controller.game.menu.actual.create.GameChallenge
+import io.bahlsenwitz.springer.controller.game.tschess.update.GameCheck
+import io.bahlsenwitz.springer.controller.game.tschess.resolve.GameEval
+import io.bahlsenwitz.springer.controller.game.menu.historic.GameHistoric
+import io.bahlsenwitz.springer.controller.game.tschess.resolve.GameMate
+import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameNack
+import io.bahlsenwitz.springer.controller.game.tschess.update.GameProp
+import io.bahlsenwitz.springer.controller.game.menu.actual.create.GameQuick
+import io.bahlsenwitz.springer.controller.game.menu.actual.create.GameRematch
+import io.bahlsenwitz.springer.controller.game.tschess.polling.GameRequest
+import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameRescind
+import io.bahlsenwitz.springer.controller.game.tschess.resolve.GameResign
+import io.bahlsenwitz.springer.controller.game.tschess.GameTest
+import io.bahlsenwitz.springer.controller.game.tschess.update.GameUpdate
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.beans.factory.annotation.Autowired
@@ -34,7 +34,10 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     /**
      * Actual.swift
      */
-    val gameActual = GameActual(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+    val gameActual = GameActual(
+        repositoryGame = repositoryGame,
+        repositoryPlayer = repositoryPlayer
+    )
 
     @PostMapping("/actual")
     fun actual(@Valid @RequestBody updateTest: GameActual.RequestActual): ResponseEntity<Any> {
@@ -44,21 +47,30 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     /**
      * Ack.swift
      */
-    val gameAck = GameAck(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+    val gameAck = GameAck(
+        repositoryGame = repositoryGame,
+        repositoryPlayer = repositoryPlayer
+    )
 
     @PostMapping("/ack")
     fun ack(@Valid @RequestBody requestAck: GameAck.RequestAck): ResponseEntity<Any> {
         return gameAck.ack(requestAck)
     }
 
-    val gameNack = GameNack(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+    val gameNack = GameNack(
+        repositoryGame = repositoryGame,
+        repositoryPlayer = repositoryPlayer
+    )
 
     @PostMapping("/nack")
     fun nack(@Valid @RequestBody updateNack: GameNack.UpdateNack): ResponseEntity<Any> {
         return gameNack.nack(updateNack)
     }
 
-    val gameRescind = GameRescind(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+    val gameRescind = GameRescind(
+        repositoryGame = repositoryGame,
+        repositoryPlayer = repositoryPlayer
+    )
 
     @PostMapping("/rescind")
     fun rescind(@Valid @RequestBody updateRescind: GameRescind.UpdateRescind): ResponseEntity<Any> {
@@ -68,7 +80,10 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     /**
      * Other.swift & Historic.swift
      */
-    val gameHistoric = GameHistoric(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+    val gameHistoric = GameHistoric(
+        repositoryGame = repositoryGame,
+        repositoryPlayer = repositoryPlayer
+    )
 
     @PostMapping("/historic")
     fun historic(@Valid @RequestBody updateTest: GameHistoric.RequestHistoric): ResponseEntity<Any> {
@@ -78,7 +93,10 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     /**
      * Challenge.swift
      */
-    val gameChallenge = GameChallenge(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+    val gameChallenge = GameChallenge(
+        repositoryGame = repositoryGame,
+        repositoryPlayer = repositoryPlayer
+    )
 
     @PostMapping("/challenge")
     fun challenge(@Valid @RequestBody requestChallenge: GameChallenge.RequestChallenge): ResponseEntity<Any> {
@@ -88,7 +106,10 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     /**
      * Quick.swift
      */
-    val gameQuick = GameQuick(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+    val gameQuick = GameQuick(
+        repositoryGame = repositoryGame,
+        repositoryPlayer = repositoryPlayer
+    )
 
     @PostMapping("/quick")
     fun quick(@Valid @RequestBody requestQuick: GameQuick.RequestQuick): ResponseEntity<Any> {
@@ -98,7 +119,10 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     /**
      * Historic.swift
      */
-    val gameRematch = GameRematch(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+    val gameRematch = GameRematch(
+        repositoryGame = repositoryGame,
+        repositoryPlayer = repositoryPlayer
+    )
 
     @PostMapping("/rematch")
     fun rematch(@Valid @RequestBody requestRematch: GameRematch.RequestRematch): ResponseEntity<Any> {
@@ -119,7 +143,10 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
      * Tschess.swift
      */
 
-    val gameResign = GameResign(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+    val gameResign = GameResign(
+        repositoryGame = repositoryGame,
+        repositoryPlayer = repositoryPlayer
+    )
 
     @PostMapping("/resign")
     fun resign(@Valid @RequestBody updateResign: GameResign.UpdateResign): ResponseEntity<Any> {
@@ -133,14 +160,18 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
         return gameUpdate.update(updateGame)
     }
 
-    val gameEval = GameEval(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+    val gameEval = GameEval(
+        repositoryGame = repositoryGame,
+        repositoryPlayer = repositoryPlayer
+    )
 
     @PostMapping("/eval")
     fun eval(@Valid @RequestBody evalUpdate: GameEval.EvalUpdate): ResponseEntity<Any> {
         return gameEval.eval(evalUpdate)
     }
 
-    val gameRequest = GameRequest(repositoryGame = repositoryGame)
+    val gameRequest =
+        GameRequest(repositoryGame = repositoryGame)
 
     @GetMapping("/request/{id_game}")
     fun request(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any> {
@@ -161,7 +192,10 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
         return gameCheck.check(id_game)
     }
 
-    val gameMate = GameMate(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+    val gameMate = GameMate(
+        repositoryGame = repositoryGame,
+        repositoryPlayer = repositoryPlayer
+    )
 
     @GetMapping("/mate/{id_game}")
     fun mate(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any> {

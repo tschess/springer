@@ -1,15 +1,15 @@
 package io.bahlsenwitz.springer.controller.player
 
-import io.bahlsenwitz.springer.controller.player.address.PlayerAddress
-import io.bahlsenwitz.springer.controller.player.config.PlayerConfig
-import io.bahlsenwitz.springer.controller.player.create.PlayerCreate
-import io.bahlsenwitz.springer.controller.player.home.PlayerHome
-import io.bahlsenwitz.springer.controller.player.init.PlayerInit
-import io.bahlsenwitz.springer.controller.player.notify.PlayerNotify
-import io.bahlsenwitz.springer.controller.player.profile.PlayerProfile
-import io.bahlsenwitz.springer.controller.player.quick.PlayerQuick
-import io.bahlsenwitz.springer.controller.player.refresh.PlayerRefresh
-import io.bahlsenwitz.springer.controller.player.skin.PlayerSkin
+import io.bahlsenwitz.springer.controller.player.backup.PlayerBackUp
+import io.bahlsenwitz.springer.controller.player.update.PlayerConfig
+import io.bahlsenwitz.springer.controller.player.start.PlayerCreate
+import io.bahlsenwitz.springer.controller.player.board.PlayerHome
+import io.bahlsenwitz.springer.controller.player.start.init.PlayerInit
+import io.bahlsenwitz.springer.controller.player.update.polling.PlayerNotify
+import io.bahlsenwitz.springer.controller.player.update.PlayerProfile
+import io.bahlsenwitz.springer.controller.player.board.quick.PlayerQuick
+import io.bahlsenwitz.springer.controller.player.update.PlayerRefresh
+import io.bahlsenwitz.springer.controller.player.update.PlayerSkin
 import io.bahlsenwitz.springer.controller.player.start.PlayerStart
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
@@ -75,16 +75,6 @@ class ControllerPlayer(repositoryPlayer: RepositoryPlayer) {
     }
 
     /**
-     * Address.swift
-     */
-    val playerAddress = PlayerAddress(repositoryPlayer)
-
-    @PostMapping("/address")
-    fun address(@Valid @RequestBody updateAddress: PlayerAddress.UpdateAddress): ResponseEntity<Any> {
-        return playerAddress.address(updateAddress)
-    }
-
-    /**
      * Quick.swift
      */
     val playerQuick = PlayerQuick(repositoryPlayer)
@@ -123,6 +113,13 @@ class ControllerPlayer(repositoryPlayer: RepositoryPlayer) {
     @PostMapping("/skin")
     fun skin(@Valid @RequestBody updateSkin: PlayerSkin.UpdateSkin): Any {
         return playerSkin.skin(updateSkin)
+    }
+
+    val playerBackUp = PlayerBackUp(repositoryPlayer)
+
+    @PostMapping("/backup")
+    fun backup(): Any {
+        return playerBackUp.backup()
     }
 
 }
