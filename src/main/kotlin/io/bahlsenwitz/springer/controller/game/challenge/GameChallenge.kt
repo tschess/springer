@@ -1,6 +1,6 @@
 package io.bahlsenwitz.springer.controller.game.challenge
 
-import io.bahlsenwitz.springer.model.common.SKIN
+import io.bahlsenwitz.springer.model.game.SKIN
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player

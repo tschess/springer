@@ -3,7 +3,6 @@ package io.bahlsenwitz.springer.model.game
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.common.EntityUUID
-import io.bahlsenwitz.springer.model.common.SKIN
 import io.bahlsenwitz.springer.model.player.Player
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
@@ -70,6 +69,14 @@ enum class STATUS {
     PROPOSED,
     ONGOING,
     RESOLVED
+}
+
+enum class SKIN {
+    DEFAULT,
+    IAPETUS,
+    CALYPSO,
+    HYPERION,
+    NEPTUNE
 }
 
 enum class OUTCOME {

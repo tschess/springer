@@ -1,7 +1,7 @@
 package io.bahlsenwitz.springer.controller.game.rematch
 
 import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
-import io.bahlsenwitz.springer.model.common.SKIN
+import io.bahlsenwitz.springer.model.game.SKIN
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player

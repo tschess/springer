@@ -1,9 +1,9 @@
 package io.bahlsenwitz.springer.controller.game.ack
 
 import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
-import io.bahlsenwitz.springer.model.common.SKIN
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
+import io.bahlsenwitz.springer.model.game.SKIN
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
@@ -82,7 +82,7 @@ class GameAck(
         private fun setOrientation(row: List<String>, color: String): List<String> {
             val colorRow: MutableList<String> = mutableListOf()
             for (element: String in row) {
-                if(element == "") {
+                if (element == "") {
                     colorRow.add(element)
                     continue
                 }
