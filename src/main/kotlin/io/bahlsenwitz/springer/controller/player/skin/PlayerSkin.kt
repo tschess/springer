@@ -16,7 +16,7 @@ class PlayerSkin(private val repositoryPlayer: RepositoryPlayer) {
         val player: Player = repositoryPlayer.findById(uuid).get()
 
         val acquisition: List<SKIN> = listOf(SKIN.valueOf(updateSkin.skin))
-        player.skin_list = player.skin_list + acquisition
+        player.skin = player.skin + acquisition
 
         player.updated = DATE_TIME_GENERATOR.rightNowString()
         return ResponseEntity.ok(repositoryPlayer.save(player))

@@ -49,7 +49,7 @@ class Player(
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    var skin_list: List<SKIN> = arrayListOf(SKIN.DEFAULT),
+    var skin: List<SKIN> = arrayListOf(SKIN.DEFAULT),
 
     @Column(unique = true)
     var device: String? = null,
