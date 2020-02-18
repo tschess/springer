@@ -1,5 +1,6 @@
 package io.bahlsenwitz.springer.controller.game
 
+import io.bahlsenwitz.springer.controller.game.backup.GameBackUp
 import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
 import io.bahlsenwitz.springer.controller.game.menu.actual.GameActual
 import io.bahlsenwitz.springer.controller.game.menu.actual.create.GameChallenge
@@ -200,6 +201,13 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     @GetMapping("/mate/{id_game}")
     fun mate(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any> {
         return gameMate.mate(id_game)
+    }
+
+    val gameBackUp = GameBackUp(repositoryGame)
+
+    @PostMapping("/backup")
+    fun backup(): Any {
+        return gameBackUp.backup()
     }
 }
 

@@ -6,6 +6,7 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.io.FileWriter
+import java.io.IOException
 
 //@PostMapping("/backup")
 class GameBackUp(private val repositoryGame: RepositoryGame) {
@@ -43,58 +44,59 @@ class GameBackUp(private val repositoryGame: RepositoryGame) {
             for (game in gameList) {
 
                 val id: String = game.id.toString()
-                fileWriter.append("${id};")
-                val clock: String = game.clock.toString()
-                fileWriter.append("${clock};")
+                fileWriter.append("${id};") //0
+
                 val state: String = game.state.toString()
-                fileWriter.append("${state};")
+                fileWriter.append("${state};") //1
+
+                val status: String = game.status.toString()
+                fileWriter.append("${status};") //2
+
+                val outcome: String = game.outcome.toString() //3
+                fileWriter.append("${outcome};")
+
+                val moves: String = game.moves.toString()
+                fileWriter.append("${moves};") //4
+
+                val white_id: String = game.white.id.toString()
+                fileWriter.append("${white_id};") //5
+                val white_elo: String = game.white_elo.toString()
+                fileWriter.append("${white_elo};") //6
+                val white_disp: String = game.white_disp.toString()
+                fileWriter.append("${white_disp};") //7
+                val white_skin: String = game.white_skin.toString()
+                fileWriter.append("${white_skin};") //8
+                //
+                val black_id: String = game.black.id.toString()
+                fileWriter.append("${black_id};") //9
+                val black_elo: String = game.black_elo.toString()
+                fileWriter.append("${black_elo};") //10
+                val black_disp: String = game.black_disp.toString()
+                fileWriter.append("${black_disp};") //11
+                val black_skin: String = game.black_skin.toString()
+                fileWriter.append("${black_skin};") //12
+
+                val challenger: String = game.challenger.toString()
+                fileWriter.append("${challenger};") //13
+                val winner: String = game.winner.toString()
+                fileWriter.append("${winner};") //14
+                val turn: String = game.turn.toString()
+                fileWriter.append("${turn};") //15
+
+                val on_check: Boolean = game.on_check
+                fileWriter.append("${on_check};") //16
+
+
                 val highlight: String = game.highlight
-                fileWriter.append("${highlight};")
+                fileWriter.append("${highlight};") //17
 
-                val whiteId: String = game.white.id.toString()
-                fileWriter.append("${whiteId};")
-                val whiteUpdate: String = game.white_update
-                fileWriter.append("${whiteUpdate};")
-                //
-                val whiteMessage: String = game.white_message
-                fileWriter.append("${whiteMessage};")
-                val whitePosted: String = game.white_posted
-                fileWriter.append("${whitePosted};")
-                val whiteSeen: Boolean = game.white_seen
-                fileWriter.append("${whiteSeen};")
 
-                val blackId: String = game.black.id.toString()
-                fileWriter.append("${blackId};")
-                val blackUpdate: String = game.black_update
-                fileWriter.append("${blackUpdate};")
-                //
-                val blackMessage: String = game.black_message
-                fileWriter.append("${blackMessage};")
-                val blackPosted: String = game.black_posted
-                fileWriter.append("${blackPosted};")
-                val blackSeen: Boolean = game.black_seen
-                fileWriter.append("${blackSeen};")
-
-                val config: String = game.config.toString()
-                fileWriter.append("${config};")
-
-                val checkOn: String = game.check_on
-                fileWriter.append("${checkOn};")
-                val turn: String = game.turn
-                fileWriter.append("${turn};")
-                val status: String = game.status
-                fileWriter.append("${status};")
-
-                val winner: String = game.winner
-                fileWriter.append("${winner};")
-                val catalyst: String = game.catalyst
-                fileWriter.append("${catalyst};")
-                val skin: String = game.skin
-                fileWriter.append("${skin};")
                 val updated: String = game.updated
-                fileWriter.append("${updated};")
+                fileWriter.append("${updated};") //18
+
                 val created: String = game.created
-                fileWriter.append("${created};")
+                fileWriter.append("${created};") //19
+
                 fileWriter.append('\n')
             }
         } catch (exception: Exception) {
