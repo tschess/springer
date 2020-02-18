@@ -9,6 +9,7 @@ import io.bahlsenwitz.springer.controller.player.notify.PlayerNotify
 import io.bahlsenwitz.springer.controller.player.profile.PlayerProfile
 import io.bahlsenwitz.springer.controller.player.quick.PlayerQuick
 import io.bahlsenwitz.springer.controller.player.refresh.PlayerRefresh
+import io.bahlsenwitz.springer.controller.player.skin.PlayerSkin
 import io.bahlsenwitz.springer.controller.player.start.PlayerStart
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
@@ -115,6 +116,13 @@ class ControllerPlayer(repositoryPlayer: RepositoryPlayer) {
     @GetMapping("/notify/{id}")
     fun notify(@PathVariable(value = "id") id: String): Any {
         return playerNotify.notify(id)
+    }
+
+    val playerSkin = PlayerSkin(repositoryPlayer)
+
+    @PostMapping("/skin")
+    fun skin(@Valid @RequestBody updateSkin: PlayerSkin.UpdateSkin): Any {
+        return playerSkin.skin(updateSkin)
     }
 
 }
