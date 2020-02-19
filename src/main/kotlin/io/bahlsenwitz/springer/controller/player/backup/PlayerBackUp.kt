@@ -82,7 +82,10 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
                 }
 
                 val skin: List<SKIN> = player.skin
-                fileWriter.append("${skin};") //14
+                for (value: SKIN in skin) {
+                    fileWriter.append("${value},")
+                }
+                fileWriter.append(";") //14
 
 
                 val updated: String = player.updated
