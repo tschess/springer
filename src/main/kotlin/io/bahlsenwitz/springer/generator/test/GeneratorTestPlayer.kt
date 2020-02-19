@@ -28,7 +28,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             elo = 1200,
             rank = 1,
             disp = 3,
-            notify = true,
+            note = true,
             date = DATE_TIME_GENERATOR.rightNowString()
         )
         testPlayerList.add(white) //0

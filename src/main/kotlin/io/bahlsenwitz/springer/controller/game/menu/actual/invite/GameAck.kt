@@ -74,11 +74,11 @@ class GameAck(
 
         fun setNotification(game: Game, player: Player, repositoryPlayer: RepositoryPlayer) {
             if (game.white == player) {
-                game.black.notify = true
+                game.black.note = true
                 repositoryPlayer.save(game.black)
                 return
             }
-            game.white.notify = true
+            game.white.note = true
             repositoryPlayer.save(game.white)
         }
 

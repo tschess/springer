@@ -50,7 +50,7 @@ class GameChallenge(
         )
         repositoryGame.save(game)
 
-        white.notify = true
+        white.note = true
         repositoryPlayer.save(white)
 
         return ResponseEntity.status(HttpStatus.OK).body("{\"challenge\": \"${game.id}\"}")

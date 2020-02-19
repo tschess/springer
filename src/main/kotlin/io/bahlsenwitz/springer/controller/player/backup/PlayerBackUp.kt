@@ -23,7 +23,7 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
                 "rank;" + //     5
                 "disp;" + //     6
                 "date;" + //     7
-                "notify;" + //   8
+                "note;" + //   8
                 "config0;" + //  9
                 "config1;" + //  10
                 "config2;" + //  11
@@ -59,8 +59,8 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
                 val date: String = player.date
                 fileWriter.append("${date};") //7
 
-                val notify: Boolean = player.notify
-                fileWriter.append("${notify};") //8
+                val note: Boolean = player.note
+                fileWriter.append("${note};") //8
 
                 val config0: String = player.config0.toString()
                 fileWriter.append("${config0};") //9

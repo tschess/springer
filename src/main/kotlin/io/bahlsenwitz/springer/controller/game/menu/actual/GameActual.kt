@@ -19,7 +19,7 @@ class GameActual(
     fun actual(requestActual: RequestActual): ResponseEntity<Any> {
         val uuid: UUID = UUID.fromString(requestActual.id)!!
         val player: Player = repositoryPlayer.findById(uuid).get()
-        player.notify = false
+        player.note = false
         repositoryPlayer.save(player)
 
         val playerList: List<Game> = repositoryGame.findPlayerList(uuid)

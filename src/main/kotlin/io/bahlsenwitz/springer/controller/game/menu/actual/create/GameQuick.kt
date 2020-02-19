@@ -42,7 +42,7 @@ class GameQuick(
         val uuid1: UUID = UUID.fromString(requestQuick.id_other)!!  //other
         val black: Player = repositoryPlayer.findById(uuid1).get()
         val black_skin: SKIN = SKIN.DEFAULT
-        black.notify = true
+        black.note = true
         repositoryPlayer.save(black)
 
         val game = Game(
