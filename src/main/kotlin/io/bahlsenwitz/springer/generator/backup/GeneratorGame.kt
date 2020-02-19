@@ -12,8 +12,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class GeneratorGame(
-    private val repositoryGame: RepositoryGame,
-    private val repositoryPlayer: RepositoryPlayer
+    private val repositoryPlayer: RepositoryPlayer,
+    private val repositoryGame: RepositoryGame
 ) {
     private val IDX_ID = 0
     private val IDX_STATE = 1
@@ -62,18 +62,42 @@ class GeneratorGame(
                     val moves: Int = tokens[IDX_MOVES].toInt() //4
                     val whiteIdString: String = tokens[IDX_WHITE_ID]
                     val white_id: UUID = UUID.fromString(whiteIdString)!!
+                    //print("\nwhite_id ${white_id}\n")
                     val white: Player = repositoryPlayer.findById(white_id).get() //5
                     val white_elo: Int = tokens[IDX_WHITE_ELO].toInt() //6
-                    val white_disp: Int = tokens[IDX_WHITE_DISP].toInt() //7
+
+                    var white_disp: Int? = null
+                    val white_disp_0: String = tokens[IDX_WHITE_DISP] //7
+                    if(white_disp_0 != "NULL"){
+                        white_disp = white_disp_0.toInt()
+                    }
+
                     val white_skin: SKIN = SKIN.valueOf(tokens[IDX_WHITE_SKIN]) //8
                     val blackIdString: String = tokens[IDX_BLACK_ID]
                     val black_id: UUID = UUID.fromString(blackIdString)!!
                     val black: Player = repositoryPlayer.findById(black_id).get() //9
                     val black_elo: Int = tokens[IDX_BLACK_ELO].toInt() //10
-                    val black_disp: Int = tokens[IDX_BLACK_DISP].toInt() //11
+
+                    var black_disp: Int? = null
+                    val black_disp_0: String = tokens[IDX_BLACK_DISP] //11
+                    if(black_disp_0 != "NULL"){
+                        black_disp = black_disp_0.toInt()
+                    }
+
                     val black_skin: SKIN = SKIN.valueOf(tokens[IDX_BLACK_SKIN]) //12
-                    val challenger: CONTESTANT = CONTESTANT.valueOf(tokens[IDX_CHALLENGER]) //13
-                    val winner: CONTESTANT = CONTESTANT.valueOf(tokens[IDX_WINNER]) //14
+                    //val challenger: CONTESTANT = CONTESTANT.valueOf(tokens[IDX_CHALLENGER]) //13
+
+                    var challenger: CONTESTANT? = null
+                    val challenger_0: String = tokens[IDX_CHALLENGER] //11
+                    if(challenger_0 != "NULL"){
+                        challenger = CONTESTANT.valueOf(challenger_0)
+                    }
+                    var winner: CONTESTANT? = null
+                    val winner_0: String = tokens[IDX_WINNER] //14
+                    if(winner_0 != "NULL"){
+                        winner = CONTESTANT.valueOf(winner_0)
+                    }
+
                     val turn: CONTESTANT = CONTESTANT.valueOf(tokens[IDX_TURN]) //15
                     val on_check: Boolean = tokens[IDX_ON_CHECK].toBoolean() //16
                     val highlight: String = tokens[IDX_HIGHLIGHT] //17

@@ -115,8 +115,11 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
 
     private fun generateSkinList(squadString: String): List<SKIN> {
         val output: MutableList<SKIN> = arrayListOf()
-        val fairyList = squadString.split(",")
-        fairyList.forEach {
+        val fairyList: List<String> = squadString.trim('[',']').split(",")
+        fairyList.forEach { it: String ->
+
+            //print("\nit ${it}\n")
+
             val skin: SKIN = SKIN.valueOf(it)
             output.add(skin)
         }

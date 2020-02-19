@@ -1,6 +1,7 @@
 package io.bahlsenwitz.springer.controller.game.backup
 
 import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
+import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import org.springframework.http.HttpStatus
@@ -62,8 +63,14 @@ class GameBackUp(private val repositoryGame: RepositoryGame) {
                 fileWriter.append("${white_id};") //5
                 val white_elo: String = game.white_elo.toString()
                 fileWriter.append("${white_elo};") //6
-                val white_disp: String = game.white_disp.toString()
-                fileWriter.append("${white_disp};") //7
+
+                val white_disp_o: Int? = game.white_disp
+                if(white_disp_o == null){
+                    fileWriter.append("NULL;") //7
+                } else {
+                    fileWriter.append("${game.white_disp.toString()};")
+                }
+
                 val white_skin: String = game.white_skin.toString()
                 fileWriter.append("${white_skin};") //8
                 //
@@ -71,15 +78,32 @@ class GameBackUp(private val repositoryGame: RepositoryGame) {
                 fileWriter.append("${black_id};") //9
                 val black_elo: String = game.black_elo.toString()
                 fileWriter.append("${black_elo};") //10
-                val black_disp: String = game.black_disp.toString()
-                fileWriter.append("${black_disp};") //11
+
+                val black_disp_o: Int? = game.black_disp
+                if(black_disp_o == null){
+                    fileWriter.append("NULL;") //11
+                } else {
+                    fileWriter.append("${game.black_disp.toString()};")
+                }
+
                 val black_skin: String = game.black_skin.toString()
                 fileWriter.append("${black_skin};") //12
 
-                val challenger: String = game.challenger.toString()
-                fileWriter.append("${challenger};") //13
-                val winner: String = game.winner.toString()
-                fileWriter.append("${winner};") //14
+
+                val challenger_o: CONTESTANT? = game.challenger
+                if(challenger_o == null){
+                    fileWriter.append("NULL;") //13
+                } else {
+                    fileWriter.append("${game.challenger.toString()};")
+                }
+                val winner_o: CONTESTANT? = game.winner
+                if(winner_o == null){
+                    fileWriter.append("NULL;") //14
+                } else {
+                    fileWriter.append("${game.winner.toString()};")
+                }
+
+
                 val turn: String = game.turn.toString()
                 fileWriter.append("${turn};") //15
 
