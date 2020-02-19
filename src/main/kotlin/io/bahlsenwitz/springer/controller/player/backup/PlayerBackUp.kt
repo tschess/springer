@@ -69,10 +69,15 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
                 val config2: String = player.config2.toString()
                 fileWriter.append("${config2};") //11
 
-
-                val squad: String = player.skin.toString()
-                fileWriter.append("${squad};") //12
-
+                val skin: List<SKIN> = player.skin
+                for ((index: Int, value: SKIN) in skin.withIndex()) {
+                    if(index == skin.lastIndex){
+                        fileWriter.append("$value") //12...
+                    } else {
+                        fileWriter.append("${value},") //12...
+                    }
+                }
+                fileWriter.append(";") //12
 
                 val device: String? = player.device
                 if (!device.isNullOrBlank()) {
@@ -81,20 +86,10 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
                     fileWriter.append("NULL;") //13
                 }
 
-                val skin: List<SKIN> = player.skin
-                for ((index: Int, value: SKIN) in skin.withIndex()) {
-                    if(index == skin.lastIndex){
-                        fileWriter.append("$value") //14...
-                    } else {
-                        fileWriter.append("${value},") //14...
-                    }
-                }
-                fileWriter.append(";") //14
-
                 val updated: String = player.updated
-                fileWriter.append("${updated};") //15
+                fileWriter.append("${updated};") //14
                 val created: String = player.created
-                fileWriter.append("${created};") //16
+                fileWriter.append("${created};") //15
                 fileWriter.append('\n')
             }
         } catch (exception: Exception) {

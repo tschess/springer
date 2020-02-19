@@ -6,8 +6,8 @@ import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import io.bahlsenwitz.springer.generator.backup.*
-//import io.bahlsenwitz.springer.generator.test.*
+//import io.bahlsenwitz.springer.generator.backup.*
+import io.bahlsenwitz.springer.generator.test.*
 
 @SpringBootApplication
 class SpringerApplication(
@@ -15,20 +15,20 @@ class SpringerApplication(
     val repositoryGame: RepositoryGame): ApplicationRunner {
 
     override fun run(args: ApplicationArguments?) {
-        //val generatorTestPlayer = GeneratorTestPlayer(repositoryPlayer)
-        //generatorTestPlayer.generate()
-        //Thread.sleep(1_000)
-        //GeneratorTestGameFin(repositoryGame, generatorTestPlayer).generate()
-        //Thread.sleep(1_000)
-        //GeneratorTestGameAct(repositoryGame, generatorTestPlayer).generate()
-        //Thread.sleep(1_000)
-        //GeneratorTestGamePro(repositoryGame, generatorTestPlayer).generate()
-
-        val generatorPlayer = GeneratorPlayer(repositoryPlayer)
-        generatorPlayer.generate()
+        val generatorTestPlayer = GeneratorTestPlayer(repositoryPlayer)
+        generatorTestPlayer.generate()
         Thread.sleep(1_000)
-        val generatorGame = GeneratorGame(repositoryPlayer, repositoryGame)
-        generatorGame.generate()
+        GeneratorTestGameFin(repositoryGame, generatorTestPlayer).generate()
+        Thread.sleep(1_000)
+        GeneratorTestGameAct(repositoryGame, generatorTestPlayer).generate()
+        Thread.sleep(1_000)
+        GeneratorTestGamePro(repositoryGame, generatorTestPlayer).generate()
+
+//        val generatorPlayer = GeneratorPlayer(repositoryPlayer)
+//        generatorPlayer.generate()
+//        Thread.sleep(1_000)
+//        val generatorGame = GeneratorGame(repositoryPlayer, repositoryGame)
+//        generatorGame.generate()
     }
 }
 
