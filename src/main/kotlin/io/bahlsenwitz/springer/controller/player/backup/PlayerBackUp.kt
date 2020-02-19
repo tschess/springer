@@ -82,11 +82,14 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
                 }
 
                 val skin: List<SKIN> = player.skin
-                for (value: SKIN in skin) {
-                    fileWriter.append("${value},")
+                for ((index: Int, value: SKIN) in skin.withIndex()) {
+                    if(index == skin.lastIndex){
+                        fileWriter.append("$value") //14...
+                    } else {
+                        fileWriter.append("${value},") //14...
+                    }
                 }
                 fileWriter.append(";") //14
-
 
                 val updated: String = player.updated
                 fileWriter.append("${updated};") //15
