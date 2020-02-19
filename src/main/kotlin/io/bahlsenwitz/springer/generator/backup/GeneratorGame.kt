@@ -7,6 +7,7 @@ import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
+import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -59,47 +60,46 @@ class GeneratorGame(
                     val status: STATUS = STATUS.valueOf(tokens[IDX_STATUS]) //2
                     val outcome: OUTCOME = OUTCOME.valueOf(tokens[IDX_OUTCOME]) //3
                     val moves: Int = tokens[IDX_MOVES].toInt() //4
-
                     val whiteIdString: String = tokens[IDX_WHITE_ID]
                     val white_id: UUID = UUID.fromString(whiteIdString)!!
                     val white: Player = repositoryPlayer.findById(white_id).get() //5
-                    val whiteElo: Int = tokens[IDX_WHITE_ELO].toInt() //6
-                    val whiteDisp: Int = tokens[IDX_WHITE_DISP].toInt() //7
-                    val whiteSkin: SKIN = SKIN.valueOf(tokens[IDX_WHITE_SKIN]) //8
-                    //
+                    val white_elo: Int = tokens[IDX_WHITE_ELO].toInt() //6
+                    val white_disp: Int = tokens[IDX_WHITE_DISP].toInt() //7
+                    val white_skin: SKIN = SKIN.valueOf(tokens[IDX_WHITE_SKIN]) //8
                     val blackIdString: String = tokens[IDX_BLACK_ID]
                     val black_id: UUID = UUID.fromString(blackIdString)!!
                     val black: Player = repositoryPlayer.findById(black_id).get() //9
-                    val blackElo: Int = tokens[IDX_BLACK_ELO].toInt() //10
-                    val blackDisp: Int = tokens[IDX_BLACK_DISP].toInt() //11
-                    val blackSkin: SKIN = SKIN.valueOf(tokens[IDX_BLACK_SKIN]) //12
-
+                    val black_elo: Int = tokens[IDX_BLACK_ELO].toInt() //10
+                    val black_disp: Int = tokens[IDX_BLACK_DISP].toInt() //11
+                    val black_skin: SKIN = SKIN.valueOf(tokens[IDX_BLACK_SKIN]) //12
                     val challenger: CONTESTANT = CONTESTANT.valueOf(tokens[IDX_CHALLENGER]) //13
                     val winner: CONTESTANT = CONTESTANT.valueOf(tokens[IDX_WINNER]) //14
                     val turn: CONTESTANT = CONTESTANT.valueOf(tokens[IDX_TURN]) //15
-
                     val on_check: Boolean = tokens[IDX_ON_CHECK].toBoolean() //16
                     val highlight: String = tokens[IDX_HIGHLIGHT] //17
                     val updated: String = tokens[IDX_UPDATED] //18
                     val created: String = tokens[IDX_CREATED] //19
                     val game = Game(
-                        id = id,
-                        clock = clock,
-                        state = state,
-                        highlight = highlight,
-                        white = white,
-                        white_update = whiteUpdate,
-                        black = black,
-                        config = config,
-                        black_update = blackUpdate,
-                        check_on = checkOn,
-                        turn = turn,
-                        status = status,
-                        winner = winner,
-                        catalyst = catalyst,
-                        skin = skin,
-                        updated = updated,
-                        created = created
+                        id = id, //0
+                        state = state, //1
+                        status = status, //2
+                        outcome = outcome, //3
+                        moves = moves, //4
+                        white = white, //5
+                        white_elo = white_elo, //6
+                        white_disp = white_disp, //7
+                        white_skin = white_skin, //8
+                        black = black, //9
+                        black_elo = black_elo, //10
+                        black_disp = black_disp, //11
+                        black_skin = black_skin, //12
+                        challenger = challenger, //13
+                        winner = winner, //14
+                        turn = turn, //15
+                        on_check = on_check, //16
+                        highlight = highlight, //17
+                        updated = updated, //18
+                        created = created //19
                     )
                     gameList.add(game)
                 }
@@ -169,68 +169,65 @@ class GeneratorGame(
     private fun parseName(listElement: String): String {
         if (listElement.toLowerCase().contains("white")) {
             if (listElement.toLowerCase().contains("knight")) {
-                return "WhiteKnight"
+                return "KnightWhite"
             }
             if (listElement.toLowerCase().contains("bishop")) {
-                return "WhiteBishop"
+                return "BishopWhite"
             }
             if (listElement.toLowerCase().contains("rook")) {
-                return "WhiteRook"
+                return "RookWhite"
             }
             if (listElement.toLowerCase().contains("queen")) {
-                return "WhiteQueen"
+                return "QueenWhite"
             }
             if (listElement.toLowerCase().contains("king")) {
-                return "WhiteKing"
+                return "KingWhite"
             }
             if (listElement.toLowerCase().contains("grasshopper")) {
-                return "WhiteGrasshopper"
+                return "GrasshopperWhite"
             }
             if (listElement.toLowerCase().contains("hunter")) {
-                return "WhiteHunter"
+                return "HunterWhite"
             }
             if (listElement.toLowerCase().contains("poison")) {
-                return "WhitePoisonPawn"
+                return "PoisonPawnWhite"
             }
             if (listElement.toLowerCase().contains("pawn")) {
-                return "WhitePawn"
+                return "PawnWhite"
             }
             if (listElement.toLowerCase().contains("amazon")) {
-                return "WhiteAmazon"
+                return "AmazonWhite"
             }
         }
         if (listElement.toLowerCase().contains("knight")) {
-            return "BlackKnight"
+            return "KnightBlack"
         }
         if (listElement.toLowerCase().contains("bishop")) {
-            return "BlackBishop"
+            return "BishopBlack"
         }
         if (listElement.toLowerCase().contains("rook")) {
-            return "BlackRook"
+            return "RookBlack"
         }
         if (listElement.toLowerCase().contains("queen")) {
-            return "BlackQueen"
+            return "QueenBlack"
         }
         if (listElement.toLowerCase().contains("king")) {
-            return "BlackKing"
+            return "KingBlack"
         }
         if (listElement.toLowerCase().contains("grasshopper")) {
-            return "BlackGrasshopper"
+            return "GrasshopperBlack"
         }
         if (listElement.toLowerCase().contains("hunter")) {
-            return "BlackHunter"
+            return "HunterBlack"
         }
         if (listElement.toLowerCase().contains("poison")) {
-            return "BlackPoisonPawn"
-        }
-        if (listElement.toLowerCase().contains("arrow")) {
-            return "BlackArrowPawn"
+            return "PoisonPawnBlack"
         }
         if (listElement.toLowerCase().contains("pawn")) {
-            return "BlackPawn"
+            return "PawnBlack"
         }
         if (listElement.toLowerCase().contains("amazon")) {
-            return "BlackAmazon"
+            return "AmazonBlack"
         }
         return ""
     }
