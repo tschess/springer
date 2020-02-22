@@ -1,6 +1,7 @@
-package io.bahlsenwitz.springer.scheduler
+package io.bahlsenwitz.springer.schedule
 
 
+import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 //import io.bahlsenwitz.springer.model.game.Game
@@ -32,61 +33,61 @@ class TimeoutTaskRunner(
 //        }
 //    }
 //
-//    private fun timeoutTask(threshold: Long, gameList: List<Game>) {
-//        val brooklyn = ZoneId.of("America/New_York")
-//
-//        var elapsedTime: Long
-//        gameList.forEach {
-//            if (it.turn == it.white.name) { //white to move...
-//                elapsedTime = if (it.white_update == "TBD") { //white has yet to move...
-//
-//                    val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy_HH:mm:ss.SSSS")
-//                    val dateTimeFormatted = LocalDateTime.parse(it.created, formatter)
-//                    val dateTimeZoned = ZonedDateTime.of(dateTimeFormatted, brooklyn)
-//                    val dateTimeNow = ZonedDateTime.now(brooklyn)
-//                    Duration.between(dateTimeNow, dateTimeZoned).seconds
-//
-//                } else {
-//
-//                    val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy_HH:mm:ss.SSSS")
-//                    val dateTimeFormatted = LocalDateTime.parse(it.white_update, formatter)
-//                    val dateTimeZoned = ZonedDateTime.of(dateTimeFormatted, brooklyn)
-//                    val dateTimeNow = ZonedDateTime.now(brooklyn)
-//                    Duration.between(dateTimeNow, dateTimeZoned).seconds
-//
-//                }
-//
-//                if (elapsedTime.absoluteValue > threshold) {
-//
-//                    timeoutGameStats(game = it, winner = it.black.name, catalyst = "TIMEOUT")
-//                    timeoutPlayerStats(
-//                        winnerName = it.black.name,
-//                        winTschx = 2,
-//                        loserName = it.white.name,
-//                        loseTschx = 0
-//                    )
-//                }
-//            }
-//            if (it.turn == it.black.name) { //black to move...
-//
-//                val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy_HH:mm:ss.SSSS")
-//                val dateTimeFormatted = LocalDateTime.parse(it.black_update, formatter)
-//                val dateTimeZoned = ZonedDateTime.of(dateTimeFormatted, brooklyn)
-//                val dateTimeNow = ZonedDateTime.now(brooklyn)
-//                elapsedTime = Duration.between(dateTimeNow, dateTimeZoned).seconds
-//
-//                if (elapsedTime.absoluteValue > threshold) {
-//                    timeoutGameStats(game = it, winner = it.white.name, catalyst = "TIMEOUT")
-//                    timeoutPlayerStats(
-//                        winnerName = it.white.name,
-//                        winTschx = 2,
-//                        loserName = it.black.name,
-//                        loseTschx = 0
-//                    )
-//                }
-//            }
-//        }
-//    }
+    private fun timeoutTask(threshold: Long, gameList: List<Game>) {
+        val brooklyn = ZoneId.of("America/New_York")
+
+        var elapsedTime: Long
+        gameList.forEach {
+            if (it.turn == it.white.name) { //white to move...
+                elapsedTime = if (it.white_update == "TBD") { //white has yet to move...
+
+                    val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy_HH:mm:ss.SSSS")
+                    val dateTimeFormatted = LocalDateTime.parse(it.created, formatter)
+                    val dateTimeZoned = ZonedDateTime.of(dateTimeFormatted, brooklyn)
+                    val dateTimeNow = ZonedDateTime.now(brooklyn)
+                    Duration.between(dateTimeNow, dateTimeZoned).seconds
+
+                } else {
+
+                    val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy_HH:mm:ss.SSSS")
+                    val dateTimeFormatted = LocalDateTime.parse(it.white_update, formatter)
+                    val dateTimeZoned = ZonedDateTime.of(dateTimeFormatted, brooklyn)
+                    val dateTimeNow = ZonedDateTime.now(brooklyn)
+                    Duration.between(dateTimeNow, dateTimeZoned).seconds
+
+                }
+
+                if (elapsedTime.absoluteValue > threshold) {
+
+                    timeoutGameStats(game = it, winner = it.black.name, catalyst = "TIMEOUT")
+                    timeoutPlayerStats(
+                        winnerName = it.black.name,
+                        winTschx = 2,
+                        loserName = it.white.name,
+                        loseTschx = 0
+                    )
+                }
+            }
+            if (it.turn == it.black.name) { //black to move...
+
+                val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy_HH:mm:ss.SSSS")
+                val dateTimeFormatted = LocalDateTime.parse(it.black_update, formatter)
+                val dateTimeZoned = ZonedDateTime.of(dateTimeFormatted, brooklyn)
+                val dateTimeNow = ZonedDateTime.now(brooklyn)
+                elapsedTime = Duration.between(dateTimeNow, dateTimeZoned).seconds
+
+                if (elapsedTime.absoluteValue > threshold) {
+                    timeoutGameStats(game = it, winner = it.white.name, catalyst = "TIMEOUT")
+                    timeoutPlayerStats(
+                        winnerName = it.white.name,
+                        winTschx = 2,
+                        loserName = it.black.name,
+                        loseTschx = 0
+                    )
+                }
+            }
+        }
+    }
 //
 //    private fun timeoutInvitationsTask() {
 //        val brooklyn = ZoneId.of("America/New_York")
