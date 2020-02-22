@@ -71,9 +71,9 @@ class GameHistoric(
                 val dateA: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = a.updated)
                 val dateB: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = b.updated)
                 if (dateA.isBefore(dateB)) {
-                    return -1
+                    return 1
                 }
-                return 1
+                return -1
             }
         }
     }
