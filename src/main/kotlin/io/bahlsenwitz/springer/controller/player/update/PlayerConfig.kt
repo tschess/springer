@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.player.update
 
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.ResponseEntity
@@ -9,8 +8,6 @@ import java.time.ZonedDateTime
 import java.util.*
 
 class PlayerConfig(private val repositoryPlayer: RepositoryPlayer) {
-
-    private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
     fun config(updateConfig: UpdateConfig): ResponseEntity<Player> {
         val uuid: UUID = UUID.fromString(updateConfig.id)!!

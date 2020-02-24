@@ -1,20 +1,15 @@
 package io.bahlsenwitz.springer.generator.test
 
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
-import io.bahlsenwitz.springer.model.game.SKIN
-import io.bahlsenwitz.springer.model.game.CONTESTANT
-import io.bahlsenwitz.springer.model.game.Game
-import io.bahlsenwitz.springer.model.game.OUTCOME
-import io.bahlsenwitz.springer.model.game.STATUS
+import io.bahlsenwitz.springer.model.game.*
 import io.bahlsenwitz.springer.repository.RepositoryGame
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.util.*
 
 class GeneratorTestGameFin(
     private val repositoryGame: RepositoryGame,
     private val generatorTestPlayer: GeneratorTestPlayer
 ) {
-
-    private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
     fun generate() {
         repositoryGame.deleteAll()
@@ -31,7 +26,7 @@ class GeneratorTestGameFin(
             black_disp = -7,
             outcome = OUTCOME.CHECKMATE,
             winner = CONTESTANT.WHITE,
-            updated = DATE_TIME_GENERATOR.rightNowString(),
+            updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant()),
             status = STATUS.RESOLVED,
             challenger = CONTESTANT.WHITE
         )
@@ -42,7 +37,7 @@ class GeneratorTestGameFin(
             black = generatorTestPlayer.findByName(username = "bbb"),
             status = STATUS.RESOLVED,
             winner = CONTESTANT.WHITE,
-            updated = DATE_TIME_GENERATOR.rightNowString(),
+            updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant()),
             white_disp = 1,
             white_skin = SKIN.CALYPSO,
             black_skin = SKIN.NEPTUNE,
@@ -59,7 +54,7 @@ class GeneratorTestGameFin(
             black = generatorTestPlayer.findByName(username = "ccc"),
             status = STATUS.RESOLVED,
             winner = CONTESTANT.WHITE,
-            updated = DATE_TIME_GENERATOR.rightNowString(),
+            updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant()),
             white_disp = -3,
             black_disp = 1,
             white_skin = SKIN.CALYPSO,
@@ -76,7 +71,7 @@ class GeneratorTestGameFin(
             black = generatorTestPlayer.findByName(username = "ddd"),
             status = STATUS.RESOLVED,
             winner = CONTESTANT.BLACK,
-            updated = DATE_TIME_GENERATOR.rightNowString(),
+            updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant()),
             white_disp = -9,
             black_disp = 0,
             state = defaultState(),
@@ -90,7 +85,7 @@ class GeneratorTestGameFin(
             white = generatorTestPlayer.findByName(username = "aaa"),
             black = generatorTestPlayer.findByName(username = "eee"),
             status = STATUS.RESOLVED,
-            updated = DATE_TIME_GENERATOR.rightNowString(),
+            updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant()),
             white_disp = 14,
             black_disp = -4,
             white_skin = SKIN.CALYPSO,
@@ -106,7 +101,7 @@ class GeneratorTestGameFin(
             black = generatorTestPlayer.findByName(username = "fff"),
             status = STATUS.RESOLVED,
             winner = CONTESTANT.BLACK,
-            updated = DATE_TIME_GENERATOR.rightNowString(),
+            updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant()),
             white_disp = 6,
             black_disp = -2,
             white_skin = SKIN.CALYPSO,

@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.game.tschess.resolve
 
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.common.Elo
 import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.CONTESTANT
@@ -19,8 +18,6 @@ class GameMate(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
 ) {
-
-    private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
     fun mate(id_game: String): ResponseEntity<Any> {
         val uuid: UUID = UUID.fromString(id_game)!!
@@ -84,7 +81,7 @@ class GameMate(
         game.white_disp = repositoryPlayer.findById(game.white.id).get().disp
         game.black_disp = repositoryPlayer.findById(game.black.id).get().disp
         game.highlight = "TBD"
-        game.updated = DATE_TIME_GENERATOR.rightNowString()
+        game.updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
         repositoryGame.save(game)
         return ResponseEntity.ok("{\"success\": \"ok\"}")
     }

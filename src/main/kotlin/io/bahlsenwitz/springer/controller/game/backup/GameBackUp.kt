@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.game.backup
 
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.repository.RepositoryGame
@@ -8,11 +7,12 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.io.FileWriter
 import java.io.IOException
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.util.*
 
 //@PostMapping("/backup")
 class GameBackUp(private val repositoryGame: RepositoryGame) {
-
-    private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
     fun backup(): ResponseEntity<Any> {
         val csvHeader = "" +
@@ -40,7 +40,7 @@ class GameBackUp(private val repositoryGame: RepositoryGame) {
 
         var fileWriter: FileWriter? = null
         try {
-            fileWriter = FileWriter("${DATE_TIME_GENERATOR.rightNowString()}.game.csv")
+            fileWriter = FileWriter("${Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())}.game.csv")
             fileWriter.append("${csvHeader}\n")
             for (game in gameList) {
 
@@ -115,10 +115,10 @@ class GameBackUp(private val repositoryGame: RepositoryGame) {
                 fileWriter.append("${highlight};") //17
 
 
-                val updated: String = game.updated
+                val updated: String = game.updated.toString()
                 fileWriter.append("${updated};") //18
 
-                val created: String = game.created
+                val created: String = game.created.toString()
                 fileWriter.append("${created};") //19
 
                 fileWriter.append('\n')

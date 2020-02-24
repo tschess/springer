@@ -1,14 +1,15 @@
 package io.bahlsenwitz.springer.controller.game.menu.actual.create
 
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
-import io.bahlsenwitz.springer.model.game.SKIN
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
+import io.bahlsenwitz.springer.model.game.SKIN
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.ResponseEntity
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.util.*
 
 //curl --header "Content-Type: application/json" --request POST --data '{"game":"11111111-1111-1111-1111-111111111111", "player": "99999999-9999-9999-9999-999999999999"}' http://localhost:8080/game/snapshot
@@ -16,8 +17,6 @@ class GameQuick(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
 ) {
-
-    private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
     fun quick(requestQuick: RequestQuick): ResponseEntity<Any> {
 
@@ -52,7 +51,7 @@ class GameQuick(
             black = black,
             black_skin = black_skin,
             challenger = CONTESTANT.WHITE,
-            updated = DATE_TIME_GENERATOR.rightNowString()
+            updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
         )
         game.status = STATUS.ONGOING
         return ResponseEntity.ok(repositoryGame.save(game))

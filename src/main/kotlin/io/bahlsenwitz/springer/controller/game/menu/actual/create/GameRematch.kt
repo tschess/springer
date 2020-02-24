@@ -1,14 +1,15 @@
 package io.bahlsenwitz.springer.controller.game.menu.actual.create
 
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
-import io.bahlsenwitz.springer.model.game.SKIN
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
+import io.bahlsenwitz.springer.model.game.SKIN
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.util.*
 
 //curl --header "Content-Type: application/json" --request POST --data '{"game":"11111111-1111-1111-1111-111111111111", "player": "99999999-9999-9999-9999-999999999999"}' http://localhost:8080/game/snapshot
@@ -65,7 +66,7 @@ class GameRematch(
             white_skin = white_skin,
             black_skin = black_skin,
             state = state,
-            created = DATE_TIME_GENERATOR.rightNowString()
+            created = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
         )
         repositoryGame.save(game1)
         return ResponseEntity.status(HttpStatus.OK).body("{\"challenge\": \"${game1.id}\"}")
@@ -80,8 +81,6 @@ class GameRematch(
     )
 
     companion object {
-
-        private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
         fun traditionalConfig(): List<List<String>> {
             val row0: List<String> =

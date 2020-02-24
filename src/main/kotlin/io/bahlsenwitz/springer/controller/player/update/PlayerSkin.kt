@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.player.update
 
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.game.SKIN
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
@@ -10,8 +9,6 @@ import java.time.ZonedDateTime
 import java.util.*
 
 class PlayerSkin(private val repositoryPlayer: RepositoryPlayer) {
-
-    private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
     fun skin(updateSkin: UpdateSkin): ResponseEntity<Player> {
         val uuid: UUID = UUID.fromString(updateSkin.id)!!

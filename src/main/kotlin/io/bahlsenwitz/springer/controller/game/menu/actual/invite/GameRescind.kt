@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.game.menu.actual.invite
 
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.OUTCOME
 import io.bahlsenwitz.springer.model.game.STATUS
@@ -16,7 +15,6 @@ class GameRescind(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
 ) {
-    val DATE_TIME_GENERATOR = GeneratorDateTime()
 
     fun rescind(updateRescind: UpdateRescind): ResponseEntity<Any> {
         val uuid0: UUID = UUID.fromString(updateRescind.id_game)!!

@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.game.menu.historic
 
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.OUTCOME
 import io.bahlsenwitz.springer.model.game.STATUS
@@ -9,6 +8,7 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
 
@@ -65,11 +65,9 @@ class GameHistoric(
 
         companion object : Comparator<Game> {
 
-            private val DATE_TIME_GENERATOR = GeneratorDateTime()
-
             override fun compare(a: Game, b: Game): Int {
-                val dateA: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = a.updated)
-                val dateB: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = b.updated)
+                val dateA: ZonedDateTime = a.updated.toInstant().atZone(ZoneId.of("America/New_York"))
+                val dateB: ZonedDateTime = b.updated.toInstant().atZone(ZoneId.of("America/New_York"))
                 if (dateA.isBefore(dateB)) {
                     return 1
                 }

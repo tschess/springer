@@ -2,14 +2,12 @@ package io.bahlsenwitz.springer.model.player
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import io.bahlsenwitz.springer.generator.util.GeneratorAvatar
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.common.EntityUUID
 import io.bahlsenwitz.springer.model.game.SKIN
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs
 import org.springframework.data.jpa.repository.Temporal
-import java.sql.Timestamp
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
@@ -66,8 +64,6 @@ class Player(
 ): EntityUUID(id), Comparable<Player> {
 
     companion object {
-
-       val DATE_TIME_GENERATOR = GeneratorDateTime()
 
         fun defaultConfig0(): List<List<String>> {
             val r1: List<String> = arrayListOf("","Bishop","Rook","Pawn","Pawn","Rook","Bishop","Pawn")

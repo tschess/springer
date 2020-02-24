@@ -1,13 +1,14 @@
 package io.bahlsenwitz.springer.controller.game.menu.actual.invite
 
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.game.Game
-import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.game.SKIN
+import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.ResponseEntity
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.util.*
 
 class GameAck(
@@ -42,7 +43,7 @@ class GameAck(
 
         game.state = state
         game.status = STATUS.ONGOING
-        game.updated = DATE_TIME_GENERATOR.rightNowString()
+        game.updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
 
         var white: Boolean = false
         if (game.white == player) {
@@ -69,8 +70,6 @@ class GameAck(
     )
 
     companion object {
-
-        private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
         fun setNotification(game: Game, player: Player, repositoryPlayer: RepositoryPlayer) {
             if (game.white == player) {

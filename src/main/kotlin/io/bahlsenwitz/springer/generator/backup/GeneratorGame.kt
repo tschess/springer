@@ -8,6 +8,9 @@ import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 import java.io.IOException
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -98,6 +101,9 @@ class GeneratorGame(
                         winner = CONTESTANT.valueOf(winner_0)
                     }
 
+                    val FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy_HH:mm:ss.SSSS")
+                    val BROOKLYN = ZoneId.of("America/New_York")
+
                     val turn: CONTESTANT = CONTESTANT.valueOf(tokens[IDX_TURN]) //15
                     val on_check: Boolean = tokens[IDX_ON_CHECK].toBoolean() //16
                     val highlight: String = tokens[IDX_HIGHLIGHT] //17
@@ -122,8 +128,8 @@ class GeneratorGame(
                         turn = turn, //15
                         on_check = on_check, //16
                         highlight = highlight, //17
-                        updated = updated, //18
-                        created = created //19
+                        updated = Date.from(LocalDateTime.parse(updated, FORMATTER).atZone(BROOKLYN).toInstant()), //18
+                        created = Date.from(LocalDateTime.parse(created, FORMATTER).atZone(BROOKLYN).toInstant()) //19
                     )
                     gameList.add(game)
                 }

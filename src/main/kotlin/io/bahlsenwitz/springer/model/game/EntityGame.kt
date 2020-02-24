@@ -1,12 +1,14 @@
 package io.bahlsenwitz.springer.model.game
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.common.EntityUUID
 import io.bahlsenwitz.springer.model.player.Player
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs
+import org.springframework.data.jpa.repository.Temporal
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.util.*
 import javax.persistence.*
 
@@ -45,12 +47,13 @@ class Game(
     var on_check: Boolean = false,
     var highlight: String = PLACEHOLDER,
 
-    var updated: String = DATE_TIME_GENERATOR.rightNowString(),
-    var created: String = DATE_TIME_GENERATOR.rightNowString()
+    @Temporal(TemporalType.TIMESTAMP)
+    var updated: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant()),
+    @Temporal(TemporalType.TIMESTAMP)
+    var created: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
 
 ) : EntityUUID(id) {
     companion object {
-        val DATE_TIME_GENERATOR = GeneratorDateTime()
 
         const val PLACEHOLDER: String = "TBD"
 

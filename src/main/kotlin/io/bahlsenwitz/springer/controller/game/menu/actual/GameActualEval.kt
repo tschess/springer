@@ -4,6 +4,7 @@ import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
+import java.util.*
 
 class GameActualEval(val game: Game, val player: Player) : Game(
     id = game.id,
@@ -31,7 +32,7 @@ class GameActualEval(val game: Game, val player: Player) : Game(
     data class Info(
         val invitation: Boolean,
         val inbound: Boolean,
-        val date: String
+        val date: Date
     )
 
     val stats: Info = getInfo()
@@ -39,7 +40,7 @@ class GameActualEval(val game: Game, val player: Player) : Game(
     private final fun getInfo(): Info {
         var inbound: Boolean = false
         var invitation: Boolean = false
-        var date: String = game.updated
+        var date: Date = game.updated
 
         if (game.status == STATUS.PROPOSED) { //invite
             invitation = true

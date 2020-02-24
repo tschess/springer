@@ -1,18 +1,17 @@
 package io.bahlsenwitz.springer.controller.game.tschess
 
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.OUTCOME
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import org.springframework.http.ResponseEntity
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.util.*
 
 //curl --header "Content-Type: application/json" --request POST --data '{"state":[[""]]}' http://localhost:8080/game/test
 class GameTest(private val repositoryGame: RepositoryGame) {
-
-    private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
     fun test(requestTest: RequestTest): ResponseEntity<Any> {
         val id: UUID = UUID.fromString("00000000-0000-0000-0000-000000000000")
@@ -33,7 +32,7 @@ class GameTest(private val repositoryGame: RepositoryGame) {
         game.status = STATUS.ONGOING
         game.outcome = OUTCOME.TBD
         game.highlight = "TBD"
-        game.updated = DATE_TIME_GENERATOR.rightNowString()
+        game.updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
         return ResponseEntity.ok(repositoryGame.save(game))
     }
 

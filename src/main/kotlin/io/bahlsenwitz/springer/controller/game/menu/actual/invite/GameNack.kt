@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.game.menu.actual.invite
 
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.common.Elo
 import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.Game
@@ -18,7 +17,6 @@ class GameNack(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
 ) {
-    val DATE_TIME_GENERATOR = GeneratorDateTime()
 
     fun nack(updateNack: UpdateNack): ResponseEntity<Any> {
         val uuid0: UUID = UUID.fromString(updateNack.id_game)!!

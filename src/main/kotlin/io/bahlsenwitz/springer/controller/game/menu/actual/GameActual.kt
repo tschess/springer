@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.game.menu.actual
 
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
@@ -8,6 +7,7 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
 
@@ -81,9 +81,6 @@ class GameActual(
 
         companion object : Comparator<GameActualEval> {
 
-
-            private val DATE_TIME_GENERATOR = GeneratorDateTime()
-
             override fun compare(a: GameActualEval, b: GameActualEval): Int {
 
 
@@ -91,8 +88,8 @@ class GameActual(
                 val inboundB: Boolean = b.stats.inbound
                 val invitationA: Boolean = a.stats.invitation
                 val invitationB: Boolean = b.stats.invitation
-                val updateA: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = a.stats.date)
-                val updateB: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = b.stats.date)
+                val updateA: ZonedDateTime = ZonedDateTime.ofInstant(a.stats.date.toInstant(), ZoneId.of("America/New_York"))
+                val updateB: ZonedDateTime = ZonedDateTime.ofInstant(b.stats.date.toInstant(), ZoneId.of("America/New_York"))
                 val updateAB: Boolean = updateA.isBefore(updateB)
                 if (inboundA) { //a in
                     if (inboundB) { //b in

@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.player.start
 
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.HttpStatus
@@ -13,8 +12,6 @@ import java.util.*
 import javax.validation.Valid
 
 class PlayerStart(private val repositoryPlayer: RepositoryPlayer) {
-
-    private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
     fun login(@Valid @RequestBody requestLogin: RequestLogin): ResponseEntity<Any> {
         val username: String = requestLogin.username

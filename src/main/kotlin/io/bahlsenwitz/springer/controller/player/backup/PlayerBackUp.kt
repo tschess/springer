@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.player.backup
 
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.game.SKIN
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
@@ -8,10 +7,11 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.io.FileWriter
 import java.io.IOException
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.util.*
 
 class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
-
-    private val DATE_TIME_GENERATOR = GeneratorDateTime()
 
     fun backup(): ResponseEntity<Any> {
         val csvHeader: String = "" +
@@ -35,7 +35,7 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
 
         var fileWriter: FileWriter? = null
         try {
-            fileWriter = FileWriter("${DATE_TIME_GENERATOR.rightNowString()}.player.csv")
+            fileWriter = FileWriter("${Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())}.player.csv")
             fileWriter.append("${csvHeader}\n")
             for (player in playerList) {
                 val id: String = player.id.toString()

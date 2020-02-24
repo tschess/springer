@@ -1,7 +1,6 @@
 package io.bahlsenwitz.springer.generator.test
 
 import io.bahlsenwitz.springer.generator.util.GeneratorAvatar
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import java.time.ZoneId
@@ -10,7 +9,6 @@ import java.util.*
 
 class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
 
-    private val DATE_TIME_GENERATOR = GeneratorDateTime()
     private val PASSWORD = "\$2a\$10\$paasde3Qy5jcxzZONo4a1OT3d4qgBIriGdyvO1qfeDWb2ksXSjycO"
 
     private var testPlayerList = mutableListOf<Player>()

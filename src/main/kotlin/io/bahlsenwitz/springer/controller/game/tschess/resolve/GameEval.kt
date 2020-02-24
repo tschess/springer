@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.game.tschess.resolve
 
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.common.Elo
 import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.CONTESTANT
@@ -20,12 +19,11 @@ class GameEval(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
 ) {
-    val DATE_TIME_GENERATOR = GeneratorDateTime()
 
     fun eval(evalUpdate: EvalUpdate): ResponseEntity<Any> {
         val uuid0: UUID = UUID.fromString(evalUpdate.id_game)!!
         val game: Game = repositoryGame.findById(uuid0).get()
-        game.updated = DATE_TIME_GENERATOR.rightNowString()
+        game.updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
 
         val accept: Boolean = evalUpdate.accept
         if (!accept) {

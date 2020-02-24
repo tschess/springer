@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.game.tschess.resolve
 
-import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.common.Elo
 import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.CONTESTANT
@@ -19,7 +18,6 @@ class GameResign(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
 ) {
-    val DATE_TIME_GENERATOR = GeneratorDateTime()
 
     fun resign(updateResign: UpdateResign): ResponseEntity<Any> {
         val uuid0: UUID = UUID.fromString(updateResign.id_game)!!
@@ -75,7 +73,7 @@ class GameResign(
             game.winner = CONTESTANT.WHITE
         }
         game.highlight = "TBD"
-        game.updated = DATE_TIME_GENERATOR.rightNowString()
+        game.updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
         repositoryGame.save(game)
         return ResponseEntity.ok("{\"success\": \"ok\"}") //what does this need to return? the game I guess...
     }
