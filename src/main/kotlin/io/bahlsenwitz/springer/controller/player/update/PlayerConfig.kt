@@ -4,6 +4,8 @@ import io.bahlsenwitz.springer.generator.util.GeneratorDateTime
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.ResponseEntity
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.util.*
 
 class PlayerConfig(private val repositoryPlayer: RepositoryPlayer) {
@@ -22,7 +24,7 @@ class PlayerConfig(private val repositoryPlayer: RepositoryPlayer) {
         if(updateConfig.index == 2){
             player.config2 = updateConfig.config
         }
-        player.updated = DATE_TIME_GENERATOR.rightNowString()
+        player.updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
         return ResponseEntity.ok(repositoryPlayer.save(player))
     }
 

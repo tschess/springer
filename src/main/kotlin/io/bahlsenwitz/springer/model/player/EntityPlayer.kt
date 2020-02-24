@@ -8,11 +8,15 @@ import io.bahlsenwitz.springer.model.game.SKIN
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs
+import org.springframework.data.jpa.repository.Temporal
+import java.sql.Timestamp
+import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Table
+import javax.persistence.TemporalType
 import kotlin.collections.HashMap
 
 @Entity
@@ -32,7 +36,8 @@ class Player(
     var elo: Int = 1200,
     var rank: Int = 0,
     var disp: Int = 0,
-    var date: String = PLACEHOLDER,
+    @Temporal(TemporalType.TIMESTAMP)
+    var date: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant()),
 
     @Column(insertable = true, updatable = true)
     var note: Boolean = false,
@@ -53,13 +58,14 @@ class Player(
 
     @Column(unique = true)
     var device: String? = null,
-    var updated: String = PLACEHOLDER,
-    var created: String = DATE_TIME_GENERATOR.rightNowString()
+    @Temporal(TemporalType.TIMESTAMP)
+    var updated: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant()),
+    @Temporal(TemporalType.TIMESTAMP)
+    var created: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
 
 ): EntityUUID(id), Comparable<Player> {
 
     companion object {
-        const val PLACEHOLDER: String = "TBD"
 
        val DATE_TIME_GENERATOR = GeneratorDateTime()
 
@@ -87,8 +93,8 @@ class Player(
 
     override operator fun compareTo(other: Player): Int {
         if (this.elo == other.elo) {
-            val date: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = this.created)
-            val dateOther: ZonedDateTime = DATE_TIME_GENERATOR.generateDate(date = other.created)
+            val date: ZonedDateTime = this.created.toInstant().atZone(ZoneId.of("America/New_York"))
+            val dateOther: ZonedDateTime = other.created.toInstant().atZone(ZoneId.of("America/New_York"))
             if(date.isBefore(dateOther)){
                 return -1
             }
@@ -98,16 +104,6 @@ class Player(
             return -1
         }
         return 1
-    }
-
-    class Core(player: Player) {
-        val id: String = player.id.toString()
-        val username: String = player.username
-        val avatar: String = player.avatar
-        val elo: Int = player.elo
-        val rank: Int = player.rank
-        val date: String = player.date
-        val disp: Int = player.disp
     }
 }
 

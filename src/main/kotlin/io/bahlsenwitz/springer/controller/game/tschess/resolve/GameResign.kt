@@ -11,6 +11,8 @@ import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.ResponseEntity
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.util.*
 
 class GameResign(
@@ -52,7 +54,7 @@ class GameResign(
             }
             val disp: Int = player.rank - (index + 1)
             player.disp = disp
-            val date: String = DATE_TIME_GENERATOR.rightNowString()
+            val date: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
             player.date = date
             val rank: Int = (index + 1)
             player.rank = rank

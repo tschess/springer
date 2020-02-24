@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.RequestBody
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.util.*
 import javax.validation.Valid
 
 class PlayerCreate(private val repositoryPlayer: RepositoryPlayer) {
@@ -22,7 +25,7 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer) {
         val player = Player(
             username = requestCreate.username,
             password = BCryptPasswordEncoder().encode(requestCreate.password),
-            date = DATE_TIME_GENERATOR.rightNowString(),
+            date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant()),
             device = requestCreate.device
         )
         repositoryPlayer.save(player)
@@ -39,7 +42,7 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer) {
             }
             val disp: Int = player.rank - (index + 1)
             player.disp = disp
-            val date: String = DATE_TIME_GENERATOR.rightNowString()
+            val date: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
             player.date = date
             val rank: Int = (index + 1)
             player.rank = rank

@@ -56,7 +56,7 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
                 fileWriter.append("${rank};") //5
                 val disp: String = player.disp.toString()
                 fileWriter.append("${disp};") //6
-                val date: String = player.date
+                val date: String = player.date.toString()
                 fileWriter.append("${date};") //7
 
                 val note: Boolean = player.note
@@ -86,9 +86,9 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
                     fileWriter.append("NULL;") //13
                 }
 
-                val updated: String = player.updated
+                val updated: String = player.updated.toString()
                 fileWriter.append("${updated};") //14
-                val created: String = player.created
+                val created: String = player.created.toString()
                 fileWriter.append("${created};") //15
                 fileWriter.append('\n')
             }

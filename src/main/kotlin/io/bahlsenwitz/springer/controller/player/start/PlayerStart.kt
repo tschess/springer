@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.RequestBody
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.util.*
 import javax.validation.Valid
 
 class PlayerStart(private val repositoryPlayer: RepositoryPlayer) {
@@ -24,7 +27,7 @@ class PlayerStart(private val repositoryPlayer: RepositoryPlayer) {
             repositoryPlayer.save(playerD)
         }
 
-        val updated: String = DATE_TIME_GENERATOR.rightNowString()
+        val updated: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
 
         val player: Player = repositoryPlayer.findByUsername(username)
             ?: return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\": \"nonexistent\"}")

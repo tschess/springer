@@ -7,6 +7,9 @@ import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 import java.io.IOException
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -77,6 +80,10 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                     }
                     val updated: String = tokens[IDX_UPDATED] //14
                     val created: String = tokens[IDX_CREATED] //15
+
+                    val FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy_HH:mm:ss.SSSS")
+                    val BROOKLYN = ZoneId.of("America/New_York")
+
                     val player = Player(
                         id = id, //0
                         username = username, //1
@@ -85,15 +92,15 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                         elo = elo, //4
                         rank = rank, //5
                         disp = disp, //6
-                        date = date, //7
+                        date = Date.from(LocalDateTime.parse(date, FORMATTER).atZone(BROOKLYN).toInstant()), //7
                         note = note, //8
                         config0 = config0, //9
                         config1 = config1, //10
                         config2 = config2, //11
                         skin = skin, //12
                         device = device, //13
-                        updated = updated, //14
-                        created = created //15
+                        updated = Date.from(LocalDateTime.parse(updated, FORMATTER).atZone(BROOKLYN).toInstant()), //14
+                        created = Date.from(LocalDateTime.parse(created, FORMATTER).atZone(BROOKLYN).toInstant()) //15
                     )
                     playerList.add(player)
                 }

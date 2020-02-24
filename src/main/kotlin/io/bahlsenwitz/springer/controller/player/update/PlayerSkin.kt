@@ -5,6 +5,8 @@ import io.bahlsenwitz.springer.model.game.SKIN
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.ResponseEntity
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.util.*
 
 class PlayerSkin(private val repositoryPlayer: RepositoryPlayer) {
@@ -18,7 +20,7 @@ class PlayerSkin(private val repositoryPlayer: RepositoryPlayer) {
         val acquisition: List<SKIN> = listOf(SKIN.valueOf(updateSkin.skin))
         player.skin = player.skin + acquisition
 
-        player.updated = DATE_TIME_GENERATOR.rightNowString()
+        player.updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
         return ResponseEntity.ok(repositoryPlayer.save(player))
     }
 
