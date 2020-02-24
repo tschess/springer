@@ -40,6 +40,12 @@ dependencies {
     implementation("org.apache.httpcomponents:httpclient:4.5.10")
     runtimeOnly("org.postgresql:postgresql:42.1.4")
 
+    /* * */
+
+    implementation("com.influxdb:influxdb-client-kotlin:1.5.0")
+
+    /* * */
+
     testImplementation("io.kotlintest:kotlintest-core:3.0.2")
     testImplementation("io.kotlintest:kotlintest-assertions:3.0.2")
     testImplementation("io.kotlintest:kotlintest-runner-junit5:3.0.2")

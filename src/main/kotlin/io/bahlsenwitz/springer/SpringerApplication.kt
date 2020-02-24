@@ -1,20 +1,39 @@
 package io.bahlsenwitz.springer
 
+
+
+//import io.bahlsenwitz.springer.generator.backup.*
+import com.influxdb.client.kotlin.InfluxDBClientKotlin
+import com.influxdb.client.kotlin.InfluxDBClientKotlinFactory
+import io.bahlsenwitz.springer.generator.test.GeneratorTestGameAct
+import io.bahlsenwitz.springer.generator.test.GeneratorTestGameFin
+import io.bahlsenwitz.springer.generator.test.GeneratorTestGamePro
+import io.bahlsenwitz.springer.generator.test.GeneratorTestPlayer
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-//import io.bahlsenwitz.springer.generator.backup.*
-import io.bahlsenwitz.springer.generator.test.*
 
 @SpringBootApplication
 class SpringerApplication(
     val repositoryPlayer: RepositoryPlayer,
     val repositoryGame: RepositoryGame): ApplicationRunner {
 
+    //InfluxDBFactory.connect(databaseURL, userName, password);
+    val influxDB: InfluxDBClientKotlin = InfluxDBClientKotlinFactory
+        .create("http://172.17.0.2:8086", "root", "root".toCharArray())
+
+
     override fun run(args: ApplicationArguments?) {
+
+        val player_id: String = "123"
+        val fluxQuery: String = ("INSERT pirates,player=${player_id}")
+        //
+        influxDB.getQueryKotlinApi().query(fluxQuery, "my-org")
+
+
         val generatorTestPlayer = GeneratorTestPlayer(repositoryPlayer)
         generatorTestPlayer.generate()
         Thread.sleep(1_000)
