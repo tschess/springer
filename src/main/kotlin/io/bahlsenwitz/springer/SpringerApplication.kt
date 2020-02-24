@@ -23,7 +23,7 @@ class SpringerApplication(
 
     //InfluxDBFactory.connect(databaseURL, userName, password);
     val influxDB: InfluxDBClientKotlin = InfluxDBClientKotlinFactory
-        .create("http://172.17.0.2:8086", "root", "root".toCharArray())
+        .create("http://3.12.121.89:8086", "", "".toCharArray())
 
 
     override fun run(args: ApplicationArguments?) {
