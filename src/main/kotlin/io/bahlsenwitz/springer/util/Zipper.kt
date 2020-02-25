@@ -16,7 +16,7 @@ class Zipper {
         val month: String = SimpleDateFormat("MM").format(zonedDateTime)
         val day: String = SimpleDateFormat("dd").format(zonedDateTime)
 
-        val dir = File("..${File.separator}backup${File.separator + month + File.separator + day + File.separator}")
+        val dir: File = File("..${File.separator}backup${File.separator + month + File.separator + day + File.separator}")
         dir.mkdirs()
         val zip: File = File(dir, "${name}.zip")
         zip.createNewFile()

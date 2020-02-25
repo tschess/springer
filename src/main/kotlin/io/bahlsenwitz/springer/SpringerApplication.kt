@@ -10,6 +10,8 @@ import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import java.io.File
+
 
 //        val generatorPlayer = GeneratorPlayer(repositoryPlayer)
 //        generatorPlayer.generate()
@@ -26,17 +28,28 @@ class SpringerApplication(
     //./gradlew bootRun --args='--source=date'
     override fun run(args: ApplicationArguments) {
 
-        //03-28
+        //28-03
         if (args.containsOption("source")) {
 
             val date: List<String> = args.getOptionValues("source")[0]!!.split("-")
 
-            val month: String = date[0]
-            print("\n\n\nmonth = ${month}\n")
-            val day: String = date[1]
-            print("day = ${day}\n\n\n")
+            val day: String = date[0]
+            print("\n\n\nday = ${day}\n")
+            val month: String = date[1]
+            print("month = ${month}\n\n\n")
 
-            
+            File("..${File.separator}backup${File.separator + month + File.separator + day + File.separator}").walk()
+                .forEach {
+
+                    if (it.extension == "zip") {
+                        println("${it.absolutePath}")
+
+
+                    }
+
+                }
+
+            //print("${file.absolutePath}")
 
             return
         }
