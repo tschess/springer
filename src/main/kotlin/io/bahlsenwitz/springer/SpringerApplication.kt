@@ -32,7 +32,7 @@ class SpringerApplication(
             return
         }
 
-        val file: String = args.getOptionValues("source")!!.toString()
+        val file: String = args.getOptionValues("source")[0]!!
 
         print("\n\n\nITALIA = ${file}\n\n\n")
 
