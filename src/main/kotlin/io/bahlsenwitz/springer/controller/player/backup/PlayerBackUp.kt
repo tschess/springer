@@ -42,7 +42,7 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
         val date: String = format.format(zonedDateTime)
 
         try {
-            fileWriter = FileWriter("${date}.player.csv")
+            fileWriter = FileWriter("${date}_player.csv")
             fileWriter.append("${csvHeader}\n")
             for (player in playerList) {
                 val id: String = player.id.toString()
