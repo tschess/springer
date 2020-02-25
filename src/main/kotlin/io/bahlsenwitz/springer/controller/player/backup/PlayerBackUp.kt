@@ -17,43 +17,33 @@ import java.util.zip.ZipOutputStream
 
 class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
 
-    fun backup(): ResponseEntity<Any> {
+    private val HEADER: String = "" +
+            "id;" + //       0
+            "username;" + // 1
+            "password;" + // 2
+            "avatar;" + //   3
+            "elo;" + //      4
+            "rank;" + //     5
+            "disp;" + //     6
+            "date;" + //     7
+            "note;" + //   8
+            "config0;" + //  9
+            "config1;" + //  10
+            "config2;" + //  11
+            "skin;" + //     12
+            "device;" + //   13
+            "updated;" + //  14
+            "created" //     15
 
-        val csvHeader: String = "" +
-                "id;" + //       0
-                "username;" + // 1
-                "password;" + // 2
-                "avatar;" + //   3
-                "elo;" + //      4
-                "rank;" + //     5
-                "disp;" + //     6
-                "date;" + //     7
-                "note;" + //   8
-                "config0;" + //  9
-                "config1;" + //  10
-                "config2;" + //  11
-                "skin;" + //     12
-                "device;" + //   13
-                "updated;" + //  14
-                "created" //     15
+    fun backup(): ResponseEntity<Any> {
         val playerList: List<Player> = repositoryPlayer.findAll()
 
         var fileWriter: FileWriter? = null
-
-        val zonedDateTime: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
-        val format0 = SimpleDateFormat("dd-MM-yyy")
-        val format1 = SimpleDateFormat("MM")
-        val date: String = format0.format(zonedDateTime)
-        val month: String = format1.format(zonedDateTime)
-
-        
-        val output: File = File.createTempFile("${date}_player", ".csv")
-        //File(dir, "${date}_player.csv")
-
+        val temp: File = File.createTempFile("player", ".csv")
         try {
 
-            fileWriter = FileWriter(output)
-            fileWriter.append("${csvHeader}\n")
+            fileWriter = FileWriter(temp)
+            fileWriter.append("${HEADER}\n")
             for (player in playerList) {
                 val id: String = player.id.toString()
                 fileWriter.append("${id};") //0
@@ -73,8 +63,8 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
                 fileWriter.append("${rank};") //5
                 val disp: String = player.disp.toString()
                 fileWriter.append("${disp};") //6
-                val date: String = player.date.toString()
-                fileWriter.append("${date};") //7
+                val date0: String = player.date.toString()
+                fileWriter.append("${date0};") //7
 
                 val note: Boolean = player.note
                 fileWriter.append("${note};") //8
@@ -117,34 +107,7 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
                 fileWriter!!.flush()
                 fileWriter.close()
 
-
-                val dir = File("..${separator}backup${separator + month + separator}")
-                dir.mkdirs()
-
-                val zip: File = File(dir, "${date}_player.zip")
-                zip.createNewFile()
-
-                //val file = File("/home/nikhil/somedir/file.txt")
-                //file.parentFile.mkdirs() // Will create parent directories if not exists
-                //file.createNewFile()
-                val fileOutputStream = FileOutputStream(zip, false)
-
-                ZipOutputStream(BufferedOutputStream(fileOutputStream)).use { out ->
-                    val data = ByteArray(1024)
-                    FileInputStream(output).use { fi ->
-                        BufferedInputStream(fi).use { origin ->
-                            val entry = ZipEntry("${date}_player.csv")
-                            out.putNextEntry(entry)
-                            while (true) {
-                                val readBytes = origin.read(data)
-                                if (readBytes == -1) {
-                                    break
-                                }
-                                out.write(data, 0, readBytes)
-                            }
-                        }
-                    }
-                }
+                zipOutput(temp)
 
             } catch (exception: IOException) {
                 println("Flushing/closing error!")
@@ -152,6 +115,36 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
             }
         }
         return ResponseEntity.status(HttpStatus.OK).body("{\"backup\":\"player\"}")
+    }
+
+    fun zipOutput(temp: File) {
+
+        val zonedDateTime: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
+        val date: String = SimpleDateFormat("dd-MM-yyy").format(zonedDateTime)
+        val month: String = SimpleDateFormat("MM").format(zonedDateTime)
+
+        val dir = File("..${separator}backup${separator + month + separator}")
+        dir.mkdirs()
+        val zip: File = File(dir, "${date}_player.zip")
+        zip.createNewFile()
+
+        val fileOutputStream: FileOutputStream = FileOutputStream(zip, false)
+        ZipOutputStream(BufferedOutputStream(fileOutputStream)).use { out ->
+            val data = ByteArray(1024)
+            FileInputStream(temp).use { fi ->
+                BufferedInputStream(fi).use { origin ->
+                    val entry = ZipEntry("${date}_player.csv")
+                    out.putNextEntry(entry)
+                    while (true) {
+                        val readBytes = origin.read(data)
+                        if (readBytes == -1) {
+                            break
+                        }
+                        out.write(data, 0, readBytes)
+                    }
+                }
+            }
+        }
     }
 
 }
