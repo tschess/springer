@@ -5,17 +5,20 @@ import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import java.io.File
+import java.io.File.separator
 import java.io.FileWriter
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.time.ZoneId
 import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
+
 
 class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
 
     fun backup(): ResponseEntity<Any> {
+
         val csvHeader: String = "" +
                 "id;" + //       0
                 "username;" + // 1
@@ -38,11 +41,44 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
         var fileWriter: FileWriter? = null
 
         val zonedDateTime: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
-        val format = SimpleDateFormat("dd-MM-yyy")
-        val date: String = format.format(zonedDateTime)
+        val format0 = SimpleDateFormat("dd-MM-yyy")
+        val format1 = SimpleDateFormat("MM")
+        val date: String = format0.format(zonedDateTime)
+        val month: String = format1.format(zonedDateTime)
+
+//        val output: Path = FileSystems.getDefault().getPath(".") + separator +
+//                ".." + separator +
+//                "backup" + separator +
+//                month
+
+        // create a File object for the parent directory
+        val dir = File("..${separator}backup${separator + month + separator}")
+        dir.mkdirs()
+
+        //val path: Path = FileSystems.getDefault().getPath(".").toAbsolutePath()
+        //print("\nxpathx: ${path}\n")
+
+        val path0: String = "/remote/dir/server/"
+//        String directoryName = PATH.concat(this.getClassName());
+//        String fileName = id + getTimeStamp() + ".txt";
+//
+//        File directory = new File(directoryName);
+//        if (! directory.exists()){
+//            directory.mkdir();
+//            // If you require it to make the entire directory path including parents,
+//            // use directory.mkdirs(); here instead.
+//        }
+//
+//        File file = new File(directoryName + "/" + fileName);
+//        try{
+//            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+
 
         try {
-            fileWriter = FileWriter("${date}_player.csv")
+
+            val output = File(dir, "${date}_player.csv")
+
+            fileWriter = FileWriter(output)
             fileWriter.append("${csvHeader}\n")
             for (player in playerList) {
                 val id: String = player.id.toString()
