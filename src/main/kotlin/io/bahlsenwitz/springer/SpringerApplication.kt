@@ -26,7 +26,7 @@ class SpringerApplication(
         //val fluxQuery: String = ("INSERT xxx player=${player_id}")
         //
         //influxDB.getQueryKotlinApi().query(fluxQuery, "my-org")
-        khttp.post(url = "http://3.12.121.89:8086/write?db=tschess", data = "activity player=1989")
+        
         //khttp.post(
             //url = "http://3.12.121.89:8086/write?db=tschess", "data-binary""activity player=888")
 
