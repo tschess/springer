@@ -42,7 +42,8 @@ dependencies {
 
     /* * */
 
-    implementation("com.influxdb:influxdb-client-kotlin:1.5.0")
+    //implementation("com.influxdb:influxdb-client-kotlin:1.5.0")
+    implementation("khttp:khttp:0.1.0")
 
     /* * */
 
