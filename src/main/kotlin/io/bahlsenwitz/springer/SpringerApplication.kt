@@ -29,7 +29,7 @@ class SpringerApplication(
     override fun run(args: ApplicationArguments?) {
 
         val player_id: String = "123"
-        val fluxQuery: String = ("INSERT pirates,player=${player_id}")
+        val fluxQuery: String = ("INSERT pirates player=${player_id}")
         //
         influxDB.getQueryKotlinApi().query(fluxQuery, "my-org")
 
