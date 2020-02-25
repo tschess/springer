@@ -2,6 +2,7 @@ package io.bahlsenwitz.springer.controller.player.start
 
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
+import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -26,6 +27,8 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer) {
             device = requestCreate.device
         )
         repositoryPlayer.save(player)
+
+        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "growth player=\"${player.id}\"")
 
         /**
          * LEADERBOARD RECALC

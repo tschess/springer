@@ -30,10 +30,7 @@ class PlayerStart(private val repositoryPlayer: RepositoryPlayer) {
         val player: Player = repositoryPlayer.findByUsername(username)
             ?: return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\": \"nonexistent\"}")
 
-
-        //khttp.post(url = "http://3.12.121.89:8086/write?db=tschess", data = "activity player=\"${player.id}\"")
-        //khttp.post(url = "http://3.12.121.89:8086/write?db=tschess", data = "activity player=0101010")
-        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=zzz", data = "slaps id=\"${player.id}\"")
+        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "activity player=\"${player.id}\",route=login")
 
         if (BCryptPasswordEncoder().matches(password, player.password)) {
             player.device = device
