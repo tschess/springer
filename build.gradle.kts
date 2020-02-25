@@ -41,10 +41,7 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql:42.1.4")
 
     /* * */
-
-    //implementation("com.influxdb:influxdb-client-kotlin:1.5.0")
     implementation("khttp:khttp:0.1.0")
-
     /* * */
 
     testImplementation("io.kotlintest:kotlintest-core:3.0.2")

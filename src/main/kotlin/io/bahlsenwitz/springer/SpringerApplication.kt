@@ -11,33 +11,31 @@ import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
+
 @SpringBootApplication
 class SpringerApplication(
     val repositoryPlayer: RepositoryPlayer,
     val repositoryGame: RepositoryGame): ApplicationRunner {
 
-    //InfluxDBFactory.connect(databaseURL, userName, password);
-    //val influxDB: InfluxDBClientKotlin = InfluxDBClientKotlinFactory.create("http://3.12.121.89:8086", "sme", "111111".toCharArray())
-
-
+    //./gradlew bootRun --args='--source=zip'
     override fun run(args: ApplicationArguments?) {
 
-        //val player_id: String = "123"
-        //val fluxQuery: String = ("INSERT xxx player=${player_id}")
-        //
-        //influxDB.getQueryKotlinApi().query(fluxQuery, "my-org")
+        if(args == null){
+            val generatorTestPlayer = GeneratorTestPlayer(repositoryPlayer)
+            generatorTestPlayer.generate()
+            Thread.sleep(1_000)
+            GeneratorTestGameFin(repositoryGame, generatorTestPlayer).generate()
+            Thread.sleep(1_000)
+            GeneratorTestGameAct(repositoryGame, generatorTestPlayer).generate()
+            Thread.sleep(1_000)
+            GeneratorTestGamePro(repositoryGame, generatorTestPlayer).generate()
+            return
+        }
 
-        //khttp.post(
-            //url = "http://3.12.121.89:8086/write?db=tschess", "data-binary""activity player=888")
+        val file: String = args.getOptionValues("source")!!.toString()
 
-        val generatorTestPlayer = GeneratorTestPlayer(repositoryPlayer)
-        generatorTestPlayer.generate()
-        Thread.sleep(1_000)
-        GeneratorTestGameFin(repositoryGame, generatorTestPlayer).generate()
-        Thread.sleep(1_000)
-        GeneratorTestGameAct(repositoryGame, generatorTestPlayer).generate()
-        Thread.sleep(1_000)
-        GeneratorTestGamePro(repositoryGame, generatorTestPlayer).generate()
+        print("\n\n\nITALIA = ${file}\n\n\n")
+
 
 //        val generatorPlayer = GeneratorPlayer(repositoryPlayer)
 //        generatorPlayer.generate()
