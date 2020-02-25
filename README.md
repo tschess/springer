@@ -2,7 +2,7 @@
 
 server for `tschess`
 
-### beginning of the beginning
+##relational 
 
 ```
 sudo apt update
@@ -117,4 +117,18 @@ curl --header "Content-Type: application/json" --request POST --data '{"state": 
 tmux new -s tschess
 tmux a -t tschess
 tmux ls
+```
+
+----
+
+##time-series 
+
+### grafana
+
+```
+```
+
+### influxDB
+
+```
 ```
