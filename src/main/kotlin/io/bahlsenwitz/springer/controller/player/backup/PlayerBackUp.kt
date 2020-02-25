@@ -7,8 +7,10 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.io.FileWriter
 import java.io.IOException
+import java.text.SimpleDateFormat
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
@@ -34,8 +36,13 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
         val playerList: List<Player> = repositoryPlayer.findAll()
 
         var fileWriter: FileWriter? = null
+
+        val zonedDateTime: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
+        val format = SimpleDateFormat("dd-MM-yyy")
+        val date: String = format.format(zonedDateTime)
+
         try {
-            fileWriter = FileWriter("${Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())}.player.csv")
+            fileWriter = FileWriter("${date}.player.csv")
             fileWriter.append("${csvHeader}\n")
             for (player in playerList) {
                 val id: String = player.id.toString()
