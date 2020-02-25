@@ -11,9 +11,8 @@ import java.text.SimpleDateFormat
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
-import java.util.zip.ZipOutputStream
 import java.util.zip.ZipEntry
-import java.util.zip.ZipFile
+import java.util.zip.ZipOutputStream
 
 
 class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
@@ -47,11 +46,9 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
         val date: String = format0.format(zonedDateTime)
         val month: String = format1.format(zonedDateTime)
 
-
-        val dir = File("..${separator}backup${separator + month + separator}")
-        dir.mkdirs()
-
-        val output = File(dir, "${date}_player.csv")
+        
+        val output: File = File.createTempFile("${date}_player", ".csv")
+        //File(dir, "${date}_player.csv")
 
         try {
 
@@ -91,7 +88,7 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
 
                 val skin: List<SKIN> = player.skin
                 for ((index: Int, value: SKIN) in skin.withIndex()) {
-                    if(index == skin.lastIndex){
+                    if (index == skin.lastIndex) {
                         fileWriter.append("$value") //12...
                     } else {
                         fileWriter.append("${value},") //12...
@@ -120,21 +117,33 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
                 fileWriter!!.flush()
                 fileWriter.close()
 
-                ZipOutputStream(BufferedOutputStream(FileOutputStream("test.zip"))).use { out ->
-                val data = ByteArray(1024)
-                FileInputStream(output).use { fi ->
-                    BufferedInputStream(fi).use { origin ->
-                        val entry = ZipEntry(output.name)
-                        out.putNextEntry(entry)
-                        while (true) {
-                            val readBytes = origin.read(data)
-                            if (readBytes == -1) {
-                                break
+
+                val dir = File("..${separator}backup${separator + month + separator}")
+                dir.mkdirs()
+
+                val zip: File = File(dir, "${date}_player.zip")
+                zip.createNewFile()
+
+                //val file = File("/home/nikhil/somedir/file.txt")
+                //file.parentFile.mkdirs() // Will create parent directories if not exists
+                //file.createNewFile()
+                val fileOutputStream = FileOutputStream(zip, false)
+
+                ZipOutputStream(BufferedOutputStream(fileOutputStream)).use { out ->
+                    val data = ByteArray(1024)
+                    FileInputStream(output).use { fi ->
+                        BufferedInputStream(fi).use { origin ->
+                            val entry = ZipEntry("${date}_player.csv")
+                            out.putNextEntry(entry)
+                            while (true) {
+                                val readBytes = origin.read(data)
+                                if (readBytes == -1) {
+                                    break
+                                }
+                                out.write(data, 0, readBytes)
                             }
-                            out.write(data, 0, readBytes)
                         }
                     }
-                }
                 }
 
             } catch (exception: IOException) {
