@@ -3,6 +3,7 @@ package io.bahlsenwitz.springer.controller.game.tschess.update
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.OUTCOME
 import io.bahlsenwitz.springer.repository.RepositoryGame
+import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.ResponseEntity
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -18,6 +19,9 @@ class GameCheck(private val repositoryGame: RepositoryGame) {
         game.outcome = OUTCOME.CHECK
         game.updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
         repositoryGame.save(game)
+
+        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "game id=\"${game.id}\",route=\"check\"")
+
         return ResponseEntity.ok("{\"success\": \"ok\"}") //what does this need to return? the game I guess...
     }
 

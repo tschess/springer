@@ -6,6 +6,7 @@ import io.bahlsenwitz.springer.model.game.SKIN
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
+import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.time.ZoneId
@@ -69,6 +70,9 @@ class GameRematch(
             created = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
         )
         repositoryGame.save(game1)
+
+        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "game id=\"${game1.id}\",route=\"rematch\"")
+
         return ResponseEntity.status(HttpStatus.OK).body("{\"challenge\": \"${game1.id}\"}")
     }
 

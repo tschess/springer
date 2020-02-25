@@ -2,6 +2,7 @@ package io.bahlsenwitz.springer.controller.player.update
 
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
+import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.ResponseEntity
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -22,6 +23,7 @@ class PlayerConfig(private val repositoryPlayer: RepositoryPlayer) {
             player.config2 = updateConfig.config
         }
         player.updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
+        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "activity player=\"${player.id}\",route=\"config\"")
         return ResponseEntity.ok(repositoryPlayer.save(player))
     }
 

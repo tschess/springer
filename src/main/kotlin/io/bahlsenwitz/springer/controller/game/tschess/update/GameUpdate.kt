@@ -5,6 +5,7 @@ import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.OUTCOME
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.repository.RepositoryGame
+import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.ResponseEntity
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -27,6 +28,9 @@ class GameUpdate(private val repositoryGame: RepositoryGame) {
         game.highlight = updateGame.highlight
         game.outcome = OUTCOME.TBD
         repositoryGame.save(game)
+
+        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "game id=\"${game.id}\",route=\"update\"")
+
         return ResponseEntity.ok("{\"success\": \"ok\"}")
     }
 

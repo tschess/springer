@@ -6,6 +6,7 @@ import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
+import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.util.*
@@ -52,6 +53,8 @@ class GameChallenge(
 
         white.note = true
         repositoryPlayer.save(white)
+
+        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "game id=\"${game.id}\",route=\"challenge\"")
 
         return ResponseEntity.status(HttpStatus.OK).body("{\"challenge\": \"${game.id}\"}")
     }

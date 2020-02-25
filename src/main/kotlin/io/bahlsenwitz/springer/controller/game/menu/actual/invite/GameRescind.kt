@@ -6,6 +6,7 @@ import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
+import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.ResponseEntity
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -22,6 +23,8 @@ class GameRescind(
         game.status = STATUS.RESOLVED
         game.outcome = OUTCOME.RESCIND
         repositoryGame.save(game)
+
+        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "game id=\"${game.id}\",route=\"rescind\"")
 
         val uuid1: UUID = UUID.fromString(updateRescind.id_player)!!
         val player0: Player = repositoryPlayer.findById(uuid1).get()

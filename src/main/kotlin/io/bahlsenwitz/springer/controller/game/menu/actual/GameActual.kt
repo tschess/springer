@@ -5,6 +5,7 @@ import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
+import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.time.ZoneId
@@ -19,6 +20,9 @@ class GameActual(
     fun actual(requestActual: RequestActual): ResponseEntity<Any> {
         val uuid: UUID = UUID.fromString(requestActual.id)!!
         val player: Player = repositoryPlayer.findById(uuid).get()
+
+        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "menu id=\"${player.id}\",route=\"actual\"")
+
         player.note = false
         repositoryPlayer.save(player)
 

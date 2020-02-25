@@ -6,6 +6,7 @@ import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
+import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.ResponseEntity
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -23,6 +24,8 @@ class GameAck(
 
         val uuid1: UUID = UUID.fromString(requestAck.id_player)!!
         val player: Player = repositoryPlayer.findById(uuid1).get()
+
+        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "game id=\"${game.id}\",route=\"ack\"")
 
         var config: List<List<String>> =
             traditionalConfig()
