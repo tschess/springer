@@ -14,10 +14,11 @@ class ZipOutput {
         val zonedDateTime: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
         val date: String = SimpleDateFormat("dd-MM-yyy").format(zonedDateTime)
         val month: String = SimpleDateFormat("MM").format(zonedDateTime)
+        val day: String = SimpleDateFormat("dd").format(zonedDateTime)
 
-        val dir = File("..${File.separator}backup${File.separator + month + File.separator}")
+        val dir = File("..${File.separator}backup${File.separator + month + File.separator + day + File.separator}")
         dir.mkdirs()
-        val zip: File = File(dir, "${date}_${name}.zip")
+        val zip: File = File(dir, "${name}.zip")
         zip.createNewFile()
 
         val fileOutputStream: FileOutputStream = FileOutputStream(zip, false)
