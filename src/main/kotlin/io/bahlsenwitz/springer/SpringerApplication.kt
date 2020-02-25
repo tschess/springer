@@ -17,10 +17,10 @@ class SpringerApplication(
     val repositoryPlayer: RepositoryPlayer,
     val repositoryGame: RepositoryGame): ApplicationRunner {
 
-    //./gradlew bootRun --args='--source=zip'
+    //./gradlew bootRun --args='--source=date'
     override fun run(args: ApplicationArguments?) {
 
-        if(args == null){
+        if(args == null){ // thow an error actally...
             val generatorTestPlayer = GeneratorTestPlayer(repositoryPlayer)
             generatorTestPlayer.generate()
             Thread.sleep(1_000)
@@ -32,9 +32,17 @@ class SpringerApplication(
             return
         }
 
-        val file: String = args.getOptionValues("source")[0]!!
+        //03-28
+        val date: List<String> = args.getOptionValues("source")[0]!!.split("-")
 
-        print("\n\n\nITALIA = ${file}\n\n\n")
+        //print("\n\n\nITALIA = ${date}\n\n\n")
+
+        val month: String = date[0]
+        print("\n\n\nmonth = ${month}\n")
+
+        val day: String = date[1]
+        print("day = ${day}\n\n\n")
+
 
 
 //        val generatorPlayer = GeneratorPlayer(repositoryPlayer)

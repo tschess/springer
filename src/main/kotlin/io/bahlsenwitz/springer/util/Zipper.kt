@@ -8,9 +8,9 @@ import java.util.*
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
-class ZipOutput {
+class Zipper {
 
-    fun execute(temp: File, name: String) {
+    fun into(temp: File, name: String) {
         val zonedDateTime: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
         val date: String = SimpleDateFormat("dd-MM-yyy").format(zonedDateTime)
         val month: String = SimpleDateFormat("MM").format(zonedDateTime)

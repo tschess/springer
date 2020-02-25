@@ -3,7 +3,7 @@ package io.bahlsenwitz.springer.controller.player.backup
 import io.bahlsenwitz.springer.model.game.SKIN
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.ZipOutput
+import io.bahlsenwitz.springer.util.Zipper
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.io.File
@@ -88,7 +88,7 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
             try {
                 fileWriter.flush()
                 fileWriter.close()
-                ZipOutput().execute(temp, name = "player")
+                Zipper().into(temp, name = "player")
                 return ResponseEntity.status(HttpStatus.OK).body("{\"backup\":\"player\"}")
             } catch (exception: IOException) {
                 exception.printStackTrace()

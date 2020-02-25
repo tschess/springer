@@ -3,7 +3,7 @@ package io.bahlsenwitz.springer.controller.game.backup
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.repository.RepositoryGame
-import io.bahlsenwitz.springer.util.ZipOutput
+import io.bahlsenwitz.springer.util.Zipper
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.io.File
@@ -106,7 +106,7 @@ class GameBackUp(private val repositoryGame: RepositoryGame) {
             try {
                 fileWriter.flush()
                 fileWriter.close()
-                ZipOutput().execute(temp, name = "game")
+                Zipper().into(temp, name = "game")
                 return ResponseEntity.status(HttpStatus.OK).body("{\"backup\":\"game\"}")
             } catch (exception: IOException) {
                 exception.printStackTrace()
