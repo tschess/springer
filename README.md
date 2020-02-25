@@ -123,12 +123,128 @@ tmux ls
 
 ##time-series 
 
-### grafana
+####setup:
 
+on ubuntu, as `root`, to assume the role of `root` on AWS you can type the command: 
 ```
+sudo -i
 ```
 
 ### influxDB
 
+install like this:
+
 ```
+curl -sL https://repos.influxdata.com/influxdb.key | apt-key add -
+source /etc/lsb-release
+echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | tee /etc/apt/sources.list.d/influxdb.list
+apt-get update && apt-get install influxdb
+```
+
+modify the `collectd` influx configuration, make sure the `typesdb` option is pointing to the `collectd` types.
+
+search and modify the `[[collectd]]` block:
+
+```
+$  vi /etc/influxdb/influxdb.conf
+  
+[[collectd]]
+  enabled = true
+  bind-address = ":25826" # the bind address
+  database = "collectd" # Name of the database that will be written to
+  retention-policy = ""
+  batch-size = 5000 # will flush if this many points get buffered
+  batch-pending = 10 # number of batches that may be pending in memory
+  batch-timeout = "10s"
+  read-buffer = 0 # UDP read buffer size, 0 means to use OS default
+  typesdb = "/opt/collectd/share/collectd/types.db"
+  security-level = "none" # "none", "sign", or "encrypt"
+```
+
+if `collectd` is not installed on the system - download the types.db file as influx needs this
+```
+$ mkdir /opt/collectd && mkdir /opt/collectd/share && mkdir /opt/collectd/share/collectd && cd /opt/collectd/share/collectd && wget https://raw.githubusercontent.com/collectd/collectd/master/src/types.db && cd -
+```
+
+#### start InfluxDB
+``` 
+$ service influxdb start
+```
+####create a collectd database
+``` 
+$ influx
+CREATE DATABASE collectd
+```
+
+### grafana
+
+
+``` 
+sudo systemctl start grafana-server
+sudo systemctl status grafana-server
+sudo systemctl daemon-reload
+```
+
+`http://3.12.121.89:3000/`
+
+configure Grafana repos and install it:
+
+```
+$ echo "deb https://packagecloud.io/grafana/stable/debian/ wheezy main" | sudo tee /etc/apt/sources.list.d/grafana.list
+$ curl https://packagecloud.io/gpg.key | sudo apt-key add -
+$ sudo apt-get update && sudo apt-get install grafana
+$ sudo service grafana-server start
+```
+Then use a web browser to connect to grafana (http://<serverip>:3000/), using the hostname or IP of your Ubuntu server and port 3000. Log in with admin/admin
+
+ 
+
+After logging in. click on Data Sources in the left menu, and then on Add New in the top menu to add a new datasource.
+
+Choose the following options and click Add. Note: If you’re using Grafana 3.0, the Type will just be “InfluxDB”
+
+```
+Name: collectd
+Type: InfluxDB
+Url: http://localhost:8086/
+Database: collectd
+User: admin
+Password: admin
+```
+
+
+### resources
+
+installation
+
+* https://wiki.opnfv.org/display/fastpath/Installing+and+configuring+InfluxDB+and+Grafana+to+display+metrics+with+collectd
+
+writing data to influx
+
+* https://docs.influxdata.com/influxdb/v1.7/guides/writing_data/
+* https://docs.influxdata.com/influxdb/v1.7/guides/querying_data/
+* https://docs.influxdata.com/influxdb/v1.7/query_language/schema_exploration/
+* https://docs.influxdata.com/influxdb/v1.7/tools/shell/
+* https://docs.influxdata.com/influxdb/v1.7/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards
+* https://docs.influxdata.com/influxdb/v1.7/write_protocols/line_protocol_tutorial/
+* https://docs.influxdata.com/influxdb/v1.7/administration/authentication_and_authorization/#grant-administrative-privileges-to-an-existing-user
+
+
+####misc. commands: 
+
+``` 
+influx
+use tschess
+show measurements
+show databases
+SHOW FIELD KEYS
+CREATE USER sme WITH PASSWORD 111111 WITH ALL PRIVILEGES
+```
+
+
+```
+nano /etc/influxdb/influxdb.conf
+netstat -an | grep "LISTEN "
+sudo kill -9 `sudo lsof -t -i:8086`
+influxd -config /etc/influxdb/influxdb.conf
 ```
