@@ -31,7 +31,7 @@ class PlayerStart(private val repositoryPlayer: RepositoryPlayer) {
 
         //khttp.post(url = "http://3.12.121.89:8086/write?db=tschess", data = "activity player=0101010")
         val id_string: String = player.id.toString()
-        khttp.post(url = "http://3.12.121.89:8086/write?db=zzz", data = "slaps id=${id_string}")
+        khttp.post(url = "http://3.12.121.89:8086/write?db=zzz", data = "slaps id=\"${player.id}\"")
 
         if (BCryptPasswordEncoder().matches(password, player.password)) {
             player.device = device
