@@ -4,6 +4,8 @@ server for `tschess`
 
 ##relational 
 
+`./gradlew bootRun --args='--source=zz-yy--spring.config.name=a.p`
+
 ```
 sudo apt update
 java -version
@@ -21,6 +23,7 @@ sudo apt install -y gradle
 run with the following command: 
 
 ```
+ssh -o 'StrictHostKeyChecking no' -i "x.pem" ubuntu@127.0.0.1 
 git fetch origin master && \
 git reset --hard origin/master && \
 ./gradlew clean build && \
