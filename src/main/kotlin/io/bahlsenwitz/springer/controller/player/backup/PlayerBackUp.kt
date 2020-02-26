@@ -53,11 +53,6 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
                 fileWriter.append("${rank};") //5
                 val disp: String = player.disp.toString()
                 fileWriter.append("${disp};") //6
-
-                //val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")!!
-                //val formatDate: String = formatter.format(player.date.toInstant())
-
-
                 val date0: String = player.date.toString()
                 fileWriter.append("${date0};") //7
                 val note: Boolean = player.note
@@ -83,10 +78,6 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
                 } else {
                     fileWriter.append("NULL;") //13
                 }
-
-                //val formatUpdated: String = formatter.format(player.updated.toInstant())
-                //val formatCreated: String = formatter.format(player.created.toInstant())
-
                 val updated: String = player.updated.toString()
                 fileWriter.append("${updated};") //14
                 val created: String = player.created.toString()

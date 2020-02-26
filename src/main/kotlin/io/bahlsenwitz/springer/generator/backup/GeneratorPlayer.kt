@@ -35,15 +35,14 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
         repositoryPlayer.deleteAll()
         val playerList = ArrayList<Player>()
 
-        val fileReader: BufferedReader = BufferedReader(FileReader(file))
-        try {
+        val bufferedReader: BufferedReader = BufferedReader(FileReader(file))
+        bufferedReader.use { fileReader ->
             fileReader.readLine()
             var line: String?
             line = fileReader.readLine()
             while (line != null) {
-                val tokens = line.split(";")
+                val tokens: List<String> = line.split(";")
                 if (tokens.isNotEmpty()) {
-                    println("id: ${tokens[IDX_ID]}")
                     val id: UUID = UUID.fromString(tokens[IDX_ID])!! //0
                     val username: String = tokens[IDX_USERNAME] //1
                     val password: String = tokens[IDX_PASSWORD] //2
@@ -60,8 +59,6 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                     val configString2: String = tokens[IDX_CONFIG2] //11
                     val config2: List<List<String>> = generateConfig(configString = configString2)
                     val skinString: String = tokens[IDX_SKIN] //12
-
-                    //print("\n\nXXXX${skinString}\n\n")
 
                     val skin: List<SKIN> = generateSkinList(squadString = skinString)
                     var device: String? = tokens[IDX_DEVICE] //13
@@ -99,20 +96,13 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
             for (player: Player in playerList) {
                 repositoryPlayer.save(player)
             }
-
-        } finally {
-            fileReader.close()
         }
     }
 
     private fun generateSkinList(squadString: String): List<SKIN> {
-        print("\nxsquadString ${squadString}\n")
-
         val output: MutableList<SKIN> = arrayListOf()
         val fairyList: List<String> = squadString.split(",") //.trim('[',']')
         fairyList.forEach { it: String ->
-
-            print("\nit ${it}\n")
             val skin: SKIN = SKIN.valueOf(it)
             output.add(skin)
         }

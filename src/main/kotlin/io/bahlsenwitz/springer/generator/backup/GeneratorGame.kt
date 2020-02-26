@@ -43,15 +43,14 @@ class GeneratorGame(
         repositoryGame.deleteAll()
         val gameList = ArrayList<Game>()
 
-        val fileReader: BufferedReader = BufferedReader(FileReader(file))
-        try {
+        val bufferedReader: BufferedReader = BufferedReader(FileReader(file))
+        bufferedReader.use { fileReader ->
             fileReader.readLine()
             var line: String?
             line = fileReader.readLine()
             while (line != null) {
-                val tokens = line.split(";")
+                val tokens: List<String> = line.split(";")
                 if (tokens.isNotEmpty()) {
-
                     val id: UUID = UUID.fromString(tokens[IDX_ID])!! //0
                     val stateString: String = tokens[IDX_STATE]
                     val state: List<List<String>> = generateState(stateString = stateString) //1
@@ -60,7 +59,7 @@ class GeneratorGame(
                     val moves: Int = tokens[IDX_MOVES].toInt() //4
                     val whiteIdString: String = tokens[IDX_WHITE_ID]
                     val white_id: UUID = UUID.fromString(whiteIdString)!!
-                    //print("\nwhite_id ${white_id}\n")
+
                     val white: Player = repositoryPlayer.findById(white_id).get() //5
                     val white_elo: Int = tokens[IDX_WHITE_ELO].toInt() //6
 
@@ -69,7 +68,6 @@ class GeneratorGame(
                     if(white_disp_0 != "NULL"){
                         white_disp = white_disp_0.toInt()
                     }
-
                     val white_skin: SKIN = SKIN.valueOf(tokens[IDX_WHITE_SKIN]) //8
                     val blackIdString: String = tokens[IDX_BLACK_ID]
                     val black_id: UUID = UUID.fromString(blackIdString)!!
@@ -81,9 +79,7 @@ class GeneratorGame(
                     if(black_disp_0 != "NULL"){
                         black_disp = black_disp_0.toInt()
                     }
-
                     val black_skin: SKIN = SKIN.valueOf(tokens[IDX_BLACK_SKIN]) //12
-                    //val challenger: CONTESTANT = CONTESTANT.valueOf(tokens[IDX_CHALLENGER]) //13
 
                     var challenger: CONTESTANT? = null
                     val challenger_0: String = tokens[IDX_CHALLENGER] //11
@@ -95,7 +91,6 @@ class GeneratorGame(
                     if(winner_0 != "NULL"){
                         winner = CONTESTANT.valueOf(winner_0)
                     }
-                    //dd.MM.yyyy_HH:mm:ss.SSSS
                     val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
                     val BROOKLYN = ZoneId.of("America/New_York")
 
@@ -133,8 +128,6 @@ class GeneratorGame(
             for (game: Game in gameList) {
                 repositoryGame.save(game)
             }
-        } finally {
-            fileReader.close()
         }
     }
 

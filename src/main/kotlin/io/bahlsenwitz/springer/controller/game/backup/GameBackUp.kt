@@ -96,11 +96,6 @@ class GameBackUp(private val repositoryGame: RepositoryGame) {
                 fileWriter.append("${on_check};") //16
                 val highlight: String = game.highlight
                 fileWriter.append("${highlight};") //17
-
-                //val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")!!
-                //val formatUpdated: String = formatter.format(game.updated.toInstant())
-                //val formatCreated: String = formatter.format(game.created.toInstant())
-
                 val updated: String = game.updated.toString()
                 fileWriter.append("${updated};") //18
                 val created: String = game.created.toString()
