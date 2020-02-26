@@ -33,7 +33,6 @@ class SpringerApplication(
             val date: List<String> = args.getOptionValues("source")[0]!!.split("-")
             val day: String = date[0]
             val month: String = date[1]
-
             File("..${File.separator}backup${File.separator + month + File.separator + day + File.separator}")
                 .walkBottomUp()
                 .forEach {
