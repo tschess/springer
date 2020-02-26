@@ -4,8 +4,6 @@ server for `tschess`
 
 ##relational 
 
-`./gradlew bootRun --args='--source=zz-yy--spring.config.name=a.p`
-
 ```
 sudo apt update
 java -version
@@ -180,7 +178,17 @@ CREATE DATABASE collectd
 ```
 
 ### grafana
+```
+sudo apt-get install -y apt-transport-https
+sudo apt-get install -y software-properties-common wget
+wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
 
+# Alternatively you can add the beta repository, see in the table above
+sudo add-apt-repository "deb https://packages.grafana.com/oss/deb stable main"
+
+sudo apt-get update
+sudo apt-get install grafana
+```
 
 ``` 
 sudo systemctl start grafana-server
@@ -192,12 +200,7 @@ sudo systemctl daemon-reload
 
 configure Grafana repos and install it:
 
-```
-$ echo "deb https://packagecloud.io/grafana/stable/debian/ wheezy main" | sudo tee /etc/apt/sources.list.d/grafana.list
-$ curl https://packagecloud.io/gpg.key | sudo apt-key add -
-$ sudo apt-get update && sudo apt-get install grafana
-$ sudo service grafana-server start
-```
+
 Then use a web browser to connect to grafana (http://<serverip>:3000/), using the hostname or IP of your Ubuntu server and port 3000. Log in with admin/admin
 
  
