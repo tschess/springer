@@ -24,7 +24,7 @@ class PlayerRefresh(private val repositoryPlayer: RepositoryPlayer) {
         val player: Player = repositoryPlayer.findById(uuid).get()
         refreshList.add(player) //easier to remove at end...
 
-        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "activity player=\"${player.id}\",route=\"refresh\"")
+        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "activity player=\"${player.id}\",route=\"refresh\"")
         return ResponseEntity.ok(refreshList)
     }
 

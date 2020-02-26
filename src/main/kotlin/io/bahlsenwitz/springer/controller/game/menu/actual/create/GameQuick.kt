@@ -9,9 +9,6 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.ResponseEntity
-import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 //curl --header "Content-Type: application/json" --request POST --data '{"game":"11111111-1111-1111-1111-111111111111", "player": "99999999-9999-9999-9999-999999999999"}' http://localhost:8080/game/snapshot
@@ -55,7 +52,7 @@ class GameQuick(
             challenger = CONTESTANT.WHITE)
         game.status = STATUS.ONGOING
 
-        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "game id=\"${game.id}\",route=\"quick\"")
+        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"quick\"")
 
         return ResponseEntity.ok(repositoryGame.save(game))
     }

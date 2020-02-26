@@ -1,6 +1,21 @@
 package io.bahlsenwitz.springer.util
 
-class Constant {
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
-    val INFLUX_SERVER: String = "http://localhost:8086/"
+class Constant {
+    val INFLUX: String = "http://localhost:8086/"
+
+    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    private val brooklyn = ZoneId.of("America/New_York")
+
+    fun getDate(): String {
+        return formatter.format(ZonedDateTime.now(brooklyn)).toString()
+    }
+
+    fun getDate(string: String): ZonedDateTime {
+        return LocalDateTime.parse(string, formatter).atZone(brooklyn)
+    }
 }

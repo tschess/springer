@@ -7,7 +7,6 @@ import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.ResponseEntity
-import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
 
@@ -20,8 +19,8 @@ class PlayerSkin(private val repositoryPlayer: RepositoryPlayer) {
         val acquisition: List<SKIN> = listOf(SKIN.valueOf(updateSkin.skin))
         player.skin = player.skin + acquisition
 
-        player.updated = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
-        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "activity player=\"${player.id}\",route=\"skin\"")
+        player.updated = Constant().getDate()
+        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "activity player=\"${player.id}\",route=\"skin\"")
         return ResponseEntity.ok(repositoryPlayer.save(player))
     }
 

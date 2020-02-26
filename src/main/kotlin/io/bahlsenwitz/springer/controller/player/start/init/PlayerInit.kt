@@ -21,7 +21,7 @@ class PlayerInit(private val repositoryPlayer: RepositoryPlayer) {
     fun device(device: String): ResponseEntity<Any> {
         val player: Player = repositoryPlayer.findByDevice(device)
             ?: return ResponseEntity.status(HttpStatus.OK).body("{\"info\": \"unassigned\"}")
-        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "activity player=\"${player.id}\",route=\"device\"")
+        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "activity player=\"${player.id}\",route=\"device\"")
         return ResponseEntity.ok(player)
     }
 }

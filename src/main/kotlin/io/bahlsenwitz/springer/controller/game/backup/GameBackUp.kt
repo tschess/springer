@@ -96,9 +96,9 @@ class GameBackUp(private val repositoryGame: RepositoryGame) {
                 fileWriter.append("${on_check};") //16
                 val highlight: String = game.highlight
                 fileWriter.append("${highlight};") //17
-                val updated: String = game.updated.toString()
+                val updated: String = game.updated
                 fileWriter.append("${updated};") //18
-                val created: String = game.created.toString()
+                val created: String = game.created
                 fileWriter.append("${created};") //19
                 fileWriter.append('\n')
             }

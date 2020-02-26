@@ -12,7 +12,6 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.ResponseEntity
-import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
 
@@ -24,7 +23,7 @@ class GameResign(
     fun resign(updateResign: UpdateResign): ResponseEntity<Any> {
         val uuid0: UUID = UUID.fromString(updateResign.id_game)!!
 
-        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "game id=\"${uuid0}\",route=\"resign\"")
+        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${uuid0}\",route=\"resign\"")
 
         val uuid1: UUID = UUID.fromString(updateResign.id_self)!!
         val uuid2: UUID = UUID.fromString(updateResign.id_oppo)!!
@@ -57,7 +56,7 @@ class GameResign(
             }
             val disp: Int = player.rank - (index + 1)
             player.disp = disp
-            val date = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
+            val date = Constant().getDate()
             player.date = date
             val rank: Int = (index + 1)
             player.rank = rank
@@ -78,7 +77,7 @@ class GameResign(
             game.winner = CONTESTANT.WHITE
         }
         game.highlight = "TBD"
-        game.updated = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
+        game.updated = Constant().getDate()
         repositoryGame.save(game)
         return ResponseEntity.ok("{\"success\": \"ok\"}") //what does this need to return? the game I guess...
     }

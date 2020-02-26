@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.schedule.tasks
 
-import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
 import io.bahlsenwitz.springer.model.common.Elo
 import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.CONTESTANT
@@ -10,23 +9,19 @@ import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
+import io.bahlsenwitz.springer.util.Constant
 import java.time.Duration
-import java.time.LocalDateTime
-import java.time.ZoneId
 import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import java.util.concurrent.TimeUnit
 import kotlin.math.absoluteValue
 
 class TimeoutGame(val repositoryPlayer: RepositoryPlayer, val repositoryGame: RepositoryGame) {
-    private var brooklyn: ZoneId = ZoneId.of("America/New_York")
-    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
     fun execute() {
         val gameList: List<Game> = repositoryGame.findAll().filter { it.status == STATUS.ONGOING }
         for (game: Game in gameList) {
-            val dateNow: ZonedDateTime = ZonedDateTime.now(brooklyn)
-            val dateThen: ZonedDateTime = LocalDateTime.parse(game.updated, formatter).atZone(brooklyn)
+            val dateNow: ZonedDateTime = Constant().getDate(Constant().getDate())
+            val dateThen: ZonedDateTime = Constant().getDate(game.updated)
 
             val elapsed: Long = Duration.between(dateNow, dateThen).seconds
             //if (elapsed.absoluteValue > TimeUnit.HOURS.toSeconds(24)) {
@@ -50,7 +45,7 @@ class TimeoutGame(val repositoryPlayer: RepositoryPlayer, val repositoryGame: Re
                     }
                     val disp: Int = player.rank - (index + 1)
                     player.disp = disp
-                    val date = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
+                    val date = Constant().getDate()
                     player.date = date
                     val rank: Int = (index + 1)
                     player.rank = rank
@@ -61,7 +56,7 @@ class TimeoutGame(val repositoryPlayer: RepositoryPlayer, val repositoryGame: Re
                 game.white_disp = repositoryPlayer.findById(game.white.id).get().disp
                 game.black_disp = repositoryPlayer.findById(game.black.id).get().disp
                 game.highlight = "TBD"
-                game.updated = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
+                game.updated = Constant().getDate()
                 repositoryGame.save(game)
             }
         }

@@ -1,7 +1,5 @@
 package io.bahlsenwitz.springer.controller.player.start
 
-import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
-import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Constant
@@ -9,9 +7,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.RequestBody
-import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.util.*
 import javax.validation.Valid
 
 class PlayerStart(private val repositoryPlayer: RepositoryPlayer) {
@@ -27,12 +22,12 @@ class PlayerStart(private val repositoryPlayer: RepositoryPlayer) {
             repositoryPlayer.save(playerD)
         }
 
-        val updated = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
+        val updated = Constant().getDate()
 
         val player: Player = repositoryPlayer.findByUsername(username)
             ?: return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\": \"nonexistent\"}")
 
-        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "activity player=\"${player.id}\",route=\"login\"")
+        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "activity player=\"${player.id}\",route=\"login\"")
 
         if (BCryptPasswordEncoder().matches(password, player.password)) {
             player.device = device

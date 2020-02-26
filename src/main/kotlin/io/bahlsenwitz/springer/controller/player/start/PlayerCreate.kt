@@ -1,7 +1,5 @@
 package io.bahlsenwitz.springer.controller.player.start
 
-import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
-import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Constant
@@ -9,9 +7,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.RequestBody
-import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.util.*
 import javax.validation.Valid
 
 class PlayerCreate(private val repositoryPlayer: RepositoryPlayer) {
@@ -25,12 +20,11 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer) {
         val player = Player(
             username = requestCreate.username,
             password = BCryptPasswordEncoder().encode(requestCreate.password),
-            date = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString(),
             device = requestCreate.device
         )
         repositoryPlayer.save(player)
 
-        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "growth player=\"${player.id}\"")
+        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "growth player=\"${player.id}\"")
 
         /**
          * LEADERBOARD RECALC
@@ -44,7 +38,7 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer) {
             }
             val disp: Int = playerX.rank - (index + 1)
             playerX.disp = disp
-            val date = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
+            val date = Constant().getDate()
             playerX.date = date
             val rank: Int = (index + 1)
             playerX.rank = rank

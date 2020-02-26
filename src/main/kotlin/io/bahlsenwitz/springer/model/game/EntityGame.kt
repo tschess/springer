@@ -3,6 +3,7 @@ package io.bahlsenwitz.springer.model.game
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import io.bahlsenwitz.springer.model.common.EntityUUID
 import io.bahlsenwitz.springer.model.player.Player
+import io.bahlsenwitz.springer.util.Constant
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs
@@ -48,15 +49,11 @@ class Game(
     var on_check: Boolean = false,
     var highlight: String = PLACEHOLDER,
 
-    var updated: String = FORMATTER.format(ZonedDateTime.now(BROOKLYN)).toString(),
-    var created: String = FORMATTER.format(ZonedDateTime.now(BROOKLYN)).toString()
+    var updated: String = Constant().getDate(),
+    var created: String = Constant().getDate()
 
 ) : EntityUUID(id) {
     companion object {
-
-        val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-        val BROOKLYN = ZoneId.of("America/New_York")
-
         const val PLACEHOLDER: String = "TBD"
 
         fun getElo(player: Player): Int {
@@ -84,8 +81,8 @@ enum class SKIN {
     NEPTUNE
 }
 
+//not really outcome
 enum class OUTCOME {
-    //not really outcome
     CHECK, //currently in check...
     CHECKMATE,
     TIMEOUT,

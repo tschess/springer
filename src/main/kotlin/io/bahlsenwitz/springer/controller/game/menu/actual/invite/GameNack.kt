@@ -10,7 +10,6 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.ResponseEntity
-import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
 
@@ -26,7 +25,7 @@ class GameNack(
         game.outcome = OUTCOME.REFUSED
         repositoryGame.save(game)
 
-        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "game id=\"${game.id}\",route=\"nack\"")
+        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"nack\"")
 
         val uuid1: UUID = UUID.fromString(updateNack.id_player)!!
         val player0: Player = repositoryPlayer.findById(uuid1).get()
@@ -50,11 +49,7 @@ class GameNack(
             }
             val disp: Int = player.rank - (index + 1)
             player.disp = disp
-
-            //val date: String = DATE_TIME_GENERATOR.rightNowString()
-            //player.date = date
-            //val date: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
-            player.date = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
+            player.date = Constant().getDate()
 
             val rank: Int = (index + 1)
             player.rank = rank

@@ -9,8 +9,6 @@ import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.util.*
 
 //curl --header "Content-Type: application/json" --request POST --data '{"game":"11111111-1111-1111-1111-111111111111", "player": "99999999-9999-9999-9999-999999999999"}' http://localhost:8080/game/snapshot
@@ -69,7 +67,7 @@ class GameRematch(
             state = state)
         repositoryGame.save(game1)
 
-        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "game id=\"${game1.id}\",route=\"rematch\"")
+        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game1.id}\",route=\"rematch\"")
 
         return ResponseEntity.status(HttpStatus.OK).body("{\"challenge\": \"${game1.id}\"}")
     }

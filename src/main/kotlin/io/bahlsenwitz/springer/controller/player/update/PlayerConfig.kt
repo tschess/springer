@@ -1,13 +1,9 @@
 package io.bahlsenwitz.springer.controller.player.update
 
-import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
-import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.ResponseEntity
-import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.util.*
 
 class PlayerConfig(private val repositoryPlayer: RepositoryPlayer) {
@@ -24,8 +20,8 @@ class PlayerConfig(private val repositoryPlayer: RepositoryPlayer) {
         if(updateConfig.index == 2){
             player.config2 = updateConfig.config
         }
-        player.updated = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
-        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "activity player=\"${player.id}\",route=\"config\"")
+        player.updated = Constant().getDate()
+        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "activity player=\"${player.id}\",route=\"config\"")
         return ResponseEntity.ok(repositoryPlayer.save(player))
     }
 
@@ -34,5 +30,4 @@ class PlayerConfig(private val repositoryPlayer: RepositoryPlayer) {
         val index: Int,
         val id: String
     )
-
 }

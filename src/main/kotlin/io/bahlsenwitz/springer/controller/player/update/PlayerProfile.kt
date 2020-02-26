@@ -12,7 +12,7 @@ class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
         val player: Player? = repositoryPlayer.findByDevice(device)
         if(player != null){
             player.device = null
-            khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "activity player=\"${player.id}\",route=\"clear\"")
+            khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "activity player=\"${player.id}\",route=\"clear\"")
             return ResponseEntity.ok(repositoryPlayer.save(player))
         }
         return ResponseEntity.ok("{\"result\": \"ok\"}")
@@ -23,7 +23,7 @@ class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
         val player: Player = repositoryPlayer.findById(uuid).get()
         player.avatar = updateAvatar.avatar
 
-        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "activity player=\"${player.id}\",route=\"avatar\"")
+        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "activity player=\"${player.id}\",route=\"avatar\"")
         return ResponseEntity.ok(repositoryPlayer.save(player))
     }
 

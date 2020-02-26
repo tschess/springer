@@ -23,7 +23,7 @@ class GameActual(
         val uuid: UUID = UUID.fromString(requestActual.id)!!
         val player: Player = repositoryPlayer.findById(uuid).get()
 
-        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "menu id=\"${player.id}\",route=\"actual\"")
+        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "menu id=\"${player.id}\",route=\"actual\"")
 
         player.note = false
         repositoryPlayer.save(player)
@@ -82,23 +82,17 @@ class GameActual(
         val size: Int
     )
 
-
     class GameActualEvalComparator {
 
         companion object : Comparator<GameActualEval> {
 
-            private var brooklyn: ZoneId = ZoneId.of("America/New_York")
-            private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-
             override fun compare(a: GameActualEval, b: GameActualEval): Int {
-
-
                 val inboundA: Boolean = a.stats.inbound
                 val inboundB: Boolean = b.stats.inbound
                 val invitationA: Boolean = a.stats.invitation
                 val invitationB: Boolean = b.stats.invitation
-                val updateA: ZonedDateTime = LocalDateTime.parse(a.stats.date, formatter).atZone(brooklyn)
-                val updateB: ZonedDateTime = LocalDateTime.parse(b.stats.date, formatter).atZone(brooklyn)
+                val updateA: ZonedDateTime = Constant().getDate(a.stats.date)
+                val updateB: ZonedDateTime = Constant().getDate(b.stats.date)
                 val updateAB: Boolean = updateA.isBefore(updateB)
                 if (inboundA) { //a in
                     if (inboundB) { //b in
@@ -137,8 +131,6 @@ class GameActual(
                 }
                 return 0
             }
-
-
         }
     }
 }

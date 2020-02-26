@@ -8,7 +8,6 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.ResponseEntity
-import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
 
@@ -24,7 +23,7 @@ class GameRescind(
         game.outcome = OUTCOME.RESCIND
         repositoryGame.save(game)
 
-        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "game id=\"${game.id}\",route=\"rescind\"")
+        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"rescind\"")
 
         val uuid1: UUID = UUID.fromString(updateRescind.id_player)!!
         val player0: Player = repositoryPlayer.findById(uuid1).get()
@@ -45,8 +44,7 @@ class GameRescind(
             }
             val disp: Int = player.rank - (index + 1)
             player.disp = disp
-            val date= GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
-            player.date = date
+            player.date = Constant().getDate()
             val rank: Int = (index + 1)
             player.rank = rank
             repositoryPlayer.save(player)

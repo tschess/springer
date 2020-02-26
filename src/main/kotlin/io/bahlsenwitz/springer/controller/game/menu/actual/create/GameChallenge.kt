@@ -54,7 +54,7 @@ class GameChallenge(
         white.note = true
         repositoryPlayer.save(white)
 
-        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "game id=\"${game.id}\",route=\"challenge\"")
+        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"challenge\"")
 
         return ResponseEntity.status(HttpStatus.OK).body("{\"challenge\": \"${game.id}\"}")
     }

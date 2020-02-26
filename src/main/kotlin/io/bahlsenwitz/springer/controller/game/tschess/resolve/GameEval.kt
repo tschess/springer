@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.game.tschess.resolve
 
-import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
 import io.bahlsenwitz.springer.model.common.Elo
 import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.CONTESTANT
@@ -12,8 +11,6 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.ResponseEntity
-import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.util.*
 
 //private val repositoryPlayer: RepositoryPlayer <-- gotta notifyu these guys...
@@ -25,9 +22,9 @@ class GameEval(
     fun eval(evalUpdate: EvalUpdate): ResponseEntity<Any> {
         val uuid0: UUID = UUID.fromString(evalUpdate.id_game)!!
         val game: Game = repositoryGame.findById(uuid0).get()
-        game.updated = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
+        game.updated = Constant().getDate()
 
-        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "game id=\"${game.id}\",route=\"eval\"")
+        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"eval\"")
 
         val accept: Boolean = evalUpdate.accept
         if (!accept) {
@@ -67,7 +64,7 @@ class GameEval(
             }
             val disp: Int = player.rank - (index + 1)
             player.disp = disp
-            val date = Game.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
+            val date = Constant().getDate()
             player.date = date
             val rank: Int = (index + 1)
             player.rank = rank

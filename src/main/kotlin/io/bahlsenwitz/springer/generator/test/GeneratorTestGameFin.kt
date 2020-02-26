@@ -12,8 +12,6 @@ class GeneratorTestGameFin(
     private val generatorTestPlayer: GeneratorTestPlayer
 ) {
 
-    val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-
     fun generate() {
         repositoryGame.deleteAll()
 
@@ -29,7 +27,6 @@ class GeneratorTestGameFin(
             black_disp = -7,
             outcome = OUTCOME.CHECKMATE,
             winner = CONTESTANT.WHITE,
-            updated = FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString(),
             status = STATUS.RESOLVED,
             challenger = CONTESTANT.WHITE
         )
@@ -40,7 +37,6 @@ class GeneratorTestGameFin(
             black = generatorTestPlayer.findByName(username = "bbb"),
             status = STATUS.RESOLVED,
             winner = CONTESTANT.WHITE,
-            updated = FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString(),
             white_disp = 1,
             white_skin = SKIN.CALYPSO,
             black_skin = SKIN.NEPTUNE,
@@ -57,7 +53,6 @@ class GeneratorTestGameFin(
             black = generatorTestPlayer.findByName(username = "ccc"),
             status = STATUS.RESOLVED,
             winner = CONTESTANT.WHITE,
-            updated = FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString(),
             white_disp = -3,
             black_disp = 1,
             white_skin = SKIN.CALYPSO,
@@ -74,7 +69,6 @@ class GeneratorTestGameFin(
             black = generatorTestPlayer.findByName(username = "ddd"),
             status = STATUS.RESOLVED,
             winner = CONTESTANT.BLACK,
-            updated = FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString(),
             white_disp = -9,
             black_disp = 0,
             state = defaultState(),
@@ -88,7 +82,6 @@ class GeneratorTestGameFin(
             white = generatorTestPlayer.findByName(username = "aaa"),
             black = generatorTestPlayer.findByName(username = "eee"),
             status = STATUS.RESOLVED,
-            updated = FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString(),
             white_disp = 14,
             black_disp = -4,
             white_skin = SKIN.CALYPSO,
@@ -104,7 +97,6 @@ class GeneratorTestGameFin(
             black = generatorTestPlayer.findByName(username = "fff"),
             status = STATUS.RESOLVED,
             winner = CONTESTANT.BLACK,
-            updated = FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString(),
             white_disp = 6,
             black_disp = -2,
             white_skin = SKIN.CALYPSO,

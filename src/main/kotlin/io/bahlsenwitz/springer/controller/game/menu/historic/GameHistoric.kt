@@ -24,7 +24,7 @@ class GameHistoric(
         val uuid: UUID = UUID.fromString(requestHistoric.id)!!
         val player: Player = repositoryPlayer.findById(uuid).get()
 
-        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "menu id=\"${player.id}\",route=\"historic\"")
+        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "menu id=\"${player.id}\",route=\"historic\"")
 
         val playerList: List<Game> = repositoryGame.findPlayerList(uuid)
         val playerListResolved: List<Game> = playerList.filter {
@@ -48,14 +48,12 @@ class GameHistoric(
         if (playerListResolvedSorted.lastIndex + 1 <= indexTo) {
             gameList = playerListResolvedSorted.subList(indexFrom, playerListResolvedSorted.lastIndex + 1)
             for (game: Game in gameList) {
-                //val gameCore = GameCoreHistoric(player = player, game = game)
                 gameCoreHistoricList.add(game)
             }
             return ResponseEntity.ok(gameCoreHistoricList)
         }
         gameList = playerListResolvedSorted.subList(indexFrom, indexTo + 1)
         for (game: Game in gameList) {
-            //val gameCore = GameCoreHistoric(player = player, game = game)
             gameCoreHistoricList.add(game)
         }
         return ResponseEntity.ok(gameCoreHistoricList)
@@ -68,16 +66,11 @@ class GameHistoric(
     )
 
     class ComparatorHistoric {
-
         companion object : Comparator<Game> {
 
-            private var brooklyn: ZoneId = ZoneId.of("America/New_York")
-            private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-
             override fun compare(a: Game, b: Game): Int {
-
-                val dateA: ZonedDateTime = LocalDateTime.parse(a.updated, formatter).atZone(brooklyn)
-                val dateB: ZonedDateTime = LocalDateTime.parse(b.updated, formatter).atZone(brooklyn)
+                val dateA: ZonedDateTime = Constant().getDate(a.updated)
+                val dateB: ZonedDateTime = Constant().getDate(b.updated)
                 if (dateA.isBefore(dateB)) {
                     return 1
                 }

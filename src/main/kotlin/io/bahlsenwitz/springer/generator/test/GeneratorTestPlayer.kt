@@ -11,8 +11,6 @@ import java.util.*
 class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
 
     private val PASSWORD = "\$2a\$10\$paasde3Qy5jcxzZONo4a1OT3d4qgBIriGdyvO1qfeDWb2ksXSjycO"
-    val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-    val BROOKLYN = ZoneId.of("America/New_York")
 
     private var testPlayerList = mutableListOf<Player>()
 
@@ -31,8 +29,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             elo = 1200,
             rank = 1,
             disp = 3,
-            note = true,
-            date = FORMATTER.format(ZonedDateTime.now(BROOKLYN)).toString()
+            note = true
         )
         testPlayerList.add(white) //0
 
@@ -43,8 +40,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             avatar = GeneratorAvatar().getPhotoText("https://github.com/tschess/catacombes/raw/master/batman.png"),
             elo = 1199,
             rank = 2,
-            disp = 1,
-            date = FORMATTER.format(ZonedDateTime.now(BROOKLYN)).toString()
+            disp = 1
         )
         testPlayerList.add(black) //1
 
@@ -55,8 +51,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             avatar = GeneratorAvatar().getPhotoText("https://github.com/tschess/catacombes/raw/master/skull_pink.png"),
             elo = 1198,
             rank = 3,
-            disp = -3,
-            date = FORMATTER.format(ZonedDateTime.now(BROOKLYN)).toString()
+            disp = -3
         )
         testPlayerList.add(test) //2
 
@@ -65,8 +60,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             password = PASSWORD,
             elo = 1197,
             rank = 4,
-            disp = -1,
-            date = FORMATTER.format(ZonedDateTime.now(BROOKLYN)).toString()
+            disp = -1
         )
         testPlayerList.add(playerA) //3
 
@@ -75,8 +69,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             password = PASSWORD,
             elo = 1196,
             rank = 5,
-            disp = 0,
-            date = FORMATTER.format(ZonedDateTime.now(BROOKLYN)).toString()
+            disp = 0
         )
         testPlayerList.add(playerB) //4
 
@@ -85,8 +78,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             password = PASSWORD,
             elo = 1195,
             rank = 6,
-            disp = -5,
-            date = FORMATTER.format(ZonedDateTime.now(BROOKLYN)).toString()
+            disp = -5
         )
         testPlayerList.add(playerC) //5
 
@@ -95,8 +87,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             password = PASSWORD,
             elo = 1194,
             rank = 7,
-            disp = 1,
-            date = FORMATTER.format(ZonedDateTime.now(BROOKLYN)).toString()
+            disp = 1
         )
         testPlayerList.add(playerD) //6
 
@@ -105,8 +96,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             password = PASSWORD,
             elo = 1193,
             rank = 8,
-            disp = -3,
-            date = FORMATTER.format(ZonedDateTime.now(BROOKLYN)).toString()
+            disp = -3
         )
         testPlayerList.add(playerE) //7
 
@@ -115,8 +105,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             password = PASSWORD,
             elo = 1192,
             rank = 9,
-            disp = 1,
-            date = FORMATTER.format(ZonedDateTime.now(BROOKLYN)).toString()
+            disp = 1
         )
         testPlayerList.add(playerF) //8
 
@@ -126,8 +115,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             password = PASSWORD,
             elo = 1191,
             rank = 10,
-            disp = 0,
-            date = FORMATTER.format(ZonedDateTime.now(BROOKLYN)).toString()
+            disp = 0
         )
         testPlayerList.add(player9) //9
 
@@ -136,8 +124,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             password = PASSWORD,
             elo = 1190,
             rank = 11,
-            disp = 3,
-            date = FORMATTER.format(ZonedDateTime.now(BROOKLYN)).toString()
+            disp = 3
         )
         testPlayerList.add(player8) //10
 
@@ -148,8 +135,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             password = PASSWORD,
             elo = 1190,
             rank = 12,
-            disp = 3,
-            date = FORMATTER.format(ZonedDateTime.now(BROOKLYN)).toString()
+            disp = 3
         )
         testPlayerList.add(player7) //11
 

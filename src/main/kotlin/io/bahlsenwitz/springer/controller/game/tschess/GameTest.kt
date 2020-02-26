@@ -1,14 +1,12 @@
 package io.bahlsenwitz.springer.controller.game.tschess
 
-import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.OUTCOME
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.repository.RepositoryGame
+import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.ResponseEntity
-import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.util.*
 
 //curl --header "Content-Type: application/json" --request POST --data '{"state":[[""]]}' http://localhost:8080/game/test
@@ -33,7 +31,7 @@ class GameTest(private val repositoryGame: RepositoryGame) {
         game.status = STATUS.ONGOING
         game.outcome = OUTCOME.TBD
         game.highlight = "TBD"
-        game.updated = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
+        game.updated = Constant().getDate()
         return ResponseEntity.ok(repositoryGame.save(game))
     }
 

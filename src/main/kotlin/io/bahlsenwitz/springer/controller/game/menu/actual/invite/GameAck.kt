@@ -26,7 +26,7 @@ class GameAck(
         val uuid1: UUID = UUID.fromString(requestAck.id_player)!!
         val player: Player = repositoryPlayer.findById(uuid1).get()
 
-        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "game id=\"${game.id}\",route=\"ack\"")
+        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"ack\"")
 
         var config: List<List<String>> =
             traditionalConfig()
@@ -47,7 +47,7 @@ class GameAck(
 
         game.state = state
         game.status = STATUS.ONGOING
-        game.updated = FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
+        game.updated = Constant().getDate()
 
         var white: Boolean = false
         if (game.white == player) {
@@ -74,9 +74,6 @@ class GameAck(
     )
 
     companion object {
-
-        val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-        val BROOKLYN = ZoneId.of("America/New_York")
 
         fun setNotification(game: Game, player: Player, repositoryPlayer: RepositoryPlayer) {
             if (game.white == player) {

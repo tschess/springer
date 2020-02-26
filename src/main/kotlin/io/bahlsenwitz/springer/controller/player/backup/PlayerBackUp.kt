@@ -78,9 +78,9 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
                 } else {
                     fileWriter.append("NULL;") //13
                 }
-                val updated: String = player.updated.toString()
+                val updated: String = player.updated
                 fileWriter.append("${updated};") //14
-                val created: String = player.created.toString()
+                val created: String = player.created
                 fileWriter.append("${created};") //15
                 fileWriter.append('\n')
             }

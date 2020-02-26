@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.game.tschess.resolve
 
-import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
 import io.bahlsenwitz.springer.model.common.Elo
 import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.CONTESTANT
@@ -12,8 +11,6 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.ResponseEntity
-import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.util.*
 
 class GameMate(
@@ -25,7 +22,7 @@ class GameMate(
         val uuid: UUID = UUID.fromString(id_game)!!
         val game: Game = repositoryGame.findById(uuid).get()
 
-        khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "game id=\"${game.id}\",route=\"mate\"")
+        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"mate\"")
 
         game.status = STATUS.RESOLVED
         game.outcome = OUTCOME.CHECKMATE
@@ -74,7 +71,7 @@ class GameMate(
             }
             val disp: Int = player.rank - (index + 1)
             player.disp = disp
-            val date = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
+            val date = Constant().getDate()
             player.date = date
             val rank: Int = (index + 1)
             player.rank = rank
@@ -85,7 +82,7 @@ class GameMate(
         game.white_disp = repositoryPlayer.findById(game.white.id).get().disp
         game.black_disp = repositoryPlayer.findById(game.black.id).get().disp
         game.highlight = "TBD"
-        game.updated = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
+        game.updated = Constant().getDate()
         repositoryGame.save(game)
         return ResponseEntity.ok("{\"success\": \"ok\"}")
     }
