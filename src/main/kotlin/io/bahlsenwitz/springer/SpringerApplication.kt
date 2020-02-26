@@ -41,8 +41,6 @@ class SpringerApplication(
                     if (it.extension == "zip") {
                         //println("---> ${it.absolutePath}")
                         val file: File = Zipper().from(it)
-                        println("---> ${file.absolutePath}")
-
                         if(it.name.contains("player")){
                             GeneratorPlayer(repositoryPlayer).generate(file)
                         }
