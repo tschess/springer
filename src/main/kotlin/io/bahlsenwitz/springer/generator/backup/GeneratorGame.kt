@@ -39,17 +39,12 @@ class GeneratorGame(
     private val IDX_UPDATED = 18
     private val IDX_CREATED = 19
 
-    fun generate() {
+    fun generate(file: File) {
         repositoryGame.deleteAll()
-        var fileReader: BufferedReader? = null
+        val gameList = ArrayList<Game>()
+
+        val fileReader: BufferedReader = BufferedReader(FileReader(file))
         try {
-            val gameList = ArrayList<Game>()
-            val dir = File(".")
-            val file = dir.listFiles { _, name -> name.endsWith(".game.csv") }
-            if (file?.count() != 1) {
-                return
-            }
-            fileReader = BufferedReader(FileReader(file[0]))
             fileReader.readLine()
             var line: String?
             line = fileReader.readLine()
