@@ -72,7 +72,7 @@ class GameHistoric(
         companion object : Comparator<Game> {
 
             private var brooklyn: ZoneId = ZoneId.of("America/New_York")
-            private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+            private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
 
             override fun compare(a: Game, b: Game): Int {
 

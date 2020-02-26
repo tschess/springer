@@ -12,7 +12,7 @@ class GeneratorTestGameFin(
     private val generatorTestPlayer: GeneratorTestPlayer
 ) {
 
-    val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+    val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
 
     fun generate() {
         repositoryGame.deleteAll()

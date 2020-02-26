@@ -75,7 +75,7 @@ class GameAck(
 
     companion object {
 
-        val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+        val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
         val BROOKLYN = ZoneId.of("America/New_York")
 
         fun setNotification(game: Game, player: Player, repositoryPlayer: RepositoryPlayer) {
