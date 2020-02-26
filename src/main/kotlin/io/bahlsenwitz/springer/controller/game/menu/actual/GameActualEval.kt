@@ -32,7 +32,7 @@ class GameActualEval(val game: Game, val player: Player) : Game(
     data class Info(
         val invitation: Boolean,
         val inbound: Boolean,
-        val date: Date
+        val date: String
     )
 
     val stats: Info = getInfo()
@@ -40,7 +40,7 @@ class GameActualEval(val game: Game, val player: Player) : Game(
     private final fun getInfo(): Info {
         var inbound: Boolean = false
         var invitation: Boolean = false
-        var date: Date = game.updated
+        var date: String = game.updated
 
         if (game.status == STATUS.PROPOSED) { //invite
             invitation = true

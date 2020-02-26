@@ -48,15 +48,14 @@ class Game(
     var on_check: Boolean = false,
     var highlight: String = PLACEHOLDER,
 
-
-
-    @Temporal(TemporalType.TIMESTAMP)
-    var updated: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant()),
-    @Temporal(TemporalType.TIMESTAMP)
-    var created: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
+    var updated: String = FORMATTER.format(ZonedDateTime.now(BROOKLYN)).toString(),
+    var created: String = FORMATTER.format(ZonedDateTime.now(BROOKLYN)).toString()
 
 ) : EntityUUID(id) {
     companion object {
+
+        val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+        val BROOKLYN = ZoneId.of("America/New_York")
 
         const val PLACEHOLDER: String = "TBD"
 

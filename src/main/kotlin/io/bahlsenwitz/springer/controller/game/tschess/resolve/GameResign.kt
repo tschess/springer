@@ -1,5 +1,6 @@
 package io.bahlsenwitz.springer.controller.game.tschess.resolve
 
+import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
 import io.bahlsenwitz.springer.model.common.Elo
 import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.CONTESTANT
@@ -56,7 +57,7 @@ class GameResign(
             }
             val disp: Int = player.rank - (index + 1)
             player.disp = disp
-            val date: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
+            val date = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
             player.date = date
             val rank: Int = (index + 1)
             player.rank = rank
@@ -77,7 +78,7 @@ class GameResign(
             game.winner = CONTESTANT.WHITE
         }
         game.highlight = "TBD"
-        game.updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
+        game.updated = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
         repositoryGame.save(game)
         return ResponseEntity.ok("{\"success\": \"ok\"}") //what does this need to return? the game I guess...
     }

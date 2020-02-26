@@ -66,9 +66,7 @@ class GameRematch(
             challenger = challenger,
             white_skin = white_skin,
             black_skin = black_skin,
-            state = state,
-            created = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
-        )
+            state = state)
         repositoryGame.save(game1)
 
         khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "game id=\"${game1.id}\",route=\"rematch\"")

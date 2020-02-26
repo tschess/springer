@@ -53,8 +53,8 @@ class GameNack(
 
             //val date: String = DATE_TIME_GENERATOR.rightNowString()
             //player.date = date
-            val date: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
-            player.date = date
+            //val date: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
+            player.date = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
 
             val rank: Int = (index + 1)
             player.rank = rank

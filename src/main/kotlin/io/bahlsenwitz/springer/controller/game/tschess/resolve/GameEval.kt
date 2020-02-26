@@ -1,5 +1,6 @@
 package io.bahlsenwitz.springer.controller.game.tschess.resolve
 
+import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
 import io.bahlsenwitz.springer.model.common.Elo
 import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.CONTESTANT
@@ -24,7 +25,7 @@ class GameEval(
     fun eval(evalUpdate: EvalUpdate): ResponseEntity<Any> {
         val uuid0: UUID = UUID.fromString(evalUpdate.id_game)!!
         val game: Game = repositoryGame.findById(uuid0).get()
-        game.updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
+        game.updated = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
 
         khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "game id=\"${game.id}\",route=\"eval\"")
 
@@ -66,7 +67,7 @@ class GameEval(
             }
             val disp: Int = player.rank - (index + 1)
             player.disp = disp
-            val date: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
+            val date = Game.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
             player.date = date
             val rank: Int = (index + 1)
             player.rank = rank

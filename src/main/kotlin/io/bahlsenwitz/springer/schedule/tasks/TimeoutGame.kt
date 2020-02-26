@@ -10,19 +10,22 @@ import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import java.time.Duration
+import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.concurrent.TimeUnit
 import kotlin.math.absoluteValue
 
 class TimeoutGame(val repositoryPlayer: RepositoryPlayer, val repositoryGame: RepositoryGame) {
     private var brooklyn: ZoneId = ZoneId.of("America/New_York")
+    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
 
     fun execute() {
         val gameList: List<Game> = repositoryGame.findAll().filter { it.status == STATUS.ONGOING }
         for (game: Game in gameList) {
             val dateNow: ZonedDateTime = ZonedDateTime.now(brooklyn)
-            val dateThen: ZonedDateTime = game.updated.toInstant().atZone(brooklyn)
+            val dateThen: ZonedDateTime = LocalDateTime.parse(game.updated, formatter).atZone(brooklyn)
 
             val elapsed: Long = Duration.between(dateNow, dateThen).seconds
             //if (elapsed.absoluteValue > TimeUnit.HOURS.toSeconds(24)) {

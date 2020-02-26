@@ -1,5 +1,7 @@
 package io.bahlsenwitz.springer.controller.player.start
 
+import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
+import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Constant
@@ -23,7 +25,7 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer) {
         val player = Player(
             username = requestCreate.username,
             password = BCryptPasswordEncoder().encode(requestCreate.password),
-            date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant()),
+            date = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString(),
             device = requestCreate.device
         )
         repositoryPlayer.save(player)
@@ -42,7 +44,7 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer) {
             }
             val disp: Int = playerX.rank - (index + 1)
             playerX.disp = disp
-            val date: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
+            val date = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
             playerX.date = date
             val rank: Int = (index + 1)
             playerX.rank = rank

@@ -10,6 +10,7 @@ import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.ResponseEntity
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class GameAck(
@@ -46,7 +47,7 @@ class GameAck(
 
         game.state = state
         game.status = STATUS.ONGOING
-        game.updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
+        game.updated = FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
 
         var white: Boolean = false
         if (game.white == player) {
@@ -73,6 +74,9 @@ class GameAck(
     )
 
     companion object {
+
+        val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+        val BROOKLYN = ZoneId.of("America/New_York")
 
         fun setNotification(game: Game, player: Player, repositoryPlayer: RepositoryPlayer) {
             if (game.white == player) {

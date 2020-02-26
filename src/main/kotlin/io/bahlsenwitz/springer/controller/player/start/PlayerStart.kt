@@ -1,5 +1,7 @@
 package io.bahlsenwitz.springer.controller.player.start
 
+import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
+import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Constant
@@ -25,7 +27,7 @@ class PlayerStart(private val repositoryPlayer: RepositoryPlayer) {
             repositoryPlayer.save(playerD)
         }
 
-        val updated: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
+        val updated = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
 
         val player: Player = repositoryPlayer.findByUsername(username)
             ?: return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\": \"nonexistent\"}")

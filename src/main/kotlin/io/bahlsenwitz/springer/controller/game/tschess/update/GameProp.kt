@@ -1,5 +1,6 @@
 package io.bahlsenwitz.springer.controller.game.tschess.update
 
+import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.OUTCOME
@@ -20,7 +21,7 @@ class GameProp(private val repositoryGame: RepositoryGame) {
         game.outcome = OUTCOME.PENDING
         game.highlight = "TBD"
         game.turn = setTurn(turn = game.turn)
-        game.updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
+        game.updated = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
         repositoryGame.save(game)
 
         khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "game id=\"${game.id}\",route=\"prop\"")

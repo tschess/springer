@@ -1,5 +1,6 @@
 package io.bahlsenwitz.springer.controller.game.tschess.resolve
 
+import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
 import io.bahlsenwitz.springer.model.common.Elo
 import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.CONTESTANT
@@ -73,7 +74,7 @@ class GameMate(
             }
             val disp: Int = player.rank - (index + 1)
             player.disp = disp
-            val date: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
+            val date = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
             player.date = date
             val rank: Int = (index + 1)
             player.rank = rank
@@ -84,7 +85,7 @@ class GameMate(
         game.white_disp = repositoryPlayer.findById(game.white.id).get().disp
         game.black_disp = repositoryPlayer.findById(game.black.id).get().disp
         game.highlight = "TBD"
-        game.updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
+        game.updated = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
         repositoryGame.save(game)
         return ResponseEntity.ok("{\"success\": \"ok\"}")
     }

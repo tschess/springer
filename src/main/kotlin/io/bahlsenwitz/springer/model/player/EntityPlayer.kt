@@ -3,13 +3,16 @@ package io.bahlsenwitz.springer.model.player
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import io.bahlsenwitz.springer.generator.util.GeneratorAvatar
 import io.bahlsenwitz.springer.model.common.EntityUUID
+import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.SKIN
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs
 import org.springframework.data.jpa.repository.Temporal
+import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -34,8 +37,9 @@ class Player(
     var elo: Int = 1200,
     var rank: Int = 0,
     var disp: Int = 0,
-    @Temporal(TemporalType.TIMESTAMP)
-    var date: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant()),
+    //@Temporal(TemporalType.TIMESTAMP)
+    //var date: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant()),
+    var date: String = FORMATTER.format(ZonedDateTime.now(BROOKLYN)).toString(),
 
     @Column(insertable = true, updatable = true)
     var note: Boolean = false,
@@ -56,14 +60,16 @@ class Player(
 
     @Column(unique = true)
     var device: String? = null,
-    @Temporal(TemporalType.TIMESTAMP)
-    var updated: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant()),
-    @Temporal(TemporalType.TIMESTAMP)
-    var created: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
+
+    var updated: String = FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString(),
+    var created: String = FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
 
 ): EntityUUID(id), Comparable<Player> {
 
     companion object {
+
+        val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+        val BROOKLYN = ZoneId.of("America/New_York")
 
         fun defaultConfig0(): List<List<String>> {
             val r1: List<String> = arrayListOf("","Bishop","Rook","Pawn","Pawn","Rook","Bishop","Pawn")
@@ -89,8 +95,8 @@ class Player(
 
     override operator fun compareTo(other: Player): Int {
         if (this.elo == other.elo) {
-            val date: ZonedDateTime = this.created.toInstant().atZone(ZoneId.of("America/New_York"))
-            val dateOther: ZonedDateTime = other.created.toInstant().atZone(ZoneId.of("America/New_York"))
+            val date: ZonedDateTime = LocalDateTime.parse(this.created, FORMATTER).atZone(BROOKLYN)
+            val dateOther: ZonedDateTime = LocalDateTime.parse(other.created, FORMATTER).atZone(BROOKLYN)
             if(date.isBefore(dateOther)){
                 return -1
             }

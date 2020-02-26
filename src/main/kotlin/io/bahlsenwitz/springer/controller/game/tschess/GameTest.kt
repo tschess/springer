@@ -1,5 +1,6 @@
 package io.bahlsenwitz.springer.controller.game.tschess
 
+import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.OUTCOME
@@ -32,7 +33,7 @@ class GameTest(private val repositoryGame: RepositoryGame) {
         game.status = STATUS.ONGOING
         game.outcome = OUTCOME.TBD
         game.highlight = "TBD"
-        game.updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
+        game.updated = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
         return ResponseEntity.ok(repositoryGame.save(game))
     }
 

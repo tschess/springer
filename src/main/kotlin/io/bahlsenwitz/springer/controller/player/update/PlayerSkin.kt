@@ -1,5 +1,7 @@
 package io.bahlsenwitz.springer.controller.player.update
 
+import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
+import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.SKIN
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
@@ -18,7 +20,7 @@ class PlayerSkin(private val repositoryPlayer: RepositoryPlayer) {
         val acquisition: List<SKIN> = listOf(SKIN.valueOf(updateSkin.skin))
         player.skin = player.skin + acquisition
 
-        player.updated = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
+        player.updated = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
         khttp.post(url = "${Constant().INFLUX_SERVER}write?db=tschess", data = "activity player=\"${player.id}\",route=\"skin\"")
         return ResponseEntity.ok(repositoryPlayer.save(player))
     }

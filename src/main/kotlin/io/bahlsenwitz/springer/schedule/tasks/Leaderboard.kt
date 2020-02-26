@@ -1,5 +1,7 @@
 package io.bahlsenwitz.springer.schedule.tasks
 
+import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
+import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import java.time.ZoneId
@@ -18,7 +20,7 @@ class Leaderboard(val repositoryPlayer: RepositoryPlayer) {
             }
             val disp: Int = player.rank - (index + 1)
             player.disp = disp
-            val date: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
+            val date = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
             player.date = date
             val rank: Int = (index + 1)
             player.rank = rank

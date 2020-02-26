@@ -9,8 +9,10 @@ import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class GameHistoric(
@@ -69,9 +71,13 @@ class GameHistoric(
 
         companion object : Comparator<Game> {
 
+            private var brooklyn: ZoneId = ZoneId.of("America/New_York")
+            private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+
             override fun compare(a: Game, b: Game): Int {
-                val dateA: ZonedDateTime = a.updated.toInstant().atZone(ZoneId.of("America/New_York"))
-                val dateB: ZonedDateTime = b.updated.toInstant().atZone(ZoneId.of("America/New_York"))
+
+                val dateA: ZonedDateTime = LocalDateTime.parse(a.updated, formatter).atZone(brooklyn)
+                val dateB: ZonedDateTime = LocalDateTime.parse(b.updated, formatter).atZone(brooklyn)
                 if (dateA.isBefore(dateB)) {
                     return 1
                 }

@@ -8,8 +8,10 @@ import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class GameActual(
@@ -85,6 +87,9 @@ class GameActual(
 
         companion object : Comparator<GameActualEval> {
 
+            private var brooklyn: ZoneId = ZoneId.of("America/New_York")
+            private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+
             override fun compare(a: GameActualEval, b: GameActualEval): Int {
 
 
@@ -92,8 +97,8 @@ class GameActual(
                 val inboundB: Boolean = b.stats.inbound
                 val invitationA: Boolean = a.stats.invitation
                 val invitationB: Boolean = b.stats.invitation
-                val updateA: ZonedDateTime = ZonedDateTime.ofInstant(a.stats.date.toInstant(), ZoneId.of("America/New_York"))
-                val updateB: ZonedDateTime = ZonedDateTime.ofInstant(b.stats.date.toInstant(), ZoneId.of("America/New_York"))
+                val updateA: ZonedDateTime = LocalDateTime.parse(a.stats.date, formatter).atZone(brooklyn)
+                val updateB: ZonedDateTime = LocalDateTime.parse(b.stats.date, formatter).atZone(brooklyn)
                 val updateAB: Boolean = updateA.isBefore(updateB)
                 if (inboundA) { //a in
                     if (inboundB) { //b in
