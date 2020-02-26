@@ -27,29 +27,21 @@ class SpringerApplication(
     val repositoryGame: RepositoryGame
 ) : ApplicationRunner {
 
-    //./gradlew bootRun --args='--source=28-03'
     override fun run(args: ApplicationArguments) {
 
-        if (args.containsOption("source")) {
-
-            val generatorTestPlayer = GeneratorTestPlayer(repositoryPlayer)
-            generatorTestPlayer.generate()
-            Thread.sleep(1_000)
+        if (args.containsOption("source")) { //./gradlew bootRun --args='--source=28-03'
 
             val date: List<String> = args.getOptionValues("source")[0]!!.split("-")
-
             val day: String = date[0]
-            print("\n\n\nday = ${day}\n")
             val month: String = date[1]
-            print("month = ${month}\n\n\n")
 
             File("..${File.separator}backup${File.separator + month + File.separator + day + File.separator}")
                 .walkBottomUp()
                 .forEach {
-
                     if (it.extension == "zip") {
-                        println("---> ${it.absolutePath}")
+                        //println("---> ${it.absolutePath}")
                         val file: File = Zipper().from(it)
+                        println("---> ${file.absolutePath}")
 
                         if(it.name.contains("player")){
                             GeneratorPlayer(repositoryPlayer).generate(file)
@@ -58,12 +50,9 @@ class SpringerApplication(
                             GeneratorGame(repositoryPlayer, repositoryGame).generate(file)
                         }
                     }
-
                 }
             return
         }
-
-
         val generatorTestPlayer = GeneratorTestPlayer(repositoryPlayer)
         generatorTestPlayer.generate()
         Thread.sleep(1_000)
@@ -72,18 +61,9 @@ class SpringerApplication(
         GeneratorTestGameAct(repositoryGame, generatorTestPlayer).generate()
         Thread.sleep(1_000)
         GeneratorTestGamePro(repositoryGame, generatorTestPlayer).generate()
-
     }
-
-
 }
 
 fun main(args: Array<String>) {
     runApplication<SpringerApplication>(*args)
 }
-
-//        val generatorPlayer = GeneratorPlayer(repositoryPlayer)
-//        generatorPlayer.generate()
-//        Thread.sleep(1_000)
-//        val generatorGame = GeneratorGame(repositoryPlayer, repositoryGame)
-//        generatorGame.generate()
