@@ -54,7 +54,7 @@ class Game(
 ) : EntityUUID(id) {
     companion object {
 
-        val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
+        val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
         val BROOKLYN = ZoneId.of("America/New_York")
 
         const val PLACEHOLDER: String = "TBD"

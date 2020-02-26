@@ -68,7 +68,7 @@ class Player(
 
     companion object {
 
-        val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
+        val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
         val BROOKLYN = ZoneId.of("America/New_York")
 
         fun defaultConfig0(): List<List<String>> {

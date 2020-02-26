@@ -11,7 +11,7 @@ import java.util.*
 class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
 
     private val PASSWORD = "\$2a\$10\$paasde3Qy5jcxzZONo4a1OT3d4qgBIriGdyvO1qfeDWb2ksXSjycO"
-    val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
+    val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     val BROOKLYN = ZoneId.of("America/New_York")
 
     private var testPlayerList = mutableListOf<Player>()

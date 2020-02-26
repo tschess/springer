@@ -20,7 +20,7 @@ import kotlin.math.absoluteValue
 class TimeoutInvite(val repositoryPlayer: RepositoryPlayer, val repositoryGame: RepositoryGame) {
     private var brooklyn: ZoneId = ZoneId.of("America/New_York")
 
-    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
+    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
     fun execute() {
         val inviteList: List<Game> = repositoryGame.findAll().filter { it.status == STATUS.PROPOSED }

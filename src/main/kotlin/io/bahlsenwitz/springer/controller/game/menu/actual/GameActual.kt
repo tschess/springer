@@ -88,7 +88,7 @@ class GameActual(
         companion object : Comparator<GameActualEval> {
 
             private var brooklyn: ZoneId = ZoneId.of("America/New_York")
-            private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
+            private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
             override fun compare(a: GameActualEval, b: GameActualEval): Int {
 
