@@ -59,6 +59,8 @@ class SpringerApplication(
         GeneratorTestGameAct(repositoryGame, generatorTestPlayer).generate()
         Thread.sleep(1_000)
         GeneratorTestGamePro(repositoryGame, generatorTestPlayer).generate()
+        Thread.sleep(1_000)
+        Schedule(repositoryPlayer, repositoryGame).execute()
     }
 }
 
