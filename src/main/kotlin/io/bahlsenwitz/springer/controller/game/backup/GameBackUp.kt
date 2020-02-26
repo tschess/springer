@@ -3,7 +3,7 @@ package io.bahlsenwitz.springer.controller.game.backup
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.repository.RepositoryGame
-import io.bahlsenwitz.springer.util.Zipper
+import io.bahlsenwitz.springer.generator.backup.Zipper
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.io.File

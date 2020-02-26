@@ -2,14 +2,14 @@ package io.bahlsenwitz.springer
 
 import io.bahlsenwitz.springer.generator.backup.GeneratorGame
 import io.bahlsenwitz.springer.generator.backup.GeneratorPlayer
+import io.bahlsenwitz.springer.generator.backup.Zipper
 import io.bahlsenwitz.springer.generator.test.GeneratorTestGameAct
 import io.bahlsenwitz.springer.generator.test.GeneratorTestGameFin
 import io.bahlsenwitz.springer.generator.test.GeneratorTestGamePro
 import io.bahlsenwitz.springer.generator.test.GeneratorTestPlayer
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.schedule.TimeoutInvite
-import io.bahlsenwitz.springer.util.Zipper
+import io.bahlsenwitz.springer.schedule.Schedule
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -29,9 +29,7 @@ class SpringerApplication(
 ) : ApplicationRunner {
 
     override fun run(args: ApplicationArguments) {
-
         if (args.containsOption("source")) { //./gradlew bootRun --args='--source=28-03'
-
             val date: List<String> = args.getOptionValues("source")[0]!!.split("-")
             val day: String = date[0]
             val month: String = date[1]
@@ -42,18 +40,15 @@ class SpringerApplication(
                     if (it.extension == "zip") {
                         //println("---> ${it.absolutePath}")
                         val file: File = Zipper().from(it)
-                        if(it.name.contains("player")){
+                        if (it.name.contains("player")) {
                             GeneratorPlayer(repositoryPlayer).generate(file)
                         }
-                        if(it.name.contains("game")){
+                        if (it.name.contains("game")) {
                             GeneratorGame(repositoryPlayer, repositoryGame).generate(file)
                         }
                     }
                 }
-
-            // - scheduked -
-            TimeoutInvite(repositoryPlayer, repositoryGame).execute()
-
+            Schedule(repositoryPlayer, repositoryGame).execute()
             return
         }
         val generatorTestPlayer = GeneratorTestPlayer(repositoryPlayer)
