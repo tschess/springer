@@ -1,5 +1,5 @@
 #sensitive
-application.properties
+src/main/resources/application.properties
 
 #backup files
 *.game.csv
