@@ -8,6 +8,7 @@ import io.bahlsenwitz.springer.generator.test.GeneratorTestGamePro
 import io.bahlsenwitz.springer.generator.test.GeneratorTestPlayer
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
+import io.bahlsenwitz.springer.schedule.TimeoutInvite
 import io.bahlsenwitz.springer.util.Zipper
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
@@ -49,6 +50,10 @@ class SpringerApplication(
                         }
                     }
                 }
+
+            // - scheduked -
+            TimeoutInvite(repositoryPlayer, repositoryGame).execute()
+
             return
         }
         val generatorTestPlayer = GeneratorTestPlayer(repositoryPlayer)
