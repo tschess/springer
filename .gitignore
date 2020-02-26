@@ -1,5 +1,5 @@
 #sensitive
-/Users/s.matthew.english/Workbench/springer/src/main/resources/application.properties
+application.properties
 
 #backup files
 *.game.csv

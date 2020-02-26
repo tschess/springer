@@ -34,19 +34,19 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer) {
          * LEADERBOARD RECALC
          */
         val playerFindAllList: List<Player> = repositoryPlayer.findAll().sorted()
-        playerFindAllList.forEachIndexed forEach@{ index, player ->
-            if (player.rank == index + 1) {
-                player.disp = 0
-                repositoryPlayer.save(player)
+        playerFindAllList.forEachIndexed forEach@{ index, playerX ->
+            if (playerX.rank == index + 1) {
+                playerX.disp = 0
+                repositoryPlayer.save(playerX)
                 return@forEach
             }
-            val disp: Int = player.rank - (index + 1)
-            player.disp = disp
+            val disp: Int = playerX.rank - (index + 1)
+            playerX.disp = disp
             val date: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant())
-            player.date = date
+            playerX.date = date
             val rank: Int = (index + 1)
-            player.rank = rank
-            repositoryPlayer.save(player)
+            playerX.rank = rank
+            repositoryPlayer.save(playerX)
         }
         //^^^
         player.disp = 0 //moral purposes...

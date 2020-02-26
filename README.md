@@ -7,13 +7,13 @@ server for `tschess`
 ```
 sudo apt update
 java -version
-sudo apt install default-jre
-sudo apt install openjdk-11-jre-headless
-sudo apt install openjdk-8-jre-headless
-sudo apt install openjdk-9-jre-headless
-sudo apt install postgresql postgresql-contrib
-sudo apt-get install tmux
-sudo apt install gradle
+sudo apt install -y default-jre
+
+sudo apt install -y openjdk-8-jre-headless
+
+sudo apt install -y postgresql postgresql-contrib
+sudo apt-get install -y tmux
+sudo apt install -y gradle
 ```
 
 ## start
@@ -213,7 +213,7 @@ Password: admin
 ```
 
 
-### resources
+###resources
 
 installation
 
