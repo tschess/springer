@@ -1,5 +1,6 @@
 package io.bahlsenwitz.springer.schedule.tasks
 
+import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
 import io.bahlsenwitz.springer.model.common.Elo
 import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.CONTESTANT
@@ -36,6 +37,32 @@ class TimeoutGame(val repositoryPlayer: RepositoryPlayer, val repositoryGame: Re
                 val winner: Player = getSetWinner(game)
                 val loser: Player = getLoser(game)
                 setElo(winner, loser)
+
+                /**
+                 * LEADERBOARD RECALC
+                 */
+                val playerFindAllList: List<Player> = repositoryPlayer.findAll().sorted()
+                playerFindAllList.forEachIndexed forEach@{ index, player ->
+                    if (player.rank == index + 1) {
+                        player.disp = 0
+                        repositoryPlayer.save(player)
+                        return@forEach
+                    }
+                    val disp: Int = player.rank - (index + 1)
+                    player.disp = disp
+                    val date = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
+                    player.date = date
+                    val rank: Int = (index + 1)
+                    player.rank = rank
+                    repositoryPlayer.save(player)
+                }
+                //^^^
+
+                game.white_disp = repositoryPlayer.findById(game.white.id).get().disp
+                game.black_disp = repositoryPlayer.findById(game.black.id).get().disp
+                game.highlight = "TBD"
+                game.updated = GameAck.FORMATTER.format(ZonedDateTime.now(Game.BROOKLYN)).toString()
+                repositoryGame.save(game)
             }
         }
     }
