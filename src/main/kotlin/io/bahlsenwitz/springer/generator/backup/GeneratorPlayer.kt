@@ -31,25 +31,15 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
     private val IDX_UPDATED = 14
     private val IDX_CREATED = 15
 
-    fun generate() {
+    fun generate(file: File) {
         repositoryPlayer.deleteAll()
+        val playerList = ArrayList<Player>()
 
-        var fileReader: BufferedReader? = null
+        val fileReader: BufferedReader = BufferedReader(FileReader(file))
         try {
-            val playerList = ArrayList<Player>()
-
-            val dir = File(".")
-            val file = dir.listFiles { _, name -> name.endsWith(".player.csv") }
-            if(file?.count() != 1){
-                return
-            }
-            fileReader = BufferedReader(FileReader(file[0]))
-            // Read CSV header
             fileReader.readLine()
-            // Read the file line by line starting from the second line
             var line: String?
             line = fileReader.readLine()
-
             while (line != null) {
                 val tokens = line.split(";")
                 if (tokens.isNotEmpty()) {
@@ -71,7 +61,7 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                     val config2: List<List<String>> = generateConfig(configString = configString2)
                     val skinString: String = tokens[IDX_SKIN] //12
 
-                    print("\n\nXXXX${skinString}\n\n")
+                    //print("\n\nXXXX${skinString}\n\n")
 
                     val skin: List<SKIN> = generateSkinList(squadString = skinString)
                     var device: String? = tokens[IDX_DEVICE] //13
@@ -81,7 +71,7 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                     val updated: String = tokens[IDX_UPDATED] //14
                     val created: String = tokens[IDX_CREATED] //15
 
-                    val FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy_HH:mm:ss.SSSS")
+                    val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
                     val BROOKLYN = ZoneId.of("America/New_York")
 
                     val player = Player(
@@ -106,20 +96,12 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                 }
                 line = fileReader.readLine()
             }
-            for (player in playerList) {
+            for (player: Player in playerList) {
                 repositoryPlayer.save(player)
             }
 
-        } catch (e: Exception) {
-            println("Reading CSV Error!")
-            e.printStackTrace()
         } finally {
-            try {
-                fileReader!!.close()
-            } catch (e: IOException) {
-                println("Closing fileReader Error!")
-                e.printStackTrace()
-            }
+            fileReader.close()
         }
     }
 

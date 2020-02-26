@@ -9,6 +9,7 @@ import org.hibernate.annotations.TypeDefs
 import org.springframework.data.jpa.repository.Temporal
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.persistence.*
 
@@ -46,6 +47,8 @@ class Game(
 
     var on_check: Boolean = false,
     var highlight: String = PLACEHOLDER,
+
+
 
     @Temporal(TemporalType.TIMESTAMP)
     var updated: Date = Date.from(ZonedDateTime.now(ZoneId.of("America/New_York")).toInstant()),

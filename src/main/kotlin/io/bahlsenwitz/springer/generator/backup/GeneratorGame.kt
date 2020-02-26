@@ -95,8 +95,8 @@ class GeneratorGame(
                     if(winner_0 != "NULL"){
                         winner = CONTESTANT.valueOf(winner_0)
                     }
-
-                    val FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy_HH:mm:ss.SSSS")
+                    //dd.MM.yyyy_HH:mm:ss.SSSS
+                    val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
                     val BROOKLYN = ZoneId.of("America/New_York")
 
                     val turn: CONTESTANT = CONTESTANT.valueOf(tokens[IDX_TURN]) //15
@@ -130,19 +130,11 @@ class GeneratorGame(
                 }
                 line = fileReader.readLine()
             }
-            for (game in gameList) {
+            for (game: Game in gameList) {
                 repositoryGame.save(game)
             }
-        } catch (e: Exception) {
-            println("Reading CSV Error!")
-            e.printStackTrace()
         } finally {
-            try {
-                fileReader!!.close()
-            } catch (e: IOException) {
-                println("Closing fileReader Error!")
-                e.printStackTrace()
-            }
+            fileReader.close()
         }
     }
 

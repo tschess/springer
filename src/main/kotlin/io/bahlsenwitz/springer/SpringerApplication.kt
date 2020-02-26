@@ -1,6 +1,7 @@
 package io.bahlsenwitz.springer
 
 import io.bahlsenwitz.springer.generator.backup.GeneratorGame
+import io.bahlsenwitz.springer.generator.backup.GeneratorPlayer
 import io.bahlsenwitz.springer.generator.test.GeneratorTestGameAct
 import io.bahlsenwitz.springer.generator.test.GeneratorTestGameFin
 import io.bahlsenwitz.springer.generator.test.GeneratorTestGamePro
@@ -13,7 +14,6 @@ import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import java.io.File
-
 
 /**
  * TODO: - the following is a *roadmap* task -
@@ -44,15 +44,19 @@ class SpringerApplication(
             print("month = ${month}\n\n\n")
 
             File("..${File.separator}backup${File.separator + month + File.separator + day + File.separator}")
-                .walk()
+                .walkBottomUp()
                 .forEach {
 
                     if (it.extension == "zip") {
-                        //println("${it.absolutePath}")
+                        println("---> ${it.absolutePath}")
                         val file: File = Zipper().from(it)
 
-                        GeneratorGame(repositoryPlayer, repositoryGame).generate(file)
-
+                        if(it.name.contains("player")){
+                            GeneratorPlayer(repositoryPlayer).generate(file)
+                        }
+                        if(it.name.contains("game")){
+                            GeneratorGame(repositoryPlayer, repositoryGame).generate(file)
+                        }
                     }
 
                 }
