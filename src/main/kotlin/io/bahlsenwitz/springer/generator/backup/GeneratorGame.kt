@@ -135,47 +135,56 @@ class GeneratorGame(
 
     private fun generateState(stateString: String): List<List<String>> {
         val representationString: List<String> = stateString.split("], [")
-        val output7 = arrayListOf<String>()
-        val rank7 = representationString[0].split(",")
+        if(representationString.size == 2){
+            val outputA: ArrayList<String> = arrayListOf()
+            val rankA: List<String> = representationString[0].split(",")
+            rankA.forEach {
+                outputA.add(parseInvite(listElement = it))
+            }
+            val outputB: ArrayList<String> = arrayListOf()
+            val rankB: List<String> = representationString[1].split(",")
+            rankB.forEach {
+                outputB.add(parseInvite(listElement = it))
+            }
+            return arrayListOf(outputA, outputB)
+        }
+        val output7: ArrayList<String> = arrayListOf()
+        val rank7: List<String> = representationString[0].split(",")
         rank7.forEach {
             output7.add(parseName(listElement = it))
         }
-        val output6 = arrayListOf<String>()
-        val rank6 = representationString[1].split(",")
+        val output6: ArrayList<String> = arrayListOf()
+        val rank6: List<String> = representationString[1].split(",")
         rank6.forEach {
             output6.add(parseName(listElement = it))
         }
-        if(representationString.size == 2){
-            return arrayListOf(output7, output6)
-        }
-
-        val output5 = arrayListOf<String>()
-        val rank5 = representationString[2].split(",")
+        val output5: ArrayList<String> = arrayListOf()
+        val rank5: List<String> = representationString[2].split(",")
         rank5.forEach {
             output5.add(parseName(listElement = it))
         }
-        val output4 = arrayListOf<String>()
-        val rank4 = representationString[3].split(",")
+        val output4: ArrayList<String> = arrayListOf()
+        val rank4: List<String> = representationString[3].split(",")
         rank4.forEach {
             output4.add(parseName(listElement = it))
         }
-        val output3 = arrayListOf<String>()
-        val rank3 = representationString[4].split(",")
+        val output3: ArrayList<String> = arrayListOf()
+        val rank3: List<String> = representationString[4].split(",")
         rank3.forEach {
             output3.add(parseName(listElement = it))
         }
-        val output2 = arrayListOf<String>()
-        val rank2 = representationString[5].split(",")
+        val output2: ArrayList<String> = arrayListOf()
+        val rank2: List<String> = representationString[5].split(",")
         rank2.forEach {
             output2.add(parseName(listElement = it))
         }
-        val output1 = arrayListOf<String>()
-        val rank1 = representationString[6].split(",")
+        val output1: ArrayList<String> = arrayListOf()
+        val rank1: List<String> = representationString[6].split(",")
         rank1.forEach {
             output1.add(parseName(listElement = it))
         }
-        val output0 = arrayListOf<String>()
-        val rank0 = representationString[7].split(",")
+        val output0: ArrayList<String> = arrayListOf()
+        val rank0: List<String> = representationString[7].split(",")
         rank0.forEach {
             output0.add(parseName(listElement = it))
         }
@@ -244,6 +253,40 @@ class GeneratorGame(
         }
         if (listElement.toLowerCase().contains("amazon")) {
             return "AmazonBlack"
+        }
+        return ""
+    }
+
+    private fun parseInvite(listElement: String): String {
+        if (listElement.toLowerCase().contains("knight")) {
+            return "Knight"
+        }
+        if (listElement.toLowerCase().contains("bishop")) {
+            return "Bishop"
+        }
+        if (listElement.toLowerCase().contains("rook")) {
+            return "Rook"
+        }
+        if (listElement.toLowerCase().contains("queen")) {
+            return "Queen"
+        }
+        if (listElement.toLowerCase().contains("king")) {
+            return "King"
+        }
+        if (listElement.toLowerCase().contains("grasshopper")) {
+            return "Grasshopper"
+        }
+        if (listElement.toLowerCase().contains("hunter")) {
+            return "Hunter"
+        }
+        if (listElement.toLowerCase().contains("poison")) {
+            return "Poison"
+        }
+        if (listElement.toLowerCase().contains("pawn")) {
+            return "Pawn"
+        }
+        if (listElement.toLowerCase().contains("amazon")) {
+            return "Amazon"
         }
         return ""
     }
