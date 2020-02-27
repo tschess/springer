@@ -98,7 +98,7 @@ class GameAck(
                     colorRow.add(element)
                     continue
                 }
-                colorRow.add("${element}${color}")
+                colorRow.add("${element}${color}_x")
             }
             return colorRow
         }
