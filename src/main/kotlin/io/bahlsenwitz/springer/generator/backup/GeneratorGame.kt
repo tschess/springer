@@ -200,12 +200,18 @@ class GeneratorGame(
                 return "BishopWhite"
             }
             if (listElement.toLowerCase().contains("rook")) {
+                if (listElement.toLowerCase().contains("rook_x")) {
+                    return "RookWhite_x"
+                }
                 return "RookWhite"
             }
             if (listElement.toLowerCase().contains("queen")) {
                 return "QueenWhite"
             }
             if (listElement.toLowerCase().contains("king")) {
+                if (listElement.toLowerCase().contains("king_x")) {
+                    return "KingWhite_x"
+                }
                 return "KingWhite"
             }
             if (listElement.toLowerCase().contains("grasshopper")) {
@@ -215,9 +221,15 @@ class GeneratorGame(
                 return "HunterWhite"
             }
             if (listElement.toLowerCase().contains("poison")) {
+                if (listElement.toLowerCase().contains("poison_x")) {
+                    return "PoisonWhite_x"
+                }
                 return "PoisonWhite"
             }
             if (listElement.toLowerCase().contains("pawn")) {
+                if (listElement.toLowerCase().contains("pawn_x")) {
+                    return "PawnWhite_x"
+                }
                 return "PawnWhite"
             }
             if (listElement.toLowerCase().contains("amazon")) {
@@ -231,12 +243,18 @@ class GeneratorGame(
             return "BishopBlack"
         }
         if (listElement.toLowerCase().contains("rook")) {
+            if (listElement.toLowerCase().contains("rook_x")) {
+                return "RookBlack_x"
+            }
             return "RookBlack"
         }
         if (listElement.toLowerCase().contains("queen")) {
             return "QueenBlack"
         }
         if (listElement.toLowerCase().contains("king")) {
+            if (listElement.toLowerCase().contains("king_x")) {
+                return "KingBlack_x"
+            }
             return "KingBlack"
         }
         if (listElement.toLowerCase().contains("grasshopper")) {
@@ -246,9 +264,15 @@ class GeneratorGame(
             return "HunterBlack"
         }
         if (listElement.toLowerCase().contains("poison")) {
+            if (listElement.toLowerCase().contains("poison_x")) {
+                return "PoisonBlack_x"
+            }
             return "PoisonBlack"
         }
         if (listElement.toLowerCase().contains("pawn")) {
+            if (listElement.toLowerCase().contains("pawn_x")) {
+                return "PawnBlack_x"
+            }
             return "PawnBlack"
         }
         if (listElement.toLowerCase().contains("amazon")) {
