@@ -145,6 +145,10 @@ class GeneratorGame(
         rank6.forEach {
             output6.add(parseName(listElement = it))
         }
+        if(representationString.size == 2){
+            return arrayListOf(output7, output6)
+        }
+
         val output5 = arrayListOf<String>()
         val rank5 = representationString[2].split(",")
         rank5.forEach {
