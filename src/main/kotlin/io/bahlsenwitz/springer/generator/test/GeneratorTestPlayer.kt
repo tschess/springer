@@ -1,11 +1,8 @@
 package io.bahlsenwitz.springer.generator.test
 
-import io.bahlsenwitz.springer.generator.util.GeneratorAvatar
+import io.bahlsenwitz.springer.generator.common.GeneratorAvatar
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {

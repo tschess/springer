@@ -1,4 +1,4 @@
-package io.bahlsenwitz.springer.generator.util
+package io.bahlsenwitz.springer.generator.common
 //
 class GeneratorAvatar {
 

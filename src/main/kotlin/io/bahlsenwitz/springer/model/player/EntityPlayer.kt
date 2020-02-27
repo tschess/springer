@@ -1,24 +1,18 @@
 package io.bahlsenwitz.springer.model.player
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
-import io.bahlsenwitz.springer.generator.util.GeneratorAvatar
+import io.bahlsenwitz.springer.generator.common.GeneratorAvatar
 import io.bahlsenwitz.springer.model.common.EntityUUID
-import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.SKIN
 import io.bahlsenwitz.springer.util.Constant
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs
-import org.springframework.data.jpa.repository.Temporal
-import java.time.LocalDateTime
-import java.time.ZoneId
 import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Table
-import javax.persistence.TemporalType
 import kotlin.collections.HashMap
 
 @Entity
