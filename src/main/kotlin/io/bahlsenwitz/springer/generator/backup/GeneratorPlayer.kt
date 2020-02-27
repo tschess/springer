@@ -145,7 +145,7 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
             return "Hunter"
         }
         if (listElement.toLowerCase().contains("poison")) {
-            return "PoisonPawn"
+            return "Poison"
         }
         if (listElement.toLowerCase().contains("pawn")) {
             return "Pawn"
