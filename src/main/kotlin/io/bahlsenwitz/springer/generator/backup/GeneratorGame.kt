@@ -197,7 +197,7 @@ class GeneratorGame(
                 return "HunterWhite"
             }
             if (listElement.toLowerCase().contains("poison")) {
-                return "PoisonPawnWhite"
+                return "PoisonWhite"
             }
             if (listElement.toLowerCase().contains("pawn")) {
                 return "PawnWhite"
@@ -228,7 +228,7 @@ class GeneratorGame(
             return "HunterBlack"
         }
         if (listElement.toLowerCase().contains("poison")) {
-            return "PoisonPawnBlack"
+            return "PoisonBlack"
         }
         if (listElement.toLowerCase().contains("pawn")) {
             return "PawnBlack"
