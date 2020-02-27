@@ -24,8 +24,8 @@ class TimeoutGame(val repositoryPlayer: RepositoryPlayer, val repositoryGame: Re
             val dateThen: ZonedDateTime = Constant().getDate(game.updated)
 
             val elapsed: Long = Duration.between(dateNow, dateThen).seconds
-            //if (elapsed.absoluteValue > TimeUnit.HOURS.toSeconds(24)) {
-            if (elapsed.absoluteValue > TimeUnit.MINUTES.toSeconds(1)) {
+            if (elapsed.absoluteValue > TimeUnit.HOURS.toSeconds(24)) {
+            //if (elapsed.absoluteValue > TimeUnit.MINUTES.toSeconds(1)) {
                 game.status = STATUS.RESOLVED
                 game.outcome = OUTCOME.TIMEOUT
 

@@ -24,8 +24,8 @@ class TimeoutInvite(val repositoryPlayer: RepositoryPlayer, val repositoryGame: 
             val dateThen: ZonedDateTime = Constant().getDate(invite.created)
 
             val elapsed: Long = Duration.between(dateNow, dateThen).seconds
-            //if (elapsed.absoluteValue > TimeUnit.HOURS.toSeconds(24)) {
-            if (elapsed.absoluteValue > TimeUnit.MINUTES.toSeconds(1)) {
+            if (elapsed.absoluteValue > TimeUnit.HOURS.toSeconds(24)) {
+            //if (elapsed.absoluteValue > TimeUnit.MINUTES.toSeconds(1)) {
                 invite.status = STATUS.RESOLVED
                 invite.outcome = OUTCOME.EXPIRED
                 repositoryGame.save(invite)

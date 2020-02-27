@@ -1,5 +1,7 @@
 package io.bahlsenwitz.springer
 
+import io.bahlsenwitz.springer.controller.game.backup.GameBackUp
+import io.bahlsenwitz.springer.controller.player.backup.PlayerBackUp
 import io.bahlsenwitz.springer.generator.backup.GeneratorGame
 import io.bahlsenwitz.springer.generator.backup.GeneratorPlayer
 import io.bahlsenwitz.springer.generator.backup.Zipper
@@ -15,6 +17,7 @@ import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import java.io.File
+import javax.annotation.PreDestroy
 
 /**
  * TODO: - the following is a *roadmap* task -
@@ -60,6 +63,18 @@ class SpringerApplication(
         GeneratorTestGamePro(repositoryGame, generatorTestPlayer).generate()
         Thread.sleep(1_000)
         Schedule(repositoryPlayer, repositoryGame).execute()
+    }
+
+    @PreDestroy
+    fun onExit() {
+        print("\n\n\n###STOPing###")
+        try {
+            PlayerBackUp(repositoryPlayer).backup()
+            GameBackUp(repositoryGame).backup()
+        } catch (e: InterruptedException) {
+            print(e.stackTrace)
+        }
+        print("###STOP FROM THE LIFECYCLE###\n\n\n")
     }
 }
 
