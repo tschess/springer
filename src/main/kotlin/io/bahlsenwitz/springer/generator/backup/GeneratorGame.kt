@@ -52,8 +52,13 @@ class GeneratorGame(
                 val tokens: List<String> = line.split(";")
                 if (tokens.isNotEmpty()) {
                     val id: UUID = UUID.fromString(tokens[IDX_ID])!! //0
+
+                    var state: List<List<String>>? = null
                     val stateString: String = tokens[IDX_STATE]
-                    val state: List<List<String>> = generateState(stateString = stateString) //1
+                    if(stateString != "NULL"){
+                        //val state: List<List<String>> = generateState(stateString = stateString) //1
+                        state = generateState(stateString = stateString) //1
+                    }
                     val status: STATUS = STATUS.valueOf(tokens[IDX_STATUS]) //2
                     val outcome: OUTCOME = OUTCOME.valueOf(tokens[IDX_OUTCOME]) //3
                     val moves: Int = tokens[IDX_MOVES].toInt() //4
