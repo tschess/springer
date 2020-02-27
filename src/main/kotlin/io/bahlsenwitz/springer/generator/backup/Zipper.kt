@@ -39,6 +39,9 @@ class Zipper {
         val dir: File = File("..${File.separator}backup${File.separator + month + File.separator + day + File.separator}")
         dir.mkdirs()
         val zip: File = File(dir, "${name}.zip")
+        if (zip.exists()) {
+            zip.delete()
+        }
         zip.createNewFile()
 
         val fileOutputStream: FileOutputStream = FileOutputStream(zip, false)
