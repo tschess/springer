@@ -7,10 +7,6 @@ import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
-import java.io.IOException
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -55,7 +51,7 @@ class GeneratorGame(
 
                     var state: List<List<String>>? = null
                     val stateString: String = tokens[IDX_STATE]
-                    if(stateString != "NULL"){
+                    if (stateString != "NULL") {
                         //val state: List<List<String>> = generateState(stateString = stateString) //1
                         state = generateState(stateString = stateString) //1
                     }
@@ -70,7 +66,7 @@ class GeneratorGame(
 
                     var white_disp: Int? = null
                     val white_disp_0: String = tokens[IDX_WHITE_DISP] //7
-                    if(white_disp_0 != "NULL"){
+                    if (white_disp_0 != "NULL") {
                         white_disp = white_disp_0.toInt()
                     }
                     val white_skin: SKIN = SKIN.valueOf(tokens[IDX_WHITE_SKIN]) //8
@@ -81,19 +77,19 @@ class GeneratorGame(
 
                     var black_disp: Int? = null
                     val black_disp_0: String = tokens[IDX_BLACK_DISP] //11
-                    if(black_disp_0 != "NULL"){
+                    if (black_disp_0 != "NULL") {
                         black_disp = black_disp_0.toInt()
                     }
                     val black_skin: SKIN = SKIN.valueOf(tokens[IDX_BLACK_SKIN]) //12
 
                     var challenger: CONTESTANT? = null
                     val challenger_0: String = tokens[IDX_CHALLENGER] //11
-                    if(challenger_0 != "NULL"){
+                    if (challenger_0 != "NULL") {
                         challenger = CONTESTANT.valueOf(challenger_0)
                     }
                     var winner: CONTESTANT? = null
                     val winner_0: String = tokens[IDX_WINNER] //14
-                    if(winner_0 != "NULL"){
+                    if (winner_0 != "NULL") {
                         winner = CONTESTANT.valueOf(winner_0)
                     }
                     val turn: CONTESTANT = CONTESTANT.valueOf(tokens[IDX_TURN]) //15
@@ -135,7 +131,7 @@ class GeneratorGame(
 
     private fun generateState(stateString: String): List<List<String>> {
         val representationString: List<String> = stateString.split("], [")
-        if(representationString.size == 2){
+        if (representationString.size == 2) {
             val outputA: ArrayList<String> = arrayListOf()
             val rankA: List<String> = representationString[0].split(",")
             rankA.forEach {
@@ -200,7 +196,7 @@ class GeneratorGame(
                 return "BishopWhite"
             }
             if (listElement.toLowerCase().contains("rook")) {
-                if (listElement.toLowerCase().contains("rook_x")) {
+                if (listElement.toLowerCase().contains("_x")) {
                     return "RookWhite_x"
                 }
                 return "RookWhite"
@@ -209,7 +205,7 @@ class GeneratorGame(
                 return "QueenWhite"
             }
             if (listElement.toLowerCase().contains("king")) {
-                if (listElement.toLowerCase().contains("king_x")) {
+                if (listElement.toLowerCase().contains("_x")) {
                     return "KingWhite_x"
                 }
                 return "KingWhite"
@@ -221,13 +217,13 @@ class GeneratorGame(
                 return "HunterWhite"
             }
             if (listElement.toLowerCase().contains("poison")) {
-                if (listElement.toLowerCase().contains("poison_x")) {
+                if (listElement.toLowerCase().contains("_x")) {
                     return "PoisonWhite_x"
                 }
                 return "PoisonWhite"
             }
             if (listElement.toLowerCase().contains("pawn")) {
-                if (listElement.toLowerCase().contains("pawn_x")) {
+                if (listElement.toLowerCase().contains("_x")) {
                     return "PawnWhite_x"
                 }
                 return "PawnWhite"
@@ -243,7 +239,7 @@ class GeneratorGame(
             return "BishopBlack"
         }
         if (listElement.toLowerCase().contains("rook")) {
-            if (listElement.toLowerCase().contains("rook_x")) {
+            if (listElement.toLowerCase().contains("_x")) {
                 return "RookBlack_x"
             }
             return "RookBlack"
@@ -252,7 +248,7 @@ class GeneratorGame(
             return "QueenBlack"
         }
         if (listElement.toLowerCase().contains("king")) {
-            if (listElement.toLowerCase().contains("king_x")) {
+            if (listElement.toLowerCase().contains("_x")) {
                 return "KingBlack_x"
             }
             return "KingBlack"
@@ -264,13 +260,13 @@ class GeneratorGame(
             return "HunterBlack"
         }
         if (listElement.toLowerCase().contains("poison")) {
-            if (listElement.toLowerCase().contains("poison_x")) {
+            if (listElement.toLowerCase().contains("_x")) {
                 return "PoisonBlack_x"
             }
             return "PoisonBlack"
         }
         if (listElement.toLowerCase().contains("pawn")) {
-            if (listElement.toLowerCase().contains("pawn_x")) {
+            if (listElement.toLowerCase().contains("_x")) {
                 return "PawnBlack_x"
             }
             return "PawnBlack"
