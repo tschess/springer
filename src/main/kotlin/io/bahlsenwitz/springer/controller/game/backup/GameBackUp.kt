@@ -45,8 +45,13 @@ class GameBackUp(private val repositoryGame: RepositoryGame) {
             for (game: Game in gameList) {
                 val id: String = game.id.toString()
                 fileWriter.append("${id};") //0
-                val state: String = game.state.toString()
+
+                var state: String = "NULL"
+                if(game.state != null){ //toString()
+                    state = game.state.toString()
+                }
                 fileWriter.append("${state};") //1
+
                 val status: String = game.status.toString()
                 fileWriter.append("${status};") //2
                 val outcome: String = game.outcome.toString() //3
