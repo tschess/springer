@@ -231,6 +231,9 @@ class GeneratorGame(
             if (listElement.toLowerCase().contains("amazon")) {
                 return "AmazonWhite"
             }
+            if (listElement.toLowerCase().contains("reveal")) {
+                return "RevealWhite"
+            }
         }
         if (listElement.toLowerCase().contains("knight")) {
             return "KnightBlack"
@@ -273,6 +276,9 @@ class GeneratorGame(
         }
         if (listElement.toLowerCase().contains("amazon")) {
             return "AmazonBlack"
+        }
+        if (listElement.toLowerCase().contains("reveal")) {
+            return "RevealBlack"
         }
         return ""
     }
