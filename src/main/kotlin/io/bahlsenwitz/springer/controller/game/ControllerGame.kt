@@ -16,6 +16,7 @@ import io.bahlsenwitz.springer.controller.game.tschess.polling.GameRequest
 import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameRescind
 import io.bahlsenwitz.springer.controller.game.tschess.resolve.GameResign
 import io.bahlsenwitz.springer.controller.game.tschess.GameTest
+import io.bahlsenwitz.springer.controller.game.tschess.resolve.GameMine
 import io.bahlsenwitz.springer.controller.game.tschess.update.GameUpdate
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
@@ -209,6 +210,14 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     fun backup(): Any {
         return gameBackUp.backup()
     }
+
+    val gameMine = GameMine(repositoryGame, repositoryPlayer)
+
+    @PostMapping("/mine")
+    fun mine(@Valid @RequestBody updateMine: GameMine.UpdateMine): ResponseEntity<Any> {
+        return gameMine.mine(updateMine)
+    }
+
 }
 
 
