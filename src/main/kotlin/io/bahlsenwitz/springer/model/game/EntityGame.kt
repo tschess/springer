@@ -84,6 +84,7 @@ enum class SKIN {
 //not really outcome
 enum class OUTCOME {
     CHECK, //currently in check...
+    LANDMINE,
     CHECKMATE,
     TIMEOUT,
     RESIGN,
