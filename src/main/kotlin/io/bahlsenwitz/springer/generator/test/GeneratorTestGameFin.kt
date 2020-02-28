@@ -3,9 +3,6 @@ package io.bahlsenwitz.springer.generator.test
 import io.bahlsenwitz.springer.generator.common.Default
 import io.bahlsenwitz.springer.model.game.*
 import io.bahlsenwitz.springer.repository.RepositoryGame
-import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class GeneratorTestGameFin(
@@ -26,7 +23,7 @@ class GeneratorTestGameFin(
             white_skin = SKIN.CALYPSO,
             black_skin = SKIN.HYPERION,
             black_disp = -7,
-            outcome = OUTCOME.CHECKMATE,
+            condition = CONDITION.CHECKMATE,
             winner = CONTESTANT.WHITE,
             status = STATUS.RESOLVED,
             challenger = CONTESTANT.WHITE

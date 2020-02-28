@@ -4,7 +4,7 @@ import io.bahlsenwitz.springer.model.common.Elo
 import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
-import io.bahlsenwitz.springer.model.game.OUTCOME
+import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
@@ -27,7 +27,7 @@ class TimeoutGame(val repositoryPlayer: RepositoryPlayer, val repositoryGame: Re
             if (elapsed.absoluteValue > TimeUnit.HOURS.toSeconds(24)) {
             //if (elapsed.absoluteValue > TimeUnit.MINUTES.toSeconds(1)) {
                 game.status = STATUS.RESOLVED
-                game.outcome = OUTCOME.TIMEOUT
+                game.condition = CONDITION.TIMEOUT
 
                 val winner: Player = getSetWinner(game)
                 val loser: Player = getLoser(game)

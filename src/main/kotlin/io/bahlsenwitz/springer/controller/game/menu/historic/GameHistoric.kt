@@ -1,7 +1,7 @@
 package io.bahlsenwitz.springer.controller.game.menu.historic
 
 import io.bahlsenwitz.springer.model.game.Game
-import io.bahlsenwitz.springer.model.game.OUTCOME
+import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
@@ -9,10 +9,7 @@ import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import java.time.LocalDateTime
-import java.time.ZoneId
 import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class GameHistoric(
@@ -28,7 +25,7 @@ class GameHistoric(
 
         val playerList: List<Game> = repositoryGame.findPlayerList(uuid)
         val playerListResolved: List<Game> = playerList.filter {
-            it.status == STATUS.RESOLVED && it.outcome != OUTCOME.REFUSED && it.outcome != OUTCOME.RESCIND
+            it.status == STATUS.RESOLVED && it.condition != CONDITION.REFUSED && it.condition != CONDITION.RESCIND
         }
 
         val playerListResolvedSorted: List<Game> = playerListResolved.sortedWith(ComparatorHistoric)

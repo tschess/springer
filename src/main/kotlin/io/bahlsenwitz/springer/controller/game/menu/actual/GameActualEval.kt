@@ -4,13 +4,12 @@ import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
-import java.util.*
 
 class GameActualEval(val game: Game, val player: Player) : Game(
     id = game.id,
     state = game.state,
     status = game.status,
-    outcome = game.outcome,
+    condition = game.condition,
     moves = game.moves,
     white = game.white,
     white_elo = game.white_elo,

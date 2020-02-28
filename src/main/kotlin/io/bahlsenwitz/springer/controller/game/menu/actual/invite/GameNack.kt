@@ -3,14 +3,13 @@ package io.bahlsenwitz.springer.controller.game.menu.actual.invite
 import io.bahlsenwitz.springer.model.common.Elo
 import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.Game
-import io.bahlsenwitz.springer.model.game.OUTCOME
+import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.ResponseEntity
-import java.time.ZonedDateTime
 import java.util.*
 
 class GameNack(
@@ -22,7 +21,7 @@ class GameNack(
         val uuid0: UUID = UUID.fromString(updateNack.id_game)!!
         val game: Game = repositoryGame.findById(uuid0).get()
         game.status = STATUS.RESOLVED
-        game.outcome = OUTCOME.REFUSED
+        game.condition = CONDITION.REFUSED
         repositoryGame.save(game)
 
         khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"nack\"")

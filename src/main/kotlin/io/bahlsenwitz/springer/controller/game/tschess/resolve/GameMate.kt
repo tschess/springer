@@ -4,7 +4,7 @@ import io.bahlsenwitz.springer.model.common.Elo
 import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
-import io.bahlsenwitz.springer.model.game.OUTCOME
+import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
@@ -25,7 +25,7 @@ class GameMate(
         khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"mate\"")
 
         game.status = STATUS.RESOLVED
-        game.outcome = OUTCOME.CHECKMATE
+        game.condition = CONDITION.CHECKMATE
         /***/
         if (game.turn == CONTESTANT.WHITE) {
             game.winner = CONTESTANT.BLACK

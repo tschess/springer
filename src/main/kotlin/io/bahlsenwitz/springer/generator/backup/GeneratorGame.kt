@@ -56,7 +56,7 @@ class GeneratorGame(
                         state = generateState(stateString = stateString) //1
                     }
                     val status: STATUS = STATUS.valueOf(tokens[IDX_STATUS]) //2
-                    val outcome: OUTCOME = OUTCOME.valueOf(tokens[IDX_OUTCOME]) //3
+                    val CONDITION: CONDITION = CONDITION.valueOf(tokens[IDX_OUTCOME]) //3
                     val moves: Int = tokens[IDX_MOVES].toInt() //4
                     val whiteIdString: String = tokens[IDX_WHITE_ID]
                     val white_id: UUID = UUID.fromString(whiteIdString)!!
@@ -101,7 +101,7 @@ class GeneratorGame(
                         id = id, //0
                         state = state, //1
                         status = status, //2
-                        outcome = outcome, //3
+                        condition = CONDITION, //3
                         moves = moves, //4
                         white = white, //5
                         white_elo = white_elo, //6

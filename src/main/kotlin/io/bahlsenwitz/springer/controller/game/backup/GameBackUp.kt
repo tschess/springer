@@ -54,7 +54,7 @@ class GameBackUp(private val repositoryGame: RepositoryGame) {
 
                 val status: String = game.status.toString()
                 fileWriter.append("${status};") //2
-                val outcome: String = game.outcome.toString() //3
+                val outcome: String = game.condition.toString() //3
                 fileWriter.append("${outcome};")
                 val moves: String = game.moves.toString()
                 fileWriter.append("${moves};") //4

@@ -1,7 +1,7 @@
 package io.bahlsenwitz.springer.controller.game.tschess.update
 
 import io.bahlsenwitz.springer.model.game.Game
-import io.bahlsenwitz.springer.model.game.OUTCOME
+import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.ResponseEntity
@@ -14,7 +14,7 @@ class GameCheck(private val repositoryGame: RepositoryGame) {
         val uuid0: UUID = UUID.fromString(id_game)!!
         val game: Game = repositoryGame.findById(uuid0).get()
 
-        game.outcome = OUTCOME.CHECK
+        game.condition = CONDITION.CHECK
         game.updated = Constant().getDate()
         repositoryGame.save(game)
 

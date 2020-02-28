@@ -7,10 +7,6 @@ import io.bahlsenwitz.springer.util.Constant
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs
-import org.springframework.data.jpa.repository.Temporal
-import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.persistence.*
 
@@ -25,7 +21,7 @@ class Game(
     var state: List<List<String>>? = null,
 
     var status: STATUS = STATUS.PROPOSED,
-    var outcome: OUTCOME = OUTCOME.TBD,
+    var condition: CONDITION = CONDITION.TBD,
     var moves: Int = 0,
 
     @OneToOne
@@ -81,8 +77,7 @@ enum class SKIN {
     NEPTUNE
 }
 
-//not really outcome
-enum class OUTCOME {
+enum class CONDITION {
     CHECK, //currently in check...
     LANDMINE,
     CHECKMATE,

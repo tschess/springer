@@ -2,7 +2,7 @@ package io.bahlsenwitz.springer.controller.game.tschess
 
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
-import io.bahlsenwitz.springer.model.game.OUTCOME
+import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.util.Constant
@@ -29,7 +29,7 @@ class GameTest(private val repositoryGame: RepositoryGame) {
         }
         game.winner = null
         game.status = STATUS.ONGOING
-        game.outcome = OUTCOME.TBD
+        game.condition = CONDITION.TBD
         game.highlight = "TBD"
         game.updated = Constant().getDate()
         return ResponseEntity.ok(repositoryGame.save(game))
