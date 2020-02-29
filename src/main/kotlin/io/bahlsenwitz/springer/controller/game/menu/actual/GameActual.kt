@@ -150,23 +150,12 @@ class GameActual(
                 }
 
 
-                if (historicA) { //histo a
-                    if (historicB) { //histo b
-                        if (!historicA) { //histo a
-                            if (!historicB) { //histo b
-                                if (updateAB) {
-                                    return -1 //a < b
-                                }
-                                return 1 //b < a
-                            } //a is an inbound game, b is an inbound invitation
-                            return -1 //a < b
-                        } //a is an inbound invitation
-                        if (!historicB) { //b is an inbound game
-                            return 1 //b < a
-                        }
-                    } // b is outbound, a is inbound
-                    return -1 //a < b
-                } //a is outbound
+                if (historicA && historicB) { //histo b
+                    if (updateAB) {
+                        return -1 //a < b
+                    }
+                    return 1 //b < a
+                }
 
 
 
