@@ -152,9 +152,9 @@ class GameActual(
 
                 if (historicA && historicB) { //histo b
                     if (updateAB) {
-                        return -1 //a < b
+                        return 1 //a < b
                     }
-                    return 1 //b < a
+                    return -1 //b < a
                 }
 
 
