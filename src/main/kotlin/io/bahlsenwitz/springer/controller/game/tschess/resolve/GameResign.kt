@@ -1,5 +1,6 @@
 package io.bahlsenwitz.springer.controller.game.tschess.resolve
 
+import io.bahlsenwitz.springer.controller.game.util.FormatPersist
 import io.bahlsenwitz.springer.model.common.Elo
 import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.CONTESTANT
@@ -65,6 +66,9 @@ class GameResign(
         val game: Game = repositoryGame.findById(uuid0).get()
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.RESIGN
+
+        game.state = FormatPersist().poisonReveal(game.state!!)
+
         if(updateResign.white){
             game.white_disp = repositoryPlayer.findById(uuid1).get().disp
             game.black_disp = repositoryPlayer.findById(uuid2).get().disp
