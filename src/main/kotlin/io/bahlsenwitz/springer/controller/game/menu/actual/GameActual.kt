@@ -1,5 +1,6 @@
 package io.bahlsenwitz.springer.controller.game.menu.actual
 
+import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
@@ -30,7 +31,11 @@ class GameActual(
 
         val playerList: List<Game> = repositoryGame.findPlayerList(uuid)
         val playerListFilter: List<Game> =
-            playerList.filter { it.status == STATUS.PROPOSED || it.status == STATUS.ONGOING }
+            playerList.filter {
+                it.status == STATUS.PROPOSED ||
+                        it.status == STATUS.ONGOING ||
+                        (it.status == STATUS.RESOLVED && it.condition != CONDITION.REFUSED && it.condition != CONDITION.RESCIND)
+            }
 
         val gameCoreActualList: MutableList<GameActualEval> = mutableListOf()
         val gameList: List<Game>
