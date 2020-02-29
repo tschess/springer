@@ -29,6 +29,7 @@ class GameActualEval(val game: Game, val player: Player) : Game(
 ) {
 
     data class Info(
+        val historic: Boolean,
         val invitation: Boolean,
         val inbound: Boolean,
         val date: String
@@ -37,10 +38,13 @@ class GameActualEval(val game: Game, val player: Player) : Game(
     val stats: Info = getInfo()
 
     private final fun getInfo(): Info {
-        var inbound: Boolean = false
+        var historic: Boolean = true
+        if (game.status != STATUS.RESOLVED) {
+            historic = false
+        }
         var invitation: Boolean = false
+        var inbound: Boolean = false
         var date: String = game.updated
-
         if (game.status == STATUS.PROPOSED) { //invite
             invitation = true
             date = game.created
@@ -49,6 +53,7 @@ class GameActualEval(val game: Game, val player: Player) : Game(
                     inbound = true
                     //invite, from white, fetch by black
                     return Info(
+                        historic = historic,
                         invitation = invitation,
                         inbound = inbound,
                         date = date
@@ -56,6 +61,7 @@ class GameActualEval(val game: Game, val player: Player) : Game(
                 } //fetch by white
                 //invite, from white, fetch by white
                 return Info(
+                    historic = historic,
                     invitation = invitation,
                     inbound = inbound,
                     date = date
@@ -66,6 +72,7 @@ class GameActualEval(val game: Game, val player: Player) : Game(
 
                 //invite, from black, fetch by white
                 return Info(
+                    historic = historic,
                     invitation = invitation,
                     inbound = inbound,
                     date = date
@@ -73,6 +80,7 @@ class GameActualEval(val game: Game, val player: Player) : Game(
             }
             //invite, from black, fetch by black
             return Info(
+                historic = historic,
                 invitation = invitation,
                 inbound = inbound,
                 date = date
@@ -83,6 +91,7 @@ class GameActualEval(val game: Game, val player: Player) : Game(
                 inbound = true
                 //game, white move, fetch by white
                 return Info(
+                    historic = historic,
                     invitation = invitation,
                     inbound = inbound,
                     date = date
@@ -90,6 +99,7 @@ class GameActualEval(val game: Game, val player: Player) : Game(
             }
             //game, white move, fetch by black
             return Info(
+                historic = historic,
                 invitation = invitation,
                 inbound = inbound,
                 date = date
@@ -99,6 +109,7 @@ class GameActualEval(val game: Game, val player: Player) : Game(
             inbound = true
             //game, black move, fetch by black
             return Info(
+                historic = historic,
                 invitation = invitation,
                 inbound = inbound,
                 date = date
@@ -106,6 +117,7 @@ class GameActualEval(val game: Game, val player: Player) : Game(
         }
         //game, black move, fetch by white
         return Info(
+            historic = historic,
             invitation = invitation,
             inbound = inbound,
             date = date
