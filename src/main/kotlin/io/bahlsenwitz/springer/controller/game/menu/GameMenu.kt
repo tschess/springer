@@ -57,7 +57,7 @@ class GameMenu(
             for (gae: GameInbound in gameListInbound) {
                 list.add(gae.game)
             }
-            return ResponseEntity.ok(list.sortedWith(Game))
+            return ResponseEntity.ok(list)
         }
         gameList = playerListFilter.subList(indexFrom, indexTo + 1)
         for (game: Game in gameList) {
@@ -69,7 +69,7 @@ class GameMenu(
         for (gae: GameInbound in gameListInbound) {
             list.add(gae.game)
         }
-        return ResponseEntity.ok(list.sortedWith(Game))
+        return ResponseEntity.ok(list)
     }
 
     data class RequestActual(
@@ -87,7 +87,6 @@ class GameMenu(
                 val updateB: ZonedDateTime = Constant().getDate(b.updated)
                 val updateAB: Boolean = updateA.isBefore(updateB)
 
-
                 val inbA: Boolean = a.stats.inbound
                 val inbB: Boolean = b.stats.inbound
 
@@ -96,25 +95,20 @@ class GameMenu(
 
                 if(inbA){
                     if(inbB){
-
                         if(inviteA){
                             if(inviteB){
-
                                 if (updateAB) {
                                     return -1
                                 }
                                 return 1
-
                             }
                             return -1
-                        }
-                        //a inbound game
+                        } //a inbound game
                         if(inviteB){
                             return 1
                         }
                     }
                 }
-
                 if(inviteA){
                     if(inviteB){
                         if (updateAB) {
@@ -124,17 +118,10 @@ class GameMenu(
                     }//a outbouud invite b outbound game...
                     return 1
                 }//a putbound game
-
                 if(inviteB){
                     return -1
                 }
-
-
-
-                if (updateAB) {
-                    return -1
-                }
-                return 1
+                return Game.compare(a, b)
             }
         }
     }
