@@ -83,49 +83,58 @@ class GameMenu(
         companion object : Comparator<GameInbound> {
 
             override fun compare(a: GameInbound, b: GameInbound): Int {
-                val inboundA: Boolean = a.stats.inbound
-                val inboundB: Boolean = b.stats.inbound
-                val invitationA: Boolean = a.stats.invitation
-                val invitationB: Boolean = b.stats.invitation
                 val updateA: ZonedDateTime = Constant().getDate(a.updated)
                 val updateB: ZonedDateTime = Constant().getDate(b.updated)
                 val updateAB: Boolean = updateA.isBefore(updateB)
-                if (inboundA) { //a in
-                    if (inboundB) { //b in
-                        if (!invitationA) { //a game
-                            if (!invitationB) { //b game
+
+
+                val inbA: Boolean = a.stats.inbound
+                val inbB: Boolean = b.stats.inbound
+
+                val inviteA: Boolean = a.stats.invitation
+                val inviteB: Boolean = b.stats.invitation
+
+                if(inbA){
+                    if(inbB){
+
+                        if(inviteA){
+                            if(inviteB){
+
                                 if (updateAB) {
-                                    return 1 //a < b
+                                    return -1
                                 }
-                                return -1 //b < a
-                            } //a is an inbound game, b is an inbound invitation
-                            return 1 //a < b
-                        } //a is an inbound invitation
-                        if (!invitationB) { //b is an inbound game
-                            return -1 //b < a
-                        }
-                    } // b is outbound, a is inbound
-                    return -1 //a < b
-                } //a is outbound
-                if (!inboundB) { //b is outbound
-                    if (!invitationA) { //a is game
-                        if (!invitationB) { //b is game
-                            if (updateAB) {
-                                return -1 //a < b
+                                return 1
+
                             }
-                            return 1 //b < a
-                        } //b is invite
-                        return -1 //a < b
-                    } //a is invite
-                    if (!invitationB) { //b is game
-                        return 1 //b < a
-                    } // both outbound invite
-                    if (updateAB) {
-                        return -1 //a < b
+                            return -1
+                        }
+                        //a inbound game
+                        if(inviteB){
+                            return 1
+                        }
                     }
-                    return 1 //b < a
                 }
-                return 0
+
+                if(inviteA){
+                    if(inviteB){
+                        if (updateAB) {
+                            return -1
+                        }
+                        return 1
+                    }//a outbouud invite b outbound game...
+                    return 1
+                }//a putbound game
+
+                if(inviteB){
+                    return -1
+                }
+
+
+
+                if (updateAB) {
+                    return -1
+                }
+                return 1
             }
         }
     }
