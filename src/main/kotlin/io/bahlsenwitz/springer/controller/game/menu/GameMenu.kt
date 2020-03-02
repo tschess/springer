@@ -52,7 +52,7 @@ class GameMenu(
                 val gameInbound = GameInbound(player = player, game = game)
                 gameListInbound.add(gameInbound)
             }
-            gameListInbound.sortedWith(InboundComparator)
+            gameListInbound.sortedWith(HistoComp)
             val list: MutableList<Game> = mutableListOf()
             for (gae: GameInbound in gameListInbound) {
                 list.add(gae.game)
@@ -64,7 +64,7 @@ class GameMenu(
             val gameInbound = GameInbound(player = player, game = game)
             gameListInbound.add(gameInbound)
         }
-        gameListInbound.sortedWith(InboundComparator)
+        gameListInbound.sortedWith(HistoComp)
         val list: MutableList<Game> = mutableListOf()
         for (gae: GameInbound in gameListInbound) {
             list.add(gae.game)
@@ -78,37 +78,83 @@ class GameMenu(
         val size: Int
     )
 
-    class InboundComparator {
+    class HistoComp {
+        companion object : Comparator<GameInbound> {
+            override fun compare(a: GameInbound, b: GameInbound): Int {
+                val histoA: Boolean = a.game.status == STATUS.RESOLVED
+                val histoB: Boolean = b.game.status == STATUS.RESOLVED
+                if (histoA) {
+                    if (histoB) {
+                        // a HISTO ... b HISTO
+                        return Game.compare(a, b)
+                    }
+                    // b is active
+                    return 1
+                }
+                if (histoB) {
+                   return -1
+                }
+                //neither a noor b are histo...
+                return InbComparator.compare(a, b)
+            }
+        }
+    }
+
+    class InbComparator {
         companion object : Comparator<GameInbound> {
             override fun compare(a: GameInbound, b: GameInbound): Int {
                 val inbA: Boolean = a.stats.inbound
                 val inbB: Boolean = b.stats.inbound
                 if (inbA) {
                     if (inbB) {
-                        return PropComparator.compare(a.game, b.game)
+                        // a INBOUND ... b INBOUND
+                        return InbInvCmp.compare(a.game, b.game)
                     }
                     return -1
                 }
                 if (inbB) {
                     return 1
                 }
-                return PropComparator.compare(b.game, a.game)
+                return OutCmp.compare(a.game, b.game)
             }
         }
     }
 
-    class PropComparator {
+    class OutCmp {
         companion object : Comparator<Game> {
             override fun compare(a: Game, b: Game): Int {
-                val propA: Boolean = a.status == STATUS.PROPOSED
-                val propB: Boolean = b.status == STATUS.PROPOSED
-                if (propA) {
-                    if (propB) {
+                val gameA: Boolean = a.status == STATUS.ONGOING
+                val gameB: Boolean = b.status == STATUS.ONGOING
+                if (gameA) {
+                    if (gameB) {
+                        // a INVITE ... b INVITE
                         return Game.compare(a, b)
                     }
+                    // b is not an game...
                     return -1
                 }
-                if (propB) {
+                if (gameB) {
+                    return 1
+                }
+                return Game.compare(a, b)
+            }
+        }
+    }
+
+    class InbInvCmp {
+        companion object : Comparator<Game> {
+            override fun compare(a: Game, b: Game): Int {
+                val invA: Boolean = a.status == STATUS.PROPOSED
+                val invB: Boolean = b.status == STATUS.PROPOSED
+                if (invA) {
+                    if (invB) {
+                        // a INVITE ... b INVITE
+                        return Game.compare(a, b)
+                    }
+                    // b is not an invite...
+                    return -1
+                }
+                if (invB) {
                     return 1
                 }
                 return Game.compare(a, b)
