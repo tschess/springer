@@ -17,22 +17,43 @@ class GameMenu(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    fun actual(requestActual: RequestActual): ResponseEntity<Any> {
+    private fun getOther(game: Game): Boolean {
+        if(game.status == STATUS.RESOLVED && game.condition != CONDITION.REFUSED && game.condition != CONDITION.RESCIND){
+            return true
+        }
+        return false
+    }
+
+    private fun getSelf(game: Game): Boolean {
+        if(game.status == STATUS.PROPOSED || game.status == STATUS.ONGOING || getOther(game)){
+            return true
+        }
+        return false
+    }
+
+    fun menu(requestActual: RequestMenu): ResponseEntity<Any> {
         val uuid: UUID = UUID.fromString(requestActual.id)!!
         val player: Player = repositoryPlayer.findById(uuid).get()
 
-        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "menu id=\"${player.id}\",route=\"actual\"")
+        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "menu id=\"${player.id}\",route=\"menu\"")
 
-        player.note = false
-        repositoryPlayer.save(player)
+        val self: Boolean = requestActual.self
 
         val playerList: List<Game> = repositoryGame.findPlayerList(uuid)
-        val playerListFilter: List<Game> =
+        val playerListFilter: List<Game>
+        playerListFilter = if(self){
+            player.note = false
+            repositoryPlayer.save(player)
+
             playerList.filter {
-                it.status == STATUS.PROPOSED ||
-                        it.status == STATUS.ONGOING ||
-                        (it.status == STATUS.RESOLVED && it.condition != CONDITION.REFUSED && it.condition != CONDITION.RESCIND)
+                getSelf(it)
             }
+        } else {
+            playerList.filter {
+                getOther(it)
+            }
+        }
+
         val gameList: List<Game>
 
         val pageIndex: Int = requestActual.index
@@ -52,10 +73,11 @@ class GameMenu(
         return ResponseEntity.ok(gameList)
     }
 
-    data class RequestActual(
+    data class RequestMenu(
         val id: String,
         val index: Int,
-        val size: Int
+        val size: Int,
+        val self: Boolean
     )
 
 

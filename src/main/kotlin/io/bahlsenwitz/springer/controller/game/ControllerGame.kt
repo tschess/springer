@@ -3,6 +3,7 @@ package io.bahlsenwitz.springer.controller.game
 import io.bahlsenwitz.springer.controller.game.backup.GameBackUp
 import io.bahlsenwitz.springer.controller.game.menu.invite.GameAck
 import io.bahlsenwitz.springer.controller.game.menu.GameMenu
+import io.bahlsenwitz.springer.controller.game.menu.GameRecent
 import io.bahlsenwitz.springer.controller.game.menu.create.GameChallenge
 import io.bahlsenwitz.springer.controller.game.tschess.update.GameCheck
 import io.bahlsenwitz.springer.controller.game.tschess.resolve.GameEval
@@ -32,17 +33,27 @@ import javax.validation.Valid
 class ControllerGame @Autowired
 constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) {
 
-    /**
-     * Actual.swift
-     */
-    val gameActual = GameMenu(
+    val gameRecent = GameRecent(
         repositoryGame = repositoryGame,
         repositoryPlayer = repositoryPlayer
     )
 
-    @PostMapping("/actual")
-    fun actual(@Valid @RequestBody updateTest: GameMenu.RequestActual): ResponseEntity<Any> {
-        return gameActual.actual(updateTest)
+    @GetMapping("/recent/{id_player}")
+    fun recent(@PathVariable(value = "id_player") id_player: String): ResponseEntity<Any> {
+        return gameRecent.recent(id_player)
+    }
+
+    /**
+     * Actual.swift
+     */
+    val gameMenu = GameMenu(
+        repositoryGame = repositoryGame,
+        repositoryPlayer = repositoryPlayer
+    )
+
+    @PostMapping("/menu")
+    fun menu(@Valid @RequestBody updateTest: GameMenu.RequestMenu): ResponseEntity<Any> {
+        return gameMenu.menu(updateTest)
     }
 
     /**
