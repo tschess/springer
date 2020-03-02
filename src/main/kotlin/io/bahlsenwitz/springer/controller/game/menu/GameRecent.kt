@@ -29,7 +29,7 @@ class GameRecent(
         if (playerListFilter.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK).body("{\"error\": ${true}")
         }
-        val recent: Game = playerListFilter.sortedWith(RecentCmp)[0]
+        val recent: Game = playerListFilter.sortedWith(RecentCmp).last()
         return ResponseEntity.ok(recent)
     }
 
