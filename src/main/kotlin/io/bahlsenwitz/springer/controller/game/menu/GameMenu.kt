@@ -93,6 +93,18 @@ class GameMenu(
                 val inviteA: Boolean = a.stats.invitation
                 val inviteB: Boolean = b.stats.invitation
 
+                val histoA: Boolean = a.status == STATUS.RESOLVED
+                val histoB: Boolean = b.status == STATUS.RESOLVED
+                if (histoA) { //histo
+                    if (histoB) { //histo b
+                        if (updateAB) {
+                            return 1 //b < a
+                        }
+                        return -1 //a < b
+                    } //a is histo, b not
+                    return 1 //b < a
+                } //neither a, nor b are histo...
+
                 if(inbA){
                     if(inbB){
                         if(inviteA){
@@ -121,7 +133,7 @@ class GameMenu(
                 if(inviteB){
                     return -1
                 }
-                return Game.compare(a, b)
+                return 0
             }
         }
     }
