@@ -33,7 +33,6 @@ class GameMenu(
                         it.status == STATUS.ONGOING ||
                         (it.status == STATUS.RESOLVED && it.condition != CONDITION.REFUSED && it.condition != CONDITION.RESCIND)
             }
-        val gameListInbound: MutableList<GameInbound> = mutableListOf()
         val gameList: List<Game>
 
         val pageIndex: Int = requestActual.index
@@ -46,29 +45,11 @@ class GameMenu(
             return ResponseEntity.status(HttpStatus.OK).body("{\"actual\": \"EOL\"}")
         }
         if (playerListFilter.lastIndex + 1 <= indexTo) {
-            gameList = playerListFilter.subList(indexFrom, playerListFilter.lastIndex + 1)
-//            for (game: Game in gameList) {
-//                val gameInbound = GameInbound(player = player, game = game)
-//                gameListInbound.add(gameInbound)
-//            }
-//            gameListInbound.sortedWith(HistoComp)
-//            val list: MutableList<Game> = mutableListOf()
-//            for (gae: GameInbound in gameListInbound) {
-//                list.add(gae.game)
-//            }
-            return ResponseEntity.ok(gameList.sortedWith(Game))
+            gameList = playerListFilter.sortedWith(Game).subList(indexFrom, playerListFilter.lastIndex + 1)
+            return ResponseEntity.ok(gameList)
         }
-        gameList = playerListFilter.subList(indexFrom, indexTo + 1)
-//        for (game: Game in gameList) {
-//            val gameInbound = GameInbound(player = player, game = game)
-//            gameListInbound.add(gameInbound)
-//        }
-//        gameListInbound.sortedWith(HistoComp)
-//        val list: MutableList<Game> = mutableListOf()
-//        for (gae: GameInbound in gameListInbound) {
-//            list.add(gae.game)
-//        }
-        return ResponseEntity.ok(gameList.sortedWith(Game))
+        gameList = playerListFilter.sortedWith(Game).subList(indexFrom, indexTo + 1)
+        return ResponseEntity.ok(gameList)
     }
 
     data class RequestActual(

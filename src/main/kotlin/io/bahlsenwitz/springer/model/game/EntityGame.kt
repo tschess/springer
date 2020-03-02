@@ -73,19 +73,7 @@ class Game(
                 } //a is histo, b not
                 return 1 //b < a
             } //neither a, nor b are histo...
-
-            val propA: Boolean = a.status == STATUS.PROPOSED
-            val propB: Boolean = b.status == STATUS.PROPOSED
-            if (propA) { //histo
-                if (propB) { //histo b
-                    if (updateAB) {
-                        return 1 //b < a
-                    }
-                    return -1 //a < b
-                } //a is prop, b not
-                return 1 //b < a
-            } //neither a, nor b are prop...
-            return 0
+            return -1
         }
     }
 }
