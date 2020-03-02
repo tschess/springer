@@ -98,14 +98,14 @@ class GameActual(
 
                 val historicA: Boolean = a.stats.historic
                 val historicB: Boolean = b.stats.historic
-                if (historicA) { //histo a
+                if (historicA) { //histo
                     if (historicB) { //histo b
                         if (updateAB) {
-                            return 1 //a < b
+                            return -1 //a < b
                         }
-                        return -1 //b < a
+                        return 1 //b < a
                     } //a is hiistoric, b is not
-                    return -1 //b < a
+                    return 1 //b < a
                 }
 
                 val inboundA: Boolean = a.stats.inbound
