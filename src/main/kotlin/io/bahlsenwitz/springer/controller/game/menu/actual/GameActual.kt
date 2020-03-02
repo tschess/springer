@@ -101,18 +101,6 @@ class GameActual(
                 val invitationA: Boolean = a.stats.invitation
                 val invitationB: Boolean = b.stats.invitation
 
-                val historicA: Boolean = a.stats.historic
-                val historicB: Boolean = b.stats.historic
-                if (historicA) { //histo b
-                    if (historicB) { //histo b
-                        if (updateAB) {
-                            return 1 //a < b
-                        }
-                        return -1 //b < a
-                    } //a is hiistoric, b is not
-                    return -1 //b < a
-                }
-
                 if (inboundA) { //a in
                     if (inboundB) { //b in
                         if (!invitationA) { //a game
@@ -148,7 +136,18 @@ class GameActual(
                     }
                     return 1 //b < a
                 }
-
+                
+                val historicA: Boolean = a.stats.historic
+                val historicB: Boolean = b.stats.historic
+                if (historicA) { //histo b
+                    if (historicB) { //histo b
+                        if (updateAB) {
+                            return 1 //a < b
+                        }
+                        return -1 //b < a
+                    } //a is hiistoric, b is not
+                    return -1 //b < a
+                }
 
                 return 0
             }

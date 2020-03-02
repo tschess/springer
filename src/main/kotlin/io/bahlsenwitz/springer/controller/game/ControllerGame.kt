@@ -6,7 +6,6 @@ import io.bahlsenwitz.springer.controller.game.menu.actual.GameActual
 import io.bahlsenwitz.springer.controller.game.menu.actual.create.GameChallenge
 import io.bahlsenwitz.springer.controller.game.tschess.update.GameCheck
 import io.bahlsenwitz.springer.controller.game.tschess.resolve.GameEval
-import io.bahlsenwitz.springer.controller.game.menu.historic.GameHistoric
 import io.bahlsenwitz.springer.controller.game.tschess.resolve.GameMate
 import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameNack
 import io.bahlsenwitz.springer.controller.game.tschess.update.GameProp
@@ -77,19 +76,6 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     @PostMapping("/rescind")
     fun rescind(@Valid @RequestBody updateRescind: GameRescind.UpdateRescind): ResponseEntity<Any> {
         return gameRescind.rescind(updateRescind)
-    }
-
-    /**
-     * Other.swift & Historic.swift
-     */
-    val gameHistoric = GameHistoric(
-        repositoryGame = repositoryGame,
-        repositoryPlayer = repositoryPlayer
-    )
-
-    @PostMapping("/historic")
-    fun historic(@Valid @RequestBody updateTest: GameHistoric.RequestHistoric): ResponseEntity<Any> {
-        return gameHistoric.historic(updateTest)
     }
 
     /**
