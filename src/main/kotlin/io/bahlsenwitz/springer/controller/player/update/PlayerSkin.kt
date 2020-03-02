@@ -1,6 +1,6 @@
 package io.bahlsenwitz.springer.controller.player.update
 
-import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
+import io.bahlsenwitz.springer.controller.game.menu.invite.GameAck
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.SKIN
 import io.bahlsenwitz.springer.model.player.Player

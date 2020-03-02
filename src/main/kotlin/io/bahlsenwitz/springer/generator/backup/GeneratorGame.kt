@@ -33,7 +33,7 @@ class GeneratorGame(
     private val IDX_ON_CHECK = 16
     private val IDX_HIGHLIGHT = 17
     private val IDX_UPDATED = 18
-    private val IDX_CREATED = 19
+
 
     fun generate(file: File) {
         repositoryGame.deleteAll()
@@ -96,7 +96,7 @@ class GeneratorGame(
                     val on_check: Boolean = tokens[IDX_ON_CHECK].toBoolean() //16
                     val highlight: String = tokens[IDX_HIGHLIGHT] //17
                     val updated: String = tokens[IDX_UPDATED] //18
-                    val created: String = tokens[IDX_CREATED] //19
+
                     val game = Game(
                         id = id, //0
                         state = state, //1
@@ -116,8 +116,7 @@ class GeneratorGame(
                         turn = turn, //15
                         on_check = on_check, //16
                         highlight = highlight, //17
-                        updated = updated, //18
-                        created = created //19
+                        updated = updated
                     )
                     gameList.add(game)
                 }

@@ -7,6 +7,7 @@ import io.bahlsenwitz.springer.util.Constant
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs
+import java.time.ZonedDateTime
 import java.util.*
 import javax.persistence.*
 
@@ -45,15 +46,34 @@ class Game(
     var on_check: Boolean = false,
     var highlight: String = PLACEHOLDER,
 
-    var updated: String = Constant().getDate(),
-    var created: String = Constant().getDate()
+    var updated: String = Constant().getDate()
 
 ) : EntityUUID(id) {
-    companion object {
+
+    companion object : Comparator<Game>  {
         const val PLACEHOLDER: String = "TBD"
 
         fun getElo(player: Player): Int {
             return player.elo
+        }
+
+        override fun compare(a: Game, b: Game): Int {
+            val updateA: ZonedDateTime = Constant().getDate(a.updated)
+            val updateB: ZonedDateTime = Constant().getDate(b.updated)
+            val updateAB: Boolean = updateA.isBefore(updateB)
+
+            val histoA: Boolean = a.status == STATUS.RESOLVED
+            val histoB: Boolean = b.status == STATUS.RESOLVED
+            if (histoA) { //histo
+                if (histoB) { //histo b
+                    if (updateAB) {
+                        return 1 //b < a
+                    }
+                    return -1 //a < b
+                } //a is histo, b not
+                return -1 //b < a
+            }
+            return 0
         }
     }
 }

@@ -1,18 +1,18 @@
 package io.bahlsenwitz.springer.controller.game
 
 import io.bahlsenwitz.springer.controller.game.backup.GameBackUp
-import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameAck
-import io.bahlsenwitz.springer.controller.game.menu.actual.GameActual
-import io.bahlsenwitz.springer.controller.game.menu.actual.create.GameChallenge
+import io.bahlsenwitz.springer.controller.game.menu.invite.GameAck
+import io.bahlsenwitz.springer.controller.game.menu.GameMenu
+import io.bahlsenwitz.springer.controller.game.menu.create.GameChallenge
 import io.bahlsenwitz.springer.controller.game.tschess.update.GameCheck
 import io.bahlsenwitz.springer.controller.game.tschess.resolve.GameEval
 import io.bahlsenwitz.springer.controller.game.tschess.resolve.GameMate
-import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameNack
+import io.bahlsenwitz.springer.controller.game.menu.invite.GameNack
 import io.bahlsenwitz.springer.controller.game.tschess.update.GameProp
-import io.bahlsenwitz.springer.controller.game.menu.actual.create.GameQuick
-import io.bahlsenwitz.springer.controller.game.menu.actual.create.GameRematch
+import io.bahlsenwitz.springer.controller.game.menu.create.GameQuick
+import io.bahlsenwitz.springer.controller.game.menu.create.GameRematch
 import io.bahlsenwitz.springer.controller.game.tschess.polling.GameRequest
-import io.bahlsenwitz.springer.controller.game.menu.actual.invite.GameRescind
+import io.bahlsenwitz.springer.controller.game.menu.invite.GameRescind
 import io.bahlsenwitz.springer.controller.game.tschess.resolve.GameResign
 import io.bahlsenwitz.springer.controller.game.tschess.GameTest
 import io.bahlsenwitz.springer.controller.game.tschess.resolve.GameMine
@@ -35,13 +35,13 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     /**
      * Actual.swift
      */
-    val gameActual = GameActual(
+    val gameActual = GameMenu(
         repositoryGame = repositoryGame,
         repositoryPlayer = repositoryPlayer
     )
 
     @PostMapping("/actual")
-    fun actual(@Valid @RequestBody updateTest: GameActual.RequestActual): ResponseEntity<Any> {
+    fun actual(@Valid @RequestBody updateTest: GameMenu.RequestActual): ResponseEntity<Any> {
         return gameActual.actual(updateTest)
     }
 

@@ -21,7 +21,7 @@ class TimeoutInvite(val repositoryPlayer: RepositoryPlayer, val repositoryGame: 
         val inviteList: List<Game> = repositoryGame.findAll().filter { it.status == STATUS.PROPOSED }
         for (invite: Game in inviteList) {
             val dateNow: ZonedDateTime = Constant().getDate(Constant().getDate())
-            val dateThen: ZonedDateTime = Constant().getDate(invite.created)
+            val dateThen: ZonedDateTime = Constant().getDate(invite.updated)
 
             val elapsed: Long = Duration.between(dateNow, dateThen).seconds
             if (elapsed.absoluteValue > TimeUnit.HOURS.toSeconds(24)) {

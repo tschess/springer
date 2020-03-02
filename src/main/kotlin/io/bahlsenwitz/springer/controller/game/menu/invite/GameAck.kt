@@ -1,4 +1,4 @@
-package io.bahlsenwitz.springer.controller.game.menu.actual.invite
+package io.bahlsenwitz.springer.controller.game.menu.invite
 
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.SKIN

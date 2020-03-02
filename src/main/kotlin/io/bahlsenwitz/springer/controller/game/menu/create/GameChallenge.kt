@@ -1,4 +1,4 @@
-package io.bahlsenwitz.springer.controller.game.menu.actual.create
+package io.bahlsenwitz.springer.controller.game.menu.create
 
 import io.bahlsenwitz.springer.model.game.SKIN
 import io.bahlsenwitz.springer.model.game.CONTESTANT
