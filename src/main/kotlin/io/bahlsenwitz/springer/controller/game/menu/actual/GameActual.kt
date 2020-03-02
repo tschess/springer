@@ -96,10 +96,24 @@ class GameActual(
                 val updateB: ZonedDateTime = Constant().getDate(b.stats.date)
                 val updateAB: Boolean = updateA.isBefore(updateB)
 
+                val historicA: Boolean = a.stats.historic
+                val historicB: Boolean = b.stats.historic
+                if (historicA) { //histo a
+                    if (historicB) { //histo b
+                        if (updateAB) {
+                            return 1 //a < b
+                        }
+                        return -1 //b < a
+                    } //a is hiistoric, b is not
+                    return -1 //b < a
+                }
+
                 val inboundA: Boolean = a.stats.inbound
                 val inboundB: Boolean = b.stats.inbound
                 val invitationA: Boolean = a.stats.invitation
                 val invitationB: Boolean = b.stats.invitation
+
+
 
                 if (inboundA) { //a in
                     if (inboundB) { //b in
@@ -136,18 +150,8 @@ class GameActual(
                     }
                     return 1 //b < a
                 }
-                
-                val historicA: Boolean = a.stats.historic
-                val historicB: Boolean = b.stats.historic
-                if (historicA) { //histo b
-                    if (historicB) { //histo b
-                        if (updateAB) {
-                            return 1 //a < b
-                        }
-                        return -1 //b < a
-                    } //a is hiistoric, b is not
-                    return -1 //b < a
-                }
+
+
 
                 return 0
             }
