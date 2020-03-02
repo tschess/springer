@@ -27,7 +27,7 @@ class GameRecent(
                 it.status == STATUS.RESOLVED && it.condition != CONDITION.REFUSED && it.condition != CONDITION.RESCIND
             }
         if (playerListFilter.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.OK).body("{\"recent\": \"TBD\"}")
+            return ResponseEntity.status(HttpStatus.OK).body("{\"error\": ${true}")
         }
         val recent: Game = playerListFilter.sortedWith(RecentCmp)[0]
         return ResponseEntity.ok(recent)
