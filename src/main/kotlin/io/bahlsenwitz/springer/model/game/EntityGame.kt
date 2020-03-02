@@ -71,9 +71,9 @@ class Game(
                     }
                     return -1 //a < b
                 } //a is histo, b not
-                return -1 //b < a
+                return 1 //b < a
             }
-            return 0
+            return -1
         }
     }
 }
