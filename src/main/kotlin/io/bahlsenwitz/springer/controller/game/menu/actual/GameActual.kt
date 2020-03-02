@@ -92,21 +92,9 @@ class GameActual(
         companion object : Comparator<GameActualEval> {
 
             override fun compare(a: GameActualEval, b: GameActualEval): Int {
-                val historicA: Boolean = a.stats.historic
-                val historicB: Boolean = b.stats.historic
-
                 val updateA: ZonedDateTime = Constant().getDate(a.stats.date)
                 val updateB: ZonedDateTime = Constant().getDate(b.stats.date)
                 val updateAB: Boolean = updateA.isBefore(updateB)
-
-
-
-
-
-
-
-
-
 
                 val inboundA: Boolean = a.stats.inbound
                 val inboundB: Boolean = b.stats.inbound
@@ -149,16 +137,14 @@ class GameActual(
                     return 1 //b < a
                 }
 
-
+                val historicA: Boolean = a.stats.historic
+                val historicB: Boolean = b.stats.historic
                 if (historicA && historicB) { //histo b
                     if (updateAB) {
                         return 1 //a < b
                     }
                     return -1 //b < a
                 }
-
-
-
                 return 0
             }
         }
