@@ -110,7 +110,7 @@ class GameActual(
                         }
                         return -1 //b < a
                     } //a is hiistoric, b is not
-                    return 1 //b < a
+                    return -1 //b < a
                 }
 
                 if (inboundA) { //a in
