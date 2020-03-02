@@ -46,10 +46,10 @@ class GameMenu(
         }
         if (playerListFilter.lastIndex + 1 <= indexTo) {
             gameList = playerListFilter.subList(indexFrom, playerListFilter.lastIndex + 1)
-            return ResponseEntity.ok(gameList)
+            return ResponseEntity.ok(gameList.sortedWith(Game))
         }
         gameList = playerListFilter.subList(indexFrom, indexTo + 1)
-        return ResponseEntity.ok(gameList)
+        return ResponseEntity.ok(gameList.sortedWith(Game))
     }
 
     data class RequestActual(
