@@ -37,7 +37,7 @@ class GameActual(
                         (it.status == STATUS.RESOLVED && it.condition != CONDITION.REFUSED && it.condition != CONDITION.RESCIND)
             }
 
-        val gameCoreActualList: MutableList<GameActualEval> = mutableListOf()
+        val gameCoreActualList: MutableList<GameEval> = mutableListOf()
         val gameList: List<Game>
 
         val pageIndex: Int = requestActual.index
@@ -53,14 +53,14 @@ class GameActual(
             gameList = playerListFilter.subList(indexFrom, playerListFilter.lastIndex + 1)
             for (game: Game in gameList) {
                 val gameCoreActual =
-                    GameActualEval(player = player, game = game)
+                    GameEval(player = player, game = game)
                 gameCoreActualList.add(gameCoreActual)
             }
-            val gameCoreActualSort: List<GameActualEval> = gameCoreActualList.sortedWith(
+            val gameCoreActualSort: List<GameEval> = gameCoreActualList.sortedWith(
                 GameActualEvalComparator
             )
             val list: MutableList<Game> = mutableListOf()
-            for (gae: GameActualEval in gameCoreActualSort) {
+            for (gae: GameEval in gameCoreActualSort) {
                 list.add(gae.game)
             }
             return ResponseEntity.ok(list)
@@ -68,14 +68,14 @@ class GameActual(
         gameList = playerListFilter.subList(indexFrom, indexTo + 1)
         for (game: Game in gameList) {
             val gameCoreActual =
-                GameActualEval(player = player, game = game)
+                GameEval(player = player, game = game)
             gameCoreActualList.add(gameCoreActual)
         }
-        val gameCoreActualSort: List<GameActualEval> = gameCoreActualList.sortedWith(
+        val gameCoreActualSort: List<GameEval> = gameCoreActualList.sortedWith(
             GameActualEvalComparator
         )
         val list: MutableList<Game> = mutableListOf()
-        for (gae: GameActualEval in gameCoreActualSort) {
+        for (gae: GameEval in gameCoreActualSort) {
             list.add(gae.game)
         }
         return ResponseEntity.ok(list)
@@ -89,9 +89,9 @@ class GameActual(
 
     class GameActualEvalComparator {
 
-        companion object : Comparator<GameActualEval> {
+        companion object : Comparator<GameEval> {
 
-            override fun compare(a: GameActualEval, b: GameActualEval): Int {
+            override fun compare(a: GameEval, b: GameEval): Int {
                 val updateA: ZonedDateTime = Constant().getDate(a.stats.date)
                 val updateB: ZonedDateTime = Constant().getDate(b.stats.date)
                 val updateAB: Boolean = updateA.isBefore(updateB)
@@ -101,19 +101,18 @@ class GameActual(
                 if (historicA) { //histo
                     if (historicB) { //histo b
                         if (updateAB) {
-                            return -1 //a < b
+                            return 1 //a < b
                         }
-                        return 1 //b < a
+                        return -1 //b < a
                     } //a is hiistoric, b is not
-                    return 1 //b < a
+                    return -1 //b < a
                 }
 
-                val inboundA: Boolean = a.stats.inbound
-                val inboundB: Boolean = b.stats.inbound
                 val invitationA: Boolean = a.stats.invitation
                 val invitationB: Boolean = b.stats.invitation
 
-
+                val inboundA: Boolean = a.stats.inbound
+                val inboundB: Boolean = b.stats.inbound
 
                 if (inboundA) { //a in
                     if (inboundB) { //b in

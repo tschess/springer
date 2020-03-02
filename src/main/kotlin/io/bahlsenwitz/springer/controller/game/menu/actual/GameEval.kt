@@ -5,7 +5,7 @@ import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 
-class GameActualEval(val game: Game, val player: Player) : Game(
+class GameEval(val game: Game, val player: Player) : Game(
     id = game.id,
     state = game.state,
     status = game.status,
