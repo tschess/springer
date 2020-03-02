@@ -95,14 +95,14 @@ class GameMenu(
                         if (!invitationA) { //a game
                             if (!invitationB) { //b game
                                 if (updateAB) {
-                                    return -1 //a < b
+                                    return 1 //a < b
                                 }
-                                return 1 //b < a
+                                return -1 //b < a
                             } //a is an inbound game, b is an inbound invitation
-                            return -1 //a < b
+                            return 1 //a < b
                         } //a is an inbound invitation
                         if (!invitationB) { //b is an inbound game
-                            return 1 //b < a
+                            return -1 //b < a
                         }
                     } // b is outbound, a is inbound
                     return -1 //a < b
