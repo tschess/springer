@@ -9,7 +9,6 @@ import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Constant
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import java.time.ZonedDateTime
 
 import java.util.*
 
@@ -94,7 +93,6 @@ class GameMenu(
                 if (histoB) {
                    return -1
                 }
-                //neither a noor b are histo...
                 return InbComparator.compare(a, b)
             }
         }
@@ -136,7 +134,7 @@ class GameMenu(
                 if (gameB) {
                     return 1
                 }
-                return Game.compare(a, b)
+                return 0
             }
         }
     }
@@ -157,7 +155,7 @@ class GameMenu(
                 if (invB) {
                     return 1
                 }
-                return Game.compare(a, b)
+                return 0
             }
         }
     }
