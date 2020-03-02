@@ -52,7 +52,7 @@ class GameMenu(
                 val gameInbound = GameInbound(player = player, game = game)
                 gameListInbound.add(gameInbound)
             }
-            gameListInbound.sortedWith(GameComparator)
+            gameListInbound.sortedWith(InboundComparator)
             val list: MutableList<Game> = mutableListOf()
             for (gae: GameInbound in gameListInbound) {
                 list.add(gae.game)
@@ -64,7 +64,7 @@ class GameMenu(
             val gameInbound = GameInbound(player = player, game = game)
             gameListInbound.add(gameInbound)
         }
-        gameListInbound.sortedWith(GameComparator)
+        gameListInbound.sortedWith(InboundComparator)
         val list: MutableList<Game> = mutableListOf()
         for (gae: GameInbound in gameListInbound) {
             list.add(gae.game)
@@ -78,64 +78,40 @@ class GameMenu(
         val size: Int
     )
 
-    class GameComparator {
-
+    class InboundComparator {
         companion object : Comparator<GameInbound> {
-
             override fun compare(a: GameInbound, b: GameInbound): Int {
-                val updateA: ZonedDateTime = Constant().getDate(a.updated)
-                val updateB: ZonedDateTime = Constant().getDate(b.updated)
-                val updateAB: Boolean = updateA.isBefore(updateB)
-
                 val inbA: Boolean = a.stats.inbound
                 val inbB: Boolean = b.stats.inbound
-
-                val inviteA: Boolean = a.stats.invitation
-                val inviteB: Boolean = b.stats.invitation
-
-                val histoA: Boolean = a.status == STATUS.RESOLVED
-                val histoB: Boolean = b.status == STATUS.RESOLVED
-
-
-                if(inbA){
-                    if(inbB){
-                        if(inviteA){
-                            if(inviteB){
-                                if (updateAB) {
-                                    return -1
-                                }
-                                return 1
-                            }
-                            return -1
-                        } //a inbound game
-                        if(inviteB){
-                            return 1
-                        }
+                if (inbA) {
+                    if (inbB) {
+                        return PropComparator.compare(a.game, b.game)
                     }
-                }
-                if(inviteA){
-                    if(inviteB){
-                        if (updateAB) {
-                            return -1
-                        }
-                        return 1
-                    }//a outbouud invite b outbound game...
-                    return 1
-                }//a putbound game
-                if(inviteB){
                     return -1
                 }
+                if (inbB) {
+                    return 1
+                }
+                return PropComparator.compare(b.game, a.game)
+            }
+        }
+    }
 
-                if (histoA) { //histo
-                    if (histoB) { //histo b
-                        if (updateAB) {
-                            return 1 //b < a
-                        }
-                        return -1 //a < b
-                    } //a is histo, b not
-                    return 1 //b < a
-                } //neither a, nor b are histo...
-                return 0
+    class PropComparator {
+        companion object : Comparator<Game> {
+            override fun compare(a: Game, b: Game): Int {
+                val propA: Boolean = a.status == STATUS.PROPOSED
+                val propB: Boolean = b.status == STATUS.PROPOSED
+                if (propA) {
+                    if (propB) {
+                        return Game.compare(a, b)
+                    }
+                    return -1
+                }
+                if (propB) {
+                    return 1
+                }
+                return Game.compare(a, b)
             }
         }
     }
