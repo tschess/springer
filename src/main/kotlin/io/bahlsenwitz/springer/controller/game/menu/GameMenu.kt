@@ -93,7 +93,8 @@ class GameMenu(
                 if (histoB) {
                    return -1
                 }
-                return InbComparator.compare(a, b)
+                return Game.compare(a, b)
+                //return InbComparator.compare(a, b)
             }
         }
     }
