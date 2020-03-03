@@ -13,12 +13,14 @@ class GameCheck(private val repositoryGame: RepositoryGame) {
     fun check(id_game: String): ResponseEntity<Any> {
         val uuid0: UUID = UUID.fromString(id_game)!!
         val game: Game = repositoryGame.findById(uuid0).get()
+        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"check\"")
 
+        if(game.condition == CONDITION.CHECK){
+            return ResponseEntity.ok("{\"success\": \"ok\"}")
+        }
         game.condition = CONDITION.CHECK
         game.updated = Constant().getDate()
         repositoryGame.save(game)
-
-        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"check\"")
         return ResponseEntity.ok("{\"success\": \"ok\"}") //what does this need to return? the game I guess...
     }
 

@@ -21,9 +21,11 @@ class GameMate(
     fun mate(id_game: String): ResponseEntity<Any> {
         val uuid: UUID = UUID.fromString(id_game)!!
         val game: Game = repositoryGame.findById(uuid).get()
-
         khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"mate\"")
 
+        if(game.status == STATUS.RESOLVED){
+            return ResponseEntity.ok("{\"success\": \"ok\"}")
+        }
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.CHECKMATE
         /***/
