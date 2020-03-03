@@ -22,6 +22,7 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer) {
             password = BCryptPasswordEncoder().encode(requestCreate.password),
             device = requestCreate.device
         )
+        player.note = true
         repositoryPlayer.save(player)
 
         khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "growth player=\"${player.id}\"")
