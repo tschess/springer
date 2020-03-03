@@ -29,6 +29,7 @@ class GameTest(private val repositoryGame: RepositoryGame) {
         }
         game.winner = null
         game.status = STATUS.ONGOING
+        game.on_check = false
         game.condition = CONDITION.TBD
         game.highlight = "TBD"
         game.updated = Constant().getDate()
