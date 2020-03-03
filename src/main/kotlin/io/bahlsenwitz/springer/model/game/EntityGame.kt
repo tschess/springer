@@ -98,7 +98,6 @@ enum class SKIN {
 }
 
 enum class CONDITION {
-    CHECK, //currently in check...
     LANDMINE,
     CHECKMATE,
     TIMEOUT,

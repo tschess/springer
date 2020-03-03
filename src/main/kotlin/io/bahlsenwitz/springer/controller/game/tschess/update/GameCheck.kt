@@ -15,10 +15,10 @@ class GameCheck(private val repositoryGame: RepositoryGame) {
         val game: Game = repositoryGame.findById(uuid0).get()
         khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"check\"")
 
-        if(game.condition == CONDITION.CHECK){
+        if(game.on_check){
             return ResponseEntity.ok("{\"success\": \"ok\"}")
         }
-        game.condition = CONDITION.CHECK
+        game.on_check = true
         game.updated = Constant().getDate()
         repositoryGame.save(game)
         return ResponseEntity.ok("{\"success\": \"ok\"}") //what does this need to return? the game I guess...
