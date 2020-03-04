@@ -24,6 +24,7 @@ class GameUpdate(private val repositoryGame: RepositoryGame) {
         game.turn = setTurn(turn = game.turn)
         game.highlight = updateGame.highlight
         game.condition = CONDITION.valueOf(updateGame.condition)
+        game.on_check = false
         repositoryGame.save(game)
 
         khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"update\"")
