@@ -34,12 +34,13 @@ class GameMenu(
     fun menu(requestActual: RequestMenu): ResponseEntity<Any> {
         val uuid: UUID = UUID.fromString(requestActual.id)!!
         val player: Player = repositoryPlayer.findById(uuid).get()
-
         khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "menu id=\"${player.id}\",route=\"menu\"")
 
-        val self: Boolean = requestActual.self
-
         val playerList: List<Game> = repositoryGame.findPlayerList(uuid)
+        if (playerList.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.OK).body("{\"zero\":${true}}")
+        }
+        val self: Boolean = requestActual.self
         val playerListFilter: List<Game>
         playerListFilter = if(self){
             player.note = false
@@ -53,7 +54,6 @@ class GameMenu(
                 getOther(it)
             }
         }
-
         val gameList: List<Game>
 
         val pageIndex: Int = requestActual.index
@@ -63,7 +63,7 @@ class GameMenu(
         val indexTo: Int = indexFrom + pageSize
 
         if (playerListFilter.lastIndex < indexFrom) {
-            return ResponseEntity.status(HttpStatus.OK).body("{\"actual\": \"EOL\"}")
+            return ResponseEntity.status(HttpStatus.OK).body("{\"eol\":${true}}")
         }
         if (playerListFilter.lastIndex + 1 <= indexTo) {
             gameList = playerListFilter.sortedWith(Game).subList(indexFrom, playerListFilter.lastIndex + 1)
