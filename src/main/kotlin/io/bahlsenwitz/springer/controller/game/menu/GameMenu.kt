@@ -34,6 +34,8 @@ class GameMenu(
     fun menu(requestActual: RequestMenu): ResponseEntity<Any> {
         val uuid: UUID = UUID.fromString(requestActual.id)!!
         val player: Player = repositoryPlayer.findById(uuid).get()
+        player.note = false
+        repositoryPlayer.save(player)
         khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "menu id=\"${player.id}\",route=\"menu\"")
 
         val playerList: List<Game> = repositoryGame.findPlayerList(uuid)
@@ -43,9 +45,6 @@ class GameMenu(
         val self: Boolean = requestActual.self
         val playerListFilter: List<Game>
         playerListFilter = if(self){
-            player.note = false
-            repositoryPlayer.save(player)
-
             playerList.filter {
                 getSelf(it)
             }
