@@ -18,7 +18,7 @@ class GeneratorTestGamePro(
         val ack = Game(
             id = UUID.fromString("99999999-9999-9999-9999-999999999999")!!,
             white = generatorTestPlayer.findByName(username = "999"),
-            black = generatorTestPlayer.findByName(username = "aaa"),
+            black = generatorTestPlayer.findByName(username = "sme"),
             black_skin = SKIN.DEFAULT,
             challenger = CONTESTANT.BLACK,
             state = Default.state()
@@ -27,7 +27,7 @@ class GeneratorTestGamePro(
 
         val invite00 = Game(
             white = generatorTestPlayer.findByName(username = "777"),
-            black = generatorTestPlayer.findByName(username = "aaa"),
+            black = generatorTestPlayer.findByName(username = "sme"),
             status = STATUS.PROPOSED,
             challenger = CONTESTANT.BLACK,
             state = Default.state()
@@ -35,7 +35,7 @@ class GeneratorTestGamePro(
         repositoryGame.save(invite00)
 
         val invite01 = Game(
-            white = generatorTestPlayer.findByName(username = "aaa"),
+            white = generatorTestPlayer.findByName(username = "sme"),
             black = generatorTestPlayer.findByName(username = "ccc"),
             status = STATUS.PROPOSED,
             challenger = CONTESTANT.BLACK,
@@ -44,7 +44,7 @@ class GeneratorTestGamePro(
         repositoryGame.save(invite01)
 
         val invite02 = Game(
-            white = generatorTestPlayer.findByName(username = "aaa"),
+            white = generatorTestPlayer.findByName(username = "sme"),
             black = generatorTestPlayer.findByName(username = "888"),
             status = STATUS.ONGOING,
             challenger = CONTESTANT.BLACK,
@@ -55,7 +55,7 @@ class GeneratorTestGamePro(
 
         val invite03 = Game(
             white = generatorTestPlayer.findByName(username = "999"),
-            black = generatorTestPlayer.findByName(username = "aaa"),
+            black = generatorTestPlayer.findByName(username = "sme"),
             status = STATUS.ONGOING,
             challenger = CONTESTANT.BLACK,
             turn = CONTESTANT.BLACK,

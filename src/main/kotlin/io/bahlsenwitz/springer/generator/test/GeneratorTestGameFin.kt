@@ -31,7 +31,7 @@ class GeneratorTestGameFin(
         repositoryGame.save(snap)
 
         val game00 = Game(
-            white = generatorTestPlayer.findByName(username = "aaa"),
+            white = generatorTestPlayer.findByName(username = "sme"),
             black = generatorTestPlayer.findByName(username = "bbb"),
             status = STATUS.RESOLVED,
             winner = CONTESTANT.WHITE,
@@ -47,7 +47,7 @@ class GeneratorTestGameFin(
         Thread.sleep(1_000)
 
         val game01 = Game(
-            white = generatorTestPlayer.findByName(username = "aaa"),
+            white = generatorTestPlayer.findByName(username = "sme"),
             black = generatorTestPlayer.findByName(username = "ccc"),
             status = STATUS.RESOLVED,
             winner = CONTESTANT.WHITE,
@@ -63,7 +63,7 @@ class GeneratorTestGameFin(
         Thread.sleep(1_000)
 
         val game02 = Game(
-            white = generatorTestPlayer.findByName(username = "aaa"),
+            white = generatorTestPlayer.findByName(username = "sme"),
             black = generatorTestPlayer.findByName(username = "ddd"),
             status = STATUS.RESOLVED,
             winner = CONTESTANT.BLACK,
@@ -77,7 +77,7 @@ class GeneratorTestGameFin(
         Thread.sleep(1_000)
 
         val game03 = Game(
-            white = generatorTestPlayer.findByName(username = "aaa"),
+            white = generatorTestPlayer.findByName(username = "sme"),
             black = generatorTestPlayer.findByName(username = "eee"),
             status = STATUS.RESOLVED,
             white_disp = 14,
@@ -91,7 +91,7 @@ class GeneratorTestGameFin(
         repositoryGame.save(game03)
 
         val game04 = Game(
-            white = generatorTestPlayer.findByName(username = "aaa"),
+            white = generatorTestPlayer.findByName(username = "sme"),
             black = generatorTestPlayer.findByName(username = "fff"),
             status = STATUS.RESOLVED,
             winner = CONTESTANT.BLACK,
