@@ -20,6 +20,7 @@ class GameTest(private val repositoryGame: RepositoryGame) {
         }
         else if(requestTest.state != arrayListOf(arrayListOf(""))){
             game.state = requestTest.state
+            game.updated = Constant().getDate()
         }
         if(requestTest.turn == "WHITE"){
             game.turn = CONTESTANT.WHITE
@@ -32,7 +33,6 @@ class GameTest(private val repositoryGame: RepositoryGame) {
         game.on_check = false
         game.condition = CONDITION.TBD
         game.highlight = "TBD"
-        game.updated = Constant().getDate()
         return ResponseEntity.ok(repositoryGame.save(game))
     }
 
