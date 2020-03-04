@@ -53,7 +53,8 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
         testPlayerList.add(test) //2
 
         val playerA = Player(
-            username = "aaa",
+            id = UUID.fromString("13131313-1313-1313-1313-131313131313")!!,
+            username = "sme",
             password = PASSWORD,
             elo = 1197,
             rank = 4,
