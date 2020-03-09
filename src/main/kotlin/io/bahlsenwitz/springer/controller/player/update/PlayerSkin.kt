@@ -1,13 +1,11 @@
 package io.bahlsenwitz.springer.controller.player.update
 
-import io.bahlsenwitz.springer.controller.game.menu.invite.GameAck
-import io.bahlsenwitz.springer.model.game.Game
+import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.game.SKIN
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.Constant
+import io.bahlsenwitz.springer.util.DateTime
 import org.springframework.http.ResponseEntity
-import java.time.ZonedDateTime
 import java.util.*
 
 class PlayerSkin(private val repositoryPlayer: RepositoryPlayer) {
@@ -19,8 +17,9 @@ class PlayerSkin(private val repositoryPlayer: RepositoryPlayer) {
         val acquisition: List<SKIN> = listOf(SKIN.valueOf(updateSkin.skin))
         player.skin = player.skin + acquisition
 
-        player.updated = Constant().getDate()
-        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "activity player=\"${player.id}\",route=\"skin\"")
+        player.updated = DateTime().getDate()
+        ///khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "activity player=\"${player.id}\",route=\"skin\"")
+        Influx().activity(player_id = player.id.toString(), route = "skin")
         return ResponseEntity.ok(repositoryPlayer.save(player))
     }
 

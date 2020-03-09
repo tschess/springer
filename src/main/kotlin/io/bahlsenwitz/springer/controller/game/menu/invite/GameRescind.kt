@@ -1,12 +1,13 @@
 package io.bahlsenwitz.springer.controller.game.menu.invite
 
+import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.Constant
+import io.bahlsenwitz.springer.util.DateTime
 import org.springframework.http.ResponseEntity
 import java.util.*
 
@@ -22,7 +23,8 @@ class GameRescind(
         game.condition = CONDITION.RESCIND
         repositoryGame.save(game)
 
-        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"rescind\"")
+        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"rescind\"")
+        Influx().game(game_id = game.id.toString(), route = "rescind")
 
         val uuid1: UUID = UUID.fromString(updateRescind.id_player)!!
         val player0: Player = repositoryPlayer.findById(uuid1).get()
@@ -43,7 +45,7 @@ class GameRescind(
             }
             val disp: Int = player.rank - (index + 1)
             player.disp = disp
-            player.date = Constant().getDate()
+            player.date = DateTime().getDate()
             val rank: Int = (index + 1)
             player.rank = rank
             repositoryPlayer.save(player)

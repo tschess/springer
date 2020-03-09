@@ -1,8 +1,9 @@
 package io.bahlsenwitz.springer.controller.player.update
 
+import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.Constant
+import io.bahlsenwitz.springer.util.DateTime
 import org.springframework.http.ResponseEntity
 import java.util.*
 
@@ -24,7 +25,8 @@ class PlayerRefresh(private val repositoryPlayer: RepositoryPlayer) {
         val player: Player = repositoryPlayer.findById(uuid).get()
         refreshList.add(player) //easier to remove at end...
 
-        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "activity player=\"${player.id}\",route=\"refresh\"")
+        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "activity player=\"${player.id}\",route=\"refresh\"")
+        Influx().activity(player_id = player.id.toString(), route = "refresh")
         return ResponseEntity.ok(refreshList)
     }
 

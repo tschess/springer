@@ -1,12 +1,13 @@
 package io.bahlsenwitz.springer.controller.game.menu
 
+import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.Constant
+import io.bahlsenwitz.springer.util.DateTime
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.time.ZonedDateTime
@@ -19,7 +20,8 @@ class GameRecent(
     fun recent(id_player: String): ResponseEntity<Any> {
         val uuid: UUID = UUID.fromString(id_player)!!
         val player: Player = repositoryPlayer.findById(uuid).get()
-        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "menu id=\"${player.id}\",route=\"recent\"")
+        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "menu id=\"${player.id}\",route=\"recent\"")
+        Influx().activity(player_id = player.id.toString(), route = "recent")
 
         val playerList: List<Game> = repositoryGame.findPlayerList(uuid)
         val playerListFilter: List<Game> =
@@ -36,8 +38,8 @@ class GameRecent(
     class RecentCmp {
         companion object : Comparator<Game> {
             override fun compare(a: Game, b: Game): Int {
-                val updateA: ZonedDateTime = Constant().getDate(a.updated)
-                val updateB: ZonedDateTime = Constant().getDate(b.updated)
+                val updateA: ZonedDateTime = DateTime().getDate(a.updated)
+                val updateB: ZonedDateTime = DateTime().getDate(b.updated)
                 val updateAB: Boolean = updateA.isBefore(updateB)
                 if (updateAB) {
                     return -1

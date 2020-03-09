@@ -1,8 +1,9 @@
 package io.bahlsenwitz.springer.controller.player.start
 
+import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.Constant
+import io.bahlsenwitz.springer.util.DateTime
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -25,7 +26,8 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer) {
         player.note = true
         repositoryPlayer.save(player)
 
-        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "growth player=\"${player.id}\"")
+        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "growth player=\"${player.id}\"")
+        Influx().growth(player_id = player.id.toString())
 
         /**
          * LEADERBOARD RECALC
@@ -39,7 +41,7 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer) {
             }
             val disp: Int = playerX.rank - (index + 1)
             playerX.disp = disp
-            val date = Constant().getDate()
+            val date = DateTime().getDate()
             playerX.date = date
             val rank: Int = (index + 1)
             playerX.rank = rank

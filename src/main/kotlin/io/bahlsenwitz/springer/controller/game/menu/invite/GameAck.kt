@@ -1,16 +1,14 @@
 package io.bahlsenwitz.springer.controller.game.menu.invite
 
+import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.SKIN
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.Constant
+import io.bahlsenwitz.springer.util.DateTime
 import org.springframework.http.ResponseEntity
-import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class GameAck(
@@ -26,7 +24,8 @@ class GameAck(
         val uuid1: UUID = UUID.fromString(requestAck.id_player)!!
         val player: Player = repositoryPlayer.findById(uuid1).get()
 
-        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"ack\"")
+        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"ack\"")
+        Influx().game(game_id = game.id.toString(), route = "ack")
 
         var config: List<List<String>> =
             traditionalConfig()
@@ -47,7 +46,7 @@ class GameAck(
 
         game.state = state
         game.status = STATUS.ONGOING
-        game.updated = Constant().getDate()
+        game.updated = DateTime().getDate()
 
         var white: Boolean = false
         if (game.white == player) {

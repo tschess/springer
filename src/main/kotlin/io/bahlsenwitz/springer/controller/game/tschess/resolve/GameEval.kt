@@ -1,5 +1,6 @@
 package io.bahlsenwitz.springer.controller.game.tschess.resolve
 
+import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.common.Elo
 import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.CONTESTANT
@@ -9,7 +10,7 @@ import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.Constant
+import io.bahlsenwitz.springer.util.DateTime
 import org.springframework.http.ResponseEntity
 import java.util.*
 
@@ -22,9 +23,10 @@ class GameEval(
     fun eval(evalUpdate: EvalUpdate): ResponseEntity<Any> {
         val uuid0: UUID = UUID.fromString(evalUpdate.id_game)!!
         val game: Game = repositoryGame.findById(uuid0).get()
-        game.updated = Constant().getDate()
+        game.updated = DateTime().getDate()
 
-        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"eval\"")
+        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"eval\"")
+        Influx().game(game_id = game.id.toString(), route = "eval")
 
         val accept: Boolean = evalUpdate.accept
         if (!accept) {
@@ -64,7 +66,7 @@ class GameEval(
             }
             val disp: Int = player.rank - (index + 1)
             player.disp = disp
-            val date = Constant().getDate()
+            val date = DateTime().getDate()
             player.date = date
             val rank: Int = (index + 1)
             player.rank = rank

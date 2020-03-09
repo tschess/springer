@@ -9,7 +9,7 @@ import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.Constant
+import io.bahlsenwitz.springer.util.DateTime
 import java.time.Duration
 import java.time.ZonedDateTime
 import java.util.concurrent.TimeUnit
@@ -20,8 +20,8 @@ class TimeoutGame(val repositoryPlayer: RepositoryPlayer, val repositoryGame: Re
     fun execute() {
         val gameList: List<Game> = repositoryGame.findAll().filter { it.status == STATUS.ONGOING }
         for (game: Game in gameList) {
-            val dateNow: ZonedDateTime = Constant().getDate(Constant().getDate())
-            val dateThen: ZonedDateTime = Constant().getDate(game.updated)
+            val dateNow: ZonedDateTime = DateTime().getDate(DateTime().getDate())
+            val dateThen: ZonedDateTime = DateTime().getDate(game.updated)
 
             val elapsed: Long = Duration.between(dateNow, dateThen).seconds
             if (elapsed.absoluteValue > TimeUnit.HOURS.toSeconds(24)) {
@@ -45,7 +45,7 @@ class TimeoutGame(val repositoryPlayer: RepositoryPlayer, val repositoryGame: Re
                     }
                     val disp: Int = player.rank - (index + 1)
                     player.disp = disp
-                    val date = Constant().getDate()
+                    val date = DateTime().getDate()
                     player.date = date
                     val rank: Int = (index + 1)
                     player.rank = rank
@@ -56,7 +56,7 @@ class TimeoutGame(val repositoryPlayer: RepositoryPlayer, val repositoryGame: Re
                 game.white_disp = repositoryPlayer.findById(game.white.id).get().disp
                 game.black_disp = repositoryPlayer.findById(game.black.id).get().disp
                 game.highlight = "TBD"
-                game.updated = Constant().getDate()
+                game.updated = DateTime().getDate()
                 repositoryGame.save(game)
             }
         }

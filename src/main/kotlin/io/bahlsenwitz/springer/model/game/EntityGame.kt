@@ -3,7 +3,7 @@ package io.bahlsenwitz.springer.model.game
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import io.bahlsenwitz.springer.model.common.EntityUUID
 import io.bahlsenwitz.springer.model.player.Player
-import io.bahlsenwitz.springer.util.Constant
+import io.bahlsenwitz.springer.util.DateTime
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs
@@ -46,7 +46,7 @@ class Game(
     var on_check: Boolean = false,
     var highlight: String = PLACEHOLDER,
 
-    var updated: String = Constant().getDate()
+    var updated: String = DateTime().getDate()
 
 ) : EntityUUID(id) {
 
@@ -58,8 +58,8 @@ class Game(
         }
 
         override fun compare(a: Game, b: Game): Int {
-            val updateA: ZonedDateTime = Constant().getDate(a.updated)
-            val updateB: ZonedDateTime = Constant().getDate(b.updated)
+            val updateA: ZonedDateTime = DateTime().getDate(a.updated)
+            val updateB: ZonedDateTime = DateTime().getDate(b.updated)
             val updateAB: Boolean = updateA.isBefore(updateB)
 
             val histoA: Boolean = a.status == STATUS.RESOLVED

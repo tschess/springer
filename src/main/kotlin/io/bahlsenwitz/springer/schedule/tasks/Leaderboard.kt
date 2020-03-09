@@ -2,7 +2,7 @@ package io.bahlsenwitz.springer.schedule.tasks
 
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.Constant
+import io.bahlsenwitz.springer.util.DateTime
 
 class Leaderboard(val repositoryPlayer: RepositoryPlayer) {
 
@@ -16,7 +16,7 @@ class Leaderboard(val repositoryPlayer: RepositoryPlayer) {
             }
             val disp: Int = player.rank - (index + 1)
             player.disp = disp
-            val date = Constant().getDate()
+            val date = DateTime().getDate()
             player.date = date
             val rank: Int = (index + 1)
             player.rank = rank

@@ -1,5 +1,6 @@
 package io.bahlsenwitz.springer.controller.game.menu.create
 
+import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.SKIN
@@ -7,7 +8,7 @@ import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.Constant
+import io.bahlsenwitz.springer.util.DateTime
 import org.springframework.http.ResponseEntity
 import java.util.*
 
@@ -52,7 +53,8 @@ class GameQuick(
             challenger = CONTESTANT.WHITE)
         game.status = STATUS.ONGOING
 
-        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"quick\"")
+        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"quick\"")
+        Influx().game(game_id = game.id.toString(), route = "quick")
 
         return ResponseEntity.ok(repositoryGame.save(game))
     }
@@ -89,25 +91,25 @@ class GameQuick(
             val row4: List<String> = arrayListOf("", "", "", "", "", "", "", "")
             val row5: List<String> = arrayListOf("", "", "", "", "", "", "", "")
             val row6: List<String> = arrayListOf(
-                "PawnBlack",
-                "PawnBlack",
-                "PawnBlack",
-                "PawnBlack",
-                "PawnBlack",
-                "PawnBlack",
-                "PawnBlack",
-                "PawnBlack"
+                "PawnBlack_x",
+                "PawnBlack_x",
+                "PawnBlack_x",
+                "PawnBlack_x",
+                "PawnBlack_x",
+                "PawnBlack_x",
+                "PawnBlack_x",
+                "PawnBlack_x"
             )
             val row7: List<String> =
                 arrayListOf(
-                    "RookBlack",
-                    "KnightBlack",
-                    "BishopBlack",
-                    "QueenBlack",
-                    "KingBlack",
-                    "BishopBlack",
-                    "KnightBlack",
-                    "RookBlack"
+                    "RookBlack_x",
+                    "KnightBlack_x",
+                    "BishopBlack_x",
+                    "QueenBlack_x",
+                    "KingBlack_x",
+                    "BishopBlack_x",
+                    "KnightBlack_x",
+                    "RookBlack_x"
                 )
             return arrayListOf(row0, row1, row2, row3, row4, row5, row6, row7)
         }
@@ -119,7 +121,7 @@ class GameQuick(
                     colorRow.add(element)
                     continue
                 }
-                colorRow.add("${element}${color}")
+                colorRow.add("${element}${color}_x")
             }
             return colorRow
         }

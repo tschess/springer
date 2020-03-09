@@ -9,7 +9,7 @@ import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.Constant
+import io.bahlsenwitz.springer.util.DateTime
 import java.time.Duration
 import java.time.ZonedDateTime
 import java.util.concurrent.TimeUnit
@@ -20,8 +20,8 @@ class TimeoutInvite(val repositoryPlayer: RepositoryPlayer, val repositoryGame: 
     fun execute() {
         val inviteList: List<Game> = repositoryGame.findAll().filter { it.status == STATUS.PROPOSED }
         for (invite: Game in inviteList) {
-            val dateNow: ZonedDateTime = Constant().getDate(Constant().getDate())
-            val dateThen: ZonedDateTime = Constant().getDate(invite.updated)
+            val dateNow: ZonedDateTime = DateTime().getDate(DateTime().getDate())
+            val dateThen: ZonedDateTime = DateTime().getDate(invite.updated)
 
             val elapsed: Long = Duration.between(dateNow, dateThen).seconds
             if (elapsed.absoluteValue > TimeUnit.HOURS.toSeconds(24)) {

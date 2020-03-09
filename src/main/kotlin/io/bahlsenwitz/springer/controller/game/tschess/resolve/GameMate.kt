@@ -1,5 +1,6 @@
 package io.bahlsenwitz.springer.controller.game.tschess.resolve
 
+import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.common.Elo
 import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.CONTESTANT
@@ -9,7 +10,7 @@ import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.Constant
+import io.bahlsenwitz.springer.util.DateTime
 import org.springframework.http.ResponseEntity
 import java.util.*
 
@@ -21,7 +22,8 @@ class GameMate(
     fun mate(id_game: String): ResponseEntity<Any> {
         val uuid: UUID = UUID.fromString(id_game)!!
         val game: Game = repositoryGame.findById(uuid).get()
-        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"mate\"")
+        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"mate\"")
+        Influx().game(game_id = game.id.toString(), route = "mate")
 
         if(game.status == STATUS.RESOLVED){
             return ResponseEntity.ok("{\"success\": \"ok\"}")
@@ -73,7 +75,7 @@ class GameMate(
             }
             val disp: Int = player.rank - (index + 1)
             player.disp = disp
-            val date = Constant().getDate()
+            val date = DateTime().getDate()
             player.date = date
             val rank: Int = (index + 1)
             player.rank = rank
@@ -84,7 +86,7 @@ class GameMate(
         game.white_disp = repositoryPlayer.findById(game.white.id).get().disp
         game.black_disp = repositoryPlayer.findById(game.black.id).get().disp
         game.highlight = "TBD"
-        game.updated = Constant().getDate()
+        game.updated = DateTime().getDate()
         repositoryGame.save(game)
         return ResponseEntity.ok("{\"success\": \"ok\"}")
     }

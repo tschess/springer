@@ -1,5 +1,6 @@
 package io.bahlsenwitz.springer.controller.game.menu.invite
 
+import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.common.Elo
 import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.Game
@@ -8,7 +9,7 @@ import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.Constant
+import io.bahlsenwitz.springer.util.DateTime
 import org.springframework.http.ResponseEntity
 import java.util.*
 
@@ -24,7 +25,8 @@ class GameNack(
         game.condition = CONDITION.REFUSED
         repositoryGame.save(game)
 
-        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"nack\"")
+        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"nack\"")
+        Influx().game(game_id = game.id.toString(), route = "nack")
 
         val uuid1: UUID = UUID.fromString(updateNack.id_player)!!
         val player0: Player = repositoryPlayer.findById(uuid1).get()
@@ -48,7 +50,7 @@ class GameNack(
             }
             val disp: Int = player.rank - (index + 1)
             player.disp = disp
-            player.date = Constant().getDate()
+            player.date = DateTime().getDate()
 
             val rank: Int = (index + 1)
             player.rank = rank

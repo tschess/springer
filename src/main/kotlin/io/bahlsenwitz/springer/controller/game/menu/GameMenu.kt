@@ -1,12 +1,13 @@
 package io.bahlsenwitz.springer.controller.game.menu
 
+import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.Constant
+import io.bahlsenwitz.springer.util.DateTime
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 
@@ -36,7 +37,8 @@ class GameMenu(
         val player: Player = repositoryPlayer.findById(uuid).get()
         player.note = false
         repositoryPlayer.save(player)
-        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "menu id=\"${player.id}\",route=\"menu\"")
+        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "menu id=\"${player.id}\",route=\"menu\"")
+        Influx().activity(player_id = player.id.toString(), route = "menu")
 
         val playerList: List<Game> = repositoryGame.findPlayerList(uuid)
         if (playerList.isEmpty()) {

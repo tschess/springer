@@ -4,7 +4,7 @@ import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import io.bahlsenwitz.springer.generator.common.GeneratorAvatar
 import io.bahlsenwitz.springer.model.common.EntityUUID
 import io.bahlsenwitz.springer.model.game.SKIN
-import io.bahlsenwitz.springer.util.Constant
+import io.bahlsenwitz.springer.util.DateTime
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs
@@ -32,7 +32,7 @@ class Player(
     var elo: Int = 1200,
     var rank: Int = 0,
     var disp: Int = 0,
-    var date: String = Constant().getDate(),
+    var date: String = DateTime().getDate(),
 
     @Column(insertable = true, updatable = true)
     var note: Boolean = false,
@@ -54,8 +54,8 @@ class Player(
     @Column(unique = true)
     var device: String? = null,
 
-    var updated: String = Constant().getDate(),
-    var created: String = Constant().getDate()
+    var updated: String = DateTime().getDate(),
+    var created: String = DateTime().getDate()
 
 ): EntityUUID(id), Comparable<Player> {
 
@@ -85,8 +85,8 @@ class Player(
 
     override operator fun compareTo(other: Player): Int {
         if (this.elo == other.elo) {
-            val dateSelf: ZonedDateTime = Constant().getDate(this.created)
-            val dateOther: ZonedDateTime = Constant().getDate(other.created)
+            val dateSelf: ZonedDateTime = DateTime().getDate(this.created)
+            val dateOther: ZonedDateTime = DateTime().getDate(other.created)
             if(dateSelf.isBefore(dateOther)){
                 return -1
             }

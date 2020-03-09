@@ -1,8 +1,9 @@
 package io.bahlsenwitz.springer.controller.player.update
 
+import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.Constant
+import io.bahlsenwitz.springer.util.DateTime
 import org.springframework.http.ResponseEntity
 import java.util.*
 
@@ -12,7 +13,8 @@ class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
         val player: Player? = repositoryPlayer.findByDevice(device)
         if(player != null){
             player.device = null
-            khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "activity player=\"${player.id}\",route=\"clear\"")
+           // khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "activity player=\"${player.id}\",route=\"clear\"")
+            Influx().activity(player_id = player.id.toString(), route = "clear")
             return ResponseEntity.ok(repositoryPlayer.save(player))
         }
         return ResponseEntity.ok("{\"result\": \"ok\"}")
@@ -23,7 +25,8 @@ class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
         val player: Player = repositoryPlayer.findById(uuid).get()
         player.avatar = updateAvatar.avatar
 
-        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "activity player=\"${player.id}\",route=\"avatar\"")
+        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "activity player=\"${player.id}\",route=\"avatar\"")
+        Influx().activity(player_id = player.id.toString(), route = "avatar")
         return ResponseEntity.ok(repositoryPlayer.save(player))
     }
 

@@ -5,7 +5,7 @@ import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.repository.RepositoryGame
-import io.bahlsenwitz.springer.util.Constant
+import io.bahlsenwitz.springer.util.DateTime
 import org.springframework.http.ResponseEntity
 import java.util.*
 
@@ -20,7 +20,7 @@ class GameTest(private val repositoryGame: RepositoryGame) {
         }
         else if(requestTest.state != arrayListOf(arrayListOf(""))){
             game.state = requestTest.state
-            game.updated = Constant().getDate()
+            game.updated = DateTime().getDate()
         }
         if(requestTest.turn == "WHITE"){
             game.turn = CONTESTANT.WHITE

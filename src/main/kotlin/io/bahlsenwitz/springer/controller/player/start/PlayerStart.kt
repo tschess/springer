@@ -1,8 +1,9 @@
 package io.bahlsenwitz.springer.controller.player.start
 
+import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.Constant
+import io.bahlsenwitz.springer.util.DateTime
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -14,21 +15,18 @@ class PlayerStart(private val repositoryPlayer: RepositoryPlayer) {
     fun login(@Valid @RequestBody requestLogin: RequestLogin): ResponseEntity<Any> {
         val username: String = requestLogin.username
         val password: String = requestLogin.password
-
         val device: String = requestLogin.device
+
         val playerD: Player? = repositoryPlayer.findByDevice(device)
         if(playerD != null){
             playerD.device = "TBD"
             repositoryPlayer.save(playerD)
         }
-
-        val updated = Constant().getDate()
-
+        val updated = DateTime().getDate()
         val player: Player = repositoryPlayer.findByUsername(username)
             ?: return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\": \"nonexistent\"}")
 
-        khttp.post(url = "${Constant().INFLUX}write?db=tschess", data = "activity player=\"${player.id}\",route=\"login\"")
-
+        Influx().activity(player_id = player.id.toString(), route = "login")
         if (BCryptPasswordEncoder().matches(password, player.password)) {
             player.device = device
             player.updated = updated
