@@ -23,7 +23,8 @@ class GameMenu(
             game.condition != CONDITION.REFUSED &&
             game.condition != CONDITION.RESCIND &&
             game.condition != CONDITION.TIMEOUT &&
-            game.condition != CONDITION.EXPIRED){
+            game.condition != CONDITION.EXPIRED &&
+            game.condition != CONDITION.PENDING){
             return true
         }
         return false
