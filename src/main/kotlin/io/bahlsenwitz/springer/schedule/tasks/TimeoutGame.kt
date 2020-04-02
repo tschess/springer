@@ -31,7 +31,22 @@ class TimeoutGame(val repositoryPlayer: RepositoryPlayer, val repositoryGame: Re
 
                 val winner: Player = getSetWinner(game)
                 val loser: Player = getLoser(game)
-                setElo(winner, loser)
+                val wnElo0: Int = winner.elo
+                val wnElo: Elo = Elo(wnElo0)
+
+                val lsElo0: Int = loser.elo
+                val lsElo: Elo = Elo(lsElo0)
+
+                val wnElo1: Int = wnElo.update(resultActual = RESULT.WIN, eloOpponent = lsElo0)
+                val lsElo1: Int = lsElo.update(resultActual = RESULT.LOSS, eloOpponent = wnElo0)
+
+                winner.elo = wnElo1
+                loser.elo = lsElo1
+
+                repositoryPlayer.save(winner)
+                repositoryPlayer.save(loser)
+
+                repositoryGame.save(game)
 
                 /**
                  * LEADERBOARD RECALC
@@ -62,22 +77,7 @@ class TimeoutGame(val repositoryPlayer: RepositoryPlayer, val repositoryGame: Re
         }
     }
 
-    private fun setElo(winner: Player, loser: Player) {
-        val wnElo0: Int = winner.elo
-        val wnElo: Elo = Elo(wnElo0)
 
-        val lsElo0: Int = loser.elo
-        val lsElo: Elo = Elo(lsElo0)
-
-        val wnElo1: Int = wnElo.update(resultActual = RESULT.WIN, eloOpponent = lsElo0)
-        val lsElo1: Int = lsElo.update(resultActual = RESULT.LOSS, eloOpponent = wnElo0)
-
-        winner.elo = wnElo1
-        loser.elo = lsElo1
-
-        repositoryPlayer.save(winner)
-        repositoryPlayer.save(loser)
-    }
 
     private fun getSetWinner(game: Game): Player {
         if (game.turn == CONTESTANT.BLACK) {
