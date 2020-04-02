@@ -19,7 +19,7 @@ class GeneratorTestGamePro(
             id = UUID.fromString("99999999-9999-9999-9999-999999999999")!!,
             white = generatorTestPlayer.findByName(username = "999"),
             black = generatorTestPlayer.findByName(username = "sme"),
-            
+
             challenger = CONTESTANT.BLACK,
             state = Default.state()
         )
