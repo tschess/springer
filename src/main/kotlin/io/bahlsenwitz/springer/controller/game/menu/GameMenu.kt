@@ -22,7 +22,8 @@ class GameMenu(
         if( game.status == STATUS.RESOLVED &&
             game.condition != CONDITION.REFUSED &&
             game.condition != CONDITION.RESCIND &&
-            game.condition != CONDITION.TIMEOUT){
+            game.condition != CONDITION.TIMEOUT &&
+            game.condition != CONDITION.EXPIRED){
             return true
         }
         return false
