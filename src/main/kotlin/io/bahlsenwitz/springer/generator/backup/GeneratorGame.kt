@@ -23,16 +23,16 @@ class GeneratorGame(
     private val IDX_WHITE_ELO = 6
     private val IDX_WHITE_DISP = 7
 
-    private val IDX_BLACK_ID = 9
-    private val IDX_BLACK_ELO = 10
-    private val IDX_BLACK_DISP = 11
+    private val IDX_BLACK_ID = 8
+    private val IDX_BLACK_ELO = 9
+    private val IDX_BLACK_DISP = 10
 
-    private val IDX_CHALLENGER = 13
-    private val IDX_WINNER = 14
-    private val IDX_TURN = 15
-    private val IDX_ON_CHECK = 16
-    private val IDX_HIGHLIGHT = 17
-    private val IDX_UPDATED = 18
+    private val IDX_CHALLENGER = 11
+    private val IDX_WINNER = 12
+    private val IDX_TURN = 13
+    private val IDX_ON_CHECK = 14
+    private val IDX_HIGHLIGHT = 15
+    private val IDX_UPDATED = 16
 
 
     fun generate(file: File) {

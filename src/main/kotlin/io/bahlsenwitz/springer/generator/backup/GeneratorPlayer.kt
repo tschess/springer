@@ -23,10 +23,10 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
     private val IDX_CONFIG0 = 9
     private val IDX_CONFIG1 = 10
     private val IDX_CONFIG2 = 11
-   
-    private val IDX_DEVICE = 13
-    private val IDX_UPDATED = 14
-    private val IDX_CREATED = 15
+
+    private val IDX_DEVICE = 12
+    private val IDX_UPDATED = 13
+    private val IDX_CREATED = 14
 
     fun generate(file: File) {
         repositoryPlayer.deleteAll()
