@@ -3,11 +3,11 @@ package io.bahlsenwitz.springer.controller.game.menu.create
 import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
-import io.bahlsenwitz.springer.model.game.SKIN
+
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.DateTime
+
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.util.*
@@ -27,8 +27,6 @@ class GameRematch(
         var white: Player = self
         var black: Player = other
         var challenger: CONTESTANT = CONTESTANT.WHITE
-        var white_skin: SKIN = SKIN.valueOf(requestRematch.skin)
-        var black_skin: SKIN = SKIN.DEFAULT
 
         var config: List<List<String>> =
             traditionalConfig()
@@ -51,8 +49,7 @@ class GameRematch(
             white = other
             black = self
             challenger = CONTESTANT.BLACK
-            white_skin = SKIN.DEFAULT
-            black_skin = SKIN.valueOf(requestRematch.skin)
+
             state = generateState(
                 config,
                 false
@@ -63,8 +60,7 @@ class GameRematch(
             white = white,
             black = black,
             challenger = challenger,
-            white_skin = white_skin,
-            black_skin = black_skin,
+
             state = state)
         repositoryGame.save(game1)
 

@@ -21,17 +21,15 @@ class GameBackUp(private val repositoryGame: RepositoryGame) {
             "white;" + //      5
             "white_elo;" + //  6
             "white_disp;" + // 7
-            "white_skin;" + // 8
-            "black;" + //      9
-            "black_elo;" + // 10
-            "black_disp;" +// 11
-            "black_skin;" +// 12
-            "challenger;" +// 13
-            "winner;" + //    14
-            "turn;" + //      15
-            "on_check;" + //  16
-            "highlight;" + // 17
-            "updated" //   18
+            "black;" + //      8
+            "black_elo;" + //  9
+            "black_disp;" +// 10
+            "challenger;" +// 11
+            "winner;" + //    12
+            "turn;" + //      13
+            "on_check;" + //  14
+            "highlight;" + // 15
+            "updated" //      16
 
     fun backup(): ResponseEntity<Any> {
         val gameList: List<Game> = repositoryGame.findAll()
@@ -67,41 +65,38 @@ class GameBackUp(private val repositoryGame: RepositoryGame) {
                 } else {
                     fileWriter.append("${game.white_disp.toString()};")
                 }
-                val white_skin: String = game.white_skin.toString()
-                fileWriter.append("${white_skin};") //8
-                //
+
                 val black_id: String = game.black.id.toString()
-                fileWriter.append("${black_id};") //9
+                fileWriter.append("${black_id};") //8
                 val black_elo: String = game.black_elo.toString()
-                fileWriter.append("${black_elo};") //10
+                fileWriter.append("${black_elo};") //9
                 val black_disp_o: Int? = game.black_disp
                 if (black_disp_o == null) {
-                    fileWriter.append("NULL;") //11
+                    fileWriter.append("NULL;") //10
                 } else {
                     fileWriter.append("${game.black_disp.toString()};")
                 }
-                val black_skin: String = game.black_skin.toString()
-                fileWriter.append("${black_skin};") //12
+
                 val challenger_o: CONTESTANT? = game.challenger
                 if (challenger_o == null) {
-                    fileWriter.append("NULL;") //13
+                    fileWriter.append("NULL;") //11
                 } else {
                     fileWriter.append("${game.challenger.toString()};")
                 }
                 val winner_o: CONTESTANT? = game.winner
                 if (winner_o == null) {
-                    fileWriter.append("NULL;") //14
+                    fileWriter.append("NULL;") //12
                 } else {
                     fileWriter.append("${game.winner.toString()};")
                 }
                 val turn: String = game.turn.toString()
-                fileWriter.append("${turn};") //15
+                fileWriter.append("${turn};") //13
                 val on_check: Boolean = game.on_check
-                fileWriter.append("${on_check};") //16
+                fileWriter.append("${on_check};") //14
                 val highlight: String = game.highlight
-                fileWriter.append("${highlight};") //17
+                fileWriter.append("${highlight};") //15
                 val updated: String = game.updated
-                fileWriter.append("${updated};") //18
+                fileWriter.append("${updated};") //16
                 fileWriter.append('\n')
             }
         } finally {

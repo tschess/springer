@@ -30,14 +30,12 @@ class Game(
     var white: Player,
     var white_elo: Int = getElo(white),
     var white_disp: Int? = null,//0,
-    var white_skin: SKIN = SKIN.DEFAULT,
 
     @OneToOne
     @JoinColumn(name = "black")
     var black: Player,
     var black_elo: Int = getElo(black),
     var black_disp: Int? = null,//0,
-    var black_skin: SKIN = SKIN.DEFAULT,
 
     var challenger: CONTESTANT? = null,
     var winner: CONTESTANT? = null,
@@ -87,14 +85,6 @@ enum class STATUS {
     PROPOSED,
     ONGOING,
     RESOLVED
-}
-
-enum class SKIN {
-    DEFAULT,
-    IAPETUS,
-    CALYPSO,
-    HYPERION,
-    NEPTUNE
 }
 
 enum class CONDITION {

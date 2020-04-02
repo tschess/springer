@@ -22,17 +22,17 @@ class GeneratorGame(
     private val IDX_WHITE_ID = 5
     private val IDX_WHITE_ELO = 6
     private val IDX_WHITE_DISP = 7
-    private val IDX_WHITE_SKIN = 8
-    private val IDX_BLACK_ID = 9
-    private val IDX_BLACK_ELO = 10
-    private val IDX_BLACK_DISP = 11
-    private val IDX_BLACK_SKIN = 12
-    private val IDX_CHALLENGER = 13
-    private val IDX_WINNER = 14
-    private val IDX_TURN = 15
-    private val IDX_ON_CHECK = 16
-    private val IDX_HIGHLIGHT = 17
-    private val IDX_UPDATED = 18
+
+    private val IDX_BLACK_ID = 8
+    private val IDX_BLACK_ELO = 9
+    private val IDX_BLACK_DISP = 10
+
+    private val IDX_CHALLENGER = 11
+    private val IDX_WINNER = 12
+    private val IDX_TURN = 13
+    private val IDX_ON_CHECK = 14
+    private val IDX_HIGHLIGHT = 15
+    private val IDX_UPDATED = 16
 
 
     fun generate(file: File) {
@@ -69,7 +69,7 @@ class GeneratorGame(
                     if (white_disp_0 != "NULL") {
                         white_disp = white_disp_0.toInt()
                     }
-                    val white_skin: SKIN = SKIN.valueOf(tokens[IDX_WHITE_SKIN]) //8
+
                     val blackIdString: String = tokens[IDX_BLACK_ID]
                     val black_id: UUID = UUID.fromString(blackIdString)!!
                     val black: Player = repositoryPlayer.findById(black_id).get() //9
@@ -80,7 +80,7 @@ class GeneratorGame(
                     if (black_disp_0 != "NULL") {
                         black_disp = black_disp_0.toInt()
                     }
-                    val black_skin: SKIN = SKIN.valueOf(tokens[IDX_BLACK_SKIN]) //12
+
 
                     var challenger: CONTESTANT? = null
                     val challenger_0: String = tokens[IDX_CHALLENGER] //11
@@ -106,16 +106,16 @@ class GeneratorGame(
                         white = white, //5
                         white_elo = white_elo, //6
                         white_disp = white_disp, //7
-                        white_skin = white_skin, //8
-                        black = black, //9
-                        black_elo = black_elo, //10
-                        black_disp = black_disp, //11
-                        black_skin = black_skin, //12
-                        challenger = challenger, //13
-                        winner = winner, //14
-                        turn = turn, //15
-                        on_check = on_check, //16
-                        highlight = highlight, //17
+
+                        black = black, //8
+                        black_elo = black_elo, //9
+                        black_disp = black_disp, //10
+
+                        challenger = challenger, //11
+                        winner = winner, //12
+                        turn = turn, //13
+                        on_check = on_check, //14
+                        highlight = highlight, //15
                         updated = updated
                     )
                     gameList.add(game)

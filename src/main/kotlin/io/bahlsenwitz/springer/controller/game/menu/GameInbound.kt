@@ -14,11 +14,11 @@ class GameInbound(val game: Game, val player: Player) : Game(
     white = game.white,
     white_elo = game.white_elo,
     white_disp = game.white_disp,
-    white_skin = game.white_skin,
+
     black = game.black,
     black_elo = game.black_elo,
     black_disp = game.black_disp,
-    black_skin = game.black_skin,
+
     challenger = game.challenger,
     winner = game.winner,
     turn = game.turn,

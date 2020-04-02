@@ -3,12 +3,12 @@ package io.bahlsenwitz.springer.controller.game.menu.create
 import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
-import io.bahlsenwitz.springer.model.game.SKIN
+
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.DateTime
+
 import org.springframework.http.ResponseEntity
 import java.util.*
 
@@ -22,7 +22,7 @@ class GameQuick(
 
         val uuid0: UUID = UUID.fromString(requestQuick.id_self)!!
         val white: Player = repositoryPlayer.findById(uuid0).get() //self
-        val white_skin: SKIN = SKIN.valueOf(requestQuick.skin)
+
         var config: List<List<String>> =
             traditionalConfig()
         if (requestQuick.config == 0) {
@@ -40,16 +40,16 @@ class GameQuick(
 
         val uuid1: UUID = UUID.fromString(requestQuick.id_other)!!  //other
         val black: Player = repositoryPlayer.findById(uuid1).get()
-        val black_skin: SKIN = SKIN.DEFAULT
+
         black.note = true
         repositoryPlayer.save(black)
 
         val game = Game(
             state = state,
             white = white,
-            white_skin = white_skin,
+
             black = black,
-            black_skin = black_skin,
+
             challenger = CONTESTANT.WHITE)
         game.status = STATUS.ONGOING
 

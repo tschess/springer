@@ -3,7 +3,6 @@ package io.bahlsenwitz.springer.model.player
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import io.bahlsenwitz.springer.generator.common.GeneratorAvatar
 import io.bahlsenwitz.springer.model.common.EntityUUID
-import io.bahlsenwitz.springer.model.game.SKIN
 import io.bahlsenwitz.springer.util.DateTime
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
@@ -46,10 +45,6 @@ class Player(
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
     var config2: List<List<String>> = defaultConfig2(),
-
-    @Type(type = "jsonb")
-    @Column(columnDefinition = "jsonb")
-    var skin: List<SKIN> = arrayListOf(SKIN.DEFAULT),
 
     @Column(unique = true)
     var device: String? = null,

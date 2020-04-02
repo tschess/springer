@@ -1,7 +1,7 @@
 package io.bahlsenwitz.springer.generator.test
 
 import io.bahlsenwitz.springer.generator.common.Default
-import io.bahlsenwitz.springer.model.game.SKIN
+
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
@@ -19,7 +19,7 @@ class GeneratorTestGamePro(
             id = UUID.fromString("99999999-9999-9999-9999-999999999999")!!,
             white = generatorTestPlayer.findByName(username = "999"),
             black = generatorTestPlayer.findByName(username = "sme"),
-            black_skin = SKIN.DEFAULT,
+            
             challenger = CONTESTANT.BLACK,
             state = Default.state()
         )

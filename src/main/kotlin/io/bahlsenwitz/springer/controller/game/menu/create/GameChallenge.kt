@@ -1,7 +1,7 @@
 package io.bahlsenwitz.springer.controller.game.menu.create
 
 import io.bahlsenwitz.springer.influx.Influx
-import io.bahlsenwitz.springer.model.game.SKIN
+
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player
@@ -29,7 +29,7 @@ class GameChallenge(
 
         val uuid1: UUID = UUID.fromString(requestChallenge.id_self)!! //self
         val black: Player = repositoryPlayer.findById(uuid1).get()
-        val black_skin: SKIN = SKIN.valueOf(requestChallenge.skin)
+
 
         var config: List<List<String>> =
             traditionalConfig()
@@ -46,7 +46,6 @@ class GameChallenge(
         val game = Game(
             white = white,
             black = black,
-            black_skin = black_skin,
             challenger = CONTESTANT.BLACK,
             state = config
         )

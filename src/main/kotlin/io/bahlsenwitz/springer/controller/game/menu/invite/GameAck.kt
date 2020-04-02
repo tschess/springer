@@ -2,7 +2,7 @@ package io.bahlsenwitz.springer.controller.game.menu.invite
 
 import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.game.Game
-import io.bahlsenwitz.springer.model.game.SKIN
+
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
@@ -48,15 +48,8 @@ class GameAck(
         game.status = STATUS.ONGOING
         game.updated = DateTime().getDate()
 
-        var white: Boolean = false
-        if (game.white == player) {
-            white = true
-        }
-        if (white) {
-            game.white_skin = SKIN.valueOf(requestAck.skin)
-        } else {
-            game.black_skin = SKIN.valueOf(requestAck.skin)
-        }
+
+
         setNotification(
             game = game,
             player = player,

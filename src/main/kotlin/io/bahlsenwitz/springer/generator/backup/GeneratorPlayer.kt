@@ -1,15 +1,12 @@
 package io.bahlsenwitz.springer.generator.backup
 
-import io.bahlsenwitz.springer.model.game.SKIN
+
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
-import java.io.IOException
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
+
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -58,15 +55,15 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                     val config1: List<List<String>> = generateConfig(configString = configString1)
                     val configString2: String = tokens[IDX_CONFIG2] //11
                     val config2: List<List<String>> = generateConfig(configString = configString2)
-                    val skinString: String = tokens[IDX_SKIN] //12
 
-                    val skin: List<SKIN> = generateSkinList(squadString = skinString)
-                    var device: String? = tokens[IDX_DEVICE] //13
+
+
+                    var device: String? = tokens[IDX_DEVICE] //12
                     if(device == "NULL"){
                         device = null
                     }
-                    val updated: String = tokens[IDX_UPDATED] //14
-                    val created: String = tokens[IDX_CREATED] //15
+                    val updated: String = tokens[IDX_UPDATED] //13
+                    val created: String = tokens[IDX_CREATED] //14
 
 
                     val player = Player(
@@ -82,10 +79,10 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                         config0 = config0, //9
                         config1 = config1, //10
                         config2 = config2, //11
-                        skin = skin, //12
-                        device = device, //13
-                        updated = updated, //14
-                        created = created //15
+
+                        device = device, //12
+                        updated = updated, //13
+                        created = created //14
                     )
                     playerList.add(player)
                 }
@@ -95,16 +92,6 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                 repositoryPlayer.save(player)
             }
         }
-    }
-
-    private fun generateSkinList(squadString: String): List<SKIN> {
-        val output: MutableList<SKIN> = arrayListOf()
-        val fairyList: List<String> = squadString.split(",") //.trim('[',']')
-        fairyList.forEach { it: String ->
-            val skin: SKIN = SKIN.valueOf(it)
-            output.add(skin)
-        }
-        return output
     }
 
     private fun generateConfig(configString: String): List<List<String>> {

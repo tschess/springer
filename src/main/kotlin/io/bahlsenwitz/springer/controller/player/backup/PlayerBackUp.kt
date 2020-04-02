@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.player.backup
 
-import io.bahlsenwitz.springer.model.game.SKIN
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.generator.backup.Zipper
@@ -63,25 +62,17 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
                 fileWriter.append("${config1};") //10
                 val config2: String = player.config2.toString()
                 fileWriter.append("${config2};") //11
-                val skin: List<SKIN> = player.skin
-                for ((index: Int, value: SKIN) in skin.withIndex()) {
-                    if (index == skin.lastIndex) {
-                        fileWriter.append("$value") //12...
-                    } else {
-                        fileWriter.append("${value},") //12...
-                    }
-                }
-                fileWriter.append(";") //12
+
                 val device: String? = player.device
                 if (!device.isNullOrBlank()) {
-                    fileWriter.append("${device};") //13
+                    fileWriter.append("${device};") //12
                 } else {
-                    fileWriter.append("NULL;") //13
+                    fileWriter.append("NULL;") //12
                 }
                 val updated: String = player.updated
-                fileWriter.append("${updated};") //14
+                fileWriter.append("${updated};") //13
                 val created: String = player.created
-                fileWriter.append("${created};") //15
+                fileWriter.append("${created};") //14
                 fileWriter.append('\n')
             }
         } finally {

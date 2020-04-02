@@ -9,7 +9,6 @@ import io.bahlsenwitz.springer.controller.player.update.polling.PlayerNotify
 import io.bahlsenwitz.springer.controller.player.update.PlayerProfile
 import io.bahlsenwitz.springer.controller.player.board.quick.PlayerQuick
 import io.bahlsenwitz.springer.controller.player.update.PlayerRefresh
-import io.bahlsenwitz.springer.controller.player.update.PlayerSkin
 import io.bahlsenwitz.springer.controller.player.start.PlayerStart
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
@@ -106,13 +105,6 @@ class ControllerPlayer(repositoryPlayer: RepositoryPlayer) {
     @GetMapping("/notify/{id}")
     fun notify(@PathVariable(value = "id") id: String): Any {
         return playerNotify.notify(id)
-    }
-
-    val playerSkin = PlayerSkin(repositoryPlayer)
-
-    @PostMapping("/skin")
-    fun skin(@Valid @RequestBody updateSkin: PlayerSkin.UpdateSkin): Any {
-        return playerSkin.skin(updateSkin)
     }
 
     val playerBackUp = PlayerBackUp(repositoryPlayer)

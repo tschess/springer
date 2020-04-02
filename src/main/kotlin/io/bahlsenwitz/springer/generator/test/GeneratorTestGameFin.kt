@@ -20,8 +20,7 @@ class GeneratorTestGameFin(
             state = Default.state(),
             moves = 33,
             white_disp = 1,
-            white_skin = SKIN.DEFAULT,
-            black_skin = SKIN.DEFAULT,
+
             black_disp = -7,
             condition = CONDITION.CHECKMATE,
             winner = CONTESTANT.WHITE,
@@ -36,8 +35,7 @@ class GeneratorTestGameFin(
             status = STATUS.RESOLVED,
             winner = CONTESTANT.WHITE,
             white_disp = 1,
-            white_skin = SKIN.DEFAULT,
-            black_skin = SKIN.DEFAULT,
+
             black_disp = -7,
             state = Default.state(),
             challenger = CONTESTANT.WHITE
@@ -53,8 +51,7 @@ class GeneratorTestGameFin(
             winner = CONTESTANT.WHITE,
             white_disp = -3,
             black_disp = 1,
-            white_skin = SKIN.DEFAULT,
-            black_skin = SKIN.DEFAULT,
+
             state = Default.state(),
             challenger = CONTESTANT.WHITE
         )
@@ -82,8 +79,7 @@ class GeneratorTestGameFin(
             status = STATUS.RESOLVED,
             white_disp = 14,
             black_disp = -4,
-            white_skin = SKIN.DEFAULT,
-            black_skin = SKIN.DEFAULT,
+
             state = Default.state(),
             challenger = CONTESTANT.WHITE,
             winner = CONTESTANT.WHITE
@@ -97,8 +93,7 @@ class GeneratorTestGameFin(
             winner = CONTESTANT.BLACK,
             white_disp = 6,
             black_disp = -2,
-            white_skin = SKIN.DEFAULT,
-            black_skin = SKIN.DEFAULT,
+
             state = Default.state(),
             challenger = CONTESTANT.WHITE
         )
