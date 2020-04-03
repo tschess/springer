@@ -26,8 +26,13 @@ class GameRecent(
         val playerList: List<Game> = repositoryGame.findPlayerList(uuid)
         val playerListFilter: List<Game> =
             playerList.filter {
-                it.status == STATUS.RESOLVED && it.condition != CONDITION.REFUSED && it.condition != CONDITION.RESCIND
+                it.status == STATUS.RESOLVED &&
+                        it.condition != CONDITION.REFUSED &&
+                        it.condition != CONDITION.RESCIND &&
+                        it.condition != CONDITION.TIMEOUT &&
+                        it.condition != CONDITION.EXPIRED
             }
+
         if (playerListFilter.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK).body("{\"error\": ${true}")
         }
