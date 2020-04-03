@@ -61,7 +61,6 @@ class GameAck(
     data class RequestAck(
         val id_game: String,
         val id_player: String,
-        val skin: String,
         val index: Int //0, 1, 2, 3
     )
 

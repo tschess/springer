@@ -7,7 +7,7 @@ import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.DateTime
+
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.util.*
@@ -63,7 +63,6 @@ class GameChallenge(
     data class RequestChallenge(
         val id_self: String,
         val id_other: String, //white
-        val skin: String,
         val config: Int //0, 1, 2, 3
     )
 

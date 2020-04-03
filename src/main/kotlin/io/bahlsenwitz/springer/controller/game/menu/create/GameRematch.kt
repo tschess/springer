@@ -74,7 +74,6 @@ class GameRematch(
         val id: String,
         val self: String, //self
         val other: String,
-        val skin: String, //skin (gotta calc black or white)
         val config: Int //0, 1, 2, 3
     )
 

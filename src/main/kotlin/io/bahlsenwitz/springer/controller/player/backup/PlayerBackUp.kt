@@ -24,10 +24,9 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
             "config0;" + //  9
             "config1;" + //  10
             "config2;" + //  11
-            "skin;" + //     12
-            "device;" + //   13
-            "updated;" + //  14
-            "created" //     15
+            "device;" + //   12
+            "updated;" + //  13
+            "created" //     14
 
     fun backup(): ResponseEntity<Any> {
         val playerList: List<Player> = repositoryPlayer.findAll()

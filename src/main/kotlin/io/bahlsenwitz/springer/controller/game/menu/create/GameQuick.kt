@@ -62,7 +62,6 @@ class GameQuick(
     data class RequestQuick(
         val id_self: String, //white
         val id_other: String,
-        val skin: String, //skin_white
         val config: Int //0, 1, 2, 3
     )
 
