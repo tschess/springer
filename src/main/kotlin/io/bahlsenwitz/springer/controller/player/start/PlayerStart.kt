@@ -19,7 +19,7 @@ class PlayerStart(private val repositoryPlayer: RepositoryPlayer) {
 
         val playerD: Player? = repositoryPlayer.findByDevice(device)
         if(playerD != null){
-            playerD.device = "TBD"
+            playerD.device = null
             repositoryPlayer.save(playerD)
         }
         val updated = DateTime().getDate()
