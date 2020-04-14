@@ -42,14 +42,13 @@ class Game(
     var turn: CONTESTANT = CONTESTANT.WHITE,
 
     var on_check: Boolean = false,
-    var highlight: String = PLACEHOLDER,
+    var highlight: String = "9999",
 
     var updated: String = DateTime().getDate()
 
 ) : EntityUUID(id) {
 
     companion object : Comparator<Game>  {
-        const val PLACEHOLDER: String = "TBD"
 
         fun getElo(player: Player): Int {
             return player.elo
