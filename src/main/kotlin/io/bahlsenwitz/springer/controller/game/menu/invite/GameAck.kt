@@ -86,7 +86,8 @@ class GameAck(
             /* * */
             val rowBlack01: List<String> = setOrientation(row = state[1], color = "Black")
             val rowBlack00: List<String> = setOrientation(row = state[0], color = "Black")
-            return arrayListOf(rowBlack00, rowBlack01, row, row, row, row, rowWhite01, rowWhite00)
+            //return arrayListOf(rowBlack00, rowBlack01, row, row, row, row, rowWhite01, rowWhite00)
+            return arrayListOf(rowWhite00, rowWhite01, row, row, row, row, rowBlack01, rowBlack00)
         }
     }
 }
