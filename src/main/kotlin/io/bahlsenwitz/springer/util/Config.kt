@@ -1,6 +1,8 @@
 package io.bahlsenwitz.springer.util
 
-class ChessConfig {
+import io.bahlsenwitz.springer.model.player.Player
+
+class Config {
 
     fun defaultConfig0(): List<List<String>> {
         val r1: List<String> = arrayListOf("Pawn","Poison","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop")
@@ -18,10 +20,31 @@ class ChessConfig {
         return arrayListOf(r0, r1)
     }
 
-    fun getConfigChess(): List<List<String>> {
-        val r0: List<String> = arrayListOf("Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook")
+    fun get(index: Int, player: Player): List<List<String>> {
+        if (index == 0) {
+            return player.config0
+        }
+        if (index == 1) {
+            return player.config1
+        }
+        if (index == 2) {
+            return player.config2
+        }
         val r1: List<String> = arrayListOf("Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn")
+        val r0: List<String> = arrayListOf("Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook")
         return arrayListOf(r0, r1)
+    }
+
+    fun orient(row00: List<String>, color: String): List<String> {
+        val row01: MutableList<String> = mutableListOf()
+        for (element: String in row00) {
+            if (element == "") {
+                row01.add(element)
+                continue
+            }
+            row01.add("${element}${color}_x")
+        }
+        return row01
     }
 }
 
