@@ -72,11 +72,11 @@ class GameAck(
 
         fun generateState(config: List<List<String>>, state: List<List<String>>): List<List<String>> {
             val row: List<String> = arrayListOf("", "", "", "", "", "", "", "")
-            val rowWhite00: List<String> = setOrientation(row = config[0], color = "White")
-            val rowWhite01: List<String> = setOrientation(row = config[1], color = "White")
-            val rowBlack01: List<String> = setOrientation(row = state[1], color = "Black")
-            val rowBlack00: List<String> = setOrientation(row = state[0], color = "Black")
-            return arrayListOf(rowWhite00, rowWhite01, row, row, row, row, rowBlack01, rowBlack00)
+            val white00: List<String> = setOrientation(row = config[0], color = "White")
+            val white01: List<String> = setOrientation(row = config[1], color = "White")
+            val black00: List<String> = setOrientation(row = state[0], color = "Black")
+            val black01: List<String> = setOrientation(row = state[1], color = "Black")
+            return arrayListOf(white00, white01, row, row, row, row, black01, black00)
         }
     }
 }
