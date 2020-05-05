@@ -81,22 +81,12 @@ class GameAck(
 
         fun generateState(config: List<List<String>>, state: List<List<String>>, white: Boolean): List<List<String>> {
             val row: List<String> = arrayListOf("", "", "", "", "", "", "", "")
-            //if (!white) {
-                val rowWhite00: List<String> = setOrientation(row = config[0], color = "White")
-                val rowWhite01: List<String> = setOrientation(row = config[1], color = "White")
-                /* * */
-                val rowBlack01: List<String> = setOrientation(row = state[1], color = "Black")
-                val rowBlack00: List<String> = setOrientation(row = state[0], color = "Black")
-                return arrayListOf(rowBlack00, rowBlack01, row, row, row, row, rowWhite01, rowWhite00)
-            //}
-            //val rowBlack00: List<String> = setOrientation(row = state[0], color = "Black")
-            //val rowBlack01: List<String> = setOrientation(row = state[1], color = "Black")
-
-            //val rowWhite01: List<String> = setOrientation(row = config[1], color = "White")
-            //val rowWhite00: List<String> = setOrientation(row = config[0], color = "White")
-
-            //return arrayListOf(rowBlack00, rowBlack01, row, row, row, row, rowWhite01, rowWhite00)
-            //return arrayListOf(rowWhite00, rowWhite01, row, row, row, row, rowBlack01, rowBlack00)
+            val rowWhite00: List<String> = setOrientation(row = config[0], color = "White")
+            val rowWhite01: List<String> = setOrientation(row = config[1], color = "White")
+            /* * */
+            val rowBlack01: List<String> = setOrientation(row = state[1], color = "Black")
+            val rowBlack00: List<String> = setOrientation(row = state[0], color = "Black")
+            return arrayListOf(rowBlack00, rowBlack01, row, row, row, row, rowWhite01, rowWhite00)
         }
     }
 }
