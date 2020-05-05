@@ -2,7 +2,6 @@ package io.bahlsenwitz.springer.controller.game.tschess.resolve
 
 import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.game.CONDITION
-import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
@@ -10,6 +9,7 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.DateTime
 import io.bahlsenwitz.springer.util.Rating
+import io.bahlsenwitz.springer.util.Tschess
 import org.springframework.http.ResponseEntity
 import java.util.*
 
@@ -19,6 +19,7 @@ class GameEval(
 ) {
 
     private val influx: Influx = Influx()
+    private val tschess: Tschess = Tschess()
     private val dateTime: DateTime = DateTime()
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
@@ -44,7 +45,7 @@ class GameEval(
         val accept: Boolean = evalUpdate.accept
         if (!accept) {
             game.condition = CONDITION.TBD
-            game.turn = setTurn(game.turn)
+            game.turn = tschess.setTurn(game.turn)
             repositoryGame.save(game)
             repositoryPlayer.saveAll(listOf(playerSelf, playerOther))
             return ResponseEntity.ok(ResponseEntity.accepted())
@@ -57,10 +58,5 @@ class GameEval(
         return ResponseEntity.ok(ResponseEntity.accepted())
     }
 
-    private fun setTurn(turn: CONTESTANT): CONTESTANT {
-        if (turn == CONTESTANT.WHITE) {
-            return CONTESTANT.BLACK
-        }
-        return CONTESTANT.WHITE
-    }
+
 }
