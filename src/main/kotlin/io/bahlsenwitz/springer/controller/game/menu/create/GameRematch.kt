@@ -65,11 +65,11 @@ class GameRematch(
         }
 
         fun generateState(config: List<List<String>>, white: Boolean): List<List<String>> {
-            val empty: List<String> = arrayListOf("", "", "", "", "", "", "", "")
+            //val empty: List<String> = arrayListOf("", "", "", "", "", "", "", "")
             if(white){
-                return arrayListOf(config[0], config[1], empty, empty, empty, empty, empty, empty)
+                return arrayListOf(config[0], config[1])
             }
-            return arrayListOf(empty, empty, empty, empty, empty, empty, config[0], config[1])
+            return arrayListOf(config[0], config[1])
         }
     }
 }

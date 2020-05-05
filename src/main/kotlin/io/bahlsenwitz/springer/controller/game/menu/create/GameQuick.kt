@@ -53,9 +53,7 @@ class GameQuick(
             challenger = CONTESTANT.WHITE)
         game.status = STATUS.ONGOING
 
-        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"quick\"")
         Influx().game(game_id = game.id.toString(), route = "quick")
-
         return ResponseEntity.ok(repositoryGame.save(game))
     }
 
