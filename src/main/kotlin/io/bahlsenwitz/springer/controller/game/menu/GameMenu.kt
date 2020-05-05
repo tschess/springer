@@ -41,7 +41,7 @@ class GameMenu(
         val player: Player = repositoryPlayer.findById(uuid).get()
         player.note = false
         repositoryPlayer.save(player)
-        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "menu id=\"${player.id}\",route=\"menu\"")
+
         Influx().activity(player_id = player.id.toString(), route = "menu")
 
         val playerList: List<Game> = repositoryGame.findPlayerList(uuid)

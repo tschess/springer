@@ -19,12 +19,6 @@ import org.springframework.boot.runApplication
 import java.io.File
 import javax.annotation.PreDestroy
 
-/**
- * TODO: - the following is a *roadmap* task -
- * default to loading the most recent back-up
- * if generate is specified - do that
- * can also supply an input file...
- */
 @SpringBootApplication
 class SpringerApplication(
     val repositoryPlayer: RepositoryPlayer,
@@ -38,15 +32,14 @@ class SpringerApplication(
             val month: String = date[1]
             File("..${File.separator}backup${File.separator + month + File.separator + day + File.separator}")
                 .walkBottomUp()
-                .forEach {
-                    if (it.extension == "zip") {
-                        //println("---> ${it.absolutePath}")
-                        val file: File = Zipper().from(it)
-                        if (it.name.contains("player")) {
-                            GeneratorPlayer(repositoryPlayer).generate(file)
+                .forEach {file00: File ->
+                    if (file00.extension == "zip") {
+                        val file01: File = Zipper().from(file00)
+                        if (file00.name.contains("player")) {
+                            GeneratorPlayer(repositoryPlayer).generate(file01)
                         }
-                        if (it.name.contains("game")) {
-                            GeneratorGame(repositoryPlayer, repositoryGame).generate(file)
+                        if (file00.name.contains("game")) {
+                            GeneratorGame(repositoryPlayer, repositoryGame).generate(file01)
                         }
                     }
                 }

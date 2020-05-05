@@ -18,64 +18,42 @@ class GameRematch(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
+    data class RequestRematch(
+        val id_self: String, //self
+        val id_other: String,
+        val config: Int, //0, 1, 2, 3
+        val white: Boolean //to be white...
+    )
+
     fun rematch(requestRematch: RequestRematch): ResponseEntity<Any> {
+        val uuid1: UUID = UUID.fromString(requestRematch.id_self)!!
+        val uuid2: UUID = UUID.fromString(requestRematch.id_other)!!
+        val playerSelf: Player = repositoryPlayer.findById(uuid1).get()
+        val playerOther: Player = repositoryPlayer.findById(uuid2).get()
 
-        val uuid1: UUID = UUID.fromString(requestRematch.self)!!
-        val uuid2: UUID = UUID.fromString(requestRematch.other)!!
-        val self: Player = repositoryPlayer.findById(uuid1).get()
-        val other: Player = repositoryPlayer.findById(uuid2).get()
-        var white: Player = self
-        var black: Player = other
-        var challenger: CONTESTANT = CONTESTANT.WHITE
-
-        var config: List<List<String>> =
-            traditionalConfig()
+        var config: List<List<String>> = traditionalConfig()
         if (requestRematch.config == 0) {
-            config = white.config0
+            config = playerSelf.config0
         }
         if (requestRematch.config == 1) {
-            config = white.config1
+            config = playerSelf.config1
         }
         if (requestRematch.config == 2) {
-            config = white.config2
+            config = playerSelf.config2
+        }
+        val white: Boolean = requestRematch.white
+        val state: List<List<String>> = generateState(config,white)
+
+        val game: Game = Game(white = playerSelf, black = playerOther, challenger = CONTESTANT.WHITE, state = state)
+        if(!white){
+            game.white = playerOther
+            game.black = playerSelf
+            game.challenger = CONTESTANT.BLACK
         }
 
-        val uuid0: UUID = UUID.fromString(requestRematch.id)!!
-        val game0: Game = repositoryGame.findById(uuid0).get()
-
-        var state: List<List<String>> =
-            generateState(config, true)
-        if(game0.white == white){
-            white = other
-            black = self
-            challenger = CONTESTANT.BLACK
-
-            state = generateState(
-                config,
-                false
-            )
-        }
-
-        val game1: Game = Game(
-            white = white,
-            black = black,
-            challenger = challenger,
-
-            state = state)
-        repositoryGame.save(game1)
-
-        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "game id=\"${game1.id}\",route=\"rematch\"")
-        Influx().game(game_id = game1.id.toString(), route = "rematch")
-
-        return ResponseEntity.status(HttpStatus.OK).body("{\"challenge\": \"${game1.id}\"}")
+        Influx().game(game_id = game.id.toString(), route = "rematch")
+        return ResponseEntity.ok(repositoryGame.save(game))
     }
-
-    data class RequestRematch(
-        val id: String,
-        val self: String, //self
-        val other: String,
-        val config: Int //0, 1, 2, 3
-    )
 
     companion object {
 
