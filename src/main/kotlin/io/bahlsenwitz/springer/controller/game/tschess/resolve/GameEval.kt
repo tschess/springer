@@ -20,7 +20,7 @@ class GameEval(
 
     private val influx: Influx = Influx()
     private val dateTime: DateTime = DateTime()
-    private val rating: Rating = Rating(repositoryPlayer)
+    private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     data class EvalUpdate(
         val id_game: String,
@@ -51,7 +51,7 @@ class GameEval(
         }
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.DRAW
-        rating.draw(playerSelf, playerOther, game, evalUpdate.white)
+        rating.draw(game)
 
         influx.game(game, "eval")
         return ResponseEntity.ok(ResponseEntity.accepted())

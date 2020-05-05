@@ -7,7 +7,7 @@ import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.Config
+import io.bahlsenwitz.springer.util.ConfigState
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import java.util.*
@@ -17,7 +17,7 @@ class GameChallenge(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    private val config: Config = Config()
+    private val configState: ConfigState = ConfigState()
     private val influx: Influx = Influx()
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
@@ -30,7 +30,7 @@ class GameChallenge(
     fun challenge(requestChallenge: RequestChallenge): ResponseEntity<Any> {
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(requestChallenge.id_self)!!).get()
         val playerOther: Player = repositoryPlayer.findById(UUID.fromString(requestChallenge.id_other)!!).get()
-        val config: List<List<String>> = config.get(requestChallenge.config, playerSelf)
+        val config: List<List<String>> = configState.get(requestChallenge.config, playerSelf)
         val game = Game(
             white = playerOther,
             black = playerSelf,

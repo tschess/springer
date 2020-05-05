@@ -1,16 +1,14 @@
 package io.bahlsenwitz.springer.controller.game.tschess.resolve
 
 import io.bahlsenwitz.springer.influx.Influx
-import io.bahlsenwitz.springer.model.common.Elo
-import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.CONDITION
-import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
-import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
+import io.bahlsenwitz.springer.util.ConfigState
 import io.bahlsenwitz.springer.util.DateTime
+import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import java.util.*
 
@@ -19,79 +17,26 @@ class GameMine(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
+    private val influx: Influx = Influx()
+    private val dateTime: DateTime = DateTime()
+    private val configState: ConfigState = ConfigState()
+    private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
+
+    data class UpdateMine(val id_game: String, val state: List<List<String>>)
+
     fun mine(updateMine: UpdateMine): ResponseEntity<Any> {
-        val uuid: UUID = UUID.fromString(updateMine.id_game)!!
-        val game: Game = repositoryGame.findById(uuid).get()
+        val game: Game = repositoryGame.findById(UUID.fromString(updateMine.id_game)!!).get()
 
-        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"mine\"")
-        Influx().game(game_id = game.id.toString(), route = "mine")
-
-        game.state = updateMine.state
-        game.status = STATUS.RESOLVED
-        game.condition = CONDITION.LANDMINE //!!!
-        /***/
-        if (game.turn == CONTESTANT.WHITE) {
-            game.winner = CONTESTANT.BLACK
-
-            val wnElo0: Int = game.black.elo
-            val wnElo: Elo = Elo(wnElo0)
-
-            val lsElo0: Int = game.white.elo
-            val lsElo: Elo = Elo(lsElo0)
-
-            val wnElo1: Int = wnElo.update(resultActual = RESULT.WIN, eloOpponent = lsElo0)
-            val lsElo1: Int = lsElo.update(resultActual = RESULT.LOSS, eloOpponent = wnElo0)
-
-            game.black.elo = wnElo1
-            game.white.elo = lsElo1
-        } else {
-            game.winner = CONTESTANT.WHITE
-
-            val wnElo0: Int = game.white.elo
-            val wnElo: Elo = Elo(wnElo0)
-
-            val lsElo0: Int = game.black.elo
-            val lsElo: Elo = Elo(lsElo0)
-
-            val wnElo1: Int = wnElo.update(resultActual = RESULT.WIN, eloOpponent = lsElo0)
-            val lsElo1: Int = lsElo.update(resultActual = RESULT.LOSS, eloOpponent = wnElo0)
-
-            game.black.elo = lsElo1
-            game.white.elo = wnElo1
-        }
-        repositoryPlayer.save(game.black)
-        repositoryPlayer.save(game.white)
-
-        /**
-         * LEADERBOARD RECALC
-         */
-        val playerFindAllList: List<Player> = repositoryPlayer.findAll().sorted()
-        playerFindAllList.forEachIndexed forEach@{ index, player ->
-            if (player.rank == index + 1) {
-                player.disp = 0
-                repositoryPlayer.save(player)
-                return@forEach
-            }
-            val disp: Int = player.rank - (index + 1)
-            player.disp = disp
-            val date = DateTime().getDate()
-            player.date = date
-            val rank: Int = (index + 1)
-            player.rank = rank
-            repositoryPlayer.save(player)
-        }
-        //^^^
-
-        game.white_disp = repositoryPlayer.findById(game.white.id).get().disp
-        game.black_disp = repositoryPlayer.findById(game.black.id).get().disp
+        game.state = configState.poisonReveal(updateMine.state)
+        game.updated = dateTime.getDate()
         game.highlight = "TBD"
-        game.updated = DateTime().getDate()
+        game.status = STATUS.RESOLVED
+        game.condition = CONDITION.LANDMINE
+
+        rating.mate(game)
         repositoryGame.save(game)
-        return ResponseEntity.ok("{\"success\": \"ok\"}")
+        influx.game(game, "mine")
+        return ResponseEntity.ok(ResponseEntity.accepted())
     }
 
-    data class UpdateMine(  //you can change them to REVEAL only on the server./..
-        val id_game: String,
-        val state: List<List<String>>
-    )
 }

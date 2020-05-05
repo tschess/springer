@@ -1,17 +1,15 @@
 package io.bahlsenwitz.springer.controller.game.tschess.resolve
 
-import io.bahlsenwitz.springer.controller.game.util.FormatPersist
 import io.bahlsenwitz.springer.influx.Influx
-import io.bahlsenwitz.springer.model.common.Elo
-import io.bahlsenwitz.springer.model.common.RESULT
-import io.bahlsenwitz.springer.model.game.CONTESTANT
-import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.CONDITION
+import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
+import io.bahlsenwitz.springer.util.ConfigState
 import io.bahlsenwitz.springer.util.DateTime
+import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import java.util.*
 
@@ -20,76 +18,32 @@ class GameResign(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    fun resign(updateResign: UpdateResign): ResponseEntity<Any> {
-        val uuid0: UUID = UUID.fromString(updateResign.id_game)!!
-
-        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "game id=\"${uuid0}\",route=\"resign\"")
-        Influx().game(game_id = uuid0.toString(), route = "resign")
-
-        val uuid1: UUID = UUID.fromString(updateResign.id_self)!!
-        val uuid2: UUID = UUID.fromString(updateResign.id_oppo)!!
-
-        val playerSelf: Player = repositoryPlayer.findById(uuid1).get()
-        val eloSelf0: Int = playerSelf.elo
-        val eloSelf: Elo = Elo(eloSelf0)
-
-        val playerOppo: Player = repositoryPlayer.findById(uuid2).get()
-        val eloOppo0: Int = playerOppo.elo
-        val eloOppo: Elo = Elo(eloOppo0)
-
-        val eloSelf1: Int = eloSelf.update(resultActual = RESULT.LOSS, eloOpponent = eloOppo0)
-        playerSelf.elo = eloSelf1
-        repositoryPlayer.save(playerSelf)
-
-        val eloOppo1: Int = eloOppo.update(resultActual = RESULT.WIN, eloOpponent = eloSelf0)
-        playerOppo.elo = eloOppo1
-        repositoryPlayer.save(playerOppo)
-
-        /**
-         * LEADERBOARD RECALC
-         */
-        val playerFindAllList: List<Player> = repositoryPlayer.findAll().sorted()
-        playerFindAllList.forEachIndexed forEach@{ index, player ->
-            if (player.rank == index + 1) {
-                player.disp = 0
-                repositoryPlayer.save(player)
-                return@forEach
-            }
-            val disp: Int = player.rank - (index + 1)
-            player.disp = disp
-            val date = DateTime().getDate()
-            player.date = date
-            val rank: Int = (index + 1)
-            player.rank = rank
-            repositoryPlayer.save(player)
-        }
-        //^^^
-
-        val game: Game = repositoryGame.findById(uuid0).get()
-        game.status = STATUS.RESOLVED
-        game.condition = CONDITION.RESIGN
-
-        game.state = FormatPersist().poisonReveal(game.state!!)
-
-        if(updateResign.white){
-            game.white_disp = repositoryPlayer.findById(uuid1).get().disp
-            game.black_disp = repositoryPlayer.findById(uuid2).get().disp
-            game.winner = CONTESTANT.BLACK
-        } else {
-            game.white_disp = repositoryPlayer.findById(uuid2).get().disp
-            game.black_disp = repositoryPlayer.findById(uuid1).get().disp
-            game.winner = CONTESTANT.WHITE
-        }
-        game.highlight = "TBD"
-        game.updated = DateTime().getDate()
-        repositoryGame.save(game)
-        return ResponseEntity.ok("{\"success\": \"ok\"}") //what does this need to return? the game I guess...
-    }
+    private val influx: Influx = Influx()
+    private val dateTime: DateTime = DateTime()
+    private val configState: ConfigState = ConfigState()
+    private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     data class UpdateResign(
         val id_game: String,
         val id_self: String,
-        val id_oppo: String,
         val white: Boolean
     )
+
+    fun resign(updateResign: UpdateResign): ResponseEntity<Any> {
+        val date: String = dateTime.getDate()
+        val game: Game = repositoryGame.findById(UUID.fromString(updateResign.id_game)!!).get()
+        val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(updateResign.id_self)!!).get()
+        playerSelf.updated = date
+        if (game.status == STATUS.RESOLVED) {
+            return ResponseEntity.ok(ResponseEntity.accepted())
+        }
+        game.updated = date
+        game.state = configState.poisonReveal(game.state!!)
+        game.highlight = "TBD"
+        game.status = STATUS.RESOLVED
+        game.condition = CONDITION.RESIGN
+        rating.mate(game)
+        influx.game(game, "resign")
+        return ResponseEntity.ok(ResponseEntity.accepted())
+    }
 }
