@@ -3,6 +3,7 @@ package io.bahlsenwitz.springer.model.player
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import io.bahlsenwitz.springer.generator.common.GeneratorAvatar
 import io.bahlsenwitz.springer.model.common.EntityUUID
+import io.bahlsenwitz.springer.util.ChessConfig
 import io.bahlsenwitz.springer.util.DateTime
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
@@ -31,46 +32,34 @@ class Player(
     var elo: Int = 1200,
     var rank: Int = 0,
     var disp: Int = 0,
-    var date: String = DateTime().getDate(),
+    var date: String = this.date,
 
     @Column(insertable = true, updatable = true)
     var note: Boolean = false,
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    var config0: List<List<String>> = defaultConfig0(),
+    var config0: List<List<String>> = chessConfig.defaultConfig0(),
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    var config1: List<List<String>> = defaultConfig1(),
+    var config1: List<List<String>> = chessConfig.defaultConfig1(),
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    var config2: List<List<String>> = defaultConfig2(),
+    var config2: List<List<String>> = chessConfig.defaultConfig2(),
 
     @Column(unique = true)
     var device: String? = null,
 
-    var updated: String = DateTime().getDate(),
-    var created: String = DateTime().getDate()
+    var updated: String = this.date,
+    var created: String = this.date
 
 ): EntityUUID(id), Comparable<Player> {
 
     companion object {
 
-        fun defaultConfig0(): List<List<String>> {
-            val r1: List<String> = arrayListOf("","Bishop","Rook","Pawn","Pawn","Rook","Bishop","Pawn")
-            val r0: List<String> = arrayListOf("Bishop","","Rook","Knight","King","Rook","","Bishop")
-            return arrayListOf(r0, r1)
-        }
-        fun defaultConfig1(): List<List<String>> {
-            val r1: List<String> = arrayListOf("Pawn","Pawn","Pawn","Pawn","Pawn","Pawn","Pawn","Pawn")
-            val r0: List<String> = arrayListOf("Rook","Knight","Bishop","Queen","King","Bishop","Knight","Rook")
-            return arrayListOf(r0, r1)
-        }
-        fun defaultConfig2(): List<List<String>> {
-            val r1: List<String> = arrayListOf("","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop")
-            val r0: List<String> = arrayListOf("","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop","King")
-            return arrayListOf(r0, r1)
-        }
+        val date: String = DateTime().getDate()
+        val chessConfig: ChessConfig = ChessConfig()
+
         fun defaultAvatar(): String {
             val photoMap: HashMap<String,String> = GeneratorAvatar().photoMap
             val random = Random()

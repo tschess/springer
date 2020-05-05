@@ -1,8 +1,8 @@
 package io.bahlsenwitz.springer.controller.game.menu.invite
 
 import io.bahlsenwitz.springer.influx.Influx
-import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.CONDITION
+import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
@@ -16,10 +16,9 @@ class GameRescind(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    data class UpdateRescind(
-        val id_game: String,
-        val id_self: String
-    )
+    private val influx: Influx = Influx()
+
+    data class UpdateRescind(val id_game: String, val id_self: String)
 
     fun rescind(updateRescind: UpdateRescind): ResponseEntity<Any> {
         val uuid0: UUID = UUID.fromString(updateRescind.id_game)!!
@@ -27,9 +26,6 @@ class GameRescind(
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.RESCIND
         repositoryGame.save(game)
-
-        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"rescind\"")
-        Influx().game(game_id = game.id.toString(), route = "rescind")
 
         val uuid1: UUID = UUID.fromString(updateRescind.id_player)!!
         val player0: Player = repositoryPlayer.findById(uuid1).get()
@@ -58,6 +54,7 @@ class GameRescind(
         //^^^
 
         val playerX: Player = repositoryPlayer.findById(uuid1).get()
+        influx.game(game, "rescind")
         return ResponseEntity.ok(playerX) //in fact ~ this only needs to return the header info...
     }
 }
