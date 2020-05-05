@@ -54,9 +54,7 @@ class GameChallenge(
         white.note = true
         repositoryPlayer.save(white)
 
-        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"challenge\"")
         Influx().game(game_id = game.id.toString(), route = "challenge")
-
         return ResponseEntity.status(HttpStatus.OK).body("{\"challenge\": \"${game.id}\"}")
     }
 
