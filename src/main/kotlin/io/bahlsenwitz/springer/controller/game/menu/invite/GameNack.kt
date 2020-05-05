@@ -21,7 +21,7 @@ class GameNack(
 
     private val influx: Influx = Influx()
     private val dateTime: DateTime = DateTime()
-    private val rating: Rating = Rating(repositoryPlayer)
+    private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     data class UpdateNack(val id_game: String, val id_self: String)
 

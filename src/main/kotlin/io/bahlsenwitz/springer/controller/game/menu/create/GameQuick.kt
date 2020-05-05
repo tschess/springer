@@ -22,7 +22,7 @@ class GameQuick(
 
     private val config: Config = Config()
     private val influx: Influx = Influx()
-    private val rating: Rating = Rating(repositoryPlayer)
+    private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     data class RequestQuick(
         val id_self: String,

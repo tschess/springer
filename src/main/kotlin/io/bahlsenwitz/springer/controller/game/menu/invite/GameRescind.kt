@@ -8,6 +8,7 @@ import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
+import io.bahlsenwitz.springer.util.DateTime
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import java.util.*
@@ -18,7 +19,8 @@ class GameRescind(
 ) {
 
     private val influx: Influx = Influx()
-    private val rating: Rating = Rating(repositoryPlayer)
+    private val dateTime: DateTime = DateTime()
+    private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     data class UpdateRescind(val id_game: String, val id_self: String)
 
@@ -29,6 +31,7 @@ class GameRescind(
         repositoryGame.save(game)
 
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(updateRescind.id_self)!!).get()
+        playerSelf.date = dateTime.getDate()
         rating.update(playerSelf, RESULT.LOSS)
 
         influx.game(game, "rescind")

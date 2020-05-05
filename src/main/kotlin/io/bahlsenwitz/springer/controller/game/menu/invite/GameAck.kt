@@ -21,7 +21,7 @@ class GameAck(
     private val config: Config = Config()
     private val influx: Influx = Influx()
     private val dateTime: DateTime = DateTime()
-    private val rating: Rating = Rating(repositoryPlayer)
+    private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     data class RequestAck(
         val id_self: String,

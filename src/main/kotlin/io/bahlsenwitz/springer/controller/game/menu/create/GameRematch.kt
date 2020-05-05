@@ -8,6 +8,7 @@ import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Config
+import io.bahlsenwitz.springer.util.DateTime
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import java.util.*
@@ -19,7 +20,8 @@ class GameRematch(
 
     private val config: Config = Config()
     private val influx: Influx = Influx()
-    private val rating: Rating = Rating(repositoryPlayer)
+    private val dateTime: DateTime = DateTime()
+    private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     data class RequestRematch(
         val id_self: String,
@@ -30,6 +32,7 @@ class GameRematch(
 
     fun rematch(requestRematch: RequestRematch): ResponseEntity<Any> {
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(requestRematch.id_self)!!).get()
+        playerSelf.date = dateTime.getDate()
         val playerOther: Player = repositoryPlayer.findById(UUID.fromString(requestRematch.id_other)!!).get()
         val config: List<List<String>> = config.get(requestRematch.config, playerSelf)
 
