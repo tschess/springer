@@ -33,7 +33,7 @@ class GameMate(
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.CHECKMATE
 
-        rating.mate(game)
+        rating.resolve(game)
         return ResponseEntity.ok(ResponseEntity.accepted())
     }
 }

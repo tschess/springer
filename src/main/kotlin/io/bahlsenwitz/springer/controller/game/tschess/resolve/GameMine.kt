@@ -33,7 +33,7 @@ class GameMine(
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.LANDMINE
 
-        rating.mate(game)
+        rating.resolve(game)
         repositoryGame.save(game)
         influx.game(game, "mine")
         return ResponseEntity.ok(ResponseEntity.accepted())

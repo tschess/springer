@@ -1,6 +1,9 @@
 package io.bahlsenwitz.springer.generator.backup
 
-import io.bahlsenwitz.springer.model.game.*
+import io.bahlsenwitz.springer.model.game.CONDITION
+import io.bahlsenwitz.springer.model.game.CONTESTANT
+import io.bahlsenwitz.springer.model.game.Game
+import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
@@ -33,7 +36,6 @@ class GeneratorGame(
     private val IDX_ON_CHECK = 14
     private val IDX_HIGHLIGHT = 15
     private val IDX_UPDATED = 16
-
 
     fun generate(file: File) {
         repositoryGame.deleteAll()
@@ -81,12 +83,11 @@ class GeneratorGame(
                         black_disp = black_disp_0.toInt()
                     }
 
-
-                    var challenger: CONTESTANT? = null
-                    val challenger_0: String = tokens[IDX_CHALLENGER] //11
-                    if (challenger_0 != "NULL") {
-                        challenger = CONTESTANT.valueOf(challenger_0)
-                    }
+                    val challenger: CONTESTANT = CONTESTANT.valueOf(tokens[IDX_CHALLENGER])
+                    //val challenger_0: String = tokens[IDX_CHALLENGER] //11
+                    //if (challenger_0 != "NULL") {
+                    //challenger = CONTESTANT.valueOf(challenger_0)
+                    //}
                     var winner: CONTESTANT? = null
                     val winner_0: String = tokens[IDX_WINNER] //14
                     if (winner_0 != "NULL") {

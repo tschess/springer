@@ -53,8 +53,6 @@ class GameEval(
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.DRAW
         rating.draw(game)
-
-        influx.game(game, "eval")
         return ResponseEntity.ok(ResponseEntity.accepted())
     }
 

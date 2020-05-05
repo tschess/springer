@@ -26,7 +26,6 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
-//curl --header "Content-Type: application/json" --request POST --data '{"id":"efac3243-c71c-42f3-9f12-117cc7de6fa7", "index": 0, "size": 1}' http://localhost:8080/game/historic
 @SpringBootApplication(scanBasePackages = ["io.bahlsenwitz.springer"])
 @RestController
 @RequestMapping("/game")

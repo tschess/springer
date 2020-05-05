@@ -11,10 +11,4 @@ class Tschess {
         return CONTESTANT.WHITE
     }
 
-//    private fun setTurn(turn: CONTESTANT): CONTESTANT {
-//        if (turn == CONTESTANT.WHITE) {
-//            return CONTESTANT.BLACK
-//        }
-//        return CONTESTANT.WHITE
-//    }
 }

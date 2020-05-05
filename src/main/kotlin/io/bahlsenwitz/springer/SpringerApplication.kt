@@ -19,8 +19,6 @@ import org.springframework.boot.runApplication
 import java.io.File
 import javax.annotation.PreDestroy
 
-//curl --header "Content-Type: application/json" --request POST --data '{"game":"11111111-1111-1111-1111-111111111111", "player": "99999999-9999-9999-9999-999999999999"}' http://localhost:8080/game/snapshot
-//curl --header "Content-Type: application/json" --request POST --data '{"game":"11111111-1111-1111-1111-111111111111", "player": "99999999-9999-9999-9999-999999999999"}' http://localhost:8080/game/snapshot
 @SpringBootApplication
 class SpringerApplication(
     val repositoryPlayer: RepositoryPlayer,

@@ -42,7 +42,7 @@ class GameResign(
         game.highlight = "TBD"
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.RESIGN
-        rating.mate(game)
+        rating.resolve(game)
         influx.game(game, "resign")
         return ResponseEntity.ok(ResponseEntity.accepted())
     }

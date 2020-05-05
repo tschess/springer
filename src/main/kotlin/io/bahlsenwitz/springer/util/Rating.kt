@@ -23,7 +23,7 @@ class Rating(
         recalc()
     }
 
-    fun mate(game: Game) {
+    fun resolve(game: Game) {
         if (game.turn == CONTESTANT.WHITE) {
             game.winner = CONTESTANT.BLACK
 
@@ -56,7 +56,7 @@ class Rating(
         val disp: Array<Int> = recalc(game.white, game.black)
         game.white_disp = disp[0]
         game.black_disp = disp[1]
-        repositoryGame!!.save(game)
+        repositoryGame.save(game)
     }
 
     fun draw(game: Game) {
@@ -76,7 +76,7 @@ class Rating(
         val disp: Array<Int> = recalc(game.white, game.black)
         game.white_disp = disp[0]
         game.black_disp = disp[1]
-        repositoryGame!!.save(game)
+        repositoryGame.save(game)
     }
 
     private fun recalc(player00: Player? = null, player01: Player? = null): Array<Int> {
@@ -105,4 +105,5 @@ class Rating(
         }
         return list
     }
+
 }

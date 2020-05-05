@@ -17,4 +17,8 @@ class DateTime {
     fun getDate(string: String): ZonedDateTime {
         return LocalDateTime.parse(string, formatter).atZone(brooklyn)
     }
+
+    fun rn(): ZonedDateTime {
+        return LocalDateTime.now().atZone(this.brooklyn)
+    }
 }
