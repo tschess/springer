@@ -18,6 +18,11 @@ class GameNack(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
+    data class UpdateNack(
+        val id_game: String,
+        val id_self: String
+    )
+
     fun nack(updateNack: UpdateNack): ResponseEntity<Any> {
         val uuid0: UUID = UUID.fromString(updateNack.id_game)!!
         val game: Game = repositoryGame.findById(uuid0).get()
@@ -25,8 +30,8 @@ class GameNack(
         game.condition = CONDITION.REFUSED
         repositoryGame.save(game)
 
-        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "game id=\"${game.id}\",route=\"nack\"")
-        Influx().game(game_id = game.id.toString(), route = "nack")
+
+
 
         val uuid1: UUID = UUID.fromString(updateNack.id_player)!!
         val player0: Player = repositoryPlayer.findById(uuid1).get()
@@ -59,11 +64,7 @@ class GameNack(
         //^^^
 
         val playerX: Player = repositoryPlayer.findById(uuid1).get()
+        Influx().game(game_id = game.id.toString(), route = "nack")
         return ResponseEntity.ok(playerX) //in fact ~ this only needs to return the header info...
     }
-
-    data class UpdateNack(
-        val id_game: String,
-        val id_player: String
-    )
 }

@@ -20,21 +20,13 @@ class GameAck(
 
     data class RequestAck(
         val id_self: String,
-        val id_other: String,
-        val config: Int, //0, 1, 2, 3
-        val id_game: String
+        val id_game: String,
+        val config: Int
     )
 
     fun ack(requestAck: RequestAck): ResponseEntity<Any> {
         val game: Game = repositoryGame.findById(UUID.fromString(requestAck.id_game)!!).get()
-        var white: Boolean = true
-        if (game.challenger == CONTESTANT.WHITE) {
-            white = false
-        } //the ACK'r plays as white...
-
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(requestAck.id_self)!!).get()
-        val playerOther: Player = repositoryPlayer.findById(UUID.fromString(requestAck.id_other)!!).get()
-
         var config: List<List<String>> = ChessConfig().getConfigChess()
         if (requestAck.config == 0) {
             config = playerSelf.config0
@@ -45,20 +37,19 @@ class GameAck(
         if (requestAck.config == 2) {
             config = playerSelf.config2
         }
-        val state: List<List<String>> = generateState(config, game.state!!, white)
+        val state: List<List<String>> = generateState(config, game.state!!)
         game.state = state
         game.status = STATUS.ONGOING
         game.updated = DateTime().getDate()
-
-        setNotification(game, playerOther, repositoryPlayer)
+        setNotification(game, playerSelf, repositoryPlayer)
         Influx().game(game.id.toString(), "ack")
         return ResponseEntity.ok(repositoryGame.save(game))
     }
 
     companion object {
 
-        fun setNotification(game: Game, player: Player, repositoryPlayer: RepositoryPlayer) {
-            if (game.white == player) {
+        fun setNotification(game: Game, playerSelf: Player, repositoryPlayer: RepositoryPlayer) {
+            if (game.white == playerSelf) {
                 game.black.note = true
                 repositoryPlayer.save(game.black)
                 return
@@ -79,14 +70,12 @@ class GameAck(
             return colorRow
         }
 
-        fun generateState(config: List<List<String>>, state: List<List<String>>, white: Boolean): List<List<String>> {
+        fun generateState(config: List<List<String>>, state: List<List<String>>): List<List<String>> {
             val row: List<String> = arrayListOf("", "", "", "", "", "", "", "")
             val rowWhite00: List<String> = setOrientation(row = config[0], color = "White")
             val rowWhite01: List<String> = setOrientation(row = config[1], color = "White")
-            /* * */
             val rowBlack01: List<String> = setOrientation(row = state[1], color = "Black")
             val rowBlack00: List<String> = setOrientation(row = state[0], color = "Black")
-            //return arrayListOf(rowBlack00, rowBlack01, row, row, row, row, rowWhite01, rowWhite00)
             return arrayListOf(rowWhite00, rowWhite01, row, row, row, row, rowBlack01, rowBlack00)
         }
     }

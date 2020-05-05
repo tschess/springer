@@ -16,6 +16,11 @@ class GameRescind(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
+    data class UpdateRescind(
+        val id_game: String,
+        val id_self: String
+    )
+
     fun rescind(updateRescind: UpdateRescind): ResponseEntity<Any> {
         val uuid0: UUID = UUID.fromString(updateRescind.id_game)!!
         val game: Game = repositoryGame.findById(uuid0).get()
@@ -55,9 +60,4 @@ class GameRescind(
         val playerX: Player = repositoryPlayer.findById(uuid1).get()
         return ResponseEntity.ok(playerX) //in fact ~ this only needs to return the header info...
     }
-
-    data class UpdateRescind(
-        val id_game: String,
-        val id_player: String
-    )
 }
