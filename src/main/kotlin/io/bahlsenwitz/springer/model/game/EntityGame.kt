@@ -37,7 +37,7 @@ class Game(
     var black_elo: Int = getElo(black),
     var black_disp: Int? = null,//0,
 
-    var challenger: CONTESTANT? = null,
+    var challenger: CONTESTANT = CONTESTANT.BLACK,
     var winner: CONTESTANT? = null,
     var turn: CONTESTANT = CONTESTANT.WHITE,
 

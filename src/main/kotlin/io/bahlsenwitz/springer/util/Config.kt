@@ -4,6 +4,8 @@ import io.bahlsenwitz.springer.model.player.Player
 
 class Config {
 
+    val row: List<String> = arrayListOf("", "", "", "", "", "", "", "")
+
     fun defaultConfig0(): List<List<String>> {
         val r1: List<String> = arrayListOf("Pawn","Poison","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop")
         val r0: List<String> = arrayListOf("King","","Hunter","Knight","Knight","Knight","Knight","")
@@ -17,6 +19,12 @@ class Config {
     fun defaultConfig2(): List<List<String>> {
         val r1: List<String> = arrayListOf("","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop")
         val r0: List<String> = arrayListOf("","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop","King")
+        return arrayListOf(r0, r1)
+    }
+
+    fun quickBlack(): List<List<String>> {
+        val r1: List<String> = arrayListOf("PawnBlack_x", "PawnBlack_x", "PawnBlack_x", "PawnBlack_x", "PawnBlack_x", "PawnBlack_x", "PawnBlack_x", "PawnBlack_x")
+        val r0: List<String> = arrayListOf("RookBlack_x", "KnightBlack_x", "BishopBlack_x", "QueenBlack_x", "KingBlack_x", "BishopBlack_x", "KnightBlack_x", "RookBlack_x")
         return arrayListOf(r0, r1)
     }
 

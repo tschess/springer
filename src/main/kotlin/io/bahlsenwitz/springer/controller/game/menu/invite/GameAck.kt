@@ -20,6 +20,7 @@ class GameAck(
 
     private val config: Config = Config()
     private val influx: Influx = Influx()
+    private val dateTime: DateTime = DateTime()
     private val rating: Rating = Rating(repositoryPlayer)
 
     data class RequestAck(
@@ -31,6 +32,7 @@ class GameAck(
     fun ack(requestAck: RequestAck): ResponseEntity<Any> {
         val game: Game = repositoryGame.findById(UUID.fromString(requestAck.id_game)!!).get()
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(requestAck.id_self)!!).get()
+        playerSelf.date = dateTime.getDate()
         rating.update(playerSelf, RESULT.WIN)
         setNotification(game, playerSelf, repositoryPlayer)
 
@@ -62,5 +64,5 @@ class GameAck(
         game.white.note = true
         repositoryPlayer.save(game.white)
     }
-   
+
 }

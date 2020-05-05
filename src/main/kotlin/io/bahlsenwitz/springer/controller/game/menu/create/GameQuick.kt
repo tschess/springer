@@ -48,51 +48,15 @@ class GameQuick(
             challenger = CONTESTANT.WHITE,
             status = STATUS.ONGOING
         )
-
-        influx.game(game,"quick")
+        influx.game(game, "quick")
         return ResponseEntity.ok(repositoryGame.save(game))
     }
 
-    companion object {
-
-        fun generateState(config: List<List<String>>): List<List<String>> {
-            val row0: List<String> =
-                setOrientation(
-                    row = config[0],
-                    color = "White"
-                )
-            val row1: List<String> =
-                setOrientation(
-                    row = config[1],
-                    color = "White"
-                )
-            val row2: List<String> = arrayListOf("", "", "", "", "", "", "", "")
-            val row3: List<String> = arrayListOf("", "", "", "", "", "", "", "")
-            val row4: List<String> = arrayListOf("", "", "", "", "", "", "", "")
-            val row5: List<String> = arrayListOf("", "", "", "", "", "", "", "")
-            val row6: List<String> = arrayListOf(
-                "PawnBlack_x",
-                "PawnBlack_x",
-                "PawnBlack_x",
-                "PawnBlack_x",
-                "PawnBlack_x",
-                "PawnBlack_x",
-                "PawnBlack_x",
-                "PawnBlack_x"
-            )
-            val row7: List<String> =
-                arrayListOf(
-                    "RookBlack_x",
-                    "KnightBlack_x",
-                    "BishopBlack_x",
-                    "QueenBlack_x",
-                    "KingBlack_x",
-                    "BishopBlack_x",
-                    "KnightBlack_x",
-                    "RookBlack_x"
-                )
-            return arrayListOf(row0, row1, row2, row3, row4, row5, row6, row7)
-        }
-
+    private fun generateState(white: List<List<String>>): List<List<String>> {
+        val color: String = "White"
+        val row00: List<String> = config.orient(white[0], color)
+        val row01: List<String> = config.orient(white[1], color)
+        val black: List<List<String>> = config.quickBlack()
+        return arrayListOf(row00, row01, config.row, config.row, config.row, config.row, black[0], black[1])
     }
 }

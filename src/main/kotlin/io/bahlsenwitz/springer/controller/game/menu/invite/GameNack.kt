@@ -8,6 +8,7 @@ import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
+import io.bahlsenwitz.springer.util.DateTime
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.accepted
@@ -19,6 +20,7 @@ class GameNack(
 ) {
 
     private val influx: Influx = Influx()
+    private val dateTime: DateTime = DateTime()
     private val rating: Rating = Rating(repositoryPlayer)
 
     data class UpdateNack(val id_game: String, val id_self: String)
@@ -30,6 +32,7 @@ class GameNack(
         repositoryGame.save(game)
 
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(updateNack.id_self)!!).get()
+        playerSelf.date = dateTime.getDate()
         rating.update(playerSelf, RESULT.LOSS)
 
         influx.game(game, "nack")
