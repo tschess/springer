@@ -7,12 +7,12 @@ import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
+import io.bahlsenwitz.springer.util.ChessConfig
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.util.*
 
-//curl --header "Content-Type: application/json" --request POST --data '{"game":"11111111-1111-1111-1111-111111111111", "player": "99999999-9999-9999-9999-999999999999"}' http://localhost:8080/game/snapshot
 class GameRematch(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
@@ -31,7 +31,7 @@ class GameRematch(
         val playerSelf: Player = repositoryPlayer.findById(uuid1).get()
         val playerOther: Player = repositoryPlayer.findById(uuid2).get()
 
-        var config: List<List<String>> = traditionalConfig()
+        var config: List<List<String>> = ChessConfig().getConfigChess()
         if (requestRematch.config == 0) {
             config = playerSelf.config0
         }
@@ -42,34 +42,13 @@ class GameRematch(
             config = playerSelf.config2
         }
         val white: Boolean = requestRematch.white
-        val state: List<List<String>> = generateState(config,white)
-
-        val game: Game = Game(white = playerSelf, black = playerOther, challenger = CONTESTANT.WHITE, state = state)
+        val game: Game = Game(white = playerSelf, black = playerOther, challenger = CONTESTANT.WHITE, state = config)
         if(!white){
             game.white = playerOther
             game.black = playerSelf
             game.challenger = CONTESTANT.BLACK
         }
-
         Influx().game(game_id = game.id.toString(), route = "rematch")
         return ResponseEntity.ok(repositoryGame.save(game))
-    }
-
-    companion object {
-
-        fun traditionalConfig(): List<List<String>> {
-            val row0: List<String> =
-                arrayListOf("Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook")
-            val row1: List<String> = arrayListOf("Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn")
-            return arrayListOf(row0, row1)
-        }
-
-        fun generateState(config: List<List<String>>, white: Boolean): List<List<String>> {
-            //val empty: List<String> = arrayListOf("", "", "", "", "", "", "", "")
-            if(white){
-                return arrayListOf(config[0], config[1])
-            }
-            return arrayListOf(config[0], config[1])
-        }
     }
 }

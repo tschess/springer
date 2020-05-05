@@ -19,37 +19,39 @@ class GameAck(
 ) {
 
     data class RequestAck(
-        val id_game: String,
-        val id_player: String,
-        val index: Int //0, 1, 2, 3
+        val id_self: String,
+        val id_other: String,
+        val config: Int, //0, 1, 2, 3
+        val id_game: String
     )
 
     fun ack(requestAck: RequestAck): ResponseEntity<Any> {
-        val uuid0: UUID = UUID.fromString(requestAck.id_game)!!
-        val game: Game = repositoryGame.findById(uuid0).get()
+        val game: Game = repositoryGame.findById(UUID.fromString(requestAck.id_game)!!).get()
+        var white: Boolean = true
+        if (game.challenger == CONTESTANT.WHITE) {
+            white = false
+        } //the ACK'r plays as white...
 
-        val white: Boolean = game.challenger == CONTESTANT.BLACK //the ACK'r plays as white...
-
-        val uuid1: UUID = UUID.fromString(requestAck.id_player)!!
-        val player: Player = repositoryPlayer.findById(uuid1).get()
+        val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(requestAck.id_self)!!).get()
+        val playerOther: Player = repositoryPlayer.findById(UUID.fromString(requestAck.id_other)!!).get()
 
         var config: List<List<String>> = ChessConfig().getConfigChess()
-        if (requestAck.index == 0) {
-            config = player.config0
+        if (requestAck.config == 0) {
+            config = playerSelf.config0
         }
-        if (requestAck.index == 1) {
-            config = player.config1
+        if (requestAck.config == 1) {
+            config = playerSelf.config1
         }
-        if (requestAck.index == 2) {
-            config = player.config2
+        if (requestAck.config == 2) {
+            config = playerSelf.config2
         }
         val state: List<List<String>> = generateState(config, game.state!!, white)
         game.state = state
         game.status = STATUS.ONGOING
         game.updated = DateTime().getDate()
 
-        setNotification(game,player,repositoryPlayer)
-        Influx().game(game_id = game.id.toString(), route = "ack")
+        setNotification(game, playerOther, repositoryPlayer)
+        Influx().game(game.id.toString(), "ack")
         return ResponseEntity.ok(repositoryGame.save(game))
     }
 
@@ -85,14 +87,15 @@ class GameAck(
                 /* * */
                 val rowBlack01: List<String> = setOrientation(row = state[1], color = "Black")
                 val rowBlack00: List<String> = setOrientation(row = state[0], color = "Black")
-                return arrayListOf(rowWhite00, rowWhite01, row, row, row, row, rowBlack01, rowBlack00)
+                return arrayListOf(rowBlack00, rowBlack01, row, row, row, row, rowWhite01, rowWhite00)
             }
             val rowBlack00: List<String> = setOrientation(row = state[0], color = "Black")
             val rowBlack01: List<String> = setOrientation(row = state[1], color = "Black")
 
             val rowWhite01: List<String> = setOrientation(row = config[1], color = "White")
             val rowWhite00: List<String> = setOrientation(row = config[0], color = "White")
-            return arrayListOf(rowBlack00, rowBlack01, row, row, row, row, rowWhite01, rowWhite00)
+
+            return arrayListOf(rowWhite00, rowWhite01, row, row, row, row, rowBlack01, rowBlack00)
         }
     }
 }
