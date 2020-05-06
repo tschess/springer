@@ -18,23 +18,14 @@ class GameMenu(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    private fun getOther(game: Game): Boolean {
-        if( game.status == STATUS.RESOLVED &&
-            game.condition != CONDITION.REFUSED &&
-            game.condition != CONDITION.RESCIND &&
-            game.condition != CONDITION.TIMEOUT &&
-            game.condition != CONDITION.EXPIRED){
-            return true
-        }
-        return false
-    }
+    private val influx: Influx = Influx()
 
-    private fun getSelf(game: Game): Boolean {
-        if(game.status == STATUS.PROPOSED || game.status == STATUS.ONGOING || getOther(game)){
-            return true
-        }
-        return false
-    }
+    data class RequestMenu(
+        val id: String,
+        val index: Int,
+        val size: Int,
+        val self: Boolean
+    )
 
     fun menu(requestActual: RequestMenu): ResponseEntity<Any> {
         val uuid: UUID = UUID.fromString(requestActual.id)!!
@@ -42,7 +33,7 @@ class GameMenu(
         player.note = false
         repositoryPlayer.save(player)
 
-        Influx().activity(player_id = player.id.toString(), route = "menu")
+        influx.activity(player,"menu")
 
         val playerList: List<Game> = repositoryGame.findPlayerList(uuid)
         if (playerList.isEmpty()) {
@@ -78,13 +69,23 @@ class GameMenu(
         return ResponseEntity.ok(gameList)
     }
 
-    data class RequestMenu(
-        val id: String,
-        val index: Int,
-        val size: Int,
-        val self: Boolean
-    )
+    private fun getOther(game: Game): Boolean {
+        if( game.status == STATUS.RESOLVED &&
+            game.condition != CONDITION.REFUSED &&
+            game.condition != CONDITION.RESCIND &&
+            game.condition != CONDITION.TIMEOUT &&
+            game.condition != CONDITION.EXPIRED){
+            return true
+        }
+        return false
+    }
 
+    private fun getSelf(game: Game): Boolean {
+        if(game.status == STATUS.PROPOSED || game.status == STATUS.ONGOING || getOther(game)){
+            return true
+        }
+        return false
+    }
 
 }
 
