@@ -18,9 +18,9 @@ class GameAck(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    private val configState: ConfigState = ConfigState()
     private val influx: Influx = Influx()
     private val dateTime: DateTime = DateTime()
+    private val configState: ConfigState = ConfigState()
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     data class RequestAck(

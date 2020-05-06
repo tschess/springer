@@ -12,8 +12,10 @@ import io.bahlsenwitz.springer.controller.game.menu.invite.GameNack
 import io.bahlsenwitz.springer.controller.game.tschess.update.GameProp
 import io.bahlsenwitz.springer.controller.game.menu.create.GameQuick
 import io.bahlsenwitz.springer.controller.game.menu.create.GameRematch
+import io.bahlsenwitz.springer.controller.game.menu.create.RequestCreate
 import io.bahlsenwitz.springer.controller.game.tschess.polling.GameRequest
 import io.bahlsenwitz.springer.controller.game.menu.invite.GameRescind
+import io.bahlsenwitz.springer.controller.game.menu.invite.UpdateNack
 import io.bahlsenwitz.springer.controller.game.tschess.resolve.GameResign
 import io.bahlsenwitz.springer.controller.game.tschess.GameTest
 import io.bahlsenwitz.springer.controller.game.tschess.resolve.GameMine
@@ -74,7 +76,7 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     )
 
     @PostMapping("/nack")
-    fun nack(@Valid @RequestBody updateNack: GameNack.UpdateNack): ResponseEntity<Any> {
+    fun nack(@Valid @RequestBody updateNack: UpdateNack): ResponseEntity<Any> {
         return gameNack.nack(updateNack)
     }
 
@@ -84,7 +86,7 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     )
 
     @PostMapping("/rescind")
-    fun rescind(@Valid @RequestBody updateRescind: GameRescind.UpdateRescind): ResponseEntity<Any> {
+    fun rescind(@Valid @RequestBody updateRescind: UpdateNack): ResponseEntity<Any> {
         return gameRescind.rescind(updateRescind)
     }
 
@@ -97,7 +99,7 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     )
 
     @PostMapping("/challenge")
-    fun challenge(@Valid @RequestBody requestChallenge: GameChallenge.RequestChallenge): ResponseEntity<Any> {
+    fun challenge(@Valid @RequestBody requestChallenge: RequestCreate): ResponseEntity<Any> {
         return gameChallenge.challenge(requestChallenge)
     }
 
@@ -110,7 +112,7 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     )
 
     @PostMapping("/quick")
-    fun quick(@Valid @RequestBody requestQuick: GameQuick.RequestQuick): ResponseEntity<Any> {
+    fun quick(@Valid @RequestBody requestQuick: RequestCreate): ResponseEntity<Any> {
         return gameQuick.quick(requestQuick)
     }
 

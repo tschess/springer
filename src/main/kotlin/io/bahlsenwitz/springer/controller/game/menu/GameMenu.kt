@@ -37,7 +37,7 @@ class GameMenu(
 
         val playerList: List<Game> = repositoryGame.findPlayerList(uuid)
         if (playerList.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.OK).body("{\"zero\":${true}}")
+            return ResponseEntity.ok(ResponseEntity.EMPTY)
         }
         val self: Boolean = requestActual.self
         val playerListFilter: List<Game>
@@ -59,7 +59,7 @@ class GameMenu(
         val indexTo: Int = indexFrom + pageSize
 
         if (playerListFilter.lastIndex < indexFrom) {
-            return ResponseEntity.status(HttpStatus.OK).body("{\"eol\":${true}}")
+            return ResponseEntity.ok(ResponseEntity.EMPTY)
         }
         if (playerListFilter.lastIndex + 1 <= indexTo) {
             gameList = playerListFilter.sortedWith(Game).subList(indexFrom, playerListFilter.lastIndex + 1)

@@ -9,7 +9,6 @@ import io.bahlsenwitz.springer.util.DateTime
 import org.springframework.http.ResponseEntity
 import java.util.*
 
-//curl --header "Content-Type: application/json" --request POST --data '{"state":[[""]]}' http://localhost:8080/game/test
 class GameTest(private val repositoryGame: RepositoryGame) {
 
     fun test(requestTest: RequestTest): ResponseEntity<Any> {

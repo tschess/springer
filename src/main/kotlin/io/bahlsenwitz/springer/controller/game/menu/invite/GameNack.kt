@@ -23,8 +23,6 @@ class GameNack(
     private val dateTime: DateTime = DateTime()
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
-    data class UpdateNack(val id_game: String, val id_self: String)
-
     fun nack(updateNack: UpdateNack): ResponseEntity<Any> {
         val game: Game = repositoryGame.findById(UUID.fromString(updateNack.id_game)!!).get()
         game.status = STATUS.RESOLVED

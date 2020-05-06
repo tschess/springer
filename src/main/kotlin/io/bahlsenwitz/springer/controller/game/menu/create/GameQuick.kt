@@ -10,6 +10,7 @@ import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.ConfigState
+import io.bahlsenwitz.springer.util.DateTime
 import io.bahlsenwitz.springer.util.Rating
 
 import org.springframework.http.ResponseEntity
@@ -21,25 +22,20 @@ class GameQuick(
 ) {
 
     private val influx: Influx = Influx()
+    private val dateTime: DateTime = DateTime()
     private val configState: ConfigState = ConfigState()
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
-    data class RequestQuick(
-        val id_self: String,
-        val id_other: String,
-        val config: Int
-    )
-
-    fun quick(requestQuick: RequestQuick): ResponseEntity<Any> {
+    fun quick(requestQuick: RequestCreate): ResponseEntity<Any> {
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(requestQuick.id_self)!!).get()
+        playerSelf.date = dateTime.getDate()
         rating.update(playerSelf, RESULT.WIN)
-
-        val config: List<List<String>> = configState.get(requestQuick.config, playerSelf)
-        val state: List<List<String>> = generateState(config)
 
         val playerOther: Player = repositoryPlayer.findById(UUID.fromString(requestQuick.id_other)!!).get()
         playerOther.note = true
         repositoryPlayer.save(playerOther)
+
+        val state: List<List<String>> = generateState(configState.get(requestQuick.config, playerSelf))
 
         val game = Game(
             state = state,

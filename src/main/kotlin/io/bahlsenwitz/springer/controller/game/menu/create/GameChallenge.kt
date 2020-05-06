@@ -17,24 +17,17 @@ class GameChallenge(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    private val configState: ConfigState = ConfigState()
     private val influx: Influx = Influx()
+    private val configState: ConfigState = ConfigState()
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
-    data class RequestChallenge(
-        val id_self: String,
-        val id_other: String,
-        val config: Int
-    )
-
-    fun challenge(requestChallenge: RequestChallenge): ResponseEntity<Any> {
+    fun challenge(requestChallenge: RequestCreate): ResponseEntity<Any> {
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(requestChallenge.id_self)!!).get()
         val playerOther: Player = repositoryPlayer.findById(UUID.fromString(requestChallenge.id_other)!!).get()
         val config: List<List<String>> = configState.get(requestChallenge.config, playerSelf)
         val game = Game(
             white = playerOther,
             black = playerSelf,
-            challenger = CONTESTANT.BLACK,
             state = config
         )
         repositoryGame.save(game)

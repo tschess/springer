@@ -22,9 +22,7 @@ class GameRescind(
     private val dateTime: DateTime = DateTime()
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
-    data class UpdateRescind(val id_game: String, val id_self: String)
-
-    fun rescind(updateRescind: UpdateRescind): ResponseEntity<Any> {
+    fun rescind(updateRescind: UpdateNack): ResponseEntity<Any> {
         val game: Game = repositoryGame.findById(UUID.fromString(updateRescind.id_game)!!).get()
         game.condition = CONDITION.RESCIND
         game.status = STATUS.RESOLVED

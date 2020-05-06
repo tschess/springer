@@ -17,11 +17,12 @@ class GameRecent(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
 ) {
+
+    private val influx: Influx = Influx()
+
     fun recent(id_player: String): ResponseEntity<Any> {
         val uuid: UUID = UUID.fromString(id_player)!!
         val player: Player = repositoryPlayer.findById(uuid).get()
-        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "menu id=\"${player.id}\",route=\"recent\"")
-        Influx().activity(player_id = player.id.toString(), route = "recent")
 
         val playerList: List<Game> = repositoryGame.findPlayerList(uuid)
         val playerListFilter: List<Game> =
@@ -34,9 +35,10 @@ class GameRecent(
             }
 
         if (playerListFilter.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.OK).body("{\"error\": ${true}")
+            return ResponseEntity.ok(ResponseEntity.EMPTY)
         }
         val recent: Game = playerListFilter.sortedWith(RecentCmp).last()
+        influx.activity(player, "recent")
         return ResponseEntity.ok(recent)
     }
 
