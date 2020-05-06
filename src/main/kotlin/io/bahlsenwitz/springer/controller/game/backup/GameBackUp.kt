@@ -77,12 +77,9 @@ class GameBackUp(private val repositoryGame: RepositoryGame) {
                     fileWriter.append("${game.black_disp.toString()};")
                 }
 
-                val challenger_o: CONTESTANT? = game.challenger
-                if (challenger_o == null) {
-                    fileWriter.append("NULL;") //11
-                } else {
-                    fileWriter.append("${game.challenger.toString()};")
-                }
+                val challenger: String = game.challenger.toString()  //11
+                fileWriter.append("${challenger};")
+
                 val winner_o: CONTESTANT? = game.winner
                 if (winner_o == null) {
                     fileWriter.append("NULL;") //12
