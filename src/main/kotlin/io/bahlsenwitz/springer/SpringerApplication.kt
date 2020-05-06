@@ -25,14 +25,19 @@ class SpringerApplication(
     val repositoryGame: RepositoryGame
 ) : ApplicationRunner {
 
+    /***
+     * ./gradlew bootRun --args='--source=28-03'
+     *
+     * NOTE: DD-MM
+     */
     override fun run(args: ApplicationArguments) {
-        if (args.containsOption("source")) { //./gradlew bootRun --args='--source=28-03'
+        if (args.containsOption("source")) {
             val date: List<String> = args.getOptionValues("source")[0]!!.split("-")
             val day: String = date[0]
             val month: String = date[1]
             File("..${File.separator}backup${File.separator + month + File.separator + day + File.separator}")
                 .walkBottomUp()
-                .forEach {file00: File ->
+                .forEach { file00: File ->
                     if (file00.extension == "zip") {
                         val file01: File = Zipper().from(file00)
                         if (file00.name.contains("player")) {

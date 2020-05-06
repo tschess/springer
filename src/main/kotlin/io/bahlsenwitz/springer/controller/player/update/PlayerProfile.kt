@@ -9,30 +9,33 @@ import java.util.*
 
 class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
 
-    fun clear(device: String): ResponseEntity<Any> {
-        val player: Player? = repositoryPlayer.findByDevice(device)
-        if(player != null){
-            player.device = null
-           // khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "activity player=\"${player.id}\",route=\"clear\"")
-            Influx().activity(player_id = player.id.toString(), route = "clear")
-            return ResponseEntity.ok(repositoryPlayer.save(player))
-        }
-        return ResponseEntity.ok("{\"result\": \"ok\"}")
-    }
+    private val influx: Influx = Influx()
+    private val dateTime: DateTime = DateTime()
 
-    fun avatar(updateAvatar: UpdateAvatar): ResponseEntity<Any> {
-        val uuid: UUID = UUID.fromString(updateAvatar.id)!!
-        val player: Player = repositoryPlayer.findById(uuid).get()
-        player.avatar = updateAvatar.avatar
-
-        //khttp.post(url = "${DateTime().INFLUX}write?db=tschess", data = "activity player=\"${player.id}\",route=\"avatar\"")
-        Influx().activity(player_id = player.id.toString(), route = "avatar")
-        return ResponseEntity.ok(repositoryPlayer.save(player))
-    }
-
-    data class UpdateAvatar (
+    data class UpdateAvatar(
         val id: String,
         val avatar: String
     )
+
+    fun avatar(updateAvatar: UpdateAvatar): ResponseEntity<Any> {
+        val player: Player = repositoryPlayer.findById(UUID.fromString(updateAvatar.id)!!).get()
+        player.avatar = updateAvatar.avatar
+        player.updated = dateTime.getDate()
+        influx.activity(player, "avatar")
+        return ResponseEntity.ok(repositoryPlayer.save(player))
+    }
+
+    fun clear(device: String): ResponseEntity<Any> {
+        val player: Player? = repositoryPlayer.findByDevice(device)
+        if (player != null) {
+            player.device = null
+            player.updated = dateTime.getDate()
+            influx.activity(player, "clear")
+            repositoryPlayer.save(player)
+            return ResponseEntity.ok(ResponseEntity.accepted())
+        }
+        return ResponseEntity.ok(ResponseEntity.badRequest())
+    }
+
 }
 

@@ -10,7 +10,7 @@ import io.bahlsenwitz.springer.repository.RepositoryPlayer
 
 class Rating(
     private val repositoryGame: RepositoryGame? = null,
-    private val repositoryPlayer: RepositoryPlayer) {
+    private val repositoryPlayer: RepositoryPlayer? = null) {
 
     private val dateTime: DateTime = DateTime()
 
@@ -19,7 +19,7 @@ class Rating(
         val elo01: Elo = Elo(elo00)
         val elo02: Int = elo01.update(result, elo00)
         playerSelf.elo = elo02
-        repositoryPlayer.save(playerSelf)
+        repositoryPlayer!!.save(playerSelf)
         recalc()
     }
 
@@ -52,7 +52,7 @@ class Rating(
             game.white.elo = elo02_win
             game.black.elo = elo02_lst
         }
-        repositoryPlayer.saveAll(listOf(game.white, game.black))
+        repositoryPlayer!!.saveAll(listOf(game.white, game.black))
         val disp: Array<Int> = recalc(game.white, game.black)
         game.white_disp = disp[0]
         game.black_disp = disp[1]
@@ -72,7 +72,7 @@ class Rating(
         game.white.elo = elo02_white
         game.black.elo = elo02_black
 
-        repositoryPlayer.saveAll(listOf(game.white, game.black))
+        repositoryPlayer!!.saveAll(listOf(game.white, game.black))
         val disp: Array<Int> = recalc(game.white, game.black)
         game.white_disp = disp[0]
         game.black_disp = disp[1]
@@ -81,7 +81,7 @@ class Rating(
 
     private fun recalc(player00: Player? = null, player01: Player? = null): Array<Int> {
         val list: Array<Int> = arrayOf(0, 0)
-        val leaderboard: List<Player> = repositoryPlayer.findAll().sorted()
+        val leaderboard: List<Player> = repositoryPlayer!!.findAll().sorted()
         for ((index: Int, player: Player) in leaderboard.withIndex()) {
             val rank00: Int = player.rank
             val rank01: Int = index + 1
@@ -132,11 +132,29 @@ class Rating(
             invite.black.elo = elo02_win
             invite.white.elo = elo02_lst
         }
-        repositoryPlayer.saveAll(listOf(invite.white, invite.black))
+        repositoryPlayer!!.saveAll(listOf(invite.white, invite.black))
         val disp: Array<Int> = recalc(invite.white, invite.black)
         invite.white_disp = disp[0]
         invite.black_disp = disp[1]
         repositoryGame!!.save(invite)
+    }
+
+
+    fun addition(player00: Player): Player {
+        val leaderboard: List<Player> = repositoryPlayer!!.findAll().sorted()
+        for ((index: Int, player: Player) in leaderboard.withIndex()) {
+            val rank00: Int = player.rank
+            val rank01: Int = index + 1
+            if (rank00 == rank01) {
+                continue
+            }
+            val disp: Int = rank00 - rank01
+            player.disp = disp
+            player.date = dateTime.getDate()
+            repositoryPlayer.save(player)
+        }
+        player00.disp = 0
+        return player00
     }
 
 }

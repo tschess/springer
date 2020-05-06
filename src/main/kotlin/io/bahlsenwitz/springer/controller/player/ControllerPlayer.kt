@@ -1,24 +1,30 @@
 package io.bahlsenwitz.springer.controller.player
 
 import io.bahlsenwitz.springer.controller.player.backup.PlayerBackUp
-import io.bahlsenwitz.springer.controller.player.update.PlayerConfig
-import io.bahlsenwitz.springer.controller.player.start.PlayerCreate
 import io.bahlsenwitz.springer.controller.player.board.PlayerHome
-import io.bahlsenwitz.springer.controller.player.start.init.PlayerInit
-import io.bahlsenwitz.springer.controller.player.update.polling.PlayerNotify
-import io.bahlsenwitz.springer.controller.player.update.PlayerProfile
 import io.bahlsenwitz.springer.controller.player.board.quick.PlayerQuick
+import io.bahlsenwitz.springer.controller.player.start.PlayerCreate
+import io.bahlsenwitz.springer.controller.player.start.PlayerLogin
+import io.bahlsenwitz.springer.controller.player.start.RequestStart
+import io.bahlsenwitz.springer.controller.player.start.init.PlayerInit
+import io.bahlsenwitz.springer.controller.player.update.PlayerConfig
+import io.bahlsenwitz.springer.controller.player.update.PlayerProfile
 import io.bahlsenwitz.springer.controller.player.update.PlayerRefresh
-import io.bahlsenwitz.springer.controller.player.start.PlayerStart
+import io.bahlsenwitz.springer.controller.player.update.polling.PlayerNotify
 import io.bahlsenwitz.springer.model.player.Player
+import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
+@SpringBootApplication(scanBasePackages = ["io.bahlsenwitz.springer"])
 @RestController
 @RequestMapping("/player")
-class ControllerPlayer(repositoryPlayer: RepositoryPlayer) {
+class ControllerPlayer @Autowired
+constructor(repositoryPlayer: RepositoryPlayer, repositoryGame: RepositoryGame) {
 
     /**
      * Initializer.swift
@@ -49,17 +55,17 @@ class ControllerPlayer(repositoryPlayer: RepositoryPlayer) {
      * Start.swift
      */
 
-    val playerCreate = PlayerCreate(repositoryPlayer)
+    val playerCreate = PlayerCreate(repositoryPlayer, repositoryGame)
 
     @PostMapping("/create")
-    fun create(@Valid @RequestBody requestCreate: PlayerCreate.RequestCreate): ResponseEntity<Any> {
+    fun create(@Valid @RequestBody requestCreate: RequestStart): ResponseEntity<Any> {
         return playerCreate.create(requestCreate)
     }
 
-    val playerStart = PlayerStart(repositoryPlayer)
+    val playerStart = PlayerLogin(repositoryPlayer)
 
     @PostMapping("/login")
-    fun login(@Valid @RequestBody requestLogin: PlayerStart.RequestLogin): ResponseEntity<Any> {
+    fun login(@Valid @RequestBody requestLogin: RequestStart): ResponseEntity<Any> {
         return playerStart.login(requestLogin)
     }
 

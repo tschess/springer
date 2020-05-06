@@ -71,5 +71,13 @@ class ConfigState {
         }
         return r0
     }
+
+    fun generateState(white: List<List<String>>): List<List<String>> {
+        val color: String = "White"
+        val row00: List<String> = orient(white[0], color)
+        val row01: List<String> = orient(white[1], color)
+        val black: List<List<String>> = quickBlack()
+        return arrayListOf(row00, row01, row, row, row, row, black[0], black[1])
+    }
 }
 

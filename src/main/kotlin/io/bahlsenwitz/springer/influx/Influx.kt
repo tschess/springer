@@ -18,9 +18,9 @@ class Influx {
         }
     }
 
-    fun growth(player_id: String) {
+    fun growth(player: Player) {
         try {
-            khttp.post(url = "${this.address}write?db=tschess", data = "growth player=\"${player_id}\"")
+            khttp.post(url = "${this.address}write?db=tschess", data = "growth player=\"${player.id}\"")
         } catch (e: Exception) {
             print(e.localizedMessage)
         }

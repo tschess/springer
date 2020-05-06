@@ -8,13 +8,12 @@ import java.util.*
 
 class PlayerNotify(private val repositoryPlayer: RepositoryPlayer) {
 
-    //curl --header "Content-Type: application/json" --request GET http://localhost:8080/player/notify/00000000-0000-0000-0000-000000000000
-    fun notify(id: String): Any {
-        val uuid: UUID = UUID.fromString(id)!!
-        val player: Player = repositoryPlayer.findById(uuid).get()
+    fun notify(id: String): ResponseEntity<Any> {
+        val player: Player = repositoryPlayer.findById(UUID.fromString(id)!!).get()
         if(player.note){
-            return ResponseEntity.status(HttpStatus.OK).body("{\"notify\":${true}}")
+            //return ResponseEntity.status(HttpStatus.OK).body("{\"notify\":${true}}")
+            return ResponseEntity.ok(ResponseEntity.ok())
         }
-        return ResponseEntity.EMPTY
+        return ResponseEntity.ok(ResponseEntity.noContent())
     }
 }

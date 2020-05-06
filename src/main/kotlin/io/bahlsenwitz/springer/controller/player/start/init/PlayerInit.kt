@@ -8,13 +8,11 @@ import org.springframework.http.ResponseEntity
 
 class PlayerInit(private val repositoryPlayer: RepositoryPlayer) {
 
-    //TODO: Refresh (minimize then reopen the app...)...???
-
     private val influx: Influx = Influx()
     private val dateTime: DateTime = DateTime()
 
     fun device(device: String): ResponseEntity<Any> {
-        val player: Player = repositoryPlayer.findByDevice(device) ?: return ResponseEntity.notFound().build()
+        val player: Player = repositoryPlayer.findByDevice(device) ?: return ResponseEntity.ok(ResponseEntity.notFound())
         player.date = dateTime.getDate()
         repositoryPlayer.save(player)
         influx.activity(player, "device")

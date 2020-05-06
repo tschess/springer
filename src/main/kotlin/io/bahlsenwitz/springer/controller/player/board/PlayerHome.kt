@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity
 
 class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
 
+    data class RequestPage(val index: Int, val size: Int)
+
     fun leaderboard(requestPage: RequestPage): ResponseEntity<Any> {
         val playerListFindAll: List<Player> = repositoryPlayer.findAll().sorted()
         val playerList: List<Player>
@@ -19,7 +21,7 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
         val indexTo: Int = indexFrom + pageSize
 
         if (playerListFindAll.lastIndex <= indexFrom) {
-            return ResponseEntity.status(HttpStatus.OK).body("{\"leaderboard\": \"EOL\"}")
+            return ResponseEntity.ok(ResponseEntity.noContent())
         }
         if (playerListFindAll.lastIndex <= indexTo) {
             playerList = playerListFindAll.subList(indexFrom, playerListFindAll.lastIndex + 1)
@@ -34,10 +36,5 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
         }
         return ResponseEntity.ok(pageList)
     }
-
-    data class RequestPage(
-        val index: Int,
-        val size: Int
-    )
 }
 

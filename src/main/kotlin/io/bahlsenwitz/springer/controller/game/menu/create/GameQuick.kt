@@ -35,7 +35,7 @@ class GameQuick(
         playerOther.note = true
         repositoryPlayer.save(playerOther)
 
-        val state: List<List<String>> = generateState(configState.get(requestQuick.config, playerSelf))
+        val state: List<List<String>> = configState.generateState(configState.get(requestQuick.config, playerSelf))
 
         val game = Game(
             state = state,
@@ -48,11 +48,5 @@ class GameQuick(
         return ResponseEntity.ok(repositoryGame.save(game))
     }
 
-    private fun generateState(white: List<List<String>>): List<List<String>> {
-        val color: String = "White"
-        val row00: List<String> = configState.orient(white[0], color)
-        val row01: List<String> = configState.orient(white[1], color)
-        val black: List<List<String>> = configState.quickBlack()
-        return arrayListOf(row00, row01, configState.row, configState.row, configState.row, configState.row, black[0], black[1])
-    }
+
 }
