@@ -9,7 +9,7 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 
 class Rating(
-    private val repositoryGame: RepositoryGame,
+    private val repositoryGame: RepositoryGame? = null,
     private val repositoryPlayer: RepositoryPlayer) {
 
     private val dateTime: DateTime = DateTime()
@@ -56,7 +56,7 @@ class Rating(
         val disp: Array<Int> = recalc(game.white, game.black)
         game.white_disp = disp[0]
         game.black_disp = disp[1]
-        repositoryGame.save(game)
+        repositoryGame!!.save(game)
     }
 
     fun draw(game: Game) {
@@ -76,7 +76,7 @@ class Rating(
         val disp: Array<Int> = recalc(game.white, game.black)
         game.white_disp = disp[0]
         game.black_disp = disp[1]
-        repositoryGame.save(game)
+        repositoryGame!!.save(game)
     }
 
     private fun recalc(player00: Player? = null, player01: Player? = null): Array<Int> {
@@ -104,6 +104,39 @@ class Rating(
             }
         }
         return list
+    }
+
+    fun expire(invite: Game) {
+        if (invite.challenger == CONTESTANT.WHITE) {
+            val elo00_win: Int = invite.white.elo
+            val elo00_lst: Int = invite.black.elo
+
+            val elo01_win: Elo = Elo(elo00_win)
+            val elo01_lst: Elo = Elo(elo00_lst)
+
+            val elo02_win: Int = elo01_win.update(RESULT.WIN, elo00_lst)
+            val elo02_lst: Int = elo01_lst.update(RESULT.LOSS, elo00_win)
+
+            invite.white.elo = elo02_win
+            invite.black.elo = elo02_lst
+        } else {
+            val elo00_win: Int = invite.black.elo
+            val elo00_lst: Int = invite.white.elo
+
+            val elo01_win: Elo = Elo(elo00_win)
+            val elo01_lst: Elo = Elo(elo00_lst)
+
+            val elo02_win: Int = elo01_win.update(RESULT.WIN, elo00_lst)
+            val elo02_lst: Int = elo01_lst.update(RESULT.LOSS, elo00_win)
+
+            invite.black.elo = elo02_win
+            invite.white.elo = elo02_lst
+        }
+        repositoryPlayer.saveAll(listOf(invite.white, invite.black))
+        val disp: Array<Int> = recalc(invite.white, invite.black)
+        invite.white_disp = disp[0]
+        invite.black_disp = disp[1]
+        repositoryGame!!.save(invite)
     }
 
 }

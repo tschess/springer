@@ -4,6 +4,7 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.schedule.tasks.BackUp
 import io.bahlsenwitz.springer.schedule.tasks.TimeoutGame
+import io.bahlsenwitz.springer.schedule.tasks.TimeoutInactivity
 import io.bahlsenwitz.springer.schedule.tasks.TimeoutInvite
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -16,6 +17,7 @@ class Schedule(val repositoryPlayer: RepositoryPlayer, val repositoryGame: Repos
         Timer().schedule(0, meridiem) {
             TimeoutInvite(repositoryPlayer, repositoryGame).execute()
             TimeoutGame(repositoryPlayer, repositoryGame).execute()
+            TimeoutInactivity(repositoryPlayer).execute()
         }
         val daily: Long = TimeUnit.HOURS.toMillis(24)
         Timer().schedule(0, daily) {

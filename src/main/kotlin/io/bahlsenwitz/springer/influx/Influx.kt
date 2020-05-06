@@ -1,17 +1,17 @@
 package io.bahlsenwitz.springer.influx
 
 import io.bahlsenwitz.springer.model.game.Game
+import io.bahlsenwitz.springer.model.player.Player
 
 class Influx {
 
     private val address: String = "http://localhost:8086/"
 
-    //player.id
-    fun activity(player_id: String, route: String) {
+    fun activity(player: Player, route: String) {
         try {
             khttp.post(
                 url = "${this.address}write?db=tschess",
-                data = "activity player=\"${player_id}\",route=\"${route}\""
+                data = "activity player=\"${player.id}\",route=\"${route}\""
             )
         } catch (e: Exception) {
             print(e.localizedMessage)

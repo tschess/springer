@@ -20,8 +20,8 @@ class GameQuick(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    private val configState: ConfigState = ConfigState()
     private val influx: Influx = Influx()
+    private val configState: ConfigState = ConfigState()
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     data class RequestQuick(
