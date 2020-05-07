@@ -39,9 +39,9 @@ class GameChallenge(
         influx.game(game, "challenge")
         rating.update(playerSelf, RESULT.WIN)
         //return ResponseEntity.accepted().body()
-        val responseHeaders: HttpHeaders = HttpHeaders()
-        responseHeaders.set("MyResponseHeader", "MyValue")
-        return ResponseEntity("Hello World", responseHeaders, HttpStatus.CREATED)
+        return ResponseEntity.ok()
+            .header("Custom-Header", "foo")
+            .body("Custom header set")
     }
 
 }
