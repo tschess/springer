@@ -9,6 +9,8 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.ConfigState
 import io.bahlsenwitz.springer.util.Rating
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.util.*
 
@@ -36,7 +38,10 @@ class GameChallenge(
 
         influx.game(game, "challenge")
         rating.update(playerSelf, RESULT.WIN)
-        return ResponseEntity.accepted().build()
+        //return ResponseEntity.accepted().body()
+        val responseHeaders: HttpHeaders = HttpHeaders()
+        responseHeaders.set("MyResponseHeader", "MyValue")
+        return ResponseEntity("Hello World", responseHeaders, HttpStatus.CREATED)
     }
 
 }
