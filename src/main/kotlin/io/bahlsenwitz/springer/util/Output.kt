@@ -21,4 +21,9 @@ class Output {
         body["response"] = "success"
         return ResponseEntity.accepted().body(body)
     }
+
+    fun unassigned(): ResponseEntity<Any> {
+        body["response"] = "unassigned"
+        return ResponseEntity.accepted().body(body)
+    }
 }
