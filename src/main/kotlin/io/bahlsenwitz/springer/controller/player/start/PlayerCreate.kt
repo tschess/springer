@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.player.start
 
-import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
@@ -9,13 +8,14 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.ConfigState
 import io.bahlsenwitz.springer.util.DateTime
+import io.bahlsenwitz.springer.util.Output
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 class PlayerCreate(private val repositoryPlayer: RepositoryPlayer, private val repositoryGame: RepositoryGame) {
 
-    private val influx: Influx = Influx()
+    private val output: Output = Output()
     private val dateTime: DateTime = DateTime()
     private val configState: ConfigState = ConfigState()
     private val rating: Rating = Rating(repositoryPlayer = repositoryPlayer)
@@ -23,7 +23,7 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer, private val r
     fun create(requestCreate: RequestStart): ResponseEntity<Any> {
         val conflict: Boolean = repositoryPlayer.findByUsername(requestCreate.username) != null
         if (conflict) {
-            return ResponseEntity.ok(ResponseEntity.badRequest())
+            return output.fail(route = "create")
         }
         var player = Player(
             username = requestCreate.username,
@@ -31,9 +31,9 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer, private val r
             device = requestCreate.device
         )
         seedGameInit(player)
-        influx.growth(player)
         player = rating.addition(player)
-        return ResponseEntity.ok(repositoryPlayer.save(player))
+        repositoryPlayer.save(player)
+        return output.player("device", player, true)
     }
 
     //TODO: draw from quick...

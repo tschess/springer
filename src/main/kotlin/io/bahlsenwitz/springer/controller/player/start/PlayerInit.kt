@@ -12,7 +12,7 @@ class PlayerInit(private val repositoryPlayer: RepositoryPlayer) {
     private val dateTime: DateTime = DateTime()
 
     fun device(device: String): ResponseEntity<Any> {
-        val player: Player = repositoryPlayer.findByDevice(device) ?: return output.unassigned()
+        val player: Player = repositoryPlayer.findByDevice(device) ?: return output.fail(route = "device")
         player.date = dateTime.getDate()
         repositoryPlayer.save(player)
         return output.player(route = "device", player = player)

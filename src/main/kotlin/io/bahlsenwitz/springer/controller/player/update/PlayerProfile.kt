@@ -1,15 +1,15 @@
 package io.bahlsenwitz.springer.controller.player.update
 
-import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.DateTime
+import io.bahlsenwitz.springer.util.Output
 import org.springframework.http.ResponseEntity
 import java.util.*
 
 class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
 
-    private val influx: Influx = Influx()
+    private val output: Output = Output()
     private val dateTime: DateTime = DateTime()
 
     data class UpdateAvatar(
@@ -21,8 +21,8 @@ class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
         val player: Player = repositoryPlayer.findById(UUID.fromString(updateAvatar.id)!!).get()
         player.avatar = updateAvatar.avatar
         player.updated = dateTime.getDate()
-        influx.activity(player, "avatar")
-        return ResponseEntity.ok(repositoryPlayer.save(player))
+        repositoryPlayer.save(player)
+        return output.player(route = "avatar", player = player)
     }
 
     fun clear(device: String): ResponseEntity<Any> {
@@ -30,11 +30,10 @@ class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
         if (player != null) {
             player.device = null
             player.updated = dateTime.getDate()
-            influx.activity(player, "clear")
             repositoryPlayer.save(player)
-            return ResponseEntity.ok(ResponseEntity.accepted())
+            return output.success(route = "clear", player = player)
         }
-        return ResponseEntity.ok(ResponseEntity.badRequest())
+        return output.fail(route = "clear")
     }
 
 }
