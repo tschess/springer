@@ -8,12 +8,13 @@ import org.springframework.http.ResponseEntity
 
 class PlayerInit(private val repositoryPlayer: RepositoryPlayer) {
 
+    private val output: Output = Output()
     private val dateTime: DateTime = DateTime()
 
     fun device(device: String): ResponseEntity<Any> {
-        val player: Player = repositoryPlayer.findByDevice(device) ?: return Output().unassigned()
+        val player: Player = repositoryPlayer.findByDevice(device) ?: return output.unassigned()
         player.date = dateTime.getDate()
         repositoryPlayer.save(player)
-        return Output().success(route = "device", player = player)
+        return output.player(route = "device", player = player)
     }
 }

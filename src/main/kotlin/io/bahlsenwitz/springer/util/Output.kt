@@ -26,4 +26,9 @@ class Output {
         body["unassigned"] = "device"
         return ResponseEntity.accepted().body(body)
     }
+
+    fun player(route: String, player: Player): ResponseEntity<Any> {
+        influx.activity(player, route)
+        return ResponseEntity.ok().body(player)
+    }
 }
