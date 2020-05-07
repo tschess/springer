@@ -36,7 +36,7 @@ class GameChallenge(
 
         influx.game(game, "challenge")
         rating.update(playerSelf, RESULT.WIN)
-        return ResponseEntity.ok(ResponseEntity.accepted())
+        return ResponseEntity.accepted().build()
     }
 
 }
