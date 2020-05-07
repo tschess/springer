@@ -2,17 +2,16 @@ package io.bahlsenwitz.springer.controller.game.menu.create
 
 import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.common.RESULT
-import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.ConfigState
 import io.bahlsenwitz.springer.util.Rating
-import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import java.util.*
+
 
 class GameChallenge(
     private val repositoryGame: RepositoryGame,
@@ -39,9 +38,10 @@ class GameChallenge(
         influx.game(game, "challenge")
         rating.update(playerSelf, RESULT.WIN)
         //return ResponseEntity.accepted().body()
-        return ResponseEntity.ok()
-            .header("Custom-Header", "foo")
-            .body("Custom header set")
+        //return ResponseEntity.accepted().body()
+        val body: MutableMap<String, String> = HashMap()
+        body["message"] = "The URL you have reached is not in service at this time (404)."
+        return ResponseEntity.accepted().body(body)
     }
 
 }
