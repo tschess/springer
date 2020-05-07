@@ -26,15 +26,15 @@ class SpringerApplication(
 ) : ApplicationRunner {
 
     /***
-     * ./gradlew bootRun --args='--source=28-03'
+     * ./gradlew bootRun --args='--source=03-28'
      *
-     * NOTE: DD-MM
+     * NOTE: MM-DD, as it's stored in the 'backup' folders.
      */
     override fun run(args: ApplicationArguments) {
         if (args.containsOption("source")) {
             val date: List<String> = args.getOptionValues("source")[0]!!.split("-")
-            val day: String = date[0]
-            val month: String = date[1]
+            val month: String = date[0] //!!!
+            val day: String = date[1] //!!!
             File("..${File.separator}backup${File.separator + month + File.separator + day + File.separator}")
                 .walkBottomUp()
                 .forEach { file00: File ->
