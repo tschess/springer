@@ -23,7 +23,7 @@ class Output {
     }
 
     fun unassigned(): ResponseEntity<Any> {
-        body["response"] = "unassigned"
+        body["unassigned"] = "device"
         return ResponseEntity.accepted().body(body)
     }
 }
