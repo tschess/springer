@@ -14,6 +14,7 @@ class Elo(private var elo: Int) {
 }
 
 enum class RESULT(val value: Double) {
+    ACTION(1.0),
     WIN(1.0),
     DRAW(0.5),
     LOSS(0.0)
