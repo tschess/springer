@@ -1,4 +1,4 @@
-package io.bahlsenwitz.springer.controller.player.start.init
+package io.bahlsenwitz.springer.controller.player.start
 
 import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.player.Player

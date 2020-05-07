@@ -6,7 +6,7 @@ import io.bahlsenwitz.springer.controller.player.board.quick.PlayerQuick
 import io.bahlsenwitz.springer.controller.player.start.PlayerCreate
 import io.bahlsenwitz.springer.controller.player.start.PlayerLogin
 import io.bahlsenwitz.springer.controller.player.start.RequestStart
-import io.bahlsenwitz.springer.controller.player.start.init.PlayerInit
+import io.bahlsenwitz.springer.controller.player.start.PlayerInit
 import io.bahlsenwitz.springer.controller.player.update.PlayerConfig
 import io.bahlsenwitz.springer.controller.player.update.PlayerProfile
 import io.bahlsenwitz.springer.controller.player.update.PlayerRefresh
