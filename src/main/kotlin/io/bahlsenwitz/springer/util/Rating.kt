@@ -151,7 +151,7 @@ class Rating(
                 continue
             }
             player.rank = rank01
-            
+
             val disp: Int = rank00 - rank01
             player.disp = disp
             player.date = dateTime.getDate()

@@ -9,7 +9,6 @@ import java.util.*
 
 class PlayerConfig(private val repositoryPlayer: RepositoryPlayer) {
 
-    private val dateTime: DateTime = DateTime()
     private val output: Output = Output(repositoryPlayer)
 
     data class UpdateConfig(
@@ -29,7 +28,6 @@ class PlayerConfig(private val repositoryPlayer: RepositoryPlayer) {
         if (updateConfig.index == 2) {
             player.config2 = updateConfig.config
         }
-        player.updated = dateTime.getDate()
         return output.player(route = "config", player = player)
     }
 

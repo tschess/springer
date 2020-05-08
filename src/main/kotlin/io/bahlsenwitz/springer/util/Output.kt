@@ -41,6 +41,7 @@ class Output(private val repositoryPlayer: RepositoryPlayer? = null, private val
         } else {
             influx.activity(player, route)
         }
+        player.updated = dateTime.getDate()
         repositoryPlayer!!.save(player)
         return ResponseEntity.ok().body(player)
     }
