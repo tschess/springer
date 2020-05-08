@@ -28,6 +28,7 @@ class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
         if (player != null) {
             player.device = null
             player.updated = dateTime.getDate()
+            repositoryPlayer.save(player)
             return output.terminal(result = "success", route = "clear", player = player)
         }
         return output.terminal(result = "fail", route = "clear")
