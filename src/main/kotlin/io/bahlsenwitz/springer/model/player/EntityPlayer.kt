@@ -39,13 +39,13 @@ class Player(
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    var config0: List<List<String>> = chessConfig.defaultConfig0(),
+    var config0: List<List<String>> = configState.defaultConfig0(),
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    var config1: List<List<String>> = chessConfig.defaultConfig1(),
+    var config1: List<List<String>> = configState.defaultConfig1(),
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    var config2: List<List<String>> = chessConfig.defaultConfig2(),
+    var config2: List<List<String>> = configState.defaultConfig2(),
 
     @Column(unique = true)
     var device: String? = null,
@@ -57,8 +57,9 @@ class Player(
 
     companion object {
 
-        val date: String = DateTime().getDate()
-        val chessConfig: ConfigState = ConfigState()
+        val dateTime: DateTime = DateTime()
+        val date: String = this.dateTime.getDate()
+        val configState: ConfigState = ConfigState()
 
         fun defaultAvatar(): String {
             val photoMap: HashMap<String,String> = GeneratorAvatar().photoMap
@@ -69,12 +70,12 @@ class Player(
 
     override operator fun compareTo(other: Player): Int {
         if (this.elo == other.elo) {
-            val dateSelf: ZonedDateTime = DateTime().getDate(this.created)
-            val dateOther: ZonedDateTime = DateTime().getDate(other.created)
+            val dateSelf: ZonedDateTime = dateTime.getDate(this.created)
+            val dateOther: ZonedDateTime = dateTime.getDate(other.created)
             if(dateSelf.isBefore(dateOther)){
-                return -1
+                return 1
             }
-            return 1
+            return -1
         }
         if (this.elo > other.elo) {
             return -1
