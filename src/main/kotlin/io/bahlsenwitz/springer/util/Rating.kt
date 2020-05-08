@@ -88,6 +88,8 @@ class Rating(
             if (rank00 == rank01) {
                 continue
             }
+            player.rank = rank01
+
             val disp: Int = rank00 - rank01
             player.disp = disp
             player.date = dateTime.getDate()
@@ -148,6 +150,8 @@ class Rating(
             if (rank00 == rank01) {
                 continue
             }
+            player.rank = rank01
+            
             val disp: Int = rank00 - rank01
             player.disp = disp
             player.date = dateTime.getDate()

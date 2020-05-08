@@ -2,6 +2,13 @@
 
 server for `tschess`
 
+
+##cmd
+MM-DD
+```
+java -jar ./build/libs/springer-1.0.0.jar "--spring.config.location=file:////home/ubuntu/resources/application.properties" "--source=03-28"
+```
+
 ##relational 
 
 ```
