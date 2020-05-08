@@ -8,7 +8,7 @@ import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.ResponseEntity
 import java.util.*
 
-class Output(private val repositoryPlayer: RepositoryPlayer, private val repositoryGame: RepositoryGame? = null) {
+class Output(private val repositoryPlayer: RepositoryPlayer? = null, private val repositoryGame: RepositoryGame? = null) {
 
     private val influx: Influx = Influx()
     private var body: MutableMap<String, String> = HashMap()
@@ -41,7 +41,7 @@ class Output(private val repositoryPlayer: RepositoryPlayer, private val reposit
         } else {
             influx.activity(player, route)
         }
-        repositoryPlayer.save(player)
+        repositoryPlayer!!.save(player)
         return ResponseEntity.ok().body(player)
     }
 

@@ -9,7 +9,7 @@ import java.util.*
 
 class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
 
-    private val output: Output = Output()
+    private val output: Output = Output(repositoryPlayer)
     private val dateTime: DateTime = DateTime()
 
     data class UpdateAvatar(
@@ -21,7 +21,6 @@ class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
         val player: Player = repositoryPlayer.findById(UUID.fromString(updateAvatar.id)!!).get()
         player.avatar = updateAvatar.avatar
         player.updated = dateTime.getDate()
-        repositoryPlayer.save(player)
         return output.player(route = "avatar", player = player)
     }
 
@@ -30,7 +29,6 @@ class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
         if (player != null) {
             player.device = null
             player.updated = dateTime.getDate()
-            repositoryPlayer.save(player)
             return output.success(route = "clear", player = player)
         }
         return output.fail(route = "clear")

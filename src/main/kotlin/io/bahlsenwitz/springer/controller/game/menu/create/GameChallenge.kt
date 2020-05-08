@@ -16,7 +16,8 @@ class GameChallenge(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
 ) {
-
+    
+    private val output: Output = Output()
     private val configState: ConfigState = ConfigState()
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
@@ -32,9 +33,8 @@ class GameChallenge(
         repositoryGame.save(game)
         playerOther.note = true
         repositoryPlayer.save(playerOther)
-
         rating.update(playerSelf, RESULT.ACTION)
-        return Output().success(route = "challenge", game = game)
+        return output.success(route = "challenge", game = game)
     }
 
 }
