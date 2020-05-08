@@ -1,7 +1,7 @@
 package io.bahlsenwitz.springer.model.game
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
-import io.bahlsenwitz.springer.model.common.EntityUUID
+import io.bahlsenwitz.springer.model.rating.EntityUUID
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.util.DateTime
 import org.hibernate.annotations.Type

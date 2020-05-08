@@ -1,6 +1,6 @@
 package io.bahlsenwitz.springer.controller.game.menu.create
 
-import io.bahlsenwitz.springer.model.common.RESULT
+import io.bahlsenwitz.springer.model.rating.RESULT
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS

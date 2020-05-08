@@ -1,7 +1,7 @@
 package io.bahlsenwitz.springer.util
 
-import io.bahlsenwitz.springer.model.common.Elo
-import io.bahlsenwitz.springer.model.common.RESULT
+import io.bahlsenwitz.springer.model.rating.Elo
+import io.bahlsenwitz.springer.model.rating.RESULT
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player

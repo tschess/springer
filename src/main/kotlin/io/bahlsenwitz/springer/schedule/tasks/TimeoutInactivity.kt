@@ -1,6 +1,6 @@
 package io.bahlsenwitz.springer.schedule.tasks
 
-import io.bahlsenwitz.springer.model.common.RESULT
+import io.bahlsenwitz.springer.model.rating.RESULT
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.DateTime

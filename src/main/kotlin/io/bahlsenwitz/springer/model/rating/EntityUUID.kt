@@ -1,4 +1,4 @@
-package io.bahlsenwitz.springer.model.common
+package io.bahlsenwitz.springer.model.rating
 
 import org.springframework.data.domain.Persistable
 import java.util.*
