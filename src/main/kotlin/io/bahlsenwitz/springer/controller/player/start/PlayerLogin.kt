@@ -9,8 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 class PlayerLogin(private val repositoryPlayer: RepositoryPlayer) {
 
-    private val output: Output = Output()
     private val dateTime: DateTime = DateTime()
+    private val output: Output = Output(repositoryPlayer)
 
     fun login(requestLogin: RequestStart): ResponseEntity<Any> {
         val player00: Player? = repositoryPlayer.findByDevice(requestLogin.device)

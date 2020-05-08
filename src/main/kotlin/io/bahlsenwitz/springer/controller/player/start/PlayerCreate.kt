@@ -15,9 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 class PlayerCreate(private val repositoryPlayer: RepositoryPlayer, private val repositoryGame: RepositoryGame) {
 
-    private val output: Output = Output()
     private val dateTime: DateTime = DateTime()
     private val configState: ConfigState = ConfigState()
+    private val output: Output = Output(repositoryPlayer)
     private val rating: Rating = Rating(repositoryPlayer = repositoryPlayer)
 
     fun create(requestCreate: RequestStart): ResponseEntity<Any> {
@@ -32,7 +32,6 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer, private val r
         )
         seedGameInit(player)
         player = rating.addition(player)
-        repositoryPlayer.save(player)
         return output.player("device", player, true)
     }
 
