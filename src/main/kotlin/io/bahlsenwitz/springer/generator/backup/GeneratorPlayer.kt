@@ -56,8 +56,10 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                     val config2: List<List<String>> = generateConfig(configString = configString2)
 
                     var device: String? = tokens[IDX_DEVICE] //12
-                    if(device == "NULL"){
-                        device = null
+                    device = if(device == "NULL"){
+                        null
+                    } else {
+                        device.toString()
                     }
                     val updated: String = tokens[IDX_UPDATED] //13
                     val created: String = tokens[IDX_CREATED] //14
@@ -71,7 +73,7 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                         elo = elo, //4
                         rank = rank, //5
                         disp = disp, //6
-                        date = date, //Date.from(LocalDateTime.parse(date, FORMATTER).atZone(BROOKLYN).toInstant()), //7
+                        date = date, //7
                         note = note, //8
                         config0 = config0, //9
                         config1 = config1, //10
