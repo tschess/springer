@@ -188,7 +188,7 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     val gameCheck = GameCheck(repositoryGame = repositoryGame)
 
     @GetMapping("/check/{id_game}")
-    fun check(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any> {
+    fun check(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any>? {
         return gameCheck.check(id_game)
     }
 

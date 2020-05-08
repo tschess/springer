@@ -11,11 +11,20 @@ import java.util.*
 class Output(private val repositoryPlayer: RepositoryPlayer? = null, private val repositoryGame: RepositoryGame? = null) {
 
     private val influx: Influx = Influx()
+    private val dateTime: DateTime = DateTime()
     private var body: MutableMap<String, String> = HashMap()
 
     fun terminal(result: String, route: String, game: Game? = null, player: Player? = null): ResponseEntity<Any> {
         influx(route, game, player)
         body[result] = route
+        return ResponseEntity.ok().body(body)
+    }
+
+    fun update(route: String, game: Game): ResponseEntity<Any> {
+        influx(route, game, null)
+        game.updated = dateTime.getDate()
+        repositoryGame!!.save(game)
+        body["success"] = route
         return ResponseEntity.ok().body(body)
     }
 

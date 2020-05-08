@@ -8,6 +8,7 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.ConfigState
 import io.bahlsenwitz.springer.util.DateTime
+import io.bahlsenwitz.springer.util.Output
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import java.util.*
@@ -17,26 +18,25 @@ class GameMine(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    private val influx: Influx = Influx()
     private val dateTime: DateTime = DateTime()
     private val configState: ConfigState = ConfigState()
+    private val output: Output = Output(repositoryGame = repositoryGame)
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     data class UpdateMine(val id_game: String, val state: List<List<String>>)
 
-    fun mine(updateMine: UpdateMine): ResponseEntity<Any> {
+    fun mine(updateMine: UpdateMine): ResponseEntity<Any>? {
         val game: Game = repositoryGame.findById(UUID.fromString(updateMine.id_game)!!).get()
-
-        game.state = configState.poisonReveal(updateMine.state)
-        game.updated = dateTime.getDate()
+        if (game.status == STATUS.RESOLVED) {
+            return null
+        }
         game.highlight = "TBD"
         game.status = STATUS.RESOLVED
+        game.updated = dateTime.getDate()
         game.condition = CONDITION.LANDMINE
-
+        game.state = configState.poisonReveal(updateMine.state)
         rating.resolve(game)
-        repositoryGame.save(game)
-        influx.game(game, "mine")
-        return ResponseEntity.ok(ResponseEntity.accepted())
+        return output.terminal(result = "success", route = "mine")
     }
 
 }
