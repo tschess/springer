@@ -59,55 +59,6 @@ class Rating(
         repositoryGame!!.save(game)
     }
 
-    fun draw(game: Game) {
-        val elo00_white: Int = game.white.elo
-        val elo00_black: Int = game.black.elo
-
-        val elo01_white: Elo = Elo(elo00_white)
-        val elo01_black: Elo = Elo(elo00_black)
-
-        val elo02_white: Int = elo01_white.update(RESULT.DRAW, elo00_black)
-        val elo02_black: Int = elo01_black.update(RESULT.DRAW, elo00_white)
-
-        game.white.elo = elo02_white
-        game.black.elo = elo02_black
-
-        repositoryPlayer!!.saveAll(listOf(game.white, game.black))
-        val disp: Array<Int> = recalc(game.white, game.black)
-        game.white_disp = disp[0]
-        game.black_disp = disp[1]
-        repositoryGame!!.save(game)
-    }
-
-    private fun recalc(player00: Player? = null, player01: Player? = null): Array<Int> {
-        val list: Array<Int> = arrayOf(0, 0)
-        val leaderboard: List<Player> = repositoryPlayer!!.findAll().sorted()
-        for ((index: Int, player: Player) in leaderboard.withIndex()) {
-            val rank00: Int = player.rank
-            val rank01: Int = index + 1
-            if (rank00 == rank01) {
-                continue
-            }
-            player.rank = rank01
-
-            val disp: Int = rank00 - rank01
-            player.disp = disp
-            player.date = dateTime.getDate()
-            repositoryPlayer.save(player)
-            if (player00 != null) {
-                if (player00.id == player.id) {
-                    list[0] = disp
-                }
-            }
-            if (player01 != null) {
-                if (player01.id == player.id) {
-                    list[1] = disp
-                }
-            }
-        }
-        return list
-    }
-
     fun expire(invite: Game) {
         if (invite.challenger == CONTESTANT.WHITE) {
             val elo00_win: Int = invite.white.elo
@@ -141,6 +92,25 @@ class Rating(
         repositoryGame!!.save(invite)
     }
 
+    fun draw(game: Game) {
+        val elo00_white: Int = game.white.elo
+        val elo00_black: Int = game.black.elo
+
+        val elo01_white: Elo = Elo(elo00_white)
+        val elo01_black: Elo = Elo(elo00_black)
+
+        val elo02_white: Int = elo01_white.update(RESULT.DRAW, elo00_black)
+        val elo02_black: Int = elo01_black.update(RESULT.DRAW, elo00_white)
+
+        game.white.elo = elo02_white
+        game.black.elo = elo02_black
+
+        repositoryPlayer!!.saveAll(listOf(game.white, game.black))
+        val disp: Array<Int> = recalc(game.white, game.black)
+        game.white_disp = disp[0]
+        game.black_disp = disp[1]
+        repositoryGame!!.save(game)
+    }
 
     fun addition(player00: Player): Player {
         repositoryPlayer!!.save(player00)
@@ -159,6 +129,35 @@ class Rating(
         }
         player00.disp = 0
         return repositoryPlayer.save(player00)
+    }
+
+    private fun recalc(player00: Player? = null, player01: Player? = null): Array<Int> {
+        val list: Array<Int> = arrayOf(0, 0)
+        val leaderboard: List<Player> = repositoryPlayer!!.findAll().sorted()
+        for ((index: Int, player: Player) in leaderboard.withIndex()) {
+            val rank00: Int = player.rank
+            val rank01: Int = index + 1
+            if (rank00 == rank01) {
+                break
+            }
+            player.rank = rank01
+
+            val disp: Int = rank00 - rank01
+            player.disp = disp
+            player.date = dateTime.getDate()
+            repositoryPlayer.save(player)
+            if (player00 != null) {
+                if (player00.id == player.id) {
+                    list[0] = disp
+                }
+            }
+            if (player01 != null) {
+                if (player01.id == player.id) {
+                    list[1] = disp
+                }
+            }
+        }
+        return list
     }
 
 }
