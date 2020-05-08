@@ -143,12 +143,13 @@ class Rating(
 
 
     fun addition(player00: Player): Player {
-        val leaderboard: List<Player> = repositoryPlayer!!.findAll().sorted()
+        repositoryPlayer!!.save(player00)
+        val leaderboard: List<Player> = repositoryPlayer.findAll().sorted()
         for ((index: Int, player: Player) in leaderboard.withIndex()) {
             val rank00: Int = player.rank
             val rank01: Int = index + 1
             if (rank00 == rank01) {
-                continue
+                break
             }
             player.rank = rank01
 
@@ -158,7 +159,7 @@ class Rating(
             repositoryPlayer.save(player)
         }
         player00.disp = 0
-        return player00
+        return repositoryPlayer.save(player00)
     }
 
 }
