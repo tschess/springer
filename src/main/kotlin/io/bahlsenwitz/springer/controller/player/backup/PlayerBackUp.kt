@@ -61,7 +61,6 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
                 fileWriter.append("${config1};") //10
                 val config2: String = player.config2.toString()
                 fileWriter.append("${config2};") //11
-
                 val device: String? = player.device
                 if (!device.isNullOrBlank()) {
                     fileWriter.append("${device};") //12
