@@ -19,7 +19,8 @@ class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
 
     fun avatar(updateAvatar: UpdateAvatar): ResponseEntity<Any> {
         val player: Player = repositoryPlayer.findById(UUID.fromString(updateAvatar.id)!!).get()
-        player.avatar = updateAvatar.avatar
+        player.avatar = updateAvatar.avatar.trimMargin()
+            //.trimIndent()
         return output.player(route = "avatar", player = player)
     }
 
