@@ -1,16 +1,13 @@
 package io.bahlsenwitz.springer.controller.game.menu
 
-import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.DateTime
-import org.springframework.http.HttpStatus
+import io.bahlsenwitz.springer.util.Output
 import org.springframework.http.ResponseEntity
-
 import java.util.*
 
 class GameMenu(
@@ -18,7 +15,7 @@ class GameMenu(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    private val influx: Influx = Influx()
+    private val output: Output = Output()
 
     data class RequestMenu(
         val id: String,
@@ -33,15 +30,13 @@ class GameMenu(
         player.note = false
         repositoryPlayer.save(player)
 
-        influx.activity(player,"menu")
-
         val playerList: List<Game> = repositoryGame.findPlayerList(uuid)
         if (playerList.isEmpty()) {
-            return ResponseEntity.ok(ResponseEntity.EMPTY)
+            return output.terminal(result = "eol", route = "menu")
         }
         val self: Boolean = requestActual.self
         val playerListFilter: List<Game>
-        playerListFilter = if(self){
+        playerListFilter = if (self) {
             playerList.filter {
                 getSelf(it)
             }
@@ -70,18 +65,19 @@ class GameMenu(
     }
 
     private fun getOther(game: Game): Boolean {
-        if( game.status == STATUS.RESOLVED &&
+        if (game.status == STATUS.RESOLVED &&
             game.condition != CONDITION.REFUSED &&
             game.condition != CONDITION.RESCIND &&
             game.condition != CONDITION.TIMEOUT &&
-            game.condition != CONDITION.EXPIRED){
+            game.condition != CONDITION.EXPIRED
+        ) {
             return true
         }
         return false
     }
 
     private fun getSelf(game: Game): Boolean {
-        if(game.status == STATUS.PROPOSED || game.status == STATUS.ONGOING || getOther(game)){
+        if (game.status == STATUS.PROPOSED || game.status == STATUS.ONGOING || getOther(game)) {
             return true
         }
         return false

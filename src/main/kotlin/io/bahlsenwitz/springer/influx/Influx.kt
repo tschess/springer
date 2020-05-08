@@ -7,7 +7,10 @@ class Influx {
 
     private val address: String = "http://localhost:8086/"
 
-    fun activity(player: Player, route: String) {
+    fun activity(player: Player?, route: String) {
+        if(player == null){
+           return
+        }
         try {
             khttp.post(
                 url = "${this.address}write?db=tschess",

@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.game.menu.invite
 
-import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
@@ -9,6 +8,7 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.ConfigState
 import io.bahlsenwitz.springer.util.DateTime
+import io.bahlsenwitz.springer.util.Output
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import java.util.*
@@ -18,10 +18,10 @@ class GameAck(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    private val influx: Influx = Influx()
     private val dateTime: DateTime = DateTime()
     private val configState: ConfigState = ConfigState()
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
+    private val output: Output = Output(repositoryGame = repositoryGame)
 
     data class RequestAck(
         val id_self: String,
@@ -35,15 +35,11 @@ class GameAck(
         playerSelf.date = dateTime.getDate()
         rating.update(playerSelf, RESULT.WIN)
         setNotification(game, playerSelf, repositoryPlayer)
-
         val config: List<List<String>> = configState.get(requestAck.config, playerSelf)
         val state: List<List<String>> = generateState(config, game.state!!)
         game.state = state
         game.status = STATUS.ONGOING
-        game.updated = DateTime().getDate()
-
-        influx.game(game, "ack")
-        return ResponseEntity.ok(repositoryGame.save(game))
+        return output.game(route = "ack", game = game)
     }
 
     private fun generateState(config: List<List<String>>, state: List<List<String>>): List<List<String>> {

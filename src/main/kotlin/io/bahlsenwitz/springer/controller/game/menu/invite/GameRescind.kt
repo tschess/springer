@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.game.menu.invite
 
-import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.common.RESULT
 import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.model.game.Game
@@ -9,6 +8,7 @@ import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.DateTime
+import io.bahlsenwitz.springer.util.Output
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import java.util.*
@@ -18,21 +18,17 @@ class GameRescind(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    private val influx: Influx = Influx()
     private val dateTime: DateTime = DateTime()
+    private val output: Output = Output(repositoryGame = repositoryGame)
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     fun rescind(updateRescind: UpdateNack): ResponseEntity<Any> {
-        val game: Game = repositoryGame.findById(UUID.fromString(updateRescind.id_game)!!).get()
-        game.condition = CONDITION.RESCIND
-        game.status = STATUS.RESOLVED
-        repositoryGame.save(game)
-
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(updateRescind.id_self)!!).get()
         playerSelf.date = dateTime.getDate()
         rating.update(playerSelf, RESULT.LOSS)
-
-        influx.game(game, "rescind")
-        return ResponseEntity.ok(ResponseEntity.accepted())
+        val game: Game = repositoryGame.findById(UUID.fromString(updateRescind.id_game)!!).get()
+        game.status = STATUS.RESOLVED
+        game.condition = CONDITION.RESCIND
+        return output.update(route = "rescind", game = game)
     }
 }

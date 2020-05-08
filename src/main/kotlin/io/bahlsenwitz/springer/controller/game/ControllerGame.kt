@@ -149,14 +149,14 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     )
 
     @PostMapping("/resign")
-    fun resign(@Valid @RequestBody updateResign: GameResign.UpdateResign): ResponseEntity<Any> {
+    fun resign(@Valid @RequestBody updateResign: GameResign.UpdateResign): ResponseEntity<Any>? {
         return gameResign.resign(updateResign)
     }
 
     val gameUpdate = GameUpdate(repositoryGame = repositoryGame)
 
     @PostMapping("/update")
-    fun update(@Valid @RequestBody updateGame: GameUpdate.UpdateGame): ResponseEntity<Any> {
+    fun update(@Valid @RequestBody updateGame: GameUpdate.UpdateGame): ResponseEntity<Any>? {
         return gameUpdate.update(updateGame)
     }
 
@@ -198,7 +198,7 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     )
 
     @GetMapping("/mate/{id_game}")
-    fun mate(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any> {
+    fun mate(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any>?{
         return gameMate.mate(id_game)
     }
 
@@ -212,7 +212,7 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     val gameMine = GameMine(repositoryGame, repositoryPlayer)
 
     @PostMapping("/mine")
-    fun mine(@Valid @RequestBody updateMine: GameMine.UpdateMine): ResponseEntity<Any> {
+    fun mine(@Valid @RequestBody updateMine: GameMine.UpdateMine): ResponseEntity<Any>? {
         return gameMine.mine(updateMine)
     }
 

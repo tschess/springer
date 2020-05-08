@@ -28,6 +28,13 @@ class Output(private val repositoryPlayer: RepositoryPlayer? = null, private val
         return ResponseEntity.ok().body(body)
     }
 
+    fun game(route: String, game: Game): ResponseEntity<Any> {
+        influx(route = route, game = game)
+        game.updated = dateTime.getDate()
+        repositoryGame!!.save(game)
+        return ResponseEntity.ok().body(game)
+    }
+
     fun player(route: String, player: Player, growth: Boolean = false): ResponseEntity<Any> {
         if (growth) {
             influx.growth(player)
@@ -43,7 +50,7 @@ class Output(private val repositoryPlayer: RepositoryPlayer? = null, private val
             influx.game(game, route)
             return
         }
-        influx.activity(player!!, route)
+        influx.activity(player, route)
     }
 
 }
