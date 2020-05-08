@@ -75,7 +75,7 @@ constructor(repositoryPlayer: RepositoryPlayer, repositoryGame: RepositoryGame) 
     val playerConfig = PlayerConfig(repositoryPlayer)
 
     @PostMapping("/config")
-    fun config(@Valid @RequestBody updateConfig: PlayerConfig.UpdateConfig): ResponseEntity<Player> {
+    fun config(@Valid @RequestBody updateConfig: PlayerConfig.UpdateConfig): ResponseEntity<Any> {
         return playerConfig.config(updateConfig)
     }
 
@@ -85,7 +85,7 @@ constructor(repositoryPlayer: RepositoryPlayer, repositoryGame: RepositoryGame) 
     val playerQuick = PlayerQuick(repositoryPlayer)
 
     @GetMapping("/quick/{id}")
-    fun quick(@PathVariable(value = "id") id: String): ResponseEntity<Player> {
+    fun quick(@PathVariable(value = "id") id: String): ResponseEntity<Any> {
         return playerQuick.quick(id)
     }
 
