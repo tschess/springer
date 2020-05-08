@@ -23,7 +23,7 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer, private val r
     fun create(requestCreate: RequestStart): ResponseEntity<Any> {
         val conflict: Boolean = repositoryPlayer.findByUsername(requestCreate.username) != null
         if (conflict) {
-            return output.fail(route = "create")
+            return output.terminal(result = "fail", route = "create")
         }
         var player = Player(
             username = requestCreate.username,

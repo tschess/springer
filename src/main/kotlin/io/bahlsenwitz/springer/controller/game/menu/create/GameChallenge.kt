@@ -11,12 +11,11 @@ import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import java.util.*
 
-
 class GameChallenge(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
 ) {
-    
+
     private val output: Output = Output()
     private val configState: ConfigState = ConfigState()
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
@@ -34,7 +33,7 @@ class GameChallenge(
         playerOther.note = true
         repositoryPlayer.save(playerOther)
         rating.update(playerSelf, RESULT.ACTION)
-        return output.success(route = "challenge", game = game)
+        return output.terminal(result = "success", route = "challenge", game = game)
     }
 
 }

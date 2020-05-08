@@ -2,10 +2,12 @@ package io.bahlsenwitz.springer.controller.player.board
 
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import org.springframework.http.HttpStatus
+import io.bahlsenwitz.springer.util.Output
 import org.springframework.http.ResponseEntity
 
 class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
+
+    private val output: Output = Output()
 
     data class RequestPage(val index: Int, val size: Int)
 
@@ -21,7 +23,7 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
         val indexTo: Int = indexFrom + pageSize
 
         if (playerListFindAll.lastIndex <= indexFrom) {
-            return ResponseEntity.ok(ResponseEntity.noContent())
+            return output.terminal(result = "eol", route = "leaderboard")
         }
         if (playerListFindAll.lastIndex <= indexTo) {
             playerList = playerListFindAll.subList(indexFrom, playerListFindAll.lastIndex + 1)

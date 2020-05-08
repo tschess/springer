@@ -19,13 +19,13 @@ class PlayerLogin(private val repositoryPlayer: RepositoryPlayer) {
             repositoryPlayer.save(player00)
         }
         val player: Player =
-            repositoryPlayer.findByUsername(requestLogin.username) ?: return output.fail(route = "login")
+            repositoryPlayer.findByUsername(requestLogin.username) ?: return output.terminal(result = "fail", route = "login")
         if (BCryptPasswordEncoder().matches(requestLogin.password, player.password)) {
             player.device = requestLogin.device
             player.updated = dateTime.getDate()
             return output.player(route = "login", player = player)
         }
-        return output.fail(route = "login")
+        return output.terminal(result = "fail", route = "login")
     }
 }
 

@@ -2,16 +2,14 @@ package io.bahlsenwitz.springer.controller.player
 
 import io.bahlsenwitz.springer.controller.player.backup.PlayerBackUp
 import io.bahlsenwitz.springer.controller.player.board.PlayerHome
-import io.bahlsenwitz.springer.controller.player.board.quick.PlayerQuick
 import io.bahlsenwitz.springer.controller.player.start.PlayerCreate
 import io.bahlsenwitz.springer.controller.player.start.PlayerLogin
 import io.bahlsenwitz.springer.controller.player.start.RequestStart
 import io.bahlsenwitz.springer.controller.player.start.PlayerInit
 import io.bahlsenwitz.springer.controller.player.update.PlayerConfig
 import io.bahlsenwitz.springer.controller.player.update.PlayerProfile
-import io.bahlsenwitz.springer.controller.player.update.PlayerRefresh
-import io.bahlsenwitz.springer.controller.player.update.polling.PlayerNotify
-import io.bahlsenwitz.springer.model.player.Player
+import io.bahlsenwitz.springer.controller.player.board.PlayerRefresh
+import io.bahlsenwitz.springer.controller.player.update.PlayerNotify
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.beans.factory.annotation.Autowired
@@ -99,17 +97,19 @@ constructor(repositoryPlayer: RepositoryPlayer, repositoryGame: RepositoryGame) 
         return playerHome.leaderboard(requestPage)
     }
 
-    val playerRefresh = PlayerRefresh(repositoryPlayer)
+    val playerRefresh =
+        PlayerRefresh(repositoryPlayer)
 
     @PostMapping("/refresh")
     fun refresh(@Valid @RequestBody requestRefresh: PlayerRefresh.RequestRefresh): ResponseEntity<Any> {
         return playerRefresh.refresh(requestRefresh)
     }
 
-    val playerNotify = PlayerNotify(repositoryPlayer)
+    val playerNotify =
+        PlayerNotify(repositoryPlayer)
 
     @GetMapping("/notify/{id}")
-    fun notify(@PathVariable(value = "id") id: String): Any {
+    fun notify(@PathVariable(value = "id") id: String): ResponseEntity<Any>? {
         return playerNotify.notify(id)
     }
 

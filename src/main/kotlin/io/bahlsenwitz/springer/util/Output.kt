@@ -13,26 +13,10 @@ class Output(private val repositoryPlayer: RepositoryPlayer? = null, private val
     private val influx: Influx = Influx()
     private var body: MutableMap<String, String> = HashMap()
 
-    fun success(route: String, game: Game? = null, player: Player? = null): ResponseEntity<Any> {
-        if (game != null) {
-            influx.game(game, route)
-        }
-        if (player != null) {
-            influx.activity(player, route)
-        }
-        body["success"] = route
-        return ResponseEntity.accepted().body(body)
-    }
-
-    fun fail(route: String, game: Game? = null, player: Player? = null): ResponseEntity<Any> {
-        if (game != null) {
-            influx.game(game, route)
-        }
-        if (player != null) {
-            influx.activity(player, route)
-        }
-        body["fail"] = route
-        return ResponseEntity.accepted().body(body)
+    fun terminal(result: String, route: String, game: Game? = null, player: Player? = null): ResponseEntity<Any> {
+        influx(route, game, player)
+        body[result] = route
+        return ResponseEntity.ok().body(body)
     }
 
     fun player(route: String, player: Player, growth: Boolean = false): ResponseEntity<Any> {
@@ -45,5 +29,12 @@ class Output(private val repositoryPlayer: RepositoryPlayer? = null, private val
         return ResponseEntity.ok().body(player)
     }
 
+    private fun influx(route: String, game: Game? = null, player: Player? = null) {
+        if (game != null) {
+            influx.game(game, route)
+            return
+        }
+        influx.activity(player!!, route)
+    }
 
 }

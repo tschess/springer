@@ -9,8 +9,8 @@ import java.util.*
 
 class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
 
-    private val output: Output = Output(repositoryPlayer)
     private val dateTime: DateTime = DateTime()
+    private val output: Output = Output(repositoryPlayer)
 
     data class UpdateAvatar(
         val id: String,
@@ -29,9 +29,9 @@ class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
         if (player != null) {
             player.device = null
             player.updated = dateTime.getDate()
-            return output.success(route = "clear", player = player)
+            return output.terminal(result = "success", route = "clear", player = player)
         }
-        return output.fail(route = "clear")
+        return output.terminal(result = "fail", route = "clear")
     }
 
 }

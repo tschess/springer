@@ -1,4 +1,4 @@
-package io.bahlsenwitz.springer.controller.player.board.quick
+package io.bahlsenwitz.springer.controller.player
 
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer

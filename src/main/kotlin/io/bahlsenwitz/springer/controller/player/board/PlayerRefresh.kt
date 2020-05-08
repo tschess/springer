@@ -1,4 +1,4 @@
-package io.bahlsenwitz.springer.controller.player.update
+package io.bahlsenwitz.springer.controller.player.board
 
 import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.player.Player
