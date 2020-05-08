@@ -30,8 +30,8 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer, private val r
             password = BCryptPasswordEncoder().encode(requestCreate.password),
             device = requestCreate.device
         )
-        seedGameInit(player)
         player = rating.addition(player)
+        seedGameInit(player)
         return output.player("device", player, true)
     }
 
