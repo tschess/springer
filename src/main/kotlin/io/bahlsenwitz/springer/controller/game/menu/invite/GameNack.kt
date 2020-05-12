@@ -29,6 +29,8 @@ class GameNack(
         val game: Game = repositoryGame.findById(UUID.fromString(updateNack.id_game)!!).get()
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.REFUSED
-        return output.update(route = "nack", game = game)
+        game.updated = dateTime.getDate()
+        repositoryGame.save(game)
+        return output.player(route = "nack", player = playerSelf) //to update your header...
     }
 }

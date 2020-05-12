@@ -2,6 +2,7 @@ package io.bahlsenwitz.springer.controller.game.menu.invite
 
 import io.bahlsenwitz.springer.model.rating.RESULT
 import io.bahlsenwitz.springer.model.game.CONDITION
+import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
@@ -27,8 +28,15 @@ class GameRescind(
         playerSelf.date = dateTime.getDate()
         rating.update(playerSelf, RESULT.LOSS)
         val game: Game = repositoryGame.findById(UUID.fromString(updateRescind.id_game)!!).get()
+        if(game.challenger != CONTESTANT.WHITE){
+            game.white.note = false
+        } else {
+            game.black.note = false
+        }
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.RESCIND
-        return output.update(route = "rescind", game = game)
+        game.updated = dateTime.getDate()
+        repositoryGame.save(game)
+        return output.player(route = "rescind", player = playerSelf) //to update your header...
     }
 }
