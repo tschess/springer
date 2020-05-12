@@ -34,6 +34,7 @@ class GameRematch(
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(requestRematch.id_self)!!).get()
         playerSelf.date = dateTime.getDate()
         val playerOther: Player = repositoryPlayer.findById(UUID.fromString(requestRematch.id_other)!!).get()
+        playerOther.note = true
         val config: List<List<String>> = configState.get(requestRematch.config, playerSelf)
         val white: Boolean = requestRematch.white
         val game: Game = Game(white = playerSelf, black = playerOther, challenger = CONTESTANT.WHITE, state = config)
