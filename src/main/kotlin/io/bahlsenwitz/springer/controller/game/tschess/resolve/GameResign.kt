@@ -1,6 +1,7 @@
 package io.bahlsenwitz.springer.controller.game.tschess.resolve
 
 import io.bahlsenwitz.springer.model.game.CONDITION
+import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
@@ -43,6 +44,11 @@ class GameResign(
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.RESIGN
         game.state = configState.poisonReveal(game.state!!)
+        if(game.white == playerSelf){
+            game.turn = CONTESTANT.WHITE
+        } else {
+            game.turn = CONTESTANT.BLACK
+        }
         rating.resolve(game)
         return output.terminal(result = "success", route = "resign")
     }
