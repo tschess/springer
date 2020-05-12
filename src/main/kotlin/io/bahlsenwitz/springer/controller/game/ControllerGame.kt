@@ -153,7 +153,7 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
         return gameResign.resign(updateResign)
     }
 
-    val gameUpdate = GameUpdate(repositoryGame = repositoryGame)
+    val gameUpdate = GameUpdate(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
 
     @PostMapping("/update")
     fun update(@Valid @RequestBody updateGame: GameUpdate.UpdateGame): ResponseEntity<Any>? {
@@ -178,7 +178,7 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
         return gameRequest.request(id_game)
     }
 
-    val gameProp = GameProp(repositoryGame = repositoryGame)
+    val gameProp = GameProp(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
 
     @GetMapping("/prop/{id_game}")
     fun prop(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any> {

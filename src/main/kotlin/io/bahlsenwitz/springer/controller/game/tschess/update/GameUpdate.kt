@@ -1,17 +1,21 @@
 package io.bahlsenwitz.springer.controller.game.tschess.update
 
+import io.bahlsenwitz.springer.controller.game.tschess.Tschess
 import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.repository.RepositoryGame
+import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Output
-import io.bahlsenwitz.springer.util.Tschess
 import org.springframework.http.ResponseEntity
 import java.util.*
 
-class GameUpdate(private val repositoryGame: RepositoryGame) {
+class GameUpdate(
+    private val repositoryGame: RepositoryGame,
+    private val repositoryPlayer: RepositoryPlayer
+) {
 
-    private val tschess: Tschess = Tschess()
+    private val tschess: Tschess = Tschess(repositoryPlayer)
     private val output: Output = Output(repositoryGame = repositoryGame)
 
     data class UpdateGame(
@@ -30,7 +34,7 @@ class GameUpdate(private val repositoryGame: RepositoryGame) {
         game.on_check = false
         game.state = updateGame.state
         game.highlight = updateGame.highlight
-        game.turn = tschess.setTurn(turn = game.turn)
+        game.turn = tschess.setTurn(game = game)
         game.condition = CONDITION.valueOf(updateGame.condition)
         return output.update(route = "update", game = game)
     }

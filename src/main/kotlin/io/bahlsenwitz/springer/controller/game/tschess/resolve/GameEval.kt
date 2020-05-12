@@ -9,7 +9,7 @@ import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.DateTime
 import io.bahlsenwitz.springer.util.Output
 import io.bahlsenwitz.springer.util.Rating
-import io.bahlsenwitz.springer.util.Tschess
+import io.bahlsenwitz.springer.controller.game.tschess.Tschess
 import org.springframework.http.ResponseEntity
 import java.util.*
 
@@ -18,7 +18,7 @@ class GameEval(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    private val tschess: Tschess = Tschess()
+    private val tschess: Tschess = Tschess(repositoryPlayer)
     private val dateTime: DateTime = DateTime()
     private val output: Output = Output(repositoryGame = repositoryGame)
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
@@ -35,16 +35,16 @@ class GameEval(
         val game: Game = repositoryGame.findById(UUID.fromString(evalUpdate.id_game)!!).get()
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(evalUpdate.id_self)!!).get()
         val playerOther: Player = repositoryPlayer.findById(UUID.fromString(evalUpdate.id_other)!!).get()
-        playerOther.note = true
         val date: String = dateTime.getDate()
-        playerSelf.updated = date
         val accept: Boolean = evalUpdate.accept
         if (!accept) {
             game.condition = CONDITION.TBD
-            game.turn = tschess.setTurn(game.turn)
-            repositoryPlayer.saveAll(listOf(playerSelf, playerOther))
+            game.turn = tschess.setTurn(game = game)
             return output.update(route = "eval", game = game)
         }
+        playerOther.note = true
+        playerSelf.updated = date
+
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.DRAW
         rating.draw(game) //also persists game/players

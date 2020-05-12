@@ -112,23 +112,11 @@ class Rating(
         repositoryGame!!.save(game)
     }
 
-    fun addition(player00: Player): Player {
-        repositoryPlayer!!.save(player00)
-        val leaderboard: List<Player> = repositoryPlayer.findAll().sorted()
-        for ((index: Int, player: Player) in leaderboard.withIndex()) {
-            val rank00: Int = player.rank
-            val rank01: Int = index + 1
-            if (rank00 == rank01) {
-                break
-            }
-            player.rank = rank01
-            val disp: Int = rank00 - rank01
-            player.disp = disp
-            player.date = dateTime.getDate()
-            repositoryPlayer.save(player)
-        }
-        player00.disp = 0
-        return repositoryPlayer.save(player00)
+    fun addition(player: Player): Player {
+        val leaderboard: List<Player> = repositoryPlayer!!.findAll().sorted()
+        val tlo: Int = leaderboard.last().elo - 1
+        player.elo = tlo
+        return repositoryPlayer.save(player)
     }
 
     private fun recalc(player00: Player? = null, player01: Player? = null): Array<Int> {
