@@ -116,6 +116,7 @@ class Rating(
         val leaderboard: List<Player> = repositoryPlayer!!.findAll().sorted()
         val tlo: Int = leaderboard.last().elo - 1
         player.elo = tlo
+        player.rank = leaderboard.count() + 1
         return repositoryPlayer.save(player)
     }
 
