@@ -7,7 +7,6 @@ import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.ConfigState
-import io.bahlsenwitz.springer.util.DateTime
 import io.bahlsenwitz.springer.util.Output
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
@@ -15,7 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 class PlayerCreate(private val repositoryPlayer: RepositoryPlayer, private val repositoryGame: RepositoryGame) {
 
-    private val dateTime: DateTime = DateTime()
     private val configState: ConfigState = ConfigState()
     private val output: Output = Output(repositoryPlayer)
     private val rating: Rating = Rating(repositoryPlayer = repositoryPlayer)
@@ -38,7 +36,7 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer, private val r
     //TODO: draw from quick...
     private fun seedGameInit(player: Player) {
         val opponent: Player = repositoryPlayer.findByUsername("sme")!!
-        opponent.updated = dateTime.getDate()
+        opponent.note = true
         repositoryPlayer.save(opponent)
         val config: Int = (0..3).random()
         val state: List<List<String>> = configState.generateState(configState.get(config, player))
