@@ -14,11 +14,13 @@ class Tschess(
     fun setTurn(game: Game): CONTESTANT {
         if (game.turn == CONTESTANT.WHITE) {
             game.white.updated = dateTime.getDate()
+            game.white.note = false
             game.black.note = true
             repositoryPlayer.saveAll(listOf(game.white, game.black))
             return CONTESTANT.BLACK
         }
         game.black.updated = dateTime.getDate()
+        game.black.note = false
         game.white.note = true
         repositoryPlayer.saveAll(listOf(game.white, game.black))
         return CONTESTANT.WHITE

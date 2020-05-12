@@ -21,7 +21,6 @@ class GameProp(
         val game: Game = repositoryGame.findById(UUID.fromString(id_game)!!).get()
         game.highlight = "TBD"
         game.condition = CONDITION.PENDING
-        //game.turn = tschess.setTurn(game.turn)
         game.turn = tschess.setTurn(game = game)
         return output.update(route = "prop", game = game)
     }
