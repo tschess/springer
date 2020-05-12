@@ -33,7 +33,7 @@ class GameResign(
     fun resign(updateResign: UpdateResign): ResponseEntity<Any>? {
         val game: Game = repositoryGame.findById(UUID.fromString(updateResign.id_game)!!).get()
         if (game.status == STATUS.RESOLVED) {
-            return null
+            return output.terminal(result = "fail", route = "resign")
         }
         val date: String = dateTime.getDate()
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(updateResign.id_self)!!).get()

@@ -28,7 +28,7 @@ class GameMine(
     fun mine(updateMine: UpdateMine): ResponseEntity<Any>? {
         val game: Game = repositoryGame.findById(UUID.fromString(updateMine.id_game)!!).get()
         if (game.status == STATUS.RESOLVED) {
-            return null
+            return output.terminal(result = "fail", route = "mine")
         }
         game.highlight = "TBD"
         game.status = STATUS.RESOLVED

@@ -13,7 +13,7 @@ class GameCheck(private val repositoryGame: RepositoryGame) {
     fun check(id_game: String): ResponseEntity<Any>? {
         val game: Game = repositoryGame.findById(UUID.fromString(id_game)!!).get()
         if (game.on_check) {
-            return null
+            return output.terminal(result = "fail", route = "check")
         }
         game.on_check = true
         return output.update(route = "check", game = game)

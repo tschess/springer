@@ -28,7 +28,7 @@ class GameUpdate(
     fun update(updateGame: UpdateGame): ResponseEntity<Any>? {
         val game: Game = repositoryGame.findById(UUID.fromString(updateGame.id_game)).get()
         if (game.status == STATUS.RESOLVED) {
-            return null
+            return output.terminal(result = "fail", route = "update")
         }
         game.moves += 1
         game.on_check = false
