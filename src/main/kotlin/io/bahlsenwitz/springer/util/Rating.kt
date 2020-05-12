@@ -120,14 +120,14 @@ class Rating(
         return repositoryPlayer.save(player)
     }
 
-    private fun recalc(player00: Player? = null, player01: Player? = null): Array<Int> {
+    private fun recalc(white: Player? = null, black: Player? = null): Array<Int> {
         val list: Array<Int> = arrayOf(0, 0)
         val leaderboard: List<Player> = repositoryPlayer!!.findAll().sorted()
         for ((index: Int, player: Player) in leaderboard.withIndex()) {
             val rank00: Int = player.rank
             val rank01: Int = index + 1
             if (rank00 == rank01) {
-                break
+                continue
             }
             player.rank = rank01
 
@@ -135,13 +135,13 @@ class Rating(
             player.disp = disp
             player.date = dateTime.getDate()
             repositoryPlayer.save(player)
-            if (player00 != null) {
-                if (player00.id == player.id) {
+            if (white != null) {
+                if (white.id == player.id) {
                     list[0] = disp
                 }
             }
-            if (player01 != null) {
-                if (player01.id == player.id) {
+            if (black != null) {
+                if (black.id == player.id) {
                     list[1] = disp
                 }
             }
