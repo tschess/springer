@@ -39,7 +39,6 @@ class GameResign(
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(updateResign.id_self)!!).get()
         playerSelf.updated = date
         repositoryPlayer.save(playerSelf)
-        game.updated = date
         game.highlight = "TBD"
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.RESIGN
@@ -50,6 +49,6 @@ class GameResign(
             game.turn = CONTESTANT.BLACK
         }
         rating.resolve(game)
-        return output.terminal(result = "success", route = "resign")
+        return output.update(route = "resign", game = game)
     }
 }

@@ -18,23 +18,20 @@ class GameEval(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    private val tschess: Tschess = Tschess(repositoryPlayer)
     private val dateTime: DateTime = DateTime()
+    private val tschess: Tschess = Tschess(repositoryPlayer)
     private val output: Output = Output(repositoryGame = repositoryGame)
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     data class EvalUpdate(
         val id_game: String,
         val id_self: String,
-        val id_other: String,
-        val accept: Boolean,
-        val white: Boolean
+        val accept: Boolean
     )
 
     fun eval(evalUpdate: EvalUpdate): ResponseEntity<Any> {
         val game: Game = repositoryGame.findById(UUID.fromString(evalUpdate.id_game)!!).get()
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(evalUpdate.id_self)!!).get()
-        val playerOther: Player = repositoryPlayer.findById(UUID.fromString(evalUpdate.id_other)!!).get()
         val date: String = dateTime.getDate()
         val accept: Boolean = evalUpdate.accept
         if (!accept) {
@@ -42,13 +39,11 @@ class GameEval(
             game.turn = tschess.setTurn(game = game)
             return output.update(route = "eval", game = game)
         }
-        playerOther.note = true
         playerSelf.updated = date
-
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.DRAW
         rating.draw(game) //also persists game/players
-        return output.terminal(result = "success", route = "eval")
+        return output.update(route = "eval", game = game)
     }
 
 

@@ -18,7 +18,6 @@ class GameMine(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    private val dateTime: DateTime = DateTime()
     private val configState: ConfigState = ConfigState()
     private val output: Output = Output(repositoryGame = repositoryGame)
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
@@ -32,11 +31,10 @@ class GameMine(
         }
         game.highlight = "TBD"
         game.status = STATUS.RESOLVED
-        game.updated = dateTime.getDate()
         game.condition = CONDITION.LANDMINE
         game.state = configState.poisonReveal(updateMine.state)
         rating.resolve(game)
-        return output.terminal(result = "success", route = "mine")
+        return output.update(route = "mine", game = game)
     }
 
 }
