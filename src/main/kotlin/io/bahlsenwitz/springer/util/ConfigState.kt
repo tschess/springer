@@ -77,7 +77,7 @@ class ConfigState {
         val row00: List<String> = orient(white[0], color)
         val row01: List<String> = orient(white[1], color)
         val black: List<List<String>> = quickBlack()
-        return arrayListOf(row00, row01, row, row, row, row, black[0], black[1])
+        return arrayListOf(row00, row01, row, row, row, row, black[1], black[0])
     }
 }
 
