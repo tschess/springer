@@ -39,6 +39,7 @@ class GameEval(
             game.turn = tschess.setTurn(game = game)
             return output.update(route = "eval", game = game)
         }
+        playerSelf.note = false
         playerSelf.updated = date
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.DRAW

@@ -38,6 +38,7 @@ class GameResign(
         val date: String = dateTime.getDate()
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(updateResign.id_self)!!).get()
         playerSelf.updated = date
+        playerSelf.note = false
         repositoryPlayer.save(playerSelf)
         game.highlight = "TBD"
         game.status = STATUS.RESOLVED
