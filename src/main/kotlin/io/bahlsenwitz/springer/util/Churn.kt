@@ -11,7 +11,7 @@ import java.util.*
 class Churn(private val repositoryPlayer: RepositoryPlayer, private val repositoryGame: RepositoryGame) {
 
     private val comparatorAlt: ComparatorAlt = ComparatorAlt(repositoryGame)
-    
+
     fun calculate(player: Player): Player {
         return repositoryPlayer.findAll().sorted().take(10).sortedWith(comparatorAlt).first { it.id != player.id }
     }
