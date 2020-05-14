@@ -19,14 +19,16 @@ class Churn(private val repositoryPlayer: RepositoryPlayer, private val reposito
 
 class ComparatorAlt(private val repositoryGame: RepositoryGame) : Comparator<Player> {
 
+    private val dateTime: DateTime = DateTime()
+
     override fun compare(player00: Player, player01: Player): Int {
         val list00: List<Game> = repositoryGame.findPlayerList(player00.id)
         val ongoing00: Int = list00.filter { it.status == STATUS.ONGOING }.size
         val list01: List<Game> = repositoryGame.findPlayerList(player01.id)
         val ongoing01: Int = list01.filter { it.status == STATUS.ONGOING }.size
         if (ongoing00 == ongoing01) {
-            val date00: ZonedDateTime = Player.dateTime.getDate(player00.updated)
-            val date01: ZonedDateTime = Player.dateTime.getDate(player01.updated)
+            val date00: ZonedDateTime = dateTime.getDate(player00.updated)
+            val date01: ZonedDateTime = dateTime.getDate(player01.updated)
             //01 is more recent, so return 00 with higher priority
             if (date00.isBefore(date01)) {
                 return -1
