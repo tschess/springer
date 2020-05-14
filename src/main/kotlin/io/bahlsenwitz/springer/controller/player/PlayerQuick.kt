@@ -10,7 +10,7 @@ import java.util.*
 
 class PlayerQuick(private val repositoryPlayer: RepositoryPlayer, private val repositoryGame: RepositoryGame) {
 
-    private val output: Output = Output()
+    private val output: Output = Output(repositoryPlayer)
     private val churn: Churn = Churn(repositoryPlayer, repositoryGame)
 
     fun quick(id: String): ResponseEntity<Any> {
