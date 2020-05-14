@@ -80,7 +80,7 @@ constructor(repositoryPlayer: RepositoryPlayer, repositoryGame: RepositoryGame) 
     /**
      * Quick.swift
      */
-    val playerQuick = PlayerQuick(repositoryPlayer)
+    val playerQuick = PlayerQuick(repositoryPlayer, repositoryGame)
 
     @GetMapping("/quick/{id}")
     fun quick(@PathVariable(value = "id") id: String): ResponseEntity<Any> {

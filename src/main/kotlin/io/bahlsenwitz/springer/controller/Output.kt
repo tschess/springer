@@ -1,10 +1,11 @@
-package io.bahlsenwitz.springer.util
+package io.bahlsenwitz.springer.controller
 
 import io.bahlsenwitz.springer.influx.Influx
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
+import io.bahlsenwitz.springer.util.DateTime
 import org.springframework.http.ResponseEntity
 import java.util.*
 
@@ -44,6 +45,14 @@ class Output(private val repositoryPlayer: RepositoryPlayer? = null, private val
         player.updated = dateTime.getDate()
         repositoryPlayer!!.save(player)
         return ResponseEntity.ok().body(player)
+    }
+
+    fun quick(player00: Player, player01: Player): ResponseEntity<Any> {
+        influx.activity(player00, "quick")
+        player00.updated = dateTime.getDate()
+        player01.note = true
+        repositoryPlayer!!.saveAll(listOf(player00, player01))
+        return ResponseEntity.ok().body(player01)
     }
 
     private fun influx(route: String, game: Game? = null, player: Player? = null) {

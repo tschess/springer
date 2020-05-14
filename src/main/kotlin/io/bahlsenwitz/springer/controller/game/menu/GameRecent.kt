@@ -8,7 +8,7 @@ import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.DateTime
-import io.bahlsenwitz.springer.util.Output
+import io.bahlsenwitz.springer.controller.Output
 import org.springframework.http.ResponseEntity
 import java.time.ZonedDateTime
 import java.util.*
@@ -19,7 +19,8 @@ class GameRecent(
 ) {
 
     private val influx: Influx = Influx()
-    private val output: Output = Output()
+    private val output: Output =
+        Output()
 
     fun recent(id_player: String): ResponseEntity<Any> {
         val uuid: UUID = UUID.fromString(id_player)!!

@@ -6,7 +6,7 @@ import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.Output
+import io.bahlsenwitz.springer.controller.Output
 import org.springframework.http.ResponseEntity
 import java.util.*
 
@@ -16,7 +16,8 @@ class GameUpdate(
 ) {
 
     private val tschess: Tschess = Tschess(repositoryPlayer)
-    private val output: Output = Output(repositoryGame = repositoryGame)
+    private val output: Output =
+        Output(repositoryGame = repositoryGame)
 
     data class UpdateGame(
         val id_game: String,

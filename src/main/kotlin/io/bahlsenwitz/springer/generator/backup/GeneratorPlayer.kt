@@ -54,7 +54,6 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                     val config1: List<List<String>> = generateConfig(configString = configString1)
                     val configString2: String = tokens[IDX_CONFIG2] //11
                     val config2: List<List<String>> = generateConfig(configString = configString2)
-
                     var device: String? = tokens[IDX_DEVICE] //12
                     device = if(device == "NULL"){
                         null
@@ -63,8 +62,6 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                     }
                     val updated: String = tokens[IDX_UPDATED] //13
                     val created: String = tokens[IDX_CREATED] //14
-
-
                     val player = Player(
                         id = id, //0
                         username = username, //1

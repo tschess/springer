@@ -5,7 +5,7 @@ import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.Output
+import io.bahlsenwitz.springer.controller.Output
 import org.springframework.http.ResponseEntity
 import java.util.*
 
@@ -15,7 +15,8 @@ class GameProp(
 ) {
 
     private val tschess: Tschess = Tschess(repositoryPlayer)
-    private val output: Output = Output(repositoryGame = repositoryGame)
+    private val output: Output =
+        Output(repositoryGame = repositoryGame)
 
     fun prop(id_game: String): ResponseEntity<Any> {
         val game: Game = repositoryGame.findById(UUID.fromString(id_game)!!).get()

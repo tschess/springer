@@ -7,7 +7,7 @@ import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.ConfigState
-import io.bahlsenwitz.springer.util.Output
+import io.bahlsenwitz.springer.controller.Output
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -15,7 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 class PlayerCreate(private val repositoryPlayer: RepositoryPlayer, private val repositoryGame: RepositoryGame) {
 
     private val configState: ConfigState = ConfigState()
-    private val output: Output = Output(repositoryPlayer)
+    private val output: Output =
+        Output(repositoryPlayer)
     private val rating: Rating = Rating(repositoryPlayer = repositoryPlayer)
 
     fun create(requestCreate: RequestStart): ResponseEntity<Any> {

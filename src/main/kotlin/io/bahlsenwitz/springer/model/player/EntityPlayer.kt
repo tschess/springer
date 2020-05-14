@@ -13,7 +13,6 @@ import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Table
-import kotlin.collections.HashMap
 
 @Entity
 @Table(name = "player")
@@ -25,7 +24,7 @@ class Player(
     var username: String,
     var password: String,
 
-    @Type(type="text")
+    @Type(type = "text")
     @Column(columnDefinition = "text")
     var avatar: String = defaultAvatar(),
 
@@ -53,7 +52,7 @@ class Player(
     var updated: String = this.date,
     var created: String = this.date
 
-): EntityUUID(id), Comparable<Player> {
+) : EntityUUID(id), Comparable<Player> {
 
     companion object {
 
@@ -62,7 +61,7 @@ class Player(
         val configState: ConfigState = ConfigState()
 
         fun defaultAvatar(): String {
-            val photoMap: HashMap<String,String> = GeneratorAvatar().photoMap
+            val photoMap: HashMap<String, String> = GeneratorAvatar().photoMap
             val random = Random()
             return photoMap.entries.elementAt(random.nextInt(photoMap.size)).value
         }
@@ -72,7 +71,7 @@ class Player(
         if (this.elo == other.elo) {
             val dateSelf: ZonedDateTime = dateTime.getDate(this.created)
             val dateOther: ZonedDateTime = dateTime.getDate(other.created)
-            if(dateSelf.isBefore(dateOther)){
+            if (dateSelf.isBefore(dateOther)) {
                 return -1
             }
             return 1

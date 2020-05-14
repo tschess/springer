@@ -6,7 +6,7 @@ import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.ConfigState
-import io.bahlsenwitz.springer.util.Output
+import io.bahlsenwitz.springer.controller.Output
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import java.util.*
@@ -16,7 +16,8 @@ class GameChallenge(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    private val output: Output = Output()
+    private val output: Output =
+        Output()
     private val configState: ConfigState = ConfigState()
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 

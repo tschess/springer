@@ -1,20 +1,22 @@
 package io.bahlsenwitz.springer.controller.player
 
+import io.bahlsenwitz.springer.controller.Output
 import io.bahlsenwitz.springer.model.player.Player
+import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
+import io.bahlsenwitz.springer.util.Churn
 import org.springframework.http.ResponseEntity
 import java.util.*
 
-class PlayerQuick(private val repositoryPlayer: RepositoryPlayer) {
+class PlayerQuick(private val repositoryPlayer: RepositoryPlayer, private val repositoryGame: RepositoryGame) {
 
-    //
-    //TODO: need also consider how many ongoing games they have, if we have a mutual ongoing game, etc...
-    //
+    private val output: Output = Output()
+    private val churn: Churn = Churn(repositoryPlayer, repositoryGame)
+
     fun quick(id: String): ResponseEntity<Any> {
-        val uuid: UUID = UUID.fromString(id)!!
-        val playerListTopTen: List<Player> = repositoryPlayer.findAll().filter { it.id != uuid }.sorted().take(11)
-        val opponent: Player = playerListTopTen.shuffled().take(1)[0]
-        return ResponseEntity.ok(opponent)
+        val player: Player = repositoryPlayer.findById(UUID.fromString(id)!!).get()
+        val opponent: Player = churn.calculate(player)
+        return output.quick(player, opponent)
     }
 
 }

@@ -2,12 +2,13 @@ package io.bahlsenwitz.springer.controller.player.board
 
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.Output
+import io.bahlsenwitz.springer.controller.Output
 import org.springframework.http.ResponseEntity
 
 class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
 
-    private val output: Output = Output()
+    private val output: Output =
+        Output()
 
     data class RequestPage(val index: Int, val size: Int)
 

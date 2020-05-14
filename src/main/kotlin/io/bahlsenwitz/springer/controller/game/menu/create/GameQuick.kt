@@ -9,7 +9,7 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.ConfigState
 import io.bahlsenwitz.springer.util.DateTime
-import io.bahlsenwitz.springer.util.Output
+import io.bahlsenwitz.springer.controller.Output
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import java.util.*
@@ -21,7 +21,8 @@ class GameQuick(
 
     private val dateTime: DateTime = DateTime()
     private val configState: ConfigState = ConfigState()
-    private val output: Output = Output(repositoryGame = repositoryGame)
+    private val output: Output =
+        Output(repositoryGame = repositoryGame)
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     fun quick(requestQuick: RequestCreate): ResponseEntity<Any> {

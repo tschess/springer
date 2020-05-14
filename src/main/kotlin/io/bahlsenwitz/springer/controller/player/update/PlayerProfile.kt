@@ -3,14 +3,15 @@ package io.bahlsenwitz.springer.controller.player.update
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.DateTime
-import io.bahlsenwitz.springer.util.Output
+import io.bahlsenwitz.springer.controller.Output
 import org.springframework.http.ResponseEntity
 import java.util.*
 
 class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
 
     private val dateTime: DateTime = DateTime()
-    private val output: Output = Output(repositoryPlayer)
+    private val output: Output =
+        Output(repositoryPlayer)
 
     data class UpdateAvatar(
         val id: String,
