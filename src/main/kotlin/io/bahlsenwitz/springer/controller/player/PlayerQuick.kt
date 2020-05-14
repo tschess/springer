@@ -15,8 +15,10 @@ class PlayerQuick(private val repositoryPlayer: RepositoryPlayer, private val re
 
     fun quick(id: String): ResponseEntity<Any> {
         val player: Player = repositoryPlayer.findById(UUID.fromString(id)!!).get()
-        val opponent: Player = churn.calculate(player)
-        return output.quick(player, opponent)
+        //val opponent: Player = churn.calculate(player)
+        //return output.quick(player, opponent)
+
+        return churn.calculate(player)
     }
 
 }
