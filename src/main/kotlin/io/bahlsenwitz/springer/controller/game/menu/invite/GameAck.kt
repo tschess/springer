@@ -35,7 +35,6 @@ class GameAck(
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(requestAck.id_self)!!).get()
         playerSelf.date = dateTime.getDate()
         rating.update(playerSelf, RESULT.WIN)
-        setNotification(game, playerSelf, repositoryPlayer)
         val config: List<List<String>> = configState.get(requestAck.config, playerSelf)
         val state: List<List<String>> = generateState(config, game.state!!)
         game.state = state
@@ -50,16 +49,6 @@ class GameAck(
         val black00: List<String> = this.configState.orient(state[0], "Black")
         val black01: List<String> = this.configState.orient(state[1], "Black")
         return arrayListOf(white00, white01, row, row, row, row, black01, black00)
-    }
-
-    private fun setNotification(game: Game, playerSelf: Player, repositoryPlayer: RepositoryPlayer) {
-        if (game.white == playerSelf) {
-            game.black.note = true
-            repositoryPlayer.save(game.black)
-            return
-        }
-        game.white.note = true
-        repositoryPlayer.save(game.white)
     }
 
 }
