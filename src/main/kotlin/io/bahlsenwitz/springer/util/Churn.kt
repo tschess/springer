@@ -5,7 +5,6 @@ import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import org.springframework.http.ResponseEntity
 import java.time.ZonedDateTime
 import java.util.*
 
@@ -13,27 +12,10 @@ class Churn(private val repositoryPlayer: RepositoryPlayer, private val reposito
 
     private val comparatorAlt: ComparatorAlt = ComparatorAlt(repositoryGame)
 
-    fun calculate(player: Player): ResponseEntity<Any> {
-
+    fun calculate(player: Player): Player {
         val topTop: List<Player> = repositoryPlayer.findAll().sorted().take(10)
         val sorted: List<Player> = topTop.sortedWith(comparatorAlt).filter { it.id != player.id }
-        val opponent: Player? = sorted.shuffled().take(1)[0]
-
-        var body: MutableMap<String, String> = HashMap()
-
-        body["top_top"] = topTop.size.toString()
-        body["sorted"] = sorted.size.toString()
-        if(opponent == null){
-            body["opponent"] = "FUCK"
-        }else {
-            body["opponent"] = opponent.id.toString()
-        }
-
-        return ResponseEntity.ok().body(body)
-
-        ///return
-
-
+        return sorted.shuffled().take(1)[0]
     }
 }
 
