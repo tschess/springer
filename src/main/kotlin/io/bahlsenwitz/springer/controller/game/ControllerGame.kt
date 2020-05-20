@@ -6,8 +6,6 @@ import io.bahlsenwitz.springer.controller.game.menu.GameMenu
 import io.bahlsenwitz.springer.controller.game.menu.GameRecent
 import io.bahlsenwitz.springer.controller.game.menu.create.GameChallenge
 import io.bahlsenwitz.springer.controller.game.tschess.update.GameCheck
-import io.bahlsenwitz.springer.controller.game.tschess.resolve.GameEval
-import io.bahlsenwitz.springer.controller.game.tschess.resolve.GameMate
 import io.bahlsenwitz.springer.controller.game.menu.invite.GameNack
 import io.bahlsenwitz.springer.controller.game.tschess.update.GameProp
 import io.bahlsenwitz.springer.controller.game.menu.create.GameQuick
@@ -16,9 +14,8 @@ import io.bahlsenwitz.springer.controller.game.menu.create.RequestCreate
 import io.bahlsenwitz.springer.controller.game.tschess.polling.GameRequest
 import io.bahlsenwitz.springer.controller.game.menu.invite.GameRescind
 import io.bahlsenwitz.springer.controller.game.menu.invite.UpdateNack
-import io.bahlsenwitz.springer.controller.game.tschess.resolve.GameResign
 import io.bahlsenwitz.springer.controller.game.tschess.GameTest
-import io.bahlsenwitz.springer.controller.game.tschess.resolve.GameMine
+import io.bahlsenwitz.springer.controller.game.tschess.resolve.*
 import io.bahlsenwitz.springer.controller.game.tschess.update.GameUpdate
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
@@ -143,11 +140,16 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
      * Tschess.swift
      */
 
-    val gameResign = GameResign(
+    val gameTimeout: GameTimeout = GameTimeout(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
+    @PostMapping("/timeout")
+    fun timeout(@Valid @RequestBody updateResign: GameResign.UpdateResign): ResponseEntity<Any>? {
+        return gameTimeout.timeout(updateResign)
+    }
+
+    val gameResign: GameResign = GameResign(
         repositoryGame = repositoryGame,
         repositoryPlayer = repositoryPlayer
     )
-
     @PostMapping("/resign")
     fun resign(@Valid @RequestBody updateResign: GameResign.UpdateResign): ResponseEntity<Any>? {
         return gameResign.resign(updateResign)
