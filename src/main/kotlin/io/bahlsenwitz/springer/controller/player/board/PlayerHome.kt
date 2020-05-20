@@ -7,8 +7,7 @@ import org.springframework.http.ResponseEntity
 
 class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
 
-    private val output: Output =
-        Output()
+    private val output: Output = Output()
 
     data class RequestPage(val index: Int, val size: Int)
 
