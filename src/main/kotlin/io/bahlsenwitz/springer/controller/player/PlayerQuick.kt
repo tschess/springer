@@ -8,10 +8,10 @@ import io.bahlsenwitz.springer.util.Churn
 import org.springframework.http.ResponseEntity
 import java.util.*
 
-class PlayerQuick(private val repositoryPlayer: RepositoryPlayer, private val repositoryGame: RepositoryGame) {
+class PlayerQuick(private val repositoryPlayer: RepositoryPlayer, private val repositoryGame: RepositoryGame? = null) {
 
     private val output: Output = Output(repositoryPlayer)
-    private val churn: Churn = Churn(repositoryPlayer, repositoryGame)
+    private val churn: Churn = Churn(repositoryPlayer)
 
     fun quick(id: String): ResponseEntity<Any> {
         val player: Player = repositoryPlayer.findById(UUID.fromString(id)!!).get()

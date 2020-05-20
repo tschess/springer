@@ -126,11 +126,10 @@ class Rating(
         for ((index: Int, player: Player) in leaderboard.withIndex()) {
             val rank00: Int = player.rank
             val rank01: Int = index + 1
-            if (rank00 == rank01) {
-                continue
-            }
+            //if (rank00 == rank01) {
+                //continue
+            //}
             player.rank = rank01
-
             val disp: Int = rank00 - rank01
             player.disp = disp
             player.date = dateTime.getDate()
