@@ -32,7 +32,6 @@ class GameRecent(
                 it.status == STATUS.RESOLVED &&
                         it.condition != CONDITION.REFUSED &&
                         it.condition != CONDITION.RESCIND &&
-                        it.condition != CONDITION.TIMEOUT &&
                         it.condition != CONDITION.EXPIRED
             }
 
