@@ -98,9 +98,9 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
      */
 
     val gameTimeout: GameTimeout = GameTimeout(repositoryGame, repositoryPlayer)
-    @PostMapping("/timeout")
-    fun timeout(@Valid @RequestBody updateResign: GameResign.UpdateResign): ResponseEntity<Any>? {
-        return gameTimeout.timeout(updateResign)
+    @PostMapping("/timeout/{id_game}")
+    fun timeout(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any>? {
+        return gameTimeout.timeout(id_game)
     }
 
     val gameResign: GameResign = GameResign(repositoryGame, repositoryPlayer)
