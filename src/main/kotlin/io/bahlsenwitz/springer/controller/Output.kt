@@ -50,7 +50,7 @@ class Output(private val repositoryPlayer: RepositoryPlayer? = null, private val
     fun quick(player00: Player, player01: Player): ResponseEntity<Any> {
         influx.activity(player00, "quick")
         player00.updated = dateTime.getDate()
-        player01.note = true
+        player01.note_value = true
         repositoryPlayer!!.saveAll(listOf(player00, player01))
         return ResponseEntity.ok().body(player01)
     }

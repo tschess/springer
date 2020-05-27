@@ -30,7 +30,7 @@ class GameQuick(
         playerSelf.date = dateTime.getDate()
         rating.update(playerSelf, RESULT.WIN)
         val playerOther: Player = repositoryPlayer.findById(UUID.fromString(requestQuick.id_other)!!).get()
-        playerOther.note = true
+        playerOther.note_value = true
         repositoryPlayer.save(playerOther)
         val state: List<List<String>> = configState.generateState(configState.get(requestQuick.config, playerSelf))
         val game = Game(

@@ -53,24 +53,33 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
                 fileWriter.append("${disp};") //6
                 val date0: String = player.date.toString()
                 fileWriter.append("${date0};") //7
-                val note: Boolean = player.note
-                fileWriter.append("${note};") //8
+
+                val note_value: Boolean = player.note_value
+                fileWriter.append("${note_value};") //8
+
+                val note_key: String? = player.note_key
+                if (!note_key.isNullOrBlank()) {
+                    fileWriter.append("${note_key};") //9
+                } else {
+                    fileWriter.append("NULL;") //9
+                }
+
                 val config0: String = player.config0.toString()
-                fileWriter.append("${config0};") //9
+                fileWriter.append("${config0};") //10
                 val config1: String = player.config1.toString()
-                fileWriter.append("${config1};") //10
+                fileWriter.append("${config1};") //11
                 val config2: String = player.config2.toString()
-                fileWriter.append("${config2};") //11
+                fileWriter.append("${config2};") //12
                 val device: String? = player.device
                 if (!device.isNullOrBlank()) {
-                    fileWriter.append("${device};") //12
+                    fileWriter.append("${device};") //13
                 } else {
-                    fileWriter.append("NULL;") //12
+                    fileWriter.append("NULL;") //13
                 }
                 val updated: String = player.updated
-                fileWriter.append("${updated};") //13
+                fileWriter.append("${updated};") //14
                 val created: String = player.created
-                fileWriter.append("${created};") //14
+                fileWriter.append("${created};") //15
                 fileWriter.append('\n')
             }
         } finally {

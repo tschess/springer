@@ -19,13 +19,14 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
     private val IDX_RANK = 5
     private val IDX_DISP = 6
     private val IDX_DATE = 7
-    private val IDX_NOTE = 8
-    private val IDX_CONFIG0 = 9
-    private val IDX_CONFIG1 = 10
-    private val IDX_CONFIG2 = 11
-    private val IDX_DEVICE = 12
-    private val IDX_UPDATED = 13
-    private val IDX_CREATED = 14
+    private val IDX_NOTE_VALUE = 8 //TODO: !!! attend to this on migration
+    private val IDX_NOTE_KEY = 9 //TODO: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    private val IDX_CONFIG0 = 10
+    private val IDX_CONFIG1 = 11
+    private val IDX_CONFIG2 = 12
+    private val IDX_DEVICE = 13
+    private val IDX_UPDATED = 14
+    private val IDX_CREATED = 15
 
     fun generate(file: File) {
         repositoryPlayer.deleteAll()
@@ -47,21 +48,30 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                     val rank: Int = tokens[IDX_RANK].toInt() //5
                     val disp: Int = tokens[IDX_DISP].toInt() //6
                     val date: String = tokens[IDX_DATE] //7
-                    val note: Boolean = tokens[IDX_NOTE].toBoolean() //8
-                    val configString0: String = tokens[IDX_CONFIG0] //9
+                    val note_value: Boolean = tokens[IDX_NOTE_VALUE].toBoolean() //8
+
+                    var note_key: String? = tokens[IDX_NOTE_KEY] //9
+                    note_key = if(note_key == "NULL"){
+                        null
+                    } else {
+                        note_key.toString()
+                    }
+
+                    val configString0: String = tokens[IDX_CONFIG0] //10
                     val config0: List<List<String>> = generateConfig(configString = configString0)
-                    val configString1: String = tokens[IDX_CONFIG1] //10
+                    val configString1: String = tokens[IDX_CONFIG1] //11
                     val config1: List<List<String>> = generateConfig(configString = configString1)
-                    val configString2: String = tokens[IDX_CONFIG2] //11
+                    val configString2: String = tokens[IDX_CONFIG2] //12
                     val config2: List<List<String>> = generateConfig(configString = configString2)
-                    var device: String? = tokens[IDX_DEVICE] //12
+                    var device: String? = tokens[IDX_DEVICE] //13
                     device = if(device == "NULL"){
                         null
                     } else {
                         device.toString()
                     }
-                    val updated: String = tokens[IDX_UPDATED] //13
-                    val created: String = tokens[IDX_CREATED] //14
+                    val updated: String = tokens[IDX_UPDATED] //14
+                    val created: String = tokens[IDX_CREATED] //15
+
                     val player = Player(
                         id = id, //0
                         username = username, //1
@@ -71,14 +81,15 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                         rank = rank, //5
                         disp = disp, //6
                         date = date, //7
-                        note = note, //8
-                        config0 = config0, //9
-                        config1 = config1, //10
-                        config2 = config2, //11
+                        note_value = note_value, //8
+                        note_key = note_key, //9
+                        config0 = config0, //10
+                        config1 = config1, //11
+                        config2 = config2, //12
 
-                        device = device, //12
-                        updated = updated, //13
-                        created = created //14
+                        device = device, //13
+                        updated = updated, //14
+                        created = created //15
                     )
                     playerList.add(player)
                 }

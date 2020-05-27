@@ -26,7 +26,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             elo = 1200,
             rank = 1,
             disp = 3,
-            note = true
+            note_value = true
         )
         testPlayerList.add(white) //0
 

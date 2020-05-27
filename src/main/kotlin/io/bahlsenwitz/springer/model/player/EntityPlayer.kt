@@ -34,7 +34,8 @@ class Player(
     var date: String = this.date,
 
     @Column(insertable = true, updatable = true)
-    var note: Boolean = true,
+    var note_value: Boolean = true,
+    var note_key: String? = null,
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")

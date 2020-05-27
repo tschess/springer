@@ -13,7 +13,7 @@ class PlayerNotify(private val repositoryPlayer: RepositoryPlayer) {
 
     fun notify(id: String): ResponseEntity<Any>? {
         val player: Player = repositoryPlayer.findById(UUID.fromString(id)!!).get()
-        if (!player.note) {
+        if (!player.note_value) {
             return null
         }
         return output.terminal(result = "notify", route = "success")

@@ -31,7 +31,7 @@ class GameChallenge(
             state = config
         )
         repositoryGame.save(game)
-        playerOther.note = true
+        playerOther.note_value = true
         repositoryPlayer.save(playerOther)
         rating.update(playerSelf, RESULT.ACTION)
         return output.terminal(result = "success", route = "challenge", game = game)

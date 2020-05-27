@@ -37,7 +37,7 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer, private val r
     //TODO: draw from quick...
     private fun seedGameInit(player: Player) {
         val opponent: Player = repositoryPlayer.findByUsername("sme")!!
-        opponent.note = true
+        opponent.note_value = true
         repositoryPlayer.save(opponent)
         val config: Int = (0..3).random()
         val state: List<List<String>> = configState.generateState(configState.get(config, player))

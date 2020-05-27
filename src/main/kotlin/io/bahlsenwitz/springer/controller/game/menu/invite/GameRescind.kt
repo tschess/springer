@@ -30,9 +30,9 @@ class GameRescind(
         rating.update(playerSelf, RESULT.LOSS)
         val game: Game = repositoryGame.findById(UUID.fromString(updateRescind.id_game)!!).get()
         if(game.challenger != CONTESTANT.WHITE){
-            game.white.note = false
+            game.white.note_value = false
         } else {
-            game.black.note = false
+            game.black.note_value = false
         }
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.RESCIND
