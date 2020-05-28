@@ -2,13 +2,10 @@ package io.bahlsenwitz.springer.controller.player
 
 import io.bahlsenwitz.springer.controller.player.backup.PlayerBackUp
 import io.bahlsenwitz.springer.controller.player.board.PlayerHome
-import io.bahlsenwitz.springer.controller.player.start.PlayerCreate
-import io.bahlsenwitz.springer.controller.player.start.PlayerLogin
-import io.bahlsenwitz.springer.controller.player.start.RequestStart
-import io.bahlsenwitz.springer.controller.player.start.PlayerInit
 import io.bahlsenwitz.springer.controller.player.update.PlayerConfig
 import io.bahlsenwitz.springer.controller.player.update.PlayerProfile
 import io.bahlsenwitz.springer.controller.player.board.PlayerRefresh
+import io.bahlsenwitz.springer.controller.player.start.*
 import io.bahlsenwitz.springer.controller.player.update.PlayerNotify
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
@@ -60,11 +57,16 @@ constructor(repositoryPlayer: RepositoryPlayer, repositoryGame: RepositoryGame) 
         return playerCreate.create(requestCreate)
     }
 
-    val playerStart = PlayerLogin(repositoryPlayer)
-
+    val playerStart: PlayerLogin = PlayerLogin(repositoryPlayer)
     @PostMapping("/login")
     fun login(@Valid @RequestBody requestLogin: RequestStart): ResponseEntity<Any> {
         return playerStart.login(requestLogin)
+    }
+
+    val playerKey: PlayerKey = PlayerKey(repositoryPlayer)
+    @PostMapping("/note")
+    fun note(@Valid @RequestBody updateKey: PlayerKey.UpdateKey): ResponseEntity<Any> {
+        return playerKey.note(updateKey)
     }
 
     /**
