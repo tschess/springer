@@ -63,12 +63,6 @@ constructor(repositoryPlayer: RepositoryPlayer, repositoryGame: RepositoryGame) 
         return playerStart.login(requestLogin)
     }
 
-    val playerKey: PlayerKey = PlayerKey(repositoryPlayer)
-    @PostMapping("/note")
-    fun note(@Valid @RequestBody updateKey: PlayerKey.UpdateKey): ResponseEntity<Any> {
-        return playerKey.note(updateKey)
-    }
-
     /**
      * Config.swift
      */

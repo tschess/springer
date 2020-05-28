@@ -23,6 +23,11 @@ class PlayerLogin(private val repositoryPlayer: RepositoryPlayer) {
             )
         if (BCryptPasswordEncoder().matches(requestLogin.password, player.password)) {
             player.device = requestLogin.device
+
+            if(requestLogin.note_key != "NULL"){
+                player.note_key = requestLogin.note_key
+            }
+
             return output.player(route = "login", player = player)
         }
         return output.terminal(result = "fail", route = "login")
