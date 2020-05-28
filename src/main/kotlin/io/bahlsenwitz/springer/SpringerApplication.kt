@@ -9,6 +9,7 @@ import io.bahlsenwitz.springer.generator.test.GeneratorTestGameAct
 import io.bahlsenwitz.springer.generator.test.GeneratorTestGameFin
 import io.bahlsenwitz.springer.generator.test.GeneratorTestGamePro
 import io.bahlsenwitz.springer.generator.test.GeneratorTestPlayer
+import io.bahlsenwitz.springer.push.Pusher
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.schedule.Schedule
@@ -31,6 +32,10 @@ class SpringerApplication(
      * NOTE: MM-DD, as it's stored in the 'backup' folders.
      */
     override fun run(args: ApplicationArguments) {
+
+        val pusher: Pusher = Pusher()
+        pusher.test()
+
         if (args.containsOption("source")) {
             val date: List<String> = args.getOptionValues("source")[0]!!.split("-")
             val month: String = date[0] //!!!
