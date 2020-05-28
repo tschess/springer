@@ -4,6 +4,10 @@ class Pusher {
 
     /**
      *  iOS
+     *
+     *  https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server
+     *  https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/sending_notification_requests_to_apns/
+     *
      */
     fun ios(){
         //TODO: soLaLa...
