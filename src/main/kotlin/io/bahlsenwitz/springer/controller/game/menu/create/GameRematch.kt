@@ -9,6 +9,7 @@ import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.ConfigState
 import io.bahlsenwitz.springer.util.DateTime
 import io.bahlsenwitz.springer.controller.Output
+import io.bahlsenwitz.springer.push.Pusher
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import java.util.*
@@ -17,6 +18,8 @@ class GameRematch(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
 ) {
+
+    private val pusher: Pusher = Pusher()
 
     private val dateTime: DateTime = DateTime()
     private val configState: ConfigState = ConfigState()
@@ -36,6 +39,9 @@ class GameRematch(
         playerSelf.date = dateTime.getDate()
         val playerOther: Player = repositoryPlayer.findById(UUID.fromString(requestRematch.id_other)!!).get()
         playerOther.note_value = true
+        /* * */
+        pusher.notify(playerOther)
+        /* * */
         val config: List<List<String>> = configState.get(requestRematch.config, playerSelf)
         val white: Boolean = requestRematch.white
         val game: Game = Game(white = playerSelf, black = playerOther, challenger = CONTESTANT.WHITE, state = config)

@@ -32,10 +32,7 @@ class SpringerApplication(
      * NOTE: MM-DD, as it's stored in the 'backup' folders.
      */
     override fun run(args: ApplicationArguments) {
-
-        val pusher: Pusher = Pusher()
-        pusher.test()
-
+        
         if (args.containsOption("source")) {
             val date: List<String> = args.getOptionValues("source")[0]!!.split("-")
             val month: String = date[0] //!!!

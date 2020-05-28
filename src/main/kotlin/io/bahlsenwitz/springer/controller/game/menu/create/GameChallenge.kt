@@ -7,6 +7,7 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.ConfigState
 import io.bahlsenwitz.springer.controller.Output
+import io.bahlsenwitz.springer.push.Pusher
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import java.util.*
@@ -15,6 +16,8 @@ class GameChallenge(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
 ) {
+
+    private val pusher: Pusher = Pusher()
 
     private val output: Output =
         Output()
@@ -32,6 +35,9 @@ class GameChallenge(
         )
         repositoryGame.save(game)
         playerOther.note_value = true
+        /* * */
+        pusher.notify(playerOther)
+        /* * */
         repositoryPlayer.save(playerOther)
         rating.update(playerSelf, RESULT.ACTION)
         return output.terminal(result = "success", route = "challenge", game = game)

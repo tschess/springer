@@ -10,6 +10,7 @@ import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.ConfigState
 import io.bahlsenwitz.springer.util.DateTime
 import io.bahlsenwitz.springer.controller.Output
+import io.bahlsenwitz.springer.push.Pusher
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import java.util.*
@@ -18,6 +19,8 @@ class GameQuick(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
 ) {
+
+    private val pusher: Pusher = Pusher()
 
     private val dateTime: DateTime = DateTime()
     private val configState: ConfigState = ConfigState()
@@ -31,6 +34,9 @@ class GameQuick(
         rating.update(playerSelf, RESULT.WIN)
         val playerOther: Player = repositoryPlayer.findById(UUID.fromString(requestQuick.id_other)!!).get()
         playerOther.note_value = true
+        /* * */
+        pusher.notify(playerOther)
+        /* * */
         repositoryPlayer.save(playerOther)
         val state: List<List<String>> = configState.generateState(configState.get(requestQuick.config, playerSelf))
         val game = Game(
