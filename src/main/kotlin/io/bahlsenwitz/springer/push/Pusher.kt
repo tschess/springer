@@ -6,16 +6,23 @@ import io.bahlsenwitz.springer.model.player.Player
 class Pusher() {
 
     fun notify(player: Player) {
-        try {
-            val key: String = player.note_key ?: return
-            val command: List<String?> = listOf(
-                "/home/ubuntu/springer/src/main/kotlin/io/bahlsenwitz/springer/push/pu.sh",
-                key,
-                "{\"aps\":{\"alert\":\"your move...\",\"badge\":\"1\",\"content-available\":1}}"
-            )
-            ProcessBuilder(command).start()
-        } catch (e: Exception) {
-            print(e.localizedMessage)
+        val pushRunnable: PushRunnable = PushRunnable(player)
+        pushRunnable.run()
+    }
+
+    class PushRunnable(val player: Player): Runnable {
+        override fun run() {
+            try {
+                val key: String = player.note_key ?: return
+                val command: List<String?> = listOf(
+                    "/home/ubuntu/springer/src/main/kotlin/io/bahlsenwitz/springer/push/pu.sh",
+                    key,
+                    "{\"aps\":{\"alert\":\"Your Move.\",\"badge\":\"1\",\"content-available\":1}}"
+                )
+                ProcessBuilder(command).start()
+            } catch (e: Exception) {
+                print(e.localizedMessage)
+            }
         }
     }
 
