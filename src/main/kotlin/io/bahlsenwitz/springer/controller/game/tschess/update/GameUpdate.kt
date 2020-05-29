@@ -16,8 +16,6 @@ class GameUpdate(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-
-
     private val tschess: Tschess = Tschess(repositoryPlayer)
     private val output: Output =
         Output(repositoryGame = repositoryGame)
