@@ -257,7 +257,7 @@ CREATE USER sme WITH PASSWORD 111111 WITH ALL PRIVILEGES
 `SELECT count("player") FROM "activity" GROUP BY time(10m)`
 
 ```
-curl -i -XPOST 'http://18.189.244.179:8086/write?db=tschess' --data-binary 'activity player=888,route="login"' 
+curl -i -XPOST 'http://X.X.X.X:8086/write?db=tschess' --data-binary 'activity player=888,route="login"' 
 nano /etc/influxdb/influxdb.conf
 netstat -an | grep "LISTEN "
 sudo kill -9 `sudo lsof -t -i:8086`

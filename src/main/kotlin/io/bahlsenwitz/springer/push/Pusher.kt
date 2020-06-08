@@ -17,7 +17,8 @@ class Pusher() {
                 val command: List<String?> = listOf(
                     "/home/ubuntu/springer/src/main/kotlin/io/bahlsenwitz/springer/push/pu.sh",
                     key,
-                    "{\"aps\":{\"alert\":\"Your Move.\",\"badge\":\"1\",\"content-available\":1}}"
+                    "{\"aps\":{\"alert\":{\"body\":\"Acme message received from Johnny Appleseed\",},\"badge\":\"1\",\"content-available\":1},\"sound\":\"chime.aiff\"}" //,
+                    //,"sound" : "chime.aiff"
                 )
                 ProcessBuilder(command).start()
             } catch (e: Exception) {
