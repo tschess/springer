@@ -2,7 +2,6 @@ package io.bahlsenwitz.springer.push
 
 import io.bahlsenwitz.springer.model.player.Player
 
-
 class Pusher() {
 
     fun notify(player: Player) {
@@ -10,21 +9,24 @@ class Pusher() {
         pushRunnable.run()
     }
 
-    class PushRunnable(val player: Player): Runnable {
-        override fun run() {
-            try {
-                val key: String = player.note_key ?: return
-                val command: List<String?> = listOf(
-                    "/home/ubuntu/springer/src/main/kotlin/io/bahlsenwitz/springer/push/pu.sh",
-                    key,
-                    "{\"aps\":{\"alert\":{\"body\":\"Acme message received from Johnny Appleseed\",},\"badge\":\"1\",\"content-available\":1},\"sound\":\"chime.aiff\"}" //,
-                    //,"sound" : "chime.aiff"
-                )
-                ProcessBuilder(command).start()
-            } catch (e: Exception) {
-                print(e.localizedMessage)
-            }
+}
+
+class PushRunnable(val player: Player) : Runnable {
+    override fun run() {
+        try {
+            val key: String = player.note_key ?: return
+            val command: List<String?> = listOf(
+                "/home/ubuntu/springer/src/main/kotlin/io/bahlsenwitz/springer/push/ios.sh",
+                key,
+                "{\"aps\":{" +
+                        "\"alert\":{\"body\":\"Your move.\"}," +
+                        "\"badge\":\"1\"," +
+                        "\"content-available\":1" +
+                        "}}"
+            )
+            ProcessBuilder(command).start()
+        } catch (e: Exception) {
+            print(e.localizedMessage)
         }
     }
-
 }
