@@ -21,12 +21,19 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
     private val IDX_DATE = 7
     private val IDX_NOTE_VALUE = 8 //TODO: !!! attend to this on migration
     //private val IDX_NOTE_KEY = 9 //TODO: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    private val IDX_CONFIG0 = 10
-    private val IDX_CONFIG1 = 11
-    private val IDX_CONFIG2 = 12
-    private val IDX_DEVICE = 13
-    private val IDX_UPDATED = 14
-    private val IDX_CREATED = 15
+    //private val IDX_CONFIG0 = 10
+    //private val IDX_CONFIG1 = 11
+    //private val IDX_CONFIG2 = 12
+    //private val IDX_DEVICE = 13
+    //private val IDX_UPDATED = 14
+    //private val IDX_CREATED = 15
+
+    private val IDX_CONFIG0 = 9
+    private val IDX_CONFIG1 = 10
+    private val IDX_CONFIG2 = 11
+    private val IDX_DEVICE = 12
+    private val IDX_UPDATED = 13
+    private val IDX_CREATED = 14
 
     fun generate(file: File) {
         repositoryPlayer.deleteAll()
