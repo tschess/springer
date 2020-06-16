@@ -20,7 +20,7 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
     private val IDX_DISP = 6
     private val IDX_DATE = 7
     private val IDX_NOTE_VALUE = 8 //TODO: !!! attend to this on migration
-    private val IDX_NOTE_KEY = 9 //TODO: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //private val IDX_NOTE_KEY = 9 //TODO: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     private val IDX_CONFIG0 = 10
     private val IDX_CONFIG1 = 11
     private val IDX_CONFIG2 = 12
@@ -50,12 +50,13 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                     val date: String = tokens[IDX_DATE] //7
                     val note_value: Boolean = tokens[IDX_NOTE_VALUE].toBoolean() //8
 
-                    var note_key: String? = tokens[IDX_NOTE_KEY] //9
-                    note_key = if(note_key == "NULL"){
-                        null
-                    } else {
-                        note_key.toString()
-                    }
+                    val note_key: String? = null
+                    //var note_key: String? = tokens[IDX_NOTE_KEY] //9
+                    //note_key = if(note_key == "NULL"){
+                        //null
+                    //} else {
+                        //note_key.toString()
+                    //}
 
                     val configString0: String = tokens[IDX_CONFIG0] //10
                     val config0: List<List<String>> = generateConfig(configString = configString0)
