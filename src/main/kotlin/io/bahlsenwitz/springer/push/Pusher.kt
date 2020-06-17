@@ -3,20 +3,28 @@ package io.bahlsenwitz.springer.push
 import io.bahlsenwitz.springer.model.player.Player
 
 class Pusher() {
-
-    fun notify(player: Player) {
-        val pushRunnable: PushRunnable = PushRunnable(player)
-        pushRunnable.run()
+    companion object {
+        const val path: String = "/home/ubuntu/springer/src/main/kotlin/io/bahlsenwitz/springer/push/"
     }
 
+    fun notify(player: Player) {
+        val key: String = player.note_key ?: return
+        val prefix: String = key.substring(0, 6)
+        val runnable: Runnable = if (prefix == "ANDROID") {
+            key.removePrefix(prefix)
+            RunnableAndroid(key)
+        } else {
+            RunnableIos(key)
+        }
+        runnable.run()
+    }
 }
 
-class PushRunnable(val player: Player) : Runnable {
+class RunnableIos(val key: String) : Runnable {
     override fun run() {
         try {
-            val key: String = player.note_key ?: return
             val command: List<String?> = listOf(
-                "/home/ubuntu/springer/src/main/kotlin/io/bahlsenwitz/springer/push/ios.sh",
+                "${Pusher.path}ios.sh",
                 key,
                 "{\"aps\":{" +
                         "\"alert\":{\"body\":\"Your move.\"}," +
@@ -30,3 +38,19 @@ class PushRunnable(val player: Player) : Runnable {
         }
     }
 }
+
+class RunnableAndroid(val key: String) : Runnable {
+    override fun run() {
+        try {
+            val command: List<String?> = listOf(
+                "${Pusher.path}android.sh",
+                key
+            )
+            ProcessBuilder(command).start()
+        } catch (e: Exception) {
+            print(e.localizedMessage)
+        }
+    }
+}
+
+
