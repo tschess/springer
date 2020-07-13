@@ -7,6 +7,7 @@ import io.bahlsenwitz.springer.controller.player.update.PlayerProfile
 import io.bahlsenwitz.springer.controller.player.board.PlayerRefresh
 import io.bahlsenwitz.springer.controller.player.start.*
 import io.bahlsenwitz.springer.controller.player.update.PlayerNotify
+import io.bahlsenwitz.springer.controller.player.update.PlayerPush
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.beans.factory.annotation.Autowired
@@ -113,6 +114,14 @@ constructor(repositoryPlayer: RepositoryPlayer, repositoryGame: RepositoryGame) 
     @PostMapping("/backup")
     fun backup(): Any {
         return playerBackUp.backup()
+    }
+
+    val playerPush =
+        PlayerPush(repositoryPlayer)
+
+    @GetMapping("/push")
+    fun push(@Valid @RequestBody updatePush: PlayerPush.UpdatePush): ResponseEntity<Any> {
+        return playerPush.push(updatePush)
     }
 
 }
