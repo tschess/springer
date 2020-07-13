@@ -9,7 +9,7 @@ class Pusher() {
 
     fun notify(player: Player) {
         val key: String = player.note_key ?: return
-        val prefix: String = key.substring(0, 7)
+        val prefix: String = key.substring(0, 8)
         val runnable: Runnable = if (prefix == "ANDROID_") {
             val test: String = key.removePrefix(prefix)
             RunnableAndroid(test)
