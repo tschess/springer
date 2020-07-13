@@ -119,7 +119,7 @@ constructor(repositoryPlayer: RepositoryPlayer, repositoryGame: RepositoryGame) 
     val playerPush =
         PlayerPush(repositoryPlayer)
 
-    @GetMapping("/push")
+    @PostMapping("/push")
     fun push(@Valid @RequestBody updatePush: PlayerPush.UpdatePush): ResponseEntity<Any> {
         return playerPush.push(updatePush)
     }
