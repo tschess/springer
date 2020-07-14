@@ -127,12 +127,15 @@ class Rating(
             val rank00: Int = player.rank
             val rank01: Int = index + 1
             val disp: Int = rank00 - rank01
+
+            player.rank = rank01
+            player.disp = disp
+            
             if (rank00 != rank01) {
-                player.rank = rank01
-                player.disp = disp
                 player.date = dateTime.getDate()
-                repositoryPlayer.save(player)
             }
+            repositoryPlayer.save(player)
+
             if (white != null) {
                 if (white.id == player.id) {
                     list[0] = disp
