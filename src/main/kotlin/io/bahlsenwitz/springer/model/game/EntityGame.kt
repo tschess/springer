@@ -89,7 +89,7 @@ class Game(
 
             val histoA: Boolean = a.status == STATUS.RESOLVED
             val histoB: Boolean = b.status == STATUS.RESOLVED
-            
+
             if (histoA) { //histo a
                 if (histoB) { //histo b
                     if (updateAB) {
