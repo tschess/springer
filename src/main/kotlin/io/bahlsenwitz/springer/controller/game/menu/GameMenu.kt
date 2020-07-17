@@ -57,10 +57,12 @@ class GameMenu(
             return ResponseEntity.ok(ResponseEntity.EMPTY)
         }
         if (playerListFilter.lastIndex + 1 <= indexTo) {
-            gameList = playerListFilter.sortedWith(Game).subList(indexFrom, playerListFilter.lastIndex + 1)
+            //gameList = playerListFilter.sortedWith(Game).subList(indexFrom, playerListFilter.lastIndex + 1)
+            gameList = playerListFilter.subList(indexFrom, playerListFilter.lastIndex + 1)
             return ResponseEntity.ok(gameList)
         }
-        gameList = playerListFilter.sortedWith(Game).subList(indexFrom, indexTo + 1)
+        //gameList = playerListFilter.sortedWith(Game).subList(indexFrom, indexTo + 1)
+        gameList = playerListFilter.subList(indexFrom, indexTo + 1)
         return ResponseEntity.ok(gameList)
     }
 
