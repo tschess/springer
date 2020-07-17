@@ -25,11 +25,11 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
     }
 
     fun leaderboard(requestPage: RequestPage): ResponseEntity<Any> {
-        val playerListFindAll: List<Player> = repositoryPlayer.findAll().sorted()
-
-        playerListFindAll.filter {
+        val playerListFindAll: List<Player> = repositoryPlayer.findAll().filter {
             getActive(it)
-        }
+        }.sorted()
+
+        //playerListFindAll
 
         val playerList: List<Player>
         val pageList: MutableList<Player> = mutableListOf()
