@@ -13,12 +13,12 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
     private val dateTime: DateTime = DateTime()
 
     data class RequestPage(val index: Int, val size: Int)
-    
+
     private fun getActive(player: Player): Boolean {
         val time00: ZonedDateTime = dateTime.rn().minusDays(7L)
         val time01: ZonedDateTime = dateTime.getDate(player.updated)
 
-        if (time01.isBefore(time00)) {
+        if (time00.isBefore(time01)) {
             return true
         }
         return false
