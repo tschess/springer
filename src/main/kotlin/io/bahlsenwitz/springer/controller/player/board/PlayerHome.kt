@@ -29,8 +29,6 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
             getActive(it)
         }.sorted()
 
-        //playerListFindAll
-
         val playerList: List<Player>
         val pageList: MutableList<Player> = mutableListOf()
 
