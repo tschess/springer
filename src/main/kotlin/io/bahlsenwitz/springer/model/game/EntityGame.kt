@@ -70,8 +70,27 @@ class Game(
                 } //a is histo, b not
                 return 1 //b < a
             } //neither a, nor b are histo...
+            //return -1
+
+            val ongoingA: Boolean = a.status == STATUS.ONGOING
+            val ongoingB: Boolean = b.status == STATUS.ONGOING
+
+            if (ongoingA) { //histo
+                if (ongoingB) { //histo b
+                    if (updateAB) {
+                        return 1 //b < a
+                    }
+                    return -1 //a < b
+                } //a is histo, b not
+                return 1 //b < a
+            }
+            if (updateAB) {
+                return 1 //b < a
+            }
             return -1
+
         }
+
     }
 }
 
