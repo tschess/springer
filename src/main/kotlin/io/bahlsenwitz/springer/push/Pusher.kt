@@ -26,11 +26,7 @@ class RunnableIos(val key: String) : Runnable {
             val command: List<String?> = listOf(
                 "${Pusher.path}ios.sh",
                 key,
-                "{\"aps\":{" +
-                        "\"alert\":{\"body\":\"Your move.\"}," +
-                        "\"badge\":\"1\"," +
-                        "\"content-available\":1" +
-                        "}}"
+                "{\"aps\":{\"alert\":{\"body\":\"Your move.\"},\"badge\":\"1\",\"content-available\":1}}"
             )
             ProcessBuilder(command).start()
         } catch (e: Exception) {
