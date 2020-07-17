@@ -62,15 +62,15 @@ class Game(
             val ongoingA: Boolean = a.status == STATUS.ONGOING
             val ongoingB: Boolean = b.status == STATUS.ONGOING
 
-            if (ongoingA) { //histo
-                if (ongoingB) { //histo b
+            if (ongoingA) { //ongoing a
+                if (ongoingB) { //ongoing b
                     if (updateAB) {
                         return 1 //b < a
                     }
                     return -1 //a < b
-                } //a is histo, b not
-                return 1 //b < a
-            } //neither a, nor b are histo...
+                } //a is ongoing, b not
+                return -1 //b < a
+            } //neither a, nor b are ongoing...
 
             val pendingA: Boolean = a.status == STATUS.PROPOSED
             val pendingB: Boolean = b.status == STATUS.PROPOSED
@@ -82,12 +82,12 @@ class Game(
                     }
                     return -1 //a < b
                 } //a is histo, b not
-                return 1 //b < a
+                return -1 //b < a
             } //neither a, nor b are histo...
 
             val histoA: Boolean = a.status == STATUS.RESOLVED
             val histoB: Boolean = b.status == STATUS.RESOLVED
-            
+
             if (histoA) { //histo
                 if (histoB) { //histo b
                     if (updateAB) {
