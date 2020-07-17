@@ -59,19 +59,6 @@ class Game(
             val updateB: ZonedDateTime = DateTime().getDate(b.updated)
             val updateAB: Boolean = updateA.isBefore(updateB)
 
-            val histoA: Boolean = a.status == STATUS.RESOLVED
-            val histoB: Boolean = b.status == STATUS.RESOLVED
-            if (histoA) { //histo
-                if (histoB) { //histo b
-                    if (updateAB) {
-                        return 1 //b < a
-                    }
-                    return -1 //a < b
-                } //a is histo, b not
-                return 1 //b < a
-            } //neither a, nor b are histo...
-            //return -1
-
             val ongoingA: Boolean = a.status == STATUS.ONGOING
             val ongoingB: Boolean = b.status == STATUS.ONGOING
 
@@ -83,14 +70,35 @@ class Game(
                     return -1 //a < b
                 } //a is histo, b not
                 return 1 //b < a
-            }
-            if (updateAB) {
+            } //neither a, nor b are histo...
+
+            val pendingA: Boolean = a.status == STATUS.PROPOSED
+            val pendingB: Boolean = b.status == STATUS.PROPOSED
+
+            if (pendingA) { //histo
+                if (pendingB) { //histo b
+                    if (updateAB) {
+                        return 1 //b < a
+                    }
+                    return -1 //a < b
+                } //a is histo, b not
                 return 1 //b < a
-            }
+            } //neither a, nor b are histo...
+
+            val histoA: Boolean = a.status == STATUS.RESOLVED
+            val histoB: Boolean = b.status == STATUS.RESOLVED
+            
+            if (histoA) { //histo
+                if (histoB) { //histo b
+                    if (updateAB) {
+                        return 1 //b < a
+                    }
+                    return -1 //a < b
+                } //a is histo, b not
+                return 1 //b < a
+            } //neither a, nor b are histo...
             return -1
-
         }
-
     }
 }
 
