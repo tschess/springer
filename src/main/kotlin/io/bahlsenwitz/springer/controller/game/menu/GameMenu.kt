@@ -15,8 +15,7 @@ class GameMenu(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    private val output: Output =
-        Output()
+    private val output: Output = Output()
 
     data class RequestMenu(
         val id: String,

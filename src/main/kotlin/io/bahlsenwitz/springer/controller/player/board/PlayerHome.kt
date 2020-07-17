@@ -1,18 +1,36 @@
 package io.bahlsenwitz.springer.controller.player.board
 
+import io.bahlsenwitz.springer.controller.Output
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.controller.Output
+import io.bahlsenwitz.springer.util.DateTime
 import org.springframework.http.ResponseEntity
+import java.time.ZonedDateTime
 
 class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
 
     private val output: Output = Output()
+    private val dateTime: DateTime = DateTime()
 
     data class RequestPage(val index: Int, val size: Int)
+    
+    private fun getActive(player: Player): Boolean {
+        val time00: ZonedDateTime = dateTime.rn().minusDays(7L)
+        val time01: ZonedDateTime = dateTime.getDate(player.updated)
+
+        if (time01.isBefore(time00)) {
+            return true
+        }
+        return false
+    }
 
     fun leaderboard(requestPage: RequestPage): ResponseEntity<Any> {
         val playerListFindAll: List<Player> = repositoryPlayer.findAll().sorted()
+
+        playerListFindAll.filter {
+            getActive(it)
+        }
+
         val playerList: List<Player>
         val pageList: MutableList<Player> = mutableListOf()
 
