@@ -137,7 +137,13 @@ class Rating(
 
     private fun recalc(white: Player? = null, black: Player? = null): Array<Int> {
         val list: Array<Int> = arrayOf(0, 0)
-        val leaderboard: List<Player> = repositoryPlayer!!.findAll().sorted()
+        val leaderboard: List<Player> = repositoryPlayer!!
+            .findAll()
+            .filter {
+                getActive(it)
+            }
+            .sorted()
+       
         for ((index: Int, player: Player) in leaderboard.withIndex()) {
             val rank00: Int = player.rank
             val rank01: Int = index + 1
