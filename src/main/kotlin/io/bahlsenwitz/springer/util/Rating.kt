@@ -7,6 +7,7 @@ import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
+import java.time.ZonedDateTime
 
 class Rating(
     private val repositoryGame: RepositoryGame? = null,
@@ -113,11 +114,25 @@ class Rating(
     }
 
     fun addition(player: Player): Player {
-        val leaderboard: List<Player> = repositoryPlayer!!.findAll().sorted()
+        val leaderboard: List<Player> = repositoryPlayer!!
+            .findAll()
+            .filter {
+                getActive(it)
+            }
+            .sorted()
         val tlo: Int = leaderboard.last().elo - 1
         player.elo = tlo
         player.rank = leaderboard.count() + 1
         return repositoryPlayer.save(player)
+    }
+
+    private fun getActive(player: Player): Boolean {
+        val time00: ZonedDateTime = dateTime.rn().minusDays(7L)
+        val time01: ZonedDateTime = dateTime.getDate(player.updated)
+        if (time00.isBefore(time01)) {
+            return true
+        }
+        return false
     }
 
     private fun recalc(white: Player? = null, black: Player? = null): Array<Int> {
