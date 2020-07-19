@@ -16,6 +16,7 @@ class PlayerNotify(private val repositoryPlayer: RepositoryPlayer) {
         if (!player.note_value) {
             return output.terminal(result = "fail", route = "notify")
         }
-        return output.terminal(result = "notify", route = "success")
+        //return output.terminal(result = "notify", route = "success")
+        return output.terminal(result = "success", route = "notify")
     }
 }
