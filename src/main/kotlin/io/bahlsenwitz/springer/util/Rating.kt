@@ -143,7 +143,7 @@ class Rating(
                 getActive(it)
             }
             .sorted()
-       
+
         for ((index: Int, player: Player) in leaderboard.withIndex()) {
             val rank00: Int = player.rank
             val rank01: Int = index + 1
