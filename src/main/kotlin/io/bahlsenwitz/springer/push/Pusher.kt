@@ -8,7 +8,13 @@ class Pusher() {
     }
 
     fun notify(player: Player) {
-        val key: String = player.note_key ?: return
+        if(player.note_key == null){
+            return
+        }
+        val key: String = player.note_key!!
+        if(key.length < 7){
+            return
+        }
         val prefix: String = key.substring(0, 8)
         val runnable: Runnable = if (prefix == "ANDROID_") {
             val test: String = key.removePrefix(prefix)

@@ -31,7 +31,7 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer, private val r
         )
         player = rating.addition(player)
         seedGameInit(player)
-        return output.player("device", player, true)
+        return output.player("create", player, true)
     }
 
     //TODO: draw from quick...
