@@ -89,6 +89,9 @@ class GameMenu(
         if (game.status == STATUS.ONGOING){
             return true
         }
+        if (game.status == STATUS.RESOLVED){
+            return false
+        }
         if(game.condition == CONDITION.REFUSED){
             return false
         }
