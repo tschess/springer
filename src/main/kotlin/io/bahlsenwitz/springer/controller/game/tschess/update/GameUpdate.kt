@@ -13,12 +13,11 @@ import java.util.*
 
 class GameUpdate(
     private val repositoryGame: RepositoryGame,
-    private val repositoryPlayer: RepositoryPlayer
+    repositoryPlayer: RepositoryPlayer
 ) {
 
     private val tschess: Tschess = Tschess(repositoryPlayer)
-    private val output: Output =
-        Output(repositoryGame = repositoryGame)
+    private val output: Output = Output(repositoryGame = repositoryGame)
 
     data class UpdateGame(
         val id_game: String,
@@ -29,7 +28,9 @@ class GameUpdate(
 
     fun update(updateGame: UpdateGame): ResponseEntity<Any>? {
         val game: Game = repositoryGame.findById(UUID.fromString(updateGame.id_game)).get()
-        if (game.status == STATUS.RESOLVED) {
+        val resolved: Boolean = game.status == STATUS.RESOLVED
+        val difference: Boolean = game.state != updateGame.state
+        if(resolved || !difference) { // prevent turn from advance on no change...
             return output.terminal(result = "fail", route = "update")
         }
         game.moves += 1
