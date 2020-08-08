@@ -11,7 +11,6 @@ import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 import java.util.*
-import kotlin.collections.ArrayList
 
 class GeneratorGame(
     private val repositoryPlayer: RepositoryPlayer,
@@ -105,12 +104,12 @@ class GeneratorGame(
                         condition = CONDITION, //3
                         moves = moves, //4
                         white = white, //5
-                        white_elo = white_elo, //6
-                        white_disp = white_disp, //7
+                        //white_elo = white_elo, //6
+                        //white_disp = white_disp, //7
 
                         black = black, //8
-                        black_elo = black_elo, //9
-                        black_disp = black_disp, //10
+                        //black_elo = black_elo, //9
+                        //black_disp = black_disp, //10
 
                         challenger = challenger, //11
                         winner = winner, //12

@@ -19,17 +19,13 @@ class GameBackUp(private val repositoryGame: RepositoryGame) {
             "outcome;" + //    3
             "moves;" + //      4
             "white;" + //      5
-            "white_elo;" + //  6
-            "white_disp;" + // 7
-            "black;" + //      8
-            "black_elo;" + //  9
-            "black_disp;" +// 10
-            "challenger;" +// 11
-            "winner;" + //    12
-            "turn;" + //      13
-            "on_check;" + //  14
-            "highlight;" + // 15
-            "updated" //      16
+            "black;" + //      6
+            "challenger;" +//  7
+            "winner;" + //     8
+            "turn;" + //       9
+            "on_check;" + //   10
+            "highlight;" + //  11
+            "updated" //       12
 
     fun backup(): ResponseEntity<Any> {
         val gameList: List<Game> = repositoryGame.findAll()
@@ -57,25 +53,9 @@ class GameBackUp(private val repositoryGame: RepositoryGame) {
                 fileWriter.append("${moves};") //4
                 val white_id: String = game.white.id.toString()
                 fileWriter.append("${white_id};") //5
-                val white_elo: String = game.white_elo.toString()
-                fileWriter.append("${white_elo};") //6
-                val white_disp_o: Int? = game.white_disp
-                if (white_disp_o == null) {
-                    fileWriter.append("NULL;") //7
-                } else {
-                    fileWriter.append("${game.white_disp.toString()};")
-                }
 
                 val black_id: String = game.black.id.toString()
-                fileWriter.append("${black_id};") //8
-                val black_elo: String = game.black_elo.toString()
-                fileWriter.append("${black_elo};") //9
-                val black_disp_o: Int? = game.black_disp
-                if (black_disp_o == null) {
-                    fileWriter.append("NULL;") //10
-                } else {
-                    fileWriter.append("${game.black_disp.toString()};")
-                }
+                fileWriter.append("${black_id};") //6
 
                 val challenger: String = game.challenger.toString()  //11
                 fileWriter.append("${challenger};")

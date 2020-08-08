@@ -28,14 +28,10 @@ class Game(
     @OneToOne
     @JoinColumn(name = "white")
     var white: Player,
-    var white_elo: Int = getElo(white),
-    var white_disp: Int? = null,//0,
 
     @OneToOne
     @JoinColumn(name = "black")
     var black: Player,
-    var black_elo: Int = getElo(black),
-    var black_disp: Int? = null,//0,
 
     var challenger: CONTESTANT = CONTESTANT.BLACK,
     var winner: CONTESTANT? = null,
@@ -49,10 +45,6 @@ class Game(
 ) : EntityUUID(id) {
 
     companion object : Comparator<Game>  {
-
-        fun getElo(player: Player): Int {
-            return player.elo
-        }
 
         override fun compare(a: Game, b: Game): Int {
             val updateA: ZonedDateTime = DateTime().getDate(a.updated)
@@ -127,6 +119,7 @@ enum class CONDITION {
     EXPIRED, //of an invitation
     REFUSED, //of an invitation
     RESCIND, //of an invitation
-    TBD
+    TBD,
+    PUSH //first!
 }
 

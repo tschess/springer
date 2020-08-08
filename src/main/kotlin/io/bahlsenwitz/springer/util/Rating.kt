@@ -54,10 +54,8 @@ class Rating(
             game.black.elo = elo02_lst
         }
         repositoryPlayer!!.saveAll(listOf(game.white, game.black))
-        val disp: Array<Int> = recalc(game.white, game.black)
-        game.white_disp = disp[0]
-        game.black_disp = disp[1]
         repositoryGame!!.save(game)
+        recalc()
     }
 
     fun expire(invite: Game) {
@@ -87,10 +85,8 @@ class Rating(
             invite.white.elo = elo02_lst
         }
         repositoryPlayer!!.saveAll(listOf(invite.white, invite.black))
-        val disp: Array<Int> = recalc(invite.white, invite.black)
-        invite.white_disp = disp[0]
-        invite.black_disp = disp[1]
         repositoryGame!!.save(invite)
+        recalc()
     }
 
     fun draw(game: Game) {
@@ -107,10 +103,8 @@ class Rating(
         game.black.elo = elo02_black
 
         repositoryPlayer!!.saveAll(listOf(game.white, game.black))
-        val disp: Array<Int> = recalc(game.white, game.black)
-        game.white_disp = disp[0]
-        game.black_disp = disp[1]
         repositoryGame!!.save(game)
+        recalc()
     }
 
     fun addition(player: Player): Player {
@@ -135,37 +129,25 @@ class Rating(
         return false
     }
 
-    private fun recalc(white: Player? = null, black: Player? = null): Array<Int> {
-        val list: Array<Int> = arrayOf(0, 0)
+    private fun recalc() {
         val leaderboard: List<Player> = repositoryPlayer!!
             .findAll()
             .filter {
                 getActive(it)
             }
             .sorted()
-
         for ((index: Int, player: Player) in leaderboard.withIndex()) {
             val rank00: Int = player.rank
-            val rank01: Int = index + 1
-            val disp: Int = rank00 - rank01
-            if (rank00 != rank01) {
-                player.rank = rank01
-                player.disp = disp
-                player.date = dateTime.getDate()
-                repositoryPlayer.save(player)
+            val rankXX: Int = index + 1
+            if (rank00 == rankXX) {
+               continue
             }
-            if (white != null) {
-                if (white.id == player.id) {
-                    list[0] = disp
-                }
-            }
-            if (black != null) {
-                if (black.id == player.id) {
-                    list[1] = disp
-                }
-            }
+            player.rank = rankXX
+            val disp: Int = rank00 - rankXX
+            player.disp = disp
+            player.date = dateTime.getDate()
+            repositoryPlayer.save(player)
         }
-        return list
     }
 
 }

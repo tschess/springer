@@ -19,9 +19,7 @@ class GeneratorTestGameFin(
             black = generatorTestPlayer.findByName(username = "888"),
             state = Default.state(),
             moves = 33,
-            white_disp = 1,
 
-            black_disp = -7,
             condition = CONDITION.CHECKMATE,
             winner = CONTESTANT.WHITE,
             status = STATUS.RESOLVED,
@@ -34,9 +32,7 @@ class GeneratorTestGameFin(
             black = generatorTestPlayer.findByName(username = "bbb"),
             status = STATUS.RESOLVED,
             winner = CONTESTANT.WHITE,
-            white_disp = 1,
 
-            black_disp = -7,
             state = Default.state(),
             challenger = CONTESTANT.WHITE
         )
@@ -49,8 +45,7 @@ class GeneratorTestGameFin(
             black = generatorTestPlayer.findByName(username = "ccc"),
             status = STATUS.RESOLVED,
             winner = CONTESTANT.WHITE,
-            white_disp = -3,
-            black_disp = 1,
+
 
             state = Default.state(),
             challenger = CONTESTANT.WHITE
@@ -64,8 +59,7 @@ class GeneratorTestGameFin(
             black = generatorTestPlayer.findByName(username = "ddd"),
             status = STATUS.RESOLVED,
             winner = CONTESTANT.BLACK,
-            white_disp = -9,
-            black_disp = 0,
+
             state = Default.state(),
             challenger = CONTESTANT.WHITE
         )
@@ -77,8 +71,7 @@ class GeneratorTestGameFin(
             white = generatorTestPlayer.findByName(username = "sme"),
             black = generatorTestPlayer.findByName(username = "eee"),
             status = STATUS.RESOLVED,
-            white_disp = 14,
-            black_disp = -4,
+
 
             state = Default.state(),
             challenger = CONTESTANT.WHITE,
@@ -91,8 +84,7 @@ class GeneratorTestGameFin(
             black = generatorTestPlayer.findByName(username = "fff"),
             status = STATUS.RESOLVED,
             winner = CONTESTANT.BLACK,
-            white_disp = 6,
-            black_disp = -2,
+
 
             state = Default.state(),
             challenger = CONTESTANT.WHITE

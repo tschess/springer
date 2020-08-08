@@ -8,7 +8,6 @@ import java.io.File
 import java.io.FileReader
 
 import java.util.*
-import kotlin.collections.ArrayList
 
 class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
     private val IDX_ID = 0
@@ -57,7 +56,6 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                     val date: String = tokens[IDX_DATE] //7
                     val note_value: Boolean = tokens[IDX_NOTE_VALUE].toBoolean() //8
 
-                    //val note_key: String? = null
                     var note_key: String? = tokens[IDX_NOTE_KEY] //9
                     note_key = if(note_key == "NULL"){
                         null
