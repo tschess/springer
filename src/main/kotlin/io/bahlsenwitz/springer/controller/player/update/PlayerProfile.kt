@@ -21,7 +21,7 @@ class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
     fun avatar(updateAvatar: UpdateAvatar): ResponseEntity<Any> {
         val player: Player = repositoryPlayer.findById(UUID.fromString(updateAvatar.id)!!).get()
         player.avatar = updateAvatar.avatar.replace("\n","")
-        return output.player(route = "avatar", player = player)
+        return output.player(player)
     }
 
     fun clear(device: String): ResponseEntity<Any> {
@@ -30,7 +30,7 @@ class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
             player.device = null
             player.updated = dateTime.getDate()
             repositoryPlayer.save(player)
-            return output.terminal(result = "success", route = "clear", player = player)
+            return output.terminal(result = "success", route = "clear")
         }
         return output.terminal(result = "fail", route = "clear")
     }

@@ -8,6 +8,7 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.ConfigState
 import io.bahlsenwitz.springer.controller.Output
+import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -31,7 +32,7 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer, private val r
         )
         player = rating.addition(player)
         seedGameInit(player)
-        return output.player("create", player, true)
+        return output.player(player)
     }
 
     //TODO: draw from quick...
@@ -46,7 +47,8 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer, private val r
             white = player,
             black = opponent,
             challenger = CONTESTANT.WHITE,
-            status = STATUS.ONGOING
+            status = STATUS.ONGOING,
+            condition = CONDITION.PUSH
         )
         repositoryGame.save(game)
     }

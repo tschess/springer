@@ -32,6 +32,6 @@ class GameNack(
         game.condition = CONDITION.REFUSED
         game.updated = dateTime.getDate()
         repositoryGame.save(game)
-        return output.player(route = "nack", player = playerSelf) //to update your header...
+        return output.player(playerSelf) //to update your header...
     }
 }

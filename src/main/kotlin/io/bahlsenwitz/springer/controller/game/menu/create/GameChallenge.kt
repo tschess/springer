@@ -40,7 +40,7 @@ class GameChallenge(
         /* * */
         repositoryPlayer.save(playerOther)
         rating.update(playerSelf, RESULT.ACTION)
-        return output.terminal(result = "success", route = "challenge", game = game)
+        return output.terminal(result = "success", route = "challenge")
     }
 
 }

@@ -28,7 +28,7 @@ class PlayerConfig(private val repositoryPlayer: RepositoryPlayer) {
         if (updateConfig.index == 2) {
             player.config2 = updateConfig.config
         }
-        return output.player(route = "config", player = player)
+        return output.player(player)
     }
 
 }

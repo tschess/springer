@@ -18,7 +18,7 @@ class PlayerPush(private val repositoryPlayer: RepositoryPlayer) {
     fun push(updatePush: UpdatePush): ResponseEntity<Any> {
         val player: Player = repositoryPlayer.findById(UUID.fromString(updatePush.id)!!).get()
         player.note_key = updatePush.note_key
-        return output.player(route = "push", player = player)
+        return output.player(player)
     }
 
 }

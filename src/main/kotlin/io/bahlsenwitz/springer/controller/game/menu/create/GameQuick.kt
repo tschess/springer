@@ -15,17 +15,13 @@ import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import java.util.*
 
-class GameQuick(
-    private val repositoryGame: RepositoryGame,
+class GameQuick(repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer
 ) {
-
     private val pusher: Pusher = Pusher()
-
     private val dateTime: DateTime = DateTime()
     private val configState: ConfigState = ConfigState()
-    private val output: Output =
-        Output(repositoryGame = repositoryGame)
+    private val output: Output = Output(repositoryGame = repositoryGame)
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     fun quick(requestQuick: RequestCreate): ResponseEntity<Any> {
@@ -46,7 +42,7 @@ class GameQuick(
             challenger = CONTESTANT.WHITE,
             status = STATUS.ONGOING
         )
-        return output.game(route = "quick", game = game)
+        return output.game(game = game)
     }
 
 
