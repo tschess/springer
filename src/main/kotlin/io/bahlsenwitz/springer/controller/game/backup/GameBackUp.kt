@@ -40,7 +40,7 @@ class GameBackUp(private val repositoryGame: RepositoryGame) {
                 fileWriter.append("${id};") //0
 
                 var state: String = "NULL"
-                if(game.state != null){ //toString()
+                if(game.state != null){
                     state = game.state.toString()
                 }
                 fileWriter.append("${state};") //1
@@ -57,23 +57,23 @@ class GameBackUp(private val repositoryGame: RepositoryGame) {
                 val black_id: String = game.black.id.toString()
                 fileWriter.append("${black_id};") //6
 
-                val challenger: String = game.challenger.toString()  //11
+                val challenger: String = game.challenger.toString()  //7
                 fileWriter.append("${challenger};")
 
                 val winner_o: CONTESTANT? = game.winner
                 if (winner_o == null) {
-                    fileWriter.append("NULL;") //12
+                    fileWriter.append("NULL;") //8
                 } else {
                     fileWriter.append("${game.winner.toString()};")
                 }
                 val turn: String = game.turn.toString()
-                fileWriter.append("${turn};") //13
+                fileWriter.append("${turn};") //9
                 val on_check: Boolean = game.on_check
-                fileWriter.append("${on_check};") //14
+                fileWriter.append("${on_check};") //10
                 val highlight: String = game.highlight
-                fileWriter.append("${highlight};") //15
+                fileWriter.append("${highlight};") //11
                 val updated: String = game.updated
-                fileWriter.append("${updated};") //16
+                fileWriter.append("${updated};") //12
                 fileWriter.append('\n')
             }
         } finally {

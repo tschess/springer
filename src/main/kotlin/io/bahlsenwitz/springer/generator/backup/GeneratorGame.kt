@@ -22,19 +22,13 @@ class GeneratorGame(
     private val IDX_OUTCOME = 3
     private val IDX_MOVES = 4
     private val IDX_WHITE_ID = 5
-    private val IDX_WHITE_ELO = 6
-    private val IDX_WHITE_DISP = 7
-
-    private val IDX_BLACK_ID = 8
-    private val IDX_BLACK_ELO = 9
-    private val IDX_BLACK_DISP = 10
-
-    private val IDX_CHALLENGER = 11
-    private val IDX_WINNER = 12
-    private val IDX_TURN = 13
-    private val IDX_ON_CHECK = 14
-    private val IDX_HIGHLIGHT = 15
-    private val IDX_UPDATED = 16
+    private val IDX_BLACK_ID = 6
+    private val IDX_CHALLENGER = 7
+    private val IDX_WINNER = 8
+    private val IDX_TURN = 9
+    private val IDX_ON_CHECK = 10
+    private val IDX_HIGHLIGHT = 11
+    private val IDX_UPDATED = 12
 
     fun generate(file: File) {
         repositoryGame.deleteAll()
@@ -53,70 +47,46 @@ class GeneratorGame(
                     var state: List<List<String>>? = null
                     val stateString: String = tokens[IDX_STATE]
                     if (stateString != "NULL") {
-                        //val state: List<List<String>> = generateState(stateString = stateString) //1
                         state = generateState(stateString = stateString) //1
                     }
                     val status: STATUS = STATUS.valueOf(tokens[IDX_STATUS]) //2
-                    val CONDITION: CONDITION = CONDITION.valueOf(tokens[IDX_OUTCOME]) //3
+                    val condition: CONDITION = CONDITION.valueOf(tokens[IDX_OUTCOME]) //3
                     val moves: Int = tokens[IDX_MOVES].toInt() //4
+
                     val whiteIdString: String = tokens[IDX_WHITE_ID]
                     val white_id: UUID = UUID.fromString(whiteIdString)!!
-
                     val white: Player = repositoryPlayer.findById(white_id).get() //5
-                    val white_elo: Int = tokens[IDX_WHITE_ELO].toInt() //6
-
-                    var white_disp: Int? = null
-                    val white_disp_0: String = tokens[IDX_WHITE_DISP] //7
-                    if (white_disp_0 != "NULL") {
-                        white_disp = white_disp_0.toInt()
-                    }
 
                     val blackIdString: String = tokens[IDX_BLACK_ID]
                     val black_id: UUID = UUID.fromString(blackIdString)!!
-                    val black: Player = repositoryPlayer.findById(black_id).get() //9
-                    val black_elo: Int = tokens[IDX_BLACK_ELO].toInt() //10
+                    val black: Player = repositoryPlayer.findById(black_id).get() //6
 
-                    var black_disp: Int? = null
-                    val black_disp_0: String = tokens[IDX_BLACK_DISP] //11
-                    if (black_disp_0 != "NULL") {
-                        black_disp = black_disp_0.toInt()
-                    }
+                    val challenger: CONTESTANT = CONTESTANT.valueOf(tokens[IDX_CHALLENGER]) //7
 
-                    val challenger: CONTESTANT = CONTESTANT.valueOf(tokens[IDX_CHALLENGER])
-                    //val challenger_0: String = tokens[IDX_CHALLENGER] //11
-                    //if (challenger_0 != "NULL") {
-                    //challenger = CONTESTANT.valueOf(challenger_0)
-                    //}
                     var winner: CONTESTANT? = null
-                    val winner_0: String = tokens[IDX_WINNER] //14
+                    val winner_0: String = tokens[IDX_WINNER] //8
                     if (winner_0 != "NULL") {
                         winner = CONTESTANT.valueOf(winner_0)
                     }
-                    val turn: CONTESTANT = CONTESTANT.valueOf(tokens[IDX_TURN]) //15
-                    val on_check: Boolean = tokens[IDX_ON_CHECK].toBoolean() //16
-                    val highlight: String = tokens[IDX_HIGHLIGHT] //17
-                    val updated: String = tokens[IDX_UPDATED] //18
+                    val turn: CONTESTANT = CONTESTANT.valueOf(tokens[IDX_TURN]) //9
+                    val on_check: Boolean = tokens[IDX_ON_CHECK].toBoolean() //10
+                    val highlight: String = tokens[IDX_HIGHLIGHT] //11
+                    val updated: String = tokens[IDX_UPDATED] //12
 
                     val game = Game(
-                        id = id, //0
-                        state = state, //1
-                        status = status, //2
-                        condition = CONDITION, //3
-                        moves = moves, //4
-                        white = white, //5
-                        //white_elo = white_elo, //6
-                        //white_disp = white_disp, //7
-
-                        black = black, //8
-                        //black_elo = black_elo, //9
-                        //black_disp = black_disp, //10
-
-                        challenger = challenger, //11
-                        winner = winner, //12
-                        turn = turn, //13
-                        on_check = on_check, //14
-                        highlight = highlight, //15
-                        updated = updated
+                        id = id,                // 0
+                        state = state,          // 1
+                        status = status,        // 2
+                        condition = condition,  // 3
+                        moves = moves,          // 4
+                        white = white,          // 5
+                        black = black,          // 6
+                        challenger = challenger,// 7
+                        winner = winner,        // 8
+                        turn = turn,            // 9
+                        on_check = on_check,    //10
+                        highlight = highlight,  //11
+                        updated = updated       //12
                     )
                     gameList.add(game)
                 }
