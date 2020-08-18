@@ -31,7 +31,7 @@ class Player(
     var elo: Int = 1200,
     var rank: Int = 0,
     var disp: Int = 0,
-    var date: String = this.date,
+    var date: String = this.date, //can remove this...
 
     @Column(insertable = true, updatable = true)
     var note_value: Boolean = true,

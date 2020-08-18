@@ -101,8 +101,7 @@ constructor(repositoryPlayer: RepositoryPlayer, repositoryGame: RepositoryGame) 
         return playerRefresh.refresh(requestRefresh)
     }
 
-    val playerNotify =
-        PlayerNotify(repositoryPlayer)
+    val playerNotify = PlayerNotify(repositoryPlayer)
 
     @GetMapping("/notify/{id}")
     fun notify(@PathVariable(value = "id") id: String): ResponseEntity<Any>? {

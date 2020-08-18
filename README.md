@@ -23,6 +23,12 @@ sudo apt-get install -y tmux
 sudo apt install -y gradle
 ```
 
+https://www.techrepublic.com/article/how-to-install-fail2ban-on-ubuntu-server-18-04/
+```
+sudo apt-get install -y fail2ban
+sudo systemctl start fail2ban
+sudo systemctl enable fail2ban
+```
 ## start
 
 run with the following command: 
