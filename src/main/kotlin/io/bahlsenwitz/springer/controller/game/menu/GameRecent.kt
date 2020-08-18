@@ -37,6 +37,7 @@ class GameRecent(private val repositoryGame: RepositoryGame,
         val recent: Game = playerListFilter.sortedWith(RecentCmp).last()
 
         /* * */
+        //TODO: why is this here? ...
         val player: Player = repositoryPlayer.findById(uuid).get()
         influx.activity(player, "recent")
         /* * */
