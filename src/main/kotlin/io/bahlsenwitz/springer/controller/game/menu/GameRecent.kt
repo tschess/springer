@@ -6,12 +6,17 @@ import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.util.DateTime
 import io.bahlsenwitz.springer.controller.Output
+import io.bahlsenwitz.springer.model.player.Player
+import io.bahlsenwitz.springer.push.Influx
+import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.http.ResponseEntity
 import java.time.ZonedDateTime
 import java.util.*
 
-class GameRecent(private val repositoryGame: RepositoryGame) {
+class GameRecent(private val repositoryGame: RepositoryGame,
+                 private val repositoryPlayer: RepositoryPlayer) {
 
+    private val influx: Influx = Influx()
     private val output: Output = Output()
 
     fun recent(id_player: String): ResponseEntity<Any> {
@@ -30,6 +35,11 @@ class GameRecent(private val repositoryGame: RepositoryGame) {
             return output.terminal(result = "fail", route = "recent")
         }
         val recent: Game = playerListFilter.sortedWith(RecentCmp).last()
+
+        /* * */
+        val player: Player = repositoryPlayer.findById(uuid).get()
+        influx.activity(player, "recent")
+        /* * */
         return ResponseEntity.ok(recent)
     }
 

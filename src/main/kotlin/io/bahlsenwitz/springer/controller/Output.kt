@@ -15,16 +15,19 @@ class Output(private val repositoryPlayer: RepositoryPlayer? = null, private val
     private val dateTime: DateTime = DateTime()
     private var body: MutableMap<String, String> = HashMap()
 
-    fun terminal(result: String, route: String): ResponseEntity<Any> {
+    fun terminal(result: String, route: String, game: Game? = null, player: Player? = null): ResponseEntity<Any> {
+        /* * */
+        influx(route, game, player)
+        /* * */
         body = HashMap()
         body[result] = route
         return ResponseEntity.ok().body(body)
     }
 
     fun update(route: String, game: Game): ResponseEntity<Any> {
-
+        /* * */
         influx(route, game, null)
-
+        /* * */
         body = HashMap()
         game.updated = dateTime.getDate()
         repositoryGame!!.save(game)
@@ -32,7 +35,10 @@ class Output(private val repositoryPlayer: RepositoryPlayer? = null, private val
         return ResponseEntity.ok().body(body)
     }
 
-    fun game(game: Game): ResponseEntity<Any> {
+    fun game(route: String, game: Game): ResponseEntity<Any> {
+        /* * */
+        influx(route = route, game = game)
+        /* * */
         game.updated = dateTime.getDate()
         repositoryGame!!.save(game)
         return ResponseEntity.ok().body(game)
