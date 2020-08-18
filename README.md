@@ -262,6 +262,10 @@ CREATE USER sme WITH PASSWORD 111111 WITH ALL PRIVILEGES
 
 `SELECT count("player") FROM "activity" GROUP BY time(10m)`
 
+
+
+`DROP MEASUREMENT`
+
 ```
 curl -i -XPOST 'http://X.X.X.X:8086/write?db=tschess' --data-binary 'activity player=888,route="login"' 
 nano /etc/influxdb/influxdb.conf

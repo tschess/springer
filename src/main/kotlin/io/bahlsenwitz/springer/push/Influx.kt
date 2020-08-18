@@ -1,5 +1,6 @@
 package io.bahlsenwitz.springer.push
 
+import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player
 
 class Influx {
@@ -27,12 +28,12 @@ class Influx {
         }
     }
 
-    //fun game(game: Game, route: String) {
-        //try {
-            //khttp.post(url = "${ServerAddress().IP}write?db=tschess", data = "game id=\"${game.id}\",route=\"${route}\"")
-        //} catch (e: Exception) {
-            //print(e.localizedMessage)
-        //}
-    //}
+    fun game(game: Game, route: String) {
+        try {
+            khttp.post(url = "${ServerAddress().IP}write?db=tschess", data = "game id=\"${game.id}\",route=\"${route}\"")
+        } catch (e: Exception) {
+            print(e.localizedMessage)
+        }
+    }
 
 }
