@@ -21,7 +21,7 @@ class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
     fun avatar(updateAvatar: UpdateAvatar): ResponseEntity<Any> {
         val player: Player = repositoryPlayer.findById(UUID.fromString(updateAvatar.id)!!).get()
         player.avatar = updateAvatar.avatar.replace("\n","")
-        return output.player(player)
+        return output.player(player = player, route = "avatar")
     }
 
     fun clear(device: String): ResponseEntity<Any> {

@@ -30,7 +30,7 @@ import javax.validation.Valid
 class ControllerGame @Autowired
 constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) {
 
-    val gameRecent = GameRecent(repositoryGame)
+    val gameRecent = GameRecent(repositoryGame, repositoryPlayer)
     @GetMapping("/recent/{id_player}")
     fun recent(@PathVariable(value = "id_player") id_player: String): ResponseEntity<Any> {
         return gameRecent.recent(id_player)

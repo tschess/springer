@@ -42,7 +42,7 @@ class GameQuick(repositoryGame: RepositoryGame,
             challenger = CONTESTANT.WHITE,
             status = STATUS.ONGOING
         )
-        return output.game(game = game)
+        return output.game(game = game, route = "quick")
     }
 
 

@@ -39,7 +39,7 @@ class GameAck(
         val state: List<List<String>> = generateState(config, game.state!!)
         game.state = state
         game.status = STATUS.ONGOING
-        return output.game(game)
+        return output.game(game = game, route = "ack")
     }
 
     private fun generateState(config: List<List<String>>, state: List<List<String>>): List<List<String>> {

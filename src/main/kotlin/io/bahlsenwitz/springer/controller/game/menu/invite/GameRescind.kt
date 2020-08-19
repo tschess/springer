@@ -38,6 +38,6 @@ class GameRescind(
         game.condition = CONDITION.RESCIND
         game.updated = dateTime.getDate()
         repositoryGame.save(game)
-        return output.player(playerSelf) //to update your header...
+        return output.player(player = playerSelf, route = "rescind") //to update your header...
     }
 }

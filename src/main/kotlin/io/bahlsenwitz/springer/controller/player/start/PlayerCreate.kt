@@ -32,7 +32,7 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer, private val r
         )
         player = rating.addition(player)
         seedGameInit(player)
-        return output.player(player)
+        return output.player(player = player, route = "create")
     }
 
     //TODO: draw from quick...
