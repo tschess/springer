@@ -18,13 +18,10 @@ class Influx {
             print(e.localizedMessage)
         }
     }
-
-    //}write?db=tschess", data = "growth player=
-    fun growth(player: Player) {
+    
+    fun growth(growth: String) {
         try {
-            //TODO: for growth count the route as ANDROID vs IOS, {{CLIENT::ANDROID}}
-            //khttp.post(url = "http://${ServerAddress().IP}:8086/write?db=tschess", data = "growth client=\"${HOW TO LOG THIS...}\"")
-            khttp.post(url = "http://${ServerAddress().IP}:8086/write?db=tschess", data = "growth player=\"${player.id}\"")
+            khttp.post(url = "http://${ServerAddress().IP}:8086/write?db=tschess", data = "growth client=\"${growth}\"")
         } catch (e: Exception) {
             print(e.localizedMessage)
         }

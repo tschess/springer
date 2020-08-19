@@ -31,8 +31,13 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer, private val r
             device = requestCreate.device
         )
         player = rating.addition(player)
+
         seedGameInit(player)
-        return output.player(player = player, route = "create")
+
+        if(requestCreate.device.length > 16){
+            return output.player(player = player, route = "create", growth = "ios")
+        }
+        return output.player(player = player, route = "create", growth = "android")
     }
 
     //TODO: draw from quick...

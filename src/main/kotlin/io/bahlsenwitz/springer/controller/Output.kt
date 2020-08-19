@@ -44,9 +44,9 @@ class Output(private val repositoryPlayer: RepositoryPlayer? = null, private val
         return ResponseEntity.ok().body(game)
     }
 
-    fun player(player: Player, route: String, growth: Boolean = false): ResponseEntity<Any> {
-        if (growth) {
-            influx.growth(player)
+    fun player(player: Player, route: String, growth: String? = null): ResponseEntity<Any> {
+        if (!growth.isNullOrEmpty()) {
+            influx.growth(growth)
         } else {
             influx.activity(player, route)
         }
