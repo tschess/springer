@@ -18,7 +18,7 @@ class Influx {
             print(e.localizedMessage)
         }
     }
-    
+
     fun growth(growth: String) {
         try {
             khttp.post(url = "http://${ServerAddress().IP}:8086/write?db=tschess", data = "growth client=\"${growth}\"")
