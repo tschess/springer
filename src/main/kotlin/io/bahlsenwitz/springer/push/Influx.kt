@@ -22,6 +22,8 @@ class Influx {
     //}write?db=tschess", data = "growth player=
     fun growth(player: Player) {
         try {
+            //TODO: for growth count the route as ANDROID vs IOS, {{CLIENT::ANDROID}}
+            //khttp.post(url = "http://${ServerAddress().IP}:8086/write?db=tschess", data = "growth client=\"${HOW TO LOG THIS...}\"")
             khttp.post(url = "http://${ServerAddress().IP}:8086/write?db=tschess", data = "growth player=\"${player.id}\"")
         } catch (e: Exception) {
             print(e.localizedMessage)
