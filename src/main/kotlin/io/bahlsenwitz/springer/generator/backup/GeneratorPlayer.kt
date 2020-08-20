@@ -28,6 +28,9 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
     private val IDX_CREATED = 15
 
     fun generate(file: File) {
+
+        var count: Int = 0
+
         repositoryPlayer.deleteAll()
         val playerList = ArrayList<Player>()
 
@@ -35,8 +38,16 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
         bufferedReader.use { fileReader ->
             fileReader.readLine()
             var line: String?
+
+
+
             line = fileReader.readLine()
             while (line != null) {
+
+                print("\n\nCOUNT${count}\n\n")
+                count++
+
+
                 val tokens: List<String> = line.split(";")
                 if (tokens.isNotEmpty()) {
                     val id: UUID = UUID.fromString(tokens[IDX_ID])!! //0
