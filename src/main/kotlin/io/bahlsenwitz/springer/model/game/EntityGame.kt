@@ -56,13 +56,12 @@ class Game(
             if(ongoingA && !ongoingB){
                 return -1
             }
-            //return 1
             val pendingA: Boolean = a.status == STATUS.PROPOSED
             val pendingB: Boolean = b.status == STATUS.PROPOSED
             if(pendingA && !pendingB){
                 return -1
             }
-            return 1
+            //return 1
             //val historyA: Boolean = a.status == STATUS.RESOLVED
             //val historyB: Boolean = b.status == STATUS.RESOLVED
             //if(!historyA && historyB){
@@ -70,15 +69,15 @@ class Game(
             //}
 
 
-            //val updateA: ZonedDateTime = DateTime().getDate(a.updated)
-            //val updateB: ZonedDateTime = DateTime().getDate(b.updated)
-            //val updateAB: Boolean = updateA.isBefore(updateB)
+            val updateA: ZonedDateTime = DateTime().getDate(a.updated)
+            val updateB: ZonedDateTime = DateTime().getDate(b.updated)
+            val updateAB: Boolean = updateA.isBefore(updateB)
 
             //if(a.status == b.status){
-                //if (updateAB) {
-                    //return -1
-                //}
-                //return 1
+                if (updateAB) {
+                    return -1
+                }
+                return 1
             //}
             //return 0
 
