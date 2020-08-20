@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.generator.backup
 
-
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import java.io.BufferedReader
@@ -10,29 +9,54 @@ import java.io.FileReader
 import java.util.*
 
 class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
-    private val IDX_ID = 0
-    private val IDX_USERNAME = 1
-    private val IDX_PASSWORD = 2
-    private val IDX_AVATAR = 3
-    private val IDX_ELO = 4
-    private val IDX_RANK = 5
-    private val IDX_DISP = 6
-    private val IDX_DATE = 7
-    private val IDX_NOTE_VALUE = 8 //TODO: !!! attend to this on migration
-    private val IDX_NOTE_KEY = 9 //TODO: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    private val IDX_CONFIG0 = 10
-    private val IDX_CONFIG1 = 11
-    private val IDX_CONFIG2 = 12
-    private val IDX_DEVICE = 13
-    private val IDX_UPDATED = 14
-    private val IDX_CREATED = 15
 
-    //private val IDX_CONFIG0 = 9
-    //private val IDX_CONFIG1 = 10
-    //private val IDX_CONFIG2 = 11
-    //private val IDX_DEVICE = 12
-    //private val IDX_UPDATED = 13
-    //private val IDX_CREATED = 14
+    //private val IDX_ID = 0
+    private val IDX_ID = 0
+
+    //private val IDX_USERNAME = 1
+    private val IDX_USERNAME = 1
+
+    //private val IDX_PASSWORD = 2
+    private val IDX_PASSWORD = 2
+
+    //private val IDX_AVATAR = 3
+    private val IDX_AVATAR = 3
+
+    //private val IDX_ELO = 4
+    private val IDX_ELO = 4
+
+    //private val IDX_RANK = 5
+    private val IDX_RANK = 5
+
+    //private val IDX_DISP = 6
+    private val IDX_DISP = 6
+
+    //private val IDX_DATE = 7
+    private val IDX_DATE = 7
+
+    //private val IDX_NOTE_VALUE = 8
+    private val IDX_NOTE_VALUE = 8 //TODO: !!! attend to this on migration
+
+    //private val IDX_NOTE_KEY = 9
+    private val IDX_NOTE_KEY = 9 //TODO: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    //private val IDX_CONFIG0 = 10
+    private val IDX_CONFIG0 = 10
+
+    //private val IDX_CONFIG1 = 11
+    private val IDX_CONFIG1 = 11
+
+    //private val IDX_CONFIG2 = 12
+    private val IDX_CONFIG2 = 12
+
+    //private val IDX_DEVICE = 13
+    private val IDX_DEVICE = 13
+
+    //private val IDX_UPDATED = 14
+    private val IDX_UPDATED = 14
+
+    //private val IDX_CREATED = 15
+    private val IDX_CREATED = 15
 
     fun generate(file: File) {
         repositoryPlayer.deleteAll()

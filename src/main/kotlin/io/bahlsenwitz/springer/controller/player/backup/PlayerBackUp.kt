@@ -12,21 +12,22 @@ import java.io.IOException
 class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
 
     private val HEADER: String = "" +
-            "id;" + //       0
-            "username;" + // 1
-            "password;" + // 2
-            "avatar;" + //   3
-            "elo;" + //      4
-            "rank;" + //     5
-            "disp;" + //     6
-            "date;" + //     7
-            "note;" + //   8
-            "config0;" + //  9
-            "config1;" + //  10
-            "config2;" + //  11
-            "device;" + //   12
-            "updated;" + //  13
-            "created" //     14
+            "id;" + //         00
+            "username;" + //   01
+            "password;" + //   02
+            "avatar;" + //     03
+            "elo;" + //        04
+            "rank;" + //       05
+            "disp;" + //       06
+            "date;" + //       07
+            "note_value;" + // 08  //TODO: !!!
+            "note_key;" + //   09  //TODO: ^^
+            "config0;" + //     10
+            "config1;" + //     11
+            "config2;" + //     12
+            "device;" + //     13
+            "updated;" + //    14
+            "created" //       15
 
     fun backup(): ResponseEntity<Any> {
         val playerList: List<Player> = repositoryPlayer.findAll()

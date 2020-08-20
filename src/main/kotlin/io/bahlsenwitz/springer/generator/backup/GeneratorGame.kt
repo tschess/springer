@@ -16,6 +16,7 @@ class GeneratorGame(
     private val repositoryPlayer: RepositoryPlayer,
     private val repositoryGame: RepositoryGame
 ) {
+
     private val IDX_ID = 0
     private val IDX_STATE = 1
     private val IDX_STATUS = 2
