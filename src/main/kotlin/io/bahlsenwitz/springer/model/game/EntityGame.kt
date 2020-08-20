@@ -48,9 +48,9 @@ class Game(
 
         override fun compare(a: Game, b: Game): Int {
 
-            val updateA: ZonedDateTime = DateTime().getDate(a.updated)
-            val updateB: ZonedDateTime = DateTime().getDate(b.updated)
-            val updateAB: Boolean = updateA.isBefore(updateB)
+            //val updateA: ZonedDateTime = DateTime().getDate(a.updated)
+            //val updateB: ZonedDateTime = DateTime().getDate(b.updated)
+            //val updateAB: Boolean = updateA.isBefore(updateB)
 
 
             val ongoingA: Boolean = a.status == STATUS.ONGOING
@@ -58,33 +58,23 @@ class Game(
             if(ongoingA && !ongoingB){
                 return -1
             }
-            if(ongoingA && ongoingB){
-                if (updateAB) {
-                    return -1
-                }
-                return 1
-            }
+
             val pendingA: Boolean = a.status == STATUS.PROPOSED
             val pendingB: Boolean = b.status == STATUS.PROPOSED
             if(pendingA && !pendingB){
                 return -1
             }
-            if(pendingA && pendingB){
-                if (updateAB) {
-                    return -1
-                }
-                return 1
-            }
+            return 0
 
 
 
             //val historyA: Boolean = a.status == STATUS.RESOLVED
             //val historyB: Boolean = b.status == STATUS.RESOLVED
             //if(historyA && historyB){
-                if (updateAB) {
-                    return -1
-                }
-                return 1
+                //if (updateAB) {
+                    //return -1
+                //}
+                //return 1
             //}
             //return 0
 
