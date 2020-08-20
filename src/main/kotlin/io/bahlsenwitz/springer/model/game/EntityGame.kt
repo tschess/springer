@@ -47,6 +47,14 @@ class Game(
     companion object : Comparator<Game>  {
 
         override fun compare(a: Game, b: Game): Int {
+
+            val historyA: Boolean = a.status == STATUS.RESOLVED
+            val historyB: Boolean = b.status == STATUS.RESOLVED
+
+            if(!historyA && historyB){
+                return -1
+            }
+
             val updateA: ZonedDateTime = DateTime().getDate(a.updated)
             val updateB: ZonedDateTime = DateTime().getDate(b.updated)
             val updateAB: Boolean = updateA.isBefore(updateB)
@@ -62,16 +70,12 @@ class Game(
             //val ongoingA: Boolean = a.status == STATUS.ONGOING
             //val ongoingB: Boolean = b.status == STATUS.ONGOING
             //val pendingB: Boolean = b.status == STATUS.PROPOSED
-            //val historyA: Boolean = a.status == STATUS.RESOLVED
-            //val historyB: Boolean = b.status == STATUS.RESOLVED
+
 
             //if(ongoingA && !ongoingB){
                 //return -1
             //}
 
-            //if(historyB && !historyA){
-                //return -1
-            //}
             //return 0
 
 
