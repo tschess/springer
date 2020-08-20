@@ -48,6 +48,17 @@ class Game(
 
         override fun compare(a: Game, b: Game): Int {
 
+            val ongoingA: Boolean = a.status == STATUS.ONGOING
+            val ongoingB: Boolean = b.status == STATUS.ONGOING
+            if(ongoingA && !ongoingB){
+                return -1
+            }
+            val pendingA: Boolean = a.status == STATUS.PROPOSED
+            val pendingB: Boolean = b.status == STATUS.PROPOSED
+            if(pendingA && !pendingB){
+                return -1
+            }
+
             val historyA: Boolean = a.status == STATUS.RESOLVED
             val historyB: Boolean = b.status == STATUS.RESOLVED
 
@@ -67,9 +78,7 @@ class Game(
             }
             return 0
 
-            //val ongoingA: Boolean = a.status == STATUS.ONGOING
-            //val ongoingB: Boolean = b.status == STATUS.ONGOING
-            //val pendingB: Boolean = b.status == STATUS.PROPOSED
+
 
 
             //if(ongoingA && !ongoingB){
