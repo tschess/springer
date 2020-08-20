@@ -58,79 +58,13 @@ class Game(
             if(ongoingA && !ongoingB){
                 return -1
             }
-
-            val pendingA: Boolean = a.status == STATUS.PROPOSED
-            val pendingB: Boolean = b.status == STATUS.PROPOSED
-            if(pendingA && !pendingB){
-                return -1
-            }
-            return 0
-
-
-
-            //val historyA: Boolean = a.status == STATUS.RESOLVED
-            //val historyB: Boolean = b.status == STATUS.RESOLVED
-            //if(historyA && historyB){
-                //if (updateAB) {
-                    //return -1
-                //}
-                //return 1
-            //}
-            //return 0
-
-
-
-
-
-
-
-
-            //if(ongoingA && !ongoingB){
-                //return -1
-            //}
-
-            //return 0
-
-
-
-
-            //if(ongoingA && !ongoingB){
-                //return -1
-            //}
-            //if(ongoingA && ongoingB){
-                //if (updateAB) {
-                    //return -1
-                //}
-                //return 1
-            //}
+            return -1
 
             //val pendingA: Boolean = a.status == STATUS.PROPOSED
             //val pendingB: Boolean = b.status == STATUS.PROPOSED
-
             //if(pendingA && !pendingB){
                 //return -1
             //}
-
-            //if(pendingA && pendingB){
-                //if (updateAB) {
-                    //return -1
-                //}
-                //return 1
-            //}
-
-            //val histoA: Boolean = a.status == STATUS.RESOLVED
-            //val histoB: Boolean = b.status == STATUS.RESOLVED
-
-            //if (histoA) { //histo a
-                //if (histoB) { //histo b
-                    //if (updateAB) {
-                        //return 1 //b < a
-                    //}
-                    //return -1 //a < b
-                //} //a is histo, b not
-                //return 1 //b < a
-            //} //neither a, nor b are histo...
-            //return -1
             //return 0
         }
     }
