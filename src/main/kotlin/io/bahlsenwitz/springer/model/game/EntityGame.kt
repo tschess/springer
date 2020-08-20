@@ -51,8 +51,7 @@ class Game(
             val updateA: ZonedDateTime = DateTime().getDate(a.updated)
             val updateB: ZonedDateTime = DateTime().getDate(b.updated)
             val updateAB: Boolean = updateA.isBefore(updateB)
-
-
+            
             val ongoingA: Boolean = a.status == STATUS.ONGOING
             val ongoingB: Boolean = b.status == STATUS.ONGOING
 
