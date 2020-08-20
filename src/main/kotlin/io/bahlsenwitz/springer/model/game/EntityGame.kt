@@ -57,21 +57,22 @@ class Game(
                 }
                 return 1
             }
-
-            val ongoingA: Boolean = a.status == STATUS.ONGOING
-            val ongoingB: Boolean = b.status == STATUS.ONGOING
-            //val pendingB: Boolean = b.status == STATUS.PROPOSED
-            val historyA: Boolean = a.status == STATUS.RESOLVED
-            val historyB: Boolean = b.status == STATUS.RESOLVED
-
-            if(ongoingA && !ongoingB){
-                return -1
-            }
-
-            if(historyB && !historyA){
-                return -1
-            }
             return 0
+
+            //val ongoingA: Boolean = a.status == STATUS.ONGOING
+            //val ongoingB: Boolean = b.status == STATUS.ONGOING
+            //val pendingB: Boolean = b.status == STATUS.PROPOSED
+            //val historyA: Boolean = a.status == STATUS.RESOLVED
+            //val historyB: Boolean = b.status == STATUS.RESOLVED
+
+            //if(ongoingA && !ongoingB){
+                //return -1
+            //}
+
+            //if(historyB && !historyA){
+                //return -1
+            //}
+            //return 0
 
 
 
