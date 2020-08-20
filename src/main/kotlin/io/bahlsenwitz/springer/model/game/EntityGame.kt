@@ -73,13 +73,13 @@ class Game(
             val updateB: ZonedDateTime = DateTime().getDate(b.updated)
             val updateAB: Boolean = updateA.isBefore(updateB)
 
-            //if(a.status == b.status){
+            if(a.status == b.status){
                 if (updateAB) {
                     return -1
                 }
                 return 1
-            //}
-            //return 0
+            }
+            return 0
 
 
 
