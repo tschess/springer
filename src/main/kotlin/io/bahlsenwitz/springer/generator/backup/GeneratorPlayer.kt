@@ -39,7 +39,7 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
 
             line = fileReader.readLine()
             while (line != null) {
-                
+
                 val tokens: List<String> = line.split(";")
                 if (tokens.isNotEmpty()) {
                     val id: UUID = UUID.fromString(tokens[IDX_ID])!! //0

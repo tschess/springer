@@ -51,47 +51,69 @@ class Game(
             val updateB: ZonedDateTime = DateTime().getDate(b.updated)
             val updateAB: Boolean = updateA.isBefore(updateB)
 
+            if(a.status == b.status){
+                if (updateAB) {
+                    return -1
+                }
+                return 1
+            }
+
             val ongoingA: Boolean = a.status == STATUS.ONGOING
             val ongoingB: Boolean = b.status == STATUS.ONGOING
+            //val pendingB: Boolean = b.status == STATUS.PROPOSED
+            val historyA: Boolean = a.status == STATUS.RESOLVED
+            val historyB: Boolean = b.status == STATUS.RESOLVED
 
             if(ongoingA && !ongoingB){
                 return -1
             }
 
-            if(ongoingA && ongoingB){
-                if (updateAB) {
-                    return -1
-                }
-                return 1
-            }
-
-            val pendingA: Boolean = a.status == STATUS.PROPOSED
-            val pendingB: Boolean = b.status == STATUS.PROPOSED
-
-            if(pendingA && !pendingB){
+            if(historyB && !historyA){
                 return -1
             }
+            return 0
 
-            if(pendingA && pendingB){
-                if (updateAB) {
-                    return -1
-                }
-                return 1
-            }
 
-            val histoA: Boolean = a.status == STATUS.RESOLVED
-            val histoB: Boolean = b.status == STATUS.RESOLVED
 
-            if (histoA) { //histo a
-                if (histoB) { //histo b
-                    if (updateAB) {
-                        return 1 //b < a
-                    }
-                    return -1 //a < b
-                } //a is histo, b not
-                return 1 //b < a
-            } //neither a, nor b are histo...
-            return -1
+
+            //if(ongoingA && !ongoingB){
+                //return -1
+            //}
+            //if(ongoingA && ongoingB){
+                //if (updateAB) {
+                    //return -1
+                //}
+                //return 1
+            //}
+
+            //val pendingA: Boolean = a.status == STATUS.PROPOSED
+            //val pendingB: Boolean = b.status == STATUS.PROPOSED
+
+            //if(pendingA && !pendingB){
+                //return -1
+            //}
+
+            //if(pendingA && pendingB){
+                //if (updateAB) {
+                    //return -1
+                //}
+                //return 1
+            //}
+
+            //val histoA: Boolean = a.status == STATUS.RESOLVED
+            //val histoB: Boolean = b.status == STATUS.RESOLVED
+
+            //if (histoA) { //histo a
+                //if (histoB) { //histo b
+                    //if (updateAB) {
+                        //return 1 //b < a
+                    //}
+                    //return -1 //a < b
+                //} //a is histo, b not
+                //return 1 //b < a
+            //} //neither a, nor b are histo...
+            //return -1
+            //return 0
         }
     }
 }
