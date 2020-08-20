@@ -1,12 +1,9 @@
 package io.bahlsenwitz.springer.util
 
 import io.bahlsenwitz.springer.model.player.Player
-import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 
-class Churn(private val repositoryPlayer: RepositoryPlayer, private val repositoryGame: RepositoryGame? = null) {
-
-    //private val comparatorAlt: ComparatorAlt = ComparatorAlt(repositoryGame)
+class Churn(private val repositoryPlayer: RepositoryPlayer) {
 
     fun calculate(player: Player): Player {
         val listHead: List<Player> = repositoryPlayer.findAll().filter { it.id != player.id }.sorted().take(11)
