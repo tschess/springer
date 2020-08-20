@@ -96,9 +96,9 @@ class Game(
             }
             if(historyA && historyB){
                 if(updateAB){
-                    return -1
+                    return 1
                 }
-                return 1
+                return -1
             }
             return 0
 
