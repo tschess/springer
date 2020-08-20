@@ -263,6 +263,7 @@ CREATE USER sme WITH PASSWORD 111111 WITH ALL PRIVILEGES
 `SELECT count("player") FROM "activity" GROUP BY time(10m)`
 
 `SELECT count(*) FROM "growth" WHERE "client" = 'ios' GROUP BY time(10m)`
+
 `SELECT count(*) FROM "growth" WHERE "client" = 'android' GROUP BY time(10m)`
 
 `DROP MEASUREMENT`
