@@ -9,6 +9,7 @@ import java.io.File
 import java.io.FileWriter
 import java.io.IOException
 
+//curl --header "Content-Type: application/json" --request POST http://X.X.X.X:8080/player/backup
 class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
 
     private val HEADER: String = "" +

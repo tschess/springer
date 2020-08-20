@@ -10,52 +10,21 @@ import java.util.*
 
 class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
 
-    //private val IDX_ID = 0
     private val IDX_ID = 0
-
-    //private val IDX_USERNAME = 1
     private val IDX_USERNAME = 1
-
-    //private val IDX_PASSWORD = 2
     private val IDX_PASSWORD = 2
-
-    //private val IDX_AVATAR = 3
     private val IDX_AVATAR = 3
-
-    //private val IDX_ELO = 4
     private val IDX_ELO = 4
-
-    //private val IDX_RANK = 5
     private val IDX_RANK = 5
-
-    //private val IDX_DISP = 6
     private val IDX_DISP = 6
-
-    //private val IDX_DATE = 7
     private val IDX_DATE = 7
-
-    //private val IDX_NOTE_VALUE = 8
-    private val IDX_NOTE_VALUE = 8 //TODO: !!! attend to this on migration
-
-    //private val IDX_NOTE_KEY = 9
-    private val IDX_NOTE_KEY = 9 //TODO: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-    //private val IDX_CONFIG0 = 10
+    private val IDX_NOTE_VALUE = 8
+    private val IDX_NOTE_KEY = 9
     private val IDX_CONFIG0 = 10
-
-    //private val IDX_CONFIG1 = 11
     private val IDX_CONFIG1 = 11
-
-    //private val IDX_CONFIG2 = 12
     private val IDX_CONFIG2 = 12
-
-    //private val IDX_DEVICE = 13
     private val IDX_DEVICE = 13
-
-    //private val IDX_UPDATED = 14
     private val IDX_UPDATED = 14
-
-    //private val IDX_CREATED = 15
     private val IDX_CREATED = 15
 
     fun generate(file: File) {
@@ -79,14 +48,12 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                     val disp: Int = tokens[IDX_DISP].toInt() //6
                     val date: String = tokens[IDX_DATE] //7
                     val note_value: Boolean = tokens[IDX_NOTE_VALUE].toBoolean() //8
-
                     var note_key: String? = tokens[IDX_NOTE_KEY] //9
                     note_key = if(note_key == "NULL"){
                         null
                     } else {
                         note_key.toString()
                     }
-
                     val configString0: String = tokens[IDX_CONFIG0] //10
                     val config0: List<List<String>> = generateConfig(configString = configString0)
                     val configString1: String = tokens[IDX_CONFIG1] //11
@@ -116,7 +83,6 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                         config0 = config0, //10
                         config1 = config1, //11
                         config2 = config2, //12
-
                         device = device, //13
                         updated = updated, //14
                         created = created //15
