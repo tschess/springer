@@ -13,8 +13,7 @@ import java.util.*
 
 class GameTimeout(
     private val repositoryGame: RepositoryGame,
-    private val repositoryPlayer: RepositoryPlayer
-) {
+    private val repositoryPlayer: RepositoryPlayer) {
 
     private val configState: ConfigState = ConfigState()
     private val output: Output = Output(repositoryGame = repositoryGame)
