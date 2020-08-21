@@ -21,9 +21,10 @@ class GameMate(
 
     fun mate(id_game: String): ResponseEntity<Any>? {
         val game: Game = repositoryGame.findById(UUID.fromString(id_game)!!).get()
-        if (game.status == STATUS.RESOLVED) {
-            return output.terminal(result = "fail", route = "mate")
-        }
+        //if (game.status == STATUS.RESOLVED) {
+            //return output.terminal(result = "fail", route = "mate")
+        //}
+        //TODO: ^^^ do I need this???
         game.highlight = "TBD"
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.CHECKMATE
