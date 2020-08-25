@@ -35,7 +35,7 @@ class Player(
 
     @Column(insertable = true, updatable = true)
     var note_value: Boolean = true,
-    var note_key: String? = null,
+    var note_key: String? = "POPUP", //"POPUP" means first game ~ ask them (overlay)
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")

@@ -40,16 +40,22 @@ class Game(
     var on_check: Boolean = false,
     var highlight: String = "9999",
 
-    var updated: String = DateTime().getDate()
+    var confirm: CONFIRM? = CONFIRM.WHITE_BLACK, //endgame popup seen?
+
+    var updated: String = this.date,
+    var created: String = this.date
 
 ) : EntityUUID(id) {
 
     companion object : Comparator<Game>  {
 
+        val dateTime: DateTime = DateTime()
+        val date: String = this.dateTime.getDate()
+
         override fun compare(a: Game, b: Game): Int {
 
-            val updateA: ZonedDateTime = DateTime().getDate(a.updated)
-            val updateB: ZonedDateTime = DateTime().getDate(b.updated)
+            val updateA: ZonedDateTime = dateTime.getDate(a.updated)
+            val updateB: ZonedDateTime = dateTime.getDate(b.updated)
             val updateAB: Boolean = updateA.isBefore(updateB)
 
             val ongoingA: Boolean = a.status == STATUS.ONGOING
@@ -112,6 +118,12 @@ enum class CONTESTANT {
     BLACK
 }
 
+enum class CONFIRM {
+    WHITE_BLACK,
+    WHITE,
+    BLACK
+}
+
 enum class STATUS {
     PROPOSED,
     ONGOING,
@@ -128,7 +140,6 @@ enum class CONDITION {
     EXPIRED, //of an invitation
     REFUSED, //of an invitation
     RESCIND, //of an invitation
-    TBD,
-    PUSH //first!
+    TBD
 }
 
