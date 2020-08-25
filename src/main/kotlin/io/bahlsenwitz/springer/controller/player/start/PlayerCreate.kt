@@ -53,7 +53,7 @@ class PlayerCreate(private val repositoryPlayer: RepositoryPlayer, private val r
             black = opponent,
             challenger = CONTESTANT.WHITE,
             status = STATUS.ONGOING,
-            condition = CONDITION.PUSH
+            condition = CONDITION.TBD
         )
         repositoryGame.save(game)
     }
