@@ -42,8 +42,9 @@ class Game(
 
     var confirm: CONFIRM? = CONFIRM.WHITE_BLACK, //endgame popup seen?
 
-    var updated: String = this.date,
-    var created: String = this.date
+    var updated: String = this.date
+    //,
+    //var created: String = this.date
 
 ) : EntityUUID(id) {
 
