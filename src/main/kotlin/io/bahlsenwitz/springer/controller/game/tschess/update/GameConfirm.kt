@@ -16,7 +16,7 @@ class GameConfirm(private val repositoryGame: RepositoryGame) {
         val white: Boolean
     )
 
-    fun confirm(updateConfirm: UpdateConfirm): ResponseEntity<Any>? {
+    fun confirm(updateConfirm: UpdateConfirm): ResponseEntity<Any> {
         val game: Game = repositoryGame.findById(UUID.fromString(updateConfirm.id_game)!!).get()
         if(game.confirm == null){
             return output.terminal(result = "fail", route = "confirm")

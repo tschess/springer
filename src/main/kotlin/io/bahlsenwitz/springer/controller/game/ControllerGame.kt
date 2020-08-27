@@ -31,10 +31,10 @@ import javax.validation.Valid
 class ControllerGame @Autowired
 constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) {
 
-    val gameConfirm = GameConfirm(repositoryGame, repositoryPlayer)
-    @GetMapping("/confirm")
-    fun confirm(@PathVariable(value = "id_player") id_player: String): ResponseEntity<Any> {
-        return gameConfirm.confirm(id_player)
+    val gameConfirm = GameConfirm(repositoryGame)
+    @PostMapping("/confirm")
+    fun confirm(@Valid @RequestBody updateConfirm: GameConfirm.UpdateConfirm): ResponseEntity<Any> {
+        return gameConfirm.confirm(updateConfirm)
     }
 
     val gameRecent = GameRecent(repositoryGame, repositoryPlayer)
