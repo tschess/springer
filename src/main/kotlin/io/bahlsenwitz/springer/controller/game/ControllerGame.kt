@@ -15,6 +15,7 @@ import io.bahlsenwitz.springer.controller.game.tschess.polling.GameRequest
 import io.bahlsenwitz.springer.controller.game.menu.invite.GameRescind
 import io.bahlsenwitz.springer.controller.game.menu.invite.UpdateNack
 import io.bahlsenwitz.springer.controller.game.tschess.resolve.*
+import io.bahlsenwitz.springer.controller.game.tschess.update.GameConfirm
 import io.bahlsenwitz.springer.controller.game.tschess.update.GameUpdate
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
@@ -29,6 +30,12 @@ import javax.validation.Valid
 @RequestMapping("/game")
 class ControllerGame @Autowired
 constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) {
+
+    val gameConfirm = GameConfirm(repositoryGame, repositoryPlayer)
+    @GetMapping("/confirm")
+    fun confirm(@PathVariable(value = "id_player") id_player: String): ResponseEntity<Any> {
+        return gameConfirm.confirm(id_player)
+    }
 
     val gameRecent = GameRecent(repositoryGame, repositoryPlayer)
     @GetMapping("/recent/{id_player}")
