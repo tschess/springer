@@ -53,7 +53,15 @@ class GeneratorGame(
                         state = generateState(stateString = stateString) //1
                     }
                     val status: STATUS = STATUS.valueOf(tokens[IDX_STATUS]) //2
-                    val condition: CONDITION = CONDITION.valueOf(tokens[IDX_OUTCOME]) //3
+
+
+                    //val condition: CONDITION = CONDITION.valueOf(tokens[IDX_OUTCOME]) //3
+                    var condition_0: String = tokens[IDX_OUTCOME] //3
+                    if(condition_0 == "PUSH"){ //since i got rid of this gotta now map it...
+                        condition_0 = "TBD"
+                    }
+                    val condition: CONDITION = CONDITION.valueOf(condition_0) //3
+
                     val moves: Int = tokens[IDX_MOVES].toInt() //4
 
                     val whiteIdString: String = tokens[IDX_WHITE_ID]
