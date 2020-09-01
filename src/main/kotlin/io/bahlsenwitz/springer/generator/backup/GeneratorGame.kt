@@ -102,7 +102,7 @@ class GeneratorGame(
                         highlight = highlight,  //11
                         //confirm = confirm,
                         confirm = null,          //at this point all of them outght to be null - we start with confirm for
-                                                //the games that are created -from this point forward- ...
+                                                //the games that are created -from this point forward- ... yayaya
                         updated = updated       //12
                     )
                     gameList.add(game)
