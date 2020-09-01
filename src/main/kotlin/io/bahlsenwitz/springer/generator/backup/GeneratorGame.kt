@@ -91,7 +91,7 @@ class GeneratorGame(
                     */
                     /* * */
                     var confirm: CONFIRM? = null
-                    val confirm_0: String = tokens[IDX_UPDATED] //12
+                    val confirm_0: String = tokens[IDX_CONFIRM] //12
                     if (confirm_0 != "NULL") {
                         confirm = CONFIRM.valueOf(confirm_0)
                     }
