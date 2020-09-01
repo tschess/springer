@@ -26,7 +26,7 @@ class TimeoutGame(val repositoryPlayer: RepositoryPlayer, val repositoryGame: Re
             if (periodXX > 0) {
                 continue
             }
-            game.status = STATUS.RESOLVED
+            game.status = STATUS.RESOLVED_WHITE_BLACK
             game.condition = CONDITION.TIMEOUT
             game.updated = dateTime.getDate()
             rating.resolve(game)

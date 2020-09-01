@@ -44,6 +44,14 @@ class Game(
 
 ) : EntityUUID(id) {
 
+    fun isResolved(): Boolean {
+        if(this.status == STATUS.RESOLVED){
+            return true
+        }
+        return false
+    }
+
+
     companion object : Comparator<Game>  {
 
         val dateTime: DateTime = DateTime()
@@ -61,6 +69,10 @@ class Game(
             val pendingA: Boolean = a.status == STATUS.PROPOSED
             val pendingB: Boolean = b.status == STATUS.PROPOSED
 
+            //here...
+            val preHistoryA: Boolean = a.status == STATUS.RESOLVED_WHITE || a.status == STATUS.RESOLVED_BLACK || a.status == STATUS.RESOLVED_WHITE_BLACK
+            val preHistoryB: Boolean = b.status == STATUS.RESOLVED_WHITE || b.status == STATUS.RESOLVED_BLACK || b.status == STATUS.RESOLVED_WHITE_BLACK
+
             val historyA: Boolean = a.status == STATUS.RESOLVED
             val historyB: Boolean = b.status == STATUS.RESOLVED
 
@@ -71,6 +83,9 @@ class Game(
                 return 1
             }
             if(ongoingA && pendingB){
+                return -1
+            }
+            if(ongoingA && preHistoryB){
                 return -1
             }
             if(ongoingA && historyB){
@@ -86,15 +101,40 @@ class Game(
                 }
                 return 1
             }
+            if(pendingA && preHistoryB){
+                return -1
+            }
             if(pendingA && historyB){
                 return -1
             }
+
+            /* * */
+            if(preHistoryA && ongoingB){
+                return 1
+            }
+            if(preHistoryA && pendingB){
+                return 1
+            }
+            if(preHistoryA && preHistoryB){
+                if(updateAB){
+                    return -1
+                }
+                return 1
+            }
+            if(preHistoryA && historyB){
+                return -1
+            }
+
+
             /* * */
             if(historyA && ongoingB){
                 return 1
             }
             if(historyA && pendingB){
                 return 1
+            }
+            if(historyA && preHistoryB){
+                return -1
             }
             if(historyA && historyB){
                 if(updateAB){

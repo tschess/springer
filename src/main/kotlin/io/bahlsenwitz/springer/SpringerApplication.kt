@@ -1,7 +1,7 @@
 package io.bahlsenwitz.springer
 
-import io.bahlsenwitz.springer.controller.game.backup.GameBackUp
-import io.bahlsenwitz.springer.controller.player.backup.PlayerBackUp
+import io.bahlsenwitz.springer.controller.game.GameBackUp
+import io.bahlsenwitz.springer.controller.player.PlayerBackUp
 import io.bahlsenwitz.springer.generator.backup.GeneratorGame
 import io.bahlsenwitz.springer.generator.backup.GeneratorPlayer
 import io.bahlsenwitz.springer.generator.backup.Zipper
@@ -9,7 +9,6 @@ import io.bahlsenwitz.springer.generator.test.GeneratorTestGameAct
 import io.bahlsenwitz.springer.generator.test.GeneratorTestGameFin
 import io.bahlsenwitz.springer.generator.test.GeneratorTestGamePro
 import io.bahlsenwitz.springer.generator.test.GeneratorTestPlayer
-import io.bahlsenwitz.springer.push.Pusher
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.schedule.Schedule
