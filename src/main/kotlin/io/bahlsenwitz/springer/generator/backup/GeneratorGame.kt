@@ -26,15 +26,7 @@ class GeneratorGame(
     private val IDX_TURN = 9
     private val IDX_ON_CHECK = 10
     private val IDX_HIGHLIGHT = 11
-
-    /*
     private val IDX_UPDATED = 12
-    */
-
-    /* * */
-    private val IDX_CONFIRM = 12
-    private val IDX_UPDATED = 13
-    /* * */
 
     fun generate(file: File) {
         repositoryGame.deleteAll()
@@ -86,18 +78,8 @@ class GeneratorGame(
                     val turn: CONTESTANT = CONTESTANT.valueOf(tokens[IDX_TURN]) //9
                     val on_check: Boolean = tokens[IDX_ON_CHECK].toBoolean() //10
                     val highlight: String = tokens[IDX_HIGHLIGHT] //11
-                    /*
-                    val updated: String = tokens[IDX_UPDATED] //12
-                    */
-                    /* * */
-                    var confirm: CONFIRM? = null
-                    val confirm_0: String = tokens[IDX_CONFIRM] //12
-                    if (confirm_0 != "NULL") {
-                        confirm = CONFIRM.valueOf(confirm_0)
-                    }
 
-                    val updated: String = tokens[IDX_UPDATED] //13
-                    /* * */
+                    val updated: String = tokens[IDX_UPDATED] //12
 
                     val game = Game(
                         id = id,                // 0
@@ -112,13 +94,6 @@ class GeneratorGame(
                         turn = turn,            // 9
                         on_check = on_check,    //10
                         highlight = highlight,  //11
-                        /* * */
-                        confirm = confirm,
-                        /* * */
-                        /*
-                        confirm = null,          //at this point all of them outght to be null - we start with confirm for
-                                                 //the games that are created -from this point forward- ... yayaya
-                        */
                         updated = updated       //12
                     )
                     gameList.add(game)

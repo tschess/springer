@@ -40,8 +40,6 @@ class Game(
     var on_check: Boolean = false,
     var highlight: String = "9999",
 
-    var confirm: CONFIRM? = CONFIRM.WHITE_BLACK, //endgame popup seen?
-
     var updated: String = this.date
 
 ) : EntityUUID(id) {
@@ -110,15 +108,7 @@ class Game(
     }
 }
 
-
-
 enum class CONTESTANT {
-    WHITE,
-    BLACK
-}
-
-enum class CONFIRM {
-    WHITE_BLACK,
     WHITE,
     BLACK
 }
@@ -126,7 +116,10 @@ enum class CONFIRM {
 enum class STATUS {
     PROPOSED,
     ONGOING,
-    RESOLVED
+    RESOLVED,
+    RESOLVED_WHITE,
+    RESOLVED_BLACK,
+    RESOLVED_WHITE_BLACK
 }
 
 enum class CONDITION {

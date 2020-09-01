@@ -25,8 +25,7 @@ class GameBackUp(private val repositoryGame: RepositoryGame) {
             "turn;" + //       9
             "on_check;" + //   10
             "highlight;" + //  11
-            "confirm;" + //     12*
-            "updated" //       13
+            "updated" //       12
 
     fun backup(): ResponseEntity<Any> {
         val gameList: List<Game> = repositoryGame.findAll()
@@ -74,16 +73,8 @@ class GameBackUp(private val repositoryGame: RepositoryGame) {
                 val highlight: String = game.highlight
                 fileWriter.append("${highlight};") //11
 
-                /* * */
-                var confirm: String = "NULL"
-                if(game.confirm != null){
-                    confirm = game.confirm.toString()
-                }
-                fileWriter.append("${confirm};") //12*
-                /* * */
-
                 val updated: String = game.updated
-                fileWriter.append("${updated};") //13
+                fileWriter.append("${updated};") //12
                 fileWriter.append('\n')
             }
         } finally {
