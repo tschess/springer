@@ -50,9 +50,8 @@ class GeneratorGame(
                     val status: STATUS = STATUS.valueOf(tokens[IDX_STATUS]) //2
 
                     /* * */
-                    //val condition: CONDITION = CONDITION.valueOf(tokens[IDX_OUTCOME]) //3
                     var condition_0: String = tokens[IDX_OUTCOME] //3
-                    if (condition_0 == "PUSH") { //since i got rid of this gotta now map it...
+                    if (condition_0 == "PUSH") { //TODO: REMOVE THIS~~~~
                         condition_0 = "TBD"
                     }
                     val condition: CONDITION = CONDITION.valueOf(condition_0) //3
