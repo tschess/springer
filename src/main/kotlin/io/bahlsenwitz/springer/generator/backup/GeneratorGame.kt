@@ -1,9 +1,6 @@
 package io.bahlsenwitz.springer.generator.backup
 
-import io.bahlsenwitz.springer.model.game.CONDITION
-import io.bahlsenwitz.springer.model.game.CONTESTANT
-import io.bahlsenwitz.springer.model.game.Game
-import io.bahlsenwitz.springer.model.game.STATUS
+import io.bahlsenwitz.springer.model.game.*
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
@@ -29,9 +26,15 @@ class GeneratorGame(
     private val IDX_TURN = 9
     private val IDX_ON_CHECK = 10
     private val IDX_HIGHLIGHT = 11
+
+    /*
     private val IDX_UPDATED = 12
-    //private val IDX_CONFIRM = 12
-    //private val IDX_UPDATED = 13
+    */
+
+    /* * */
+    private val IDX_CONFIRM = 12
+    private val IDX_UPDATED = 13
+    /* * */
 
     fun generate(file: File) {
         repositoryGame.deleteAll()
@@ -57,7 +60,7 @@ class GeneratorGame(
                     /* * */
                     //val condition: CONDITION = CONDITION.valueOf(tokens[IDX_OUTCOME]) //3
                     var condition_0: String = tokens[IDX_OUTCOME] //3
-                    if(condition_0 == "PUSH"){ //since i got rid of this gotta now map it...
+                    if (condition_0 == "PUSH") { //since i got rid of this gotta now map it...
                         condition_0 = "TBD"
                     }
                     val condition: CONDITION = CONDITION.valueOf(condition_0) //3
@@ -83,9 +86,18 @@ class GeneratorGame(
                     val turn: CONTESTANT = CONTESTANT.valueOf(tokens[IDX_TURN]) //9
                     val on_check: Boolean = tokens[IDX_ON_CHECK].toBoolean() //10
                     val highlight: String = tokens[IDX_HIGHLIGHT] //11
+                    /*
                     val updated: String = tokens[IDX_UPDATED] //12
-                    //val confirm: String = tokens[IDX_UPDATED] //12
-                    //val updated: String = tokens[IDX_UPDATED] //13
+                    */
+                    /* * */
+                    var confirm: CONFIRM? = null
+                    val confirm_0: String = tokens[IDX_UPDATED] //12
+                    if (confirm_0 != "NULL") {
+                        confirm = CONFIRM.valueOf(confirm_0)
+                    }
+
+                    val updated: String = tokens[IDX_UPDATED] //13
+                    /* * */
 
                     val game = Game(
                         id = id,                // 0
@@ -100,9 +112,13 @@ class GeneratorGame(
                         turn = turn,            // 9
                         on_check = on_check,    //10
                         highlight = highlight,  //11
-                        //confirm = confirm,
+                        /* * */
+                        confirm = confirm,
+                        /* * */
+                        /*
                         confirm = null,          //at this point all of them outght to be null - we start with confirm for
-                                                //the games that are created -from this point forward- ... yayaya
+                                                 //the games that are created -from this point forward- ... yayaya
+                        */
                         updated = updated       //12
                     )
                     gameList.add(game)
