@@ -40,7 +40,7 @@ class Game(
     var on_check: Boolean = false,
     var highlight: String = "9999",
 
-    var updated: String = this.date
+    var updated: String = DateTime().getDate()
 
 ) : EntityUUID(id) {
 
@@ -55,7 +55,6 @@ class Game(
     companion object : Comparator<Game>  {
 
         val dateTime: DateTime = DateTime()
-        val date: String = this.dateTime.getDate()
 
         override fun compare(a: Game, b: Game): Int {
 
