@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## Springer
 
 You can use the [editor on GitHub](https://github.com/tschess/springer/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
@@ -23,7 +23,9 @@ Syntax highlighted code block
 
 **Bold** and _Italic_ and `Code` text
 
-[Link](url) and ![Image](src)
+[Link](https://www.tschess.io) and ![Image](src)
+[Link](https://apps.apple.com/us/app/tschess/id1477912988) and ![Image](src)
+[Link](https://play.google.com/store/apps/details?id=io.tschess.tschess) and ![Image](src)
 ```
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
