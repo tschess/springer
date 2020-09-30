@@ -7,7 +7,7 @@ import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.ConfigState
+import io.bahlsenwitz.springer.util.Config
 import io.bahlsenwitz.springer.util.DateTime
 import io.bahlsenwitz.springer.controller.Output
 import io.bahlsenwitz.springer.util.Rating
@@ -20,7 +20,7 @@ class GameResign(
 ) {
 
     private val dateTime: DateTime = DateTime()
-    private val configState: ConfigState = ConfigState()
+    private val config: Config = Config()
     private val output: Output =
         Output(repositoryGame = repositoryGame)
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
@@ -44,7 +44,7 @@ class GameResign(
         game.highlight = "TBD"
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.RESIGN
-        game.state = configState.poisonReveal(game.state!!)
+        game.state = config.poisonReveal(game.state!!)
         if(game.white == playerSelf){
             game.turn = CONTESTANT.WHITE
         } else {

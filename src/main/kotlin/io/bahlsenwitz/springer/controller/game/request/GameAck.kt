@@ -6,7 +6,7 @@ import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.ConfigState
+import io.bahlsenwitz.springer.util.Config
 import io.bahlsenwitz.springer.util.DateTime
 import io.bahlsenwitz.springer.controller.Output
 import io.bahlsenwitz.springer.util.Rating
@@ -19,7 +19,7 @@ class GameAck(
 ) {
 
     private val dateTime: DateTime = DateTime()
-    private val configState: ConfigState = ConfigState()
+    private val config: Config = Config()
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
     private val output: Output =
         Output(repositoryGame = repositoryGame)
@@ -35,7 +35,7 @@ class GameAck(
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(requestAck.id_self)!!).get()
         playerSelf.date = dateTime.getDate()
         rating.update(playerSelf, RESULT.WIN)
-        val config: List<List<String>> = configState.get(requestAck.config, playerSelf)
+        val config: List<List<String>> = config.get(requestAck.config, playerSelf)
         val state: List<List<String>> = generateState(config, game.state!!)
         game.state = state
         game.status = STATUS.ONGOING
@@ -44,10 +44,10 @@ class GameAck(
 
     private fun generateState(config: List<List<String>>, state: List<List<String>>): List<List<String>> {
         val row: List<String> = arrayListOf("", "", "", "", "", "", "", "")
-        val white00: List<String> = this.configState.orient(config[0], "White")
-        val white01: List<String> = this.configState.orient(config[1], "White")
-        val black00: List<String> = this.configState.orient(state[0], "Black")
-        val black01: List<String> = this.configState.orient(state[1], "Black")
+        val white00: List<String> = this.config.orient(config[0], "White")
+        val white01: List<String> = this.config.orient(config[1], "White")
+        val black00: List<String> = this.config.orient(state[0], "Black")
+        val black01: List<String> = this.config.orient(state[1], "Black")
         return arrayListOf(white00, white01, row, row, row, row, black01, black00)
     }
 

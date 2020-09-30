@@ -71,15 +71,6 @@ constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) 
     }
 
     /**
-     * Quick.swift
-     */
-    val gameQuick = GameQuick(repositoryGame, repositoryPlayer)
-    @PostMapping("/quick")
-    fun quick(@Valid @RequestBody requestQuick: RequestCreate): ResponseEntity<Any> {
-        return gameQuick.quick(requestQuick)
-    }
-
-    /**
      * Historic.swift
      */
     val gameRematch = GameRematch(repositoryGame, repositoryPlayer)

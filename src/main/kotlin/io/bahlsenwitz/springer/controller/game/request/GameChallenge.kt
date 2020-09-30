@@ -5,7 +5,7 @@ import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.ConfigState
+import io.bahlsenwitz.springer.util.Config
 import io.bahlsenwitz.springer.controller.Output
 import io.bahlsenwitz.springer.push.Pusher
 import io.bahlsenwitz.springer.util.Rating
@@ -21,13 +21,13 @@ class GameChallenge(
 
     private val output: Output =
         Output()
-    private val configState: ConfigState = ConfigState()
+    private val config: Config = Config()
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     fun challenge(requestChallenge: RequestCreate): ResponseEntity<Any> {
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(requestChallenge.id_self)!!).get()
         val playerOther: Player = repositoryPlayer.findById(UUID.fromString(requestChallenge.id_other)!!).get()
-        val config: List<List<String>> = configState.get(requestChallenge.config, playerSelf)
+        val config: List<List<String>> = config.get(requestChallenge.config, playerSelf)
         val game = Game(
             white = playerOther,
             black = playerSelf,

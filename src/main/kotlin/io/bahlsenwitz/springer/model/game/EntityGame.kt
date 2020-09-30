@@ -51,7 +51,6 @@ class Game(
         return false
     }
 
-
     companion object : Comparator<Game>  {
 
         val dateTime: DateTime = DateTime()

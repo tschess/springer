@@ -21,6 +21,22 @@ class PlayerController @Autowired
 constructor(repositoryPlayer: RepositoryPlayer, repositoryGame: RepositoryGame) {
 
     /**
+     * Start.swift
+     */
+
+    val playerStart = PlayerStart(repositoryPlayer, repositoryGame)
+
+    @PostMapping("/create")
+    fun create(@Valid @RequestBody requestCreate: PlayerStart.RequestStart): ResponseEntity<Any> {
+        return playerStart.create(requestCreate)
+    }
+
+    @PostMapping("/login")
+    fun login(@Valid @RequestBody requestLogin: PlayerStart.RequestStart): ResponseEntity<Any> {
+        return playerStart.login(requestLogin)
+    }
+
+    /**
      * Initializer.swift
      */
     val playerInit = PlayerInit(repositoryPlayer)
@@ -43,23 +59,6 @@ constructor(repositoryPlayer: RepositoryPlayer, repositoryGame: RepositoryGame) 
     @PostMapping("/avatar")
     fun avatar(@Valid @RequestBody updateAvatar: PlayerProfile.UpdateAvatar): ResponseEntity<Any> {
         return playerProfile.avatar(updateAvatar)
-    }
-
-    /**
-     * Start.swift
-     */
-
-    val playerCreate = PlayerCreate(repositoryPlayer, repositoryGame)
-
-    @PostMapping("/create")
-    fun create(@Valid @RequestBody requestCreate: RequestStart): ResponseEntity<Any> {
-        return playerCreate.create(requestCreate)
-    }
-
-    val playerStart: PlayerLogin = PlayerLogin(repositoryPlayer)
-    @PostMapping("/login")
-    fun login(@Valid @RequestBody requestLogin: RequestStart): ResponseEntity<Any> {
-        return playerStart.login(requestLogin)
     }
 
     /**

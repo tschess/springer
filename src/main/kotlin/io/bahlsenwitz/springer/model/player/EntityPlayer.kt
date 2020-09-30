@@ -3,7 +3,7 @@ package io.bahlsenwitz.springer.model.player
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import io.bahlsenwitz.springer.generator.common.GeneratorAvatar
 import io.bahlsenwitz.springer.model.rating.EntityUUID
-import io.bahlsenwitz.springer.util.ConfigState
+import io.bahlsenwitz.springer.util.Config
 import io.bahlsenwitz.springer.util.DateTime
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
@@ -39,13 +39,13 @@ class Player(
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    var config0: List<List<String>> = configState.defaultConfig0(),
+    var config0: List<List<String>> = CONFIG.defaultConfig0(),
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    var config1: List<List<String>> = configState.defaultConfig1(),
+    var config1: List<List<String>> = CONFIG.defaultConfig1(),
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    var config2: List<List<String>> = configState.defaultConfig2(),
+    var config2: List<List<String>> = CONFIG.defaultConfig2(),
 
     @Column(unique = true)
     var device: String? = null,
@@ -59,7 +59,7 @@ class Player(
 
         val dateTime: DateTime = DateTime()
         val date: String = this.dateTime.getDate()
-        val configState: ConfigState = ConfigState()
+        val CONFIG: Config = Config()
 
         fun defaultAvatar(): String {
             val photoMap: HashMap<String, String> = GeneratorAvatar().photoMap

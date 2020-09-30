@@ -6,7 +6,7 @@ import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.ConfigState
+import io.bahlsenwitz.springer.util.Config
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import java.util.*
@@ -15,7 +15,7 @@ class GameTimeout(
     private val repositoryGame: RepositoryGame,
     private val repositoryPlayer: RepositoryPlayer) {
 
-    private val configState: ConfigState = ConfigState()
+    private val config: Config = Config()
     private val output: Output = Output(repositoryGame = repositoryGame)
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
@@ -24,7 +24,7 @@ class GameTimeout(
         game.highlight = "TBD"
         game.status = STATUS.RESOLVED_WHITE_BLACK
         game.condition = CONDITION.TIMEOUT
-        game.state = configState.poisonReveal(game.state!!)
+        game.state = config.poisonReveal(game.state!!)
         rating.resolve(game)
         return output.update(route = "timeout", game = game)
     }

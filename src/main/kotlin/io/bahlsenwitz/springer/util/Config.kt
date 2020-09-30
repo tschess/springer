@@ -3,7 +3,7 @@ package io.bahlsenwitz.springer.util
 import io.bahlsenwitz.springer.model.player.Player
 import java.util.ArrayList
 
-class ConfigState {
+class Config {
 
     val row: List<String> = arrayListOf("", "", "", "", "", "", "", "")
 
@@ -12,20 +12,28 @@ class ConfigState {
         val r0: List<String> = arrayListOf("King","","Hunter","Knight","Knight","Knight","Knight","")
         return arrayListOf(r0, r1)
     }
+
     fun defaultConfig1(): List<List<String>> {
         val r1: List<String> = arrayListOf("Knight","Knight","Knight","Knight","Knight","Knight","Knight","")
         val r0: List<String> = arrayListOf("King","Knight","Knight","Knight","Knight","Knight","Knight","")
         return arrayListOf(r0, r1)
     }
+
     fun defaultConfig2(): List<List<String>> {
         val r1: List<String> = arrayListOf("","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop")
         val r0: List<String> = arrayListOf("","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop","King")
         return arrayListOf(r0, r1)
     }
 
-    fun quickBlack(): List<List<String>> {
-        val r1: List<String> = arrayListOf("PawnBlack_x", "PawnBlack_x", "PawnBlack_x", "PawnBlack_x", "PawnBlack_x", "PawnBlack_x", "PawnBlack_x", "PawnBlack_x")
-        val r0: List<String> = arrayListOf("RookBlack_x", "KnightBlack_x", "BishopBlack_x", "QueenBlack_x", "KingBlack_x", "BishopBlack_x", "KnightBlack_x", "RookBlack_x")
+    fun defaultConfig3(): List<List<String>> {
+        val r1: List<String> = arrayListOf("","","","Queen","Knight","Queen","","")
+        val r0: List<String> = arrayListOf("","","","Queen","King","Queen","","")
+        return arrayListOf(r0, r1)
+    }
+
+    fun defaultConfig4(): List<List<String>> {
+        val r1: List<String> = arrayListOf("","Bishop","Knight","Knight","Knight","Knight","Bishop","")
+        val r0: List<String> = arrayListOf("","Rook","Bishop","King","Rook","Bishop","Rook","")
         return arrayListOf(r0, r1)
     }
 
@@ -72,12 +80,12 @@ class ConfigState {
         return r0
     }
 
-    fun generateState(white: List<List<String>>): List<List<String>> {
-        val color: String = "White"
-        val row00: List<String> = orient(white[0], color)
-        val row01: List<String> = orient(white[1], color)
-        val black: List<List<String>> = quickBlack()
-        return arrayListOf(row00, row01, row, row, row, row, black[1], black[0])
-    }
+//    fun generateState(white: List<List<String>>): List<List<String>> {
+//        val color: String = "White"
+//        val row00: List<String> = orient(white[0], color)
+//        val row01: List<String> = orient(white[1], color)
+//        val black: List<List<String>> = quickBlack()
+//        return arrayListOf(row00, row01, row, row, row, row, black[1], black[0])
+//    }
 }
 

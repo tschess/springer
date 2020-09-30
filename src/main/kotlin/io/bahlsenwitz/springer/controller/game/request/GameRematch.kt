@@ -6,7 +6,7 @@ import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.ConfigState
+import io.bahlsenwitz.springer.util.Config
 import io.bahlsenwitz.springer.util.DateTime
 import io.bahlsenwitz.springer.controller.Output
 import io.bahlsenwitz.springer.push.Pusher
@@ -22,7 +22,7 @@ class GameRematch(
     private val pusher: Pusher = Pusher()
 
     private val dateTime: DateTime = DateTime()
-    private val configState: ConfigState = ConfigState()
+    private val config: Config = Config()
     private val output: Output =
         Output(repositoryGame = repositoryGame)
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
@@ -42,7 +42,7 @@ class GameRematch(
         /* * */
         pusher.notify(playerOther)
         /* * */
-        val config: List<List<String>> = configState.get(requestRematch.config, playerSelf)
+        val config: List<List<String>> = config.get(requestRematch.config, playerSelf)
         val white: Boolean = requestRematch.white
         val game: Game = Game(white = playerSelf, black = playerOther, challenger = CONTESTANT.WHITE, state = config)
         if (!white) {

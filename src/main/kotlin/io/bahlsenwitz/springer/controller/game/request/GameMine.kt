@@ -5,7 +5,7 @@ import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.util.ConfigState
+import io.bahlsenwitz.springer.util.Config
 import io.bahlsenwitz.springer.controller.Output
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
@@ -16,7 +16,7 @@ class GameMine(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    private val configState: ConfigState = ConfigState()
+    private val config: Config = Config()
     private val output: Output =
         Output(repositoryGame = repositoryGame)
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
@@ -31,7 +31,7 @@ class GameMine(
         game.highlight = "TBD"
         game.status = STATUS.RESOLVED_WHITE_BLACK
         game.condition = CONDITION.LANDMINE
-        game.state = configState.poisonReveal(updateMine.state)
+        game.state = config.poisonReveal(updateMine.state)
         rating.resolve(game)
         return output.update(route = "mine", game = game)
     }
