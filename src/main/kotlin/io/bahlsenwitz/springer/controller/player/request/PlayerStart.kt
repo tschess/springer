@@ -45,7 +45,7 @@ class PlayerStart(private val repositoryPlayer: RepositoryPlayer, val repository
         }
 
         //TODO: password
-        return output.terminal(result = "password", route = "login")
+        return output.terminal(result = "invalid", route = "login")
     }
 
     fun create(requestCreate: RequestStart): ResponseEntity<Any> {
