@@ -1,4 +1,4 @@
-package io.bahlsenwitz.springer.controller.game
+package io.bahlsenwitz.springer.controller.game.backup
 
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game

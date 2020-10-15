@@ -1,6 +1,6 @@
 package io.bahlsenwitz.springer
 
-import io.bahlsenwitz.springer.controller.game.GameBackUp
+import io.bahlsenwitz.springer.controller.game.backup.GameBackUp
 import io.bahlsenwitz.springer.controller.player.PlayerBackUp
 import io.bahlsenwitz.springer.generator.backup.GeneratorGame
 import io.bahlsenwitz.springer.generator.backup.GeneratorPlayer
