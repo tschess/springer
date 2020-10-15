@@ -1,7 +1,7 @@
 package io.bahlsenwitz.springer.schedule.tasks
 
 import io.bahlsenwitz.springer.controller.game.backup.GameBackUp
-import io.bahlsenwitz.springer.controller.player.PlayerBackUp
+import io.bahlsenwitz.springer.controller.player.backup.PlayerBackUp
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 

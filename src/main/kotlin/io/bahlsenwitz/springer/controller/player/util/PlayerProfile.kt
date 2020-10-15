@@ -1,4 +1,4 @@
-package io.bahlsenwitz.springer.controller.player
+package io.bahlsenwitz.springer.controller.player.util
 
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
