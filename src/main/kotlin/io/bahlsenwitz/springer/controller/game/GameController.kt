@@ -4,7 +4,6 @@ import io.bahlsenwitz.springer.controller.game.backup.GameBackUp
 import io.bahlsenwitz.springer.controller.game.path.*
 import io.bahlsenwitz.springer.controller.game.path.GameProp
 import io.bahlsenwitz.springer.controller.game.request.*
-import io.bahlsenwitz.springer.controller.game.request.GameConfirm
 import io.bahlsenwitz.springer.controller.game.request.GameUpdate
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
@@ -78,11 +77,6 @@ constructor(val repositoryGame: RepositoryGame, val repositoryPlayer: Repository
     @PostMapping("/challenge")
     fun challenge(@Valid @RequestBody requestChallenge: RequestCreate): ResponseEntity<Any> {
         return GameChallenge(repositoryGame, repositoryPlayer).challenge(requestChallenge)
-    }
-
-    @PostMapping("/confirm")
-    fun confirm(@Valid @RequestBody updateConfirm: GameConfirm.UpdateConfirm): ResponseEntity<Any> {
-        return GameConfirm(repositoryGame).confirm(updateConfirm)
     }
 
     @PostMapping("/menu")

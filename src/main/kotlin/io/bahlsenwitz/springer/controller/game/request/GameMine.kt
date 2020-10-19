@@ -25,11 +25,8 @@ class GameMine(
 
     fun mine(updateMine: UpdateMine): ResponseEntity<Any>? {
         val game: Game = repositoryGame.findById(UUID.fromString(updateMine.id_game)!!).get()
-        //if (game.status == STATUS.RESOLVED) {
-            //return output.terminal(result = "fail", route = "mine")
-        //}
         game.highlight = "TBD"
-        game.status = STATUS.RESOLVED_WHITE_BLACK
+        game.status = STATUS.RESOLVED
         game.condition = CONDITION.LANDMINE
         game.state = config.poisonReveal(updateMine.state)
         rating.resolve(game)

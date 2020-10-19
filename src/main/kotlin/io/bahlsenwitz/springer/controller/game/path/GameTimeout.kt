@@ -22,7 +22,7 @@ class GameTimeout(
     fun timeout(id_game: String): ResponseEntity<Any>? {
         val game: Game = repositoryGame.findById(UUID.fromString(id_game)!!).get()
         game.highlight = "TBD"
-        game.status = STATUS.RESOLVED_WHITE_BLACK
+        game.status = STATUS.RESOLVED
         game.condition = CONDITION.TIMEOUT
         game.state = config.poisonReveal(game.state!!)
         rating.resolve(game)

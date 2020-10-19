@@ -41,7 +41,7 @@ class GameEval(
         }
         playerSelf.note_value = false
         playerSelf.updated = date
-        game.status = STATUS.RESOLVED_WHITE_BLACK
+        game.status = STATUS.RESOLVED
         game.condition = CONDITION.DRAW
         rating.draw(game) //also persists game/players
         return output.update(route = "eval", game = game)
