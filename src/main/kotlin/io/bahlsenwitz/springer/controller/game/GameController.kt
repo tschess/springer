@@ -18,114 +18,96 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/game")
 class GameController @Autowired
-constructor(repositoryGame: RepositoryGame, repositoryPlayer: RepositoryPlayer) {
+constructor(val repositoryGame: RepositoryGame, val repositoryPlayer: RepositoryPlayer) {
 
-    val gameBackUp = GameBackUp(repositoryGame)
-    @PostMapping("/backup")
-    fun backup(): Any {
-        return gameBackUp.backup()
-    }
-
-    val gameRecent = GameRecent(repositoryGame, repositoryPlayer)
     @GetMapping("/recent/{id_player}")
     fun recent(@PathVariable(value = "id_player") id_player: String): ResponseEntity<Any> {
-        return gameRecent.recent(id_player)
+        return GameRecent(repositoryGame, repositoryPlayer).recent(id_player)
     }
 
-    val gameTimeout: GameTimeout = GameTimeout(repositoryGame, repositoryPlayer)
     @GetMapping("/timeout/{id_game}")
     fun timeout(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any>? {
-        return gameTimeout.timeout(id_game)
+        return GameTimeout(repositoryGame, repositoryPlayer).timeout(id_game)
     }
 
-    val gameRequest = GameRequest(repositoryGame)
     @GetMapping("/request/{id_game}")
     fun request(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any> {
-        return gameRequest.request(id_game)
+        return GameRequest(repositoryGame).request(id_game)
     }
 
-    val gameProp = GameProp(repositoryGame, repositoryPlayer)
     @GetMapping("/prop/{id_game}")
     fun prop(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any> {
-        return gameProp.prop(id_game)
+        return GameProp(repositoryGame, repositoryPlayer).prop(id_game)
     }
 
-    val gameCheck = GameCheck(repositoryGame)
     @GetMapping("/check/{id_game}")
     fun check(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any>? {
-        return gameCheck.check(id_game)
+        return GameCheck(repositoryGame).check(id_game)
     }
 
-    val gameMate = GameMate(repositoryGame, repositoryPlayer)
     @GetMapping("/mate/{id_game}")
     fun mate(@PathVariable(value = "id_game") id_game: String): ResponseEntity<Any>?{
-        return gameMate.mate(id_game)
+        return GameMate(repositoryGame, repositoryPlayer).mate(id_game)
     }
 
-    val gameMine = GameMine(repositoryGame, repositoryPlayer)
     @PostMapping("/mine")
     fun mine(@Valid @RequestBody updateMine: GameMine.UpdateMine): ResponseEntity<Any>? {
-        return gameMine.mine(updateMine)
+        return GameMine(repositoryGame, repositoryPlayer).mine(updateMine)
     }
 
-    val gameUpdate = GameUpdate(repositoryGame, repositoryPlayer)
     @PostMapping("/update")
     fun update(@Valid @RequestBody updateGame: GameUpdate.UpdateGame): ResponseEntity<Any>? {
-        return gameUpdate.update(updateGame)
+        return GameUpdate(repositoryGame, repositoryPlayer).update(updateGame)
     }
 
-    val gameEval = GameEval(repositoryGame, repositoryPlayer)
     @PostMapping("/eval")
     fun eval(@Valid @RequestBody evalUpdate: GameEval.EvalUpdate): ResponseEntity<Any> {
-        return gameEval.eval(evalUpdate)
+        return GameEval(repositoryGame, repositoryPlayer).eval(evalUpdate)
     }
 
-    val gameResign: GameResign = GameResign(repositoryGame, repositoryPlayer)
     @PostMapping("/resign")
     fun resign(@Valid @RequestBody updateResign: GameResign.UpdateResign): ResponseEntity<Any>? {
-        return gameResign.resign(updateResign)
+        return GameResign(repositoryGame, repositoryPlayer).resign(updateResign)
     }
 
-    val gameRematch = GameRematch(repositoryGame, repositoryPlayer)
     @PostMapping("/rematch")
     fun rematch(@Valid @RequestBody requestRematch: GameRematch.RequestRematch): ResponseEntity<Any> {
-        return gameRematch.rematch(requestRematch)
+        return GameRematch(repositoryGame, repositoryPlayer).rematch(requestRematch)
     }
 
-    val gameChallenge = GameChallenge(repositoryGame, repositoryPlayer)
     @PostMapping("/challenge")
     fun challenge(@Valid @RequestBody requestChallenge: RequestCreate): ResponseEntity<Any> {
-        return gameChallenge.challenge(requestChallenge)
+        return GameChallenge(repositoryGame, repositoryPlayer).challenge(requestChallenge)
     }
 
-    val gameConfirm = GameConfirm(repositoryGame)
     @PostMapping("/confirm")
     fun confirm(@Valid @RequestBody updateConfirm: GameConfirm.UpdateConfirm): ResponseEntity<Any> {
-        return gameConfirm.confirm(updateConfirm)
+        return GameConfirm(repositoryGame).confirm(updateConfirm)
     }
 
-    val gameMenu = GameMenu(repositoryGame, repositoryPlayer)
     @PostMapping("/menu")
     fun menu(@Valid @RequestBody updateTest: GameMenu.RequestMenu): ResponseEntity<Any> {
-        return gameMenu.menu(updateTest)
+        return GameMenu(repositoryGame, repositoryPlayer).menu(updateTest)
     }
 
-    val gameAck = GameAck(repositoryGame, repositoryPlayer)
     @PostMapping("/ack")
     fun ack(@Valid @RequestBody requestAck: GameAck.RequestAck): ResponseEntity<Any> {
-        return gameAck.ack(requestAck)
+        return GameAck(repositoryGame, repositoryPlayer).ack(requestAck)
     }
 
-    val gameNack = GameNack(repositoryGame, repositoryPlayer)
     @PostMapping("/nack")
     fun nack(@Valid @RequestBody updateNack: UpdateNack): ResponseEntity<Any> {
-        return gameNack.nack(updateNack)
+        return GameNack(repositoryGame, repositoryPlayer).nack(updateNack)
     }
 
-    val gameRescind = GameRescind(repositoryGame, repositoryPlayer)
     @PostMapping("/rescind")
     fun rescind(@Valid @RequestBody updateRescind: UpdateNack): ResponseEntity<Any> {
-        return gameRescind.rescind(updateRescind)
+        return GameRescind(repositoryGame, repositoryPlayer).rescind(updateRescind)
+    }
+
+    @PostMapping("/backup")
+    fun backup(): Any {
+        return GameBackUp(repositoryGame).backup()
     }
 
 }

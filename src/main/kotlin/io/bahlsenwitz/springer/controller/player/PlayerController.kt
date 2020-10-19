@@ -20,11 +20,12 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/player")
 class PlayerController @Autowired
-constructor(repositoryPlayer: RepositoryPlayer, repositoryGame: RepositoryGame) {
+constructor(val repositoryPlayer: RepositoryPlayer, val repositoryGame: RepositoryGame) {
 
-    /**
-     * Start.swift
-     */
+    @PostMapping("/device/{device}")
+    fun device(@PathVariable(value = "device") device: String): ResponseEntity<Any> {
+        return PlayerInit(repositoryPlayer).device(device)
+    }
 
     val playerStart = PlayerStart(repositoryPlayer, repositoryGame)
 
@@ -38,19 +39,6 @@ constructor(repositoryPlayer: RepositoryPlayer, repositoryGame: RepositoryGame) 
         return playerStart.login(requestLogin)
     }
 
-    /**
-     * Initializer.swift
-     */
-    val playerInit = PlayerInit(repositoryPlayer)
-
-    @PostMapping("/device/{device}")
-    fun device(@PathVariable(value = "device") device: String): ResponseEntity<Any> {
-        return playerInit.device(device)
-    }
-
-    /**
-     * Profile.swift
-     */
     val playerProfile = PlayerProfile(repositoryPlayer)
 
     @PostMapping("/clear/{device}")
@@ -63,63 +51,39 @@ constructor(repositoryPlayer: RepositoryPlayer, repositoryGame: RepositoryGame) 
         return playerProfile.avatar(updateAvatar)
     }
 
-    /**
-     * Config.swift
-     */
-    val playerConfig = PlayerConfig(repositoryPlayer)
-
     @PostMapping("/config")
     fun config(@Valid @RequestBody updateConfig: PlayerConfig.UpdateConfig): ResponseEntity<Any> {
-        return playerConfig.config(updateConfig)
+        return PlayerConfig(repositoryPlayer).config(updateConfig)
     }
 
-    /**
-     * Quick.swift
-     */
-    val playerQuick = PlayerQuick(repositoryPlayer)
     @GetMapping("/quick/{id}")
     fun quick(@PathVariable(value = "id") id: String): ResponseEntity<Any> {
-        return playerQuick.quick(id)
+        return PlayerQuick(repositoryPlayer).quick(id)
     }
-
-    /**
-     * Home.swift
-     */
-    val playerHome = PlayerHome(repositoryPlayer)
 
     @PostMapping("/leaderboard")
     fun leaderboard(@Valid @RequestBody requestPage: PlayerHome.RequestPage): ResponseEntity<Any> {
-        return playerHome.leaderboard(requestPage)
+        return PlayerHome(repositoryPlayer).leaderboard(requestPage)
     }
-
-    val playerRefresh =
-        PlayerRefresh(repositoryPlayer)
 
     @PostMapping("/refresh")
     fun refresh(@Valid @RequestBody requestRefresh: PlayerRefresh.RequestRefresh): ResponseEntity<Any> {
-        return playerRefresh.refresh(requestRefresh)
+        return PlayerRefresh(repositoryPlayer).refresh(requestRefresh)
     }
-
-    val playerNotify = PlayerNotify(repositoryPlayer)
 
     @GetMapping("/notify/{id}")
     fun notify(@PathVariable(value = "id") id: String): ResponseEntity<Any>? {
-        return playerNotify.notify(id)
+        return PlayerNotify(repositoryPlayer).notify(id)
     }
-
-    val playerBackUp = PlayerBackUp(repositoryPlayer)
-
-    @PostMapping("/backup")
-    fun backup(): Any {
-        return playerBackUp.backup()
-    }
-
-    val playerPush =
-        PlayerPush(repositoryPlayer)
 
     @PostMapping("/push")
     fun push(@Valid @RequestBody updatePush: PlayerPush.UpdatePush): ResponseEntity<Any> {
-        return playerPush.push(updatePush)
+        return PlayerPush(repositoryPlayer).push(updatePush)
+    }
+
+    @PostMapping("/backup")
+    fun backup(): Any {
+        return PlayerBackUp(repositoryPlayer).backup()
     }
 
 }
