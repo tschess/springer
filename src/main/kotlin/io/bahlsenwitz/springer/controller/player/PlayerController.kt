@@ -6,6 +6,7 @@ import io.bahlsenwitz.springer.controller.player.request.PlayerConfig
 import io.bahlsenwitz.springer.controller.player.path.PlayerQuick
 import io.bahlsenwitz.springer.controller.player.request.*
 import io.bahlsenwitz.springer.controller.player.path.PlayerNotify
+import io.bahlsenwitz.springer.controller.player.path.PlayerRivals
 import io.bahlsenwitz.springer.controller.player.request.PlayerPush
 import io.bahlsenwitz.springer.controller.player.util.PlayerProfile
 import io.bahlsenwitz.springer.repository.RepositoryGame
@@ -20,7 +21,12 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/player")
 class PlayerController @Autowired
-constructor(val repositoryPlayer: RepositoryPlayer, val repositoryGame: RepositoryGame) {
+constructor(final val repositoryPlayer: RepositoryPlayer, final val repositoryGame: RepositoryGame) {
+
+    @PostMapping("/rivals/{id}")
+    fun rivals(@PathVariable(value = "id") id: String): ResponseEntity<Any> {
+        return PlayerRivals(repositoryPlayer).rivals(id)
+    }
 
     @PostMapping("/device/{device}")
     fun device(@PathVariable(value = "device") device: String): ResponseEntity<Any> {
