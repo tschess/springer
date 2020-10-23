@@ -20,9 +20,8 @@ class GameAck(
 
     private val dateTime: DateTime = DateTime()
     private val config: Config = Config()
+    private val output: Output = Output(repositoryGame = repositoryGame)
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
-    private val output: Output =
-        Output(repositoryGame = repositoryGame)
 
     data class RequestAck(
         val id_self: String,
