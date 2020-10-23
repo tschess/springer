@@ -19,8 +19,8 @@ class GameNack(
 ) {
 
     private val dateTime: DateTime = DateTime()
-    private val output: Output = Output(repositoryGame = repositoryGame)
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
+    private val output: Output = Output(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
 
     fun nack(updateNack: UpdateNack): ResponseEntity<Any> {
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(updateNack.id_self)!!).get()
