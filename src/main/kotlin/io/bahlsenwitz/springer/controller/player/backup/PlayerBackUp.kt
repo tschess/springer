@@ -56,8 +56,8 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
                 val date: String = player.date
                 fileWriter.append("${date};") //7
 
-                val note_value: Boolean = player.note_value
-                fileWriter.append("${note_value};") //8
+                //val note_value: Boolean = player.note_value
+                //fileWriter.append("${note_value};") //8
 
                 val note_key: String? = player.note_key
                 if (!note_key.isNullOrBlank()) {

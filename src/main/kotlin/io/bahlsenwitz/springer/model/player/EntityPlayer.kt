@@ -33,8 +33,6 @@ class Player(
     var disp: Int = 0,
     var date: String = this.date,
 
-    @Column(insertable = true, updatable = true)
-    var note_value: Boolean = true,
     var note_key: String? = "POPUP", //"POPUP" means first game ~ ask them (overlay)
 
     @Type(type = "jsonb")

@@ -71,9 +71,16 @@ class PlayerStart(private val repositoryPlayer: RepositoryPlayer, val repository
         return output.player(player = player, route = "create", growth = "android")
     }
 
+    /**
+     *
+     * CHANGE THIS TO AN INVITE!!!!
+     *
+     * not a game...
+     *
+     */
     private fun seedGameInit(player: Player) {
         val opponent: Player = repositoryPlayer.findByUsername("sme")!!
-        opponent.note_value = true
+
         repositoryPlayer.save(opponent)
         val index: Int = (0..3).random()
         val state: List<List<String>> = config.get(index, opponent)

@@ -19,6 +19,32 @@ import javax.validation.Valid
 class GameController @Autowired
 constructor(val repositoryGame: RepositoryGame, val repositoryPlayer: RepositoryPlayer) {
 
+
+
+    @PostMapping("/rematch")
+    fun rematch(@Valid @RequestBody requestRematch: GameRematch.RequestRematch): ResponseEntity<Any> {
+        return GameRematch(repositoryGame, repositoryPlayer).rematch(requestRematch)
+    }
+
+    @PostMapping("/challenge")
+    fun challenge(@Valid @RequestBody requestChallenge: RequestCreate): ResponseEntity<Any> {
+        return GameChallenge(repositoryGame, repositoryPlayer).challenge(requestChallenge)
+    }
+
+
+    @PostMapping("/nack")
+    fun nack(@Valid @RequestBody updateNack: UpdateNack): ResponseEntity<Any> {
+        return GameNack(repositoryGame, repositoryPlayer).nack(updateNack)
+    }
+
+    @PostMapping("/rescind")
+    fun rescind(@Valid @RequestBody updateRescind: UpdateNack): ResponseEntity<Any> {
+        return GameRescind(repositoryGame, repositoryPlayer).rescind(updateRescind)
+    }
+
+
+
+
     @GetMapping("/recent/{id_player}")
     fun recent(@PathVariable(value = "id_player") id_player: String): ResponseEntity<Any> {
         return GameRecent(repositoryGame, repositoryPlayer).recent(id_player)
@@ -69,16 +95,6 @@ constructor(val repositoryGame: RepositoryGame, val repositoryPlayer: Repository
         return GameResign(repositoryGame, repositoryPlayer).resign(updateResign)
     }
 
-    @PostMapping("/rematch")
-    fun rematch(@Valid @RequestBody requestRematch: GameRematch.RequestRematch): ResponseEntity<Any> {
-        return GameRematch(repositoryGame, repositoryPlayer).rematch(requestRematch)
-    }
-
-    @PostMapping("/challenge")
-    fun challenge(@Valid @RequestBody requestChallenge: RequestCreate): ResponseEntity<Any> {
-        return GameChallenge(repositoryGame, repositoryPlayer).challenge(requestChallenge)
-    }
-
     @PostMapping("/menu")
     fun menu(@Valid @RequestBody updateTest: GameMenu.RequestMenu): ResponseEntity<Any> {
         return GameMenu(repositoryGame, repositoryPlayer).menu(updateTest)
@@ -89,15 +105,7 @@ constructor(val repositoryGame: RepositoryGame, val repositoryPlayer: Repository
         return GameAck(repositoryGame, repositoryPlayer).ack(requestAck)
     }
 
-    @PostMapping("/nack")
-    fun nack(@Valid @RequestBody updateNack: UpdateNack): ResponseEntity<Any> {
-        return GameNack(repositoryGame, repositoryPlayer).nack(updateNack)
-    }
 
-    @PostMapping("/rescind")
-    fun rescind(@Valid @RequestBody updateRescind: UpdateNack): ResponseEntity<Any> {
-        return GameRescind(repositoryGame, repositoryPlayer).rescind(updateRescind)
-    }
 
     @PostMapping("/backup")
     fun backup(): Any {

@@ -25,8 +25,7 @@ class GeneratorTestPlayer(private val repositoryPlayer: RepositoryPlayer) {
             avatar = GeneratorAvatar().getPhotoText("https://github.com/tschess/catacombes/raw/master/mr_white.jpg"),
             elo = 1200,
             rank = 1,
-            disp = 3,
-            note_value = true
+            disp = 3
         )
         testPlayerList.add(white) //0
 

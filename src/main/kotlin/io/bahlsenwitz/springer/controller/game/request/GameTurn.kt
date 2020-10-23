@@ -16,8 +16,6 @@ class GameTurn(
     fun setTurn(game: Game): CONTESTANT {
         if (game.turn == CONTESTANT.WHITE) {
             game.white.updated = dateTime.getDate()
-            game.white.note_value = false
-            game.black.note_value = true
             /* * */
             pusher.notify(game.black)
             /* * */
@@ -25,8 +23,6 @@ class GameTurn(
             return CONTESTANT.BLACK
         }
         game.black.updated = dateTime.getDate()
-        game.black.note_value = false
-        game.white.note_value = true
         /* * */
         pusher.notify(game.white)
         /* * */

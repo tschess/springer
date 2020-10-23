@@ -34,7 +34,6 @@ class GameChallenge(
             state = config
         )
         repositoryGame.save(game)
-        playerOther.note_value = true
         /* * */
         pusher.notify(playerOther)
         /* * */

@@ -39,7 +39,6 @@ class GameEval(
             game.turn = gameTurn.setTurn(game = game)
             return output.update(route = "eval", game = game)
         }
-        playerSelf.note_value = false
         playerSelf.updated = date
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.DRAW

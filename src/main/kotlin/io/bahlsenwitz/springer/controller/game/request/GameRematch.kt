@@ -14,17 +14,12 @@ import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import java.util.*
 
-class GameRematch(
-    private val repositoryGame: RepositoryGame,
-    private val repositoryPlayer: RepositoryPlayer
-) {
+class GameRematch(repositoryGame: RepositoryGame, private val repositoryPlayer: RepositoryPlayer ) {
 
     private val pusher: Pusher = Pusher()
-
-    private val dateTime: DateTime = DateTime()
     private val config: Config = Config()
-    private val output: Output =
-        Output(repositoryGame = repositoryGame)
+    private val dateTime: DateTime = DateTime()
+    private val output: Output = Output(repositoryGame = repositoryGame)
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     data class RequestRematch(
@@ -38,7 +33,7 @@ class GameRematch(
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(requestRematch.id_self)!!).get()
         playerSelf.date = dateTime.getDate()
         val playerOther: Player = repositoryPlayer.findById(UUID.fromString(requestRematch.id_other)!!).get()
-        playerOther.note_value = true
+
         /* * */
         pusher.notify(playerOther)
         /* * */

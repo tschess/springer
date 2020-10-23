@@ -27,7 +27,6 @@ class GameMenu(
     fun menu(requestActual: RequestMenu): ResponseEntity<Any> {
         val uuid: UUID = UUID.fromString(requestActual.id)!!
         val player: Player = repositoryPlayer.findById(uuid).get()
-        player.note_value = false
         repositoryPlayer.save(player)
 
         val playerList: List<Game> = repositoryGame.findPlayerList(uuid)

@@ -3,9 +3,7 @@ package io.bahlsenwitz.springer.controller.player
 import io.bahlsenwitz.springer.controller.player.backup.PlayerBackUp
 import io.bahlsenwitz.springer.controller.player.path.PlayerInit
 import io.bahlsenwitz.springer.controller.player.request.PlayerConfig
-import io.bahlsenwitz.springer.controller.player.path.PlayerQuick
 import io.bahlsenwitz.springer.controller.player.request.*
-import io.bahlsenwitz.springer.controller.player.path.PlayerNotify
 import io.bahlsenwitz.springer.controller.player.path.PlayerRivals
 import io.bahlsenwitz.springer.controller.player.request.PlayerPush
 import io.bahlsenwitz.springer.controller.player.util.PlayerProfile
@@ -62,11 +60,6 @@ constructor(final val repositoryPlayer: RepositoryPlayer, final val repositoryGa
         return PlayerConfig(repositoryPlayer).config(updateConfig)
     }
 
-    @GetMapping("/quick/{id}")
-    fun quick(@PathVariable(value = "id") id: String): ResponseEntity<Any> {
-        return PlayerQuick(repositoryPlayer).quick(id)
-    }
-
     @PostMapping("/leaderboard")
     fun leaderboard(@Valid @RequestBody requestPage: PlayerHome.RequestPage): ResponseEntity<Any> {
         return PlayerHome(repositoryPlayer).leaderboard(requestPage)
@@ -75,11 +68,6 @@ constructor(final val repositoryPlayer: RepositoryPlayer, final val repositoryGa
     @PostMapping("/refresh")
     fun refresh(@Valid @RequestBody requestRefresh: PlayerRefresh.RequestRefresh): ResponseEntity<Any> {
         return PlayerRefresh(repositoryPlayer).refresh(requestRefresh)
-    }
-
-    @GetMapping("/notify/{id}")
-    fun notify(@PathVariable(value = "id") id: String): ResponseEntity<Any>? {
-        return PlayerNotify(repositoryPlayer).notify(id)
     }
 
     @PostMapping("/push")
