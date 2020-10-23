@@ -20,8 +20,8 @@ class GameRescind(
 ) {
 
     private val dateTime: DateTime = DateTime()
-    private val output: Output = Output(repositoryGame = repositoryGame)
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
+    private val output: Output = Output(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
 
     fun rescind(updateRescind: UpdateNack): ResponseEntity<Any> {
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(updateRescind.id_self)!!).get()
