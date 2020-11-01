@@ -21,10 +21,10 @@ class TimeoutInactivity(val repositoryPlayer: RepositoryPlayer) {
             val duration: Duration = Duration.between(time01, time00)
             val period24: Long = 60 * 60 * 24 * 1000.toLong()
             val periodXX: Long = period24 - duration.toMillis()
-            if (periodXX > 0) {
+            if (periodXX < 0) {
                 continue
             }
-            rating.update(player, RESULT.LOSS)
+            rating.activate(player)
         }
     }
 }

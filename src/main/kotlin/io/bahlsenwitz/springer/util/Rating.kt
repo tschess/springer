@@ -15,6 +15,14 @@ class Rating(
 
     private val dateTime: DateTime = DateTime()
 
+
+    fun activate(player: Player) {
+        val eloUpdate: Int = player.elo + 1
+        player.elo = eloUpdate
+        repositoryPlayer!!.save(player)
+        recalc()
+    }
+
     fun update(playerSelf: Player, result: RESULT) {
         val elo00: Int = playerSelf.elo
         val elo01: Elo = Elo(elo00)
