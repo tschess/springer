@@ -16,8 +16,8 @@ import java.util.*
 
 class GameRematch(repositoryGame: RepositoryGame, private val repositoryPlayer: RepositoryPlayer ) {
 
-    private val pusher: Pusher = Pusher()
     private val config: Config = Config()
+    private val pusher: Pusher = Pusher()
     private val dateTime: DateTime = DateTime()
     private val output: Output = Output(repositoryGame = repositoryGame)
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
@@ -33,7 +33,6 @@ class GameRematch(repositoryGame: RepositoryGame, private val repositoryPlayer: 
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(requestRematch.id_self)!!).get()
         playerSelf.date = dateTime.getDate()
         val playerOther: Player = repositoryPlayer.findById(UUID.fromString(requestRematch.id_other)!!).get()
-
         /* * */
         pusher.notify(playerOther)
         /* * */

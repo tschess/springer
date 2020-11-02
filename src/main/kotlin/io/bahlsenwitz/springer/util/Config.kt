@@ -15,13 +15,13 @@ class Config {
 
     fun defaultConfig1(): List<List<String>> {
         val r1: List<String> = arrayListOf("Knight","Knight","Knight","Knight","Knight","Knight","Knight","")
-        val r0: List<String> = arrayListOf("King","Knight","Knight","Knight","Knight","Knight","Knight","")
+        val r0: List<String> = arrayListOf("","Knight","Knight","Knight","King","Knight","Knight","")
         return arrayListOf(r0, r1)
     }
 
     fun defaultConfig2(): List<List<String>> {
-        val r1: List<String> = arrayListOf("","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop")
-        val r0: List<String> = arrayListOf("","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop","King")
+        val r1: List<String> = arrayListOf("Bishop","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop")
+        val r0: List<String> = arrayListOf("","Bishop","Bishop","King","Bishop","Bishop","Bishop","")
         return arrayListOf(r0, r1)
     }
 
@@ -32,24 +32,43 @@ class Config {
     }
 
     fun defaultConfig4(): List<List<String>> {
+        val r1: List<String> = arrayListOf("","","Queen","Bishop","Queen","","","")
+        val r0: List<String> = arrayListOf("","","Queen","King","Queen","","","")
+        return arrayListOf(r0, r1)
+    }
+
+    fun defaultConfig5(): List<List<String>> {
         val r1: List<String> = arrayListOf("","Bishop","Knight","Knight","Knight","Knight","Bishop","")
         val r0: List<String> = arrayListOf("","Rook","Bishop","King","Rook","Bishop","Rook","")
         return arrayListOf(r0, r1)
     }
 
     fun get(index: Int, player: Player): List<List<String>> {
-        if (index == 0) {
-            return player.config0
+        when (index) {
+            0 -> return player.config0
+            1 -> return player.config0
+            2 -> return player.config0
+            3 -> return chess()
         }
-        if (index == 1) {
-            return player.config1
-        }
-        if (index == 2) {
-            return player.config2
-        }
+        return random()
+    }
+
+    fun chess(): List<List<String>> {
         val r1: List<String> = arrayListOf("Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn")
         val r0: List<String> = arrayListOf("Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook")
         return arrayListOf(r0, r1)
+    }
+
+    fun random(): List<List<String>> {
+        when ((0..5).random()) {
+            0 -> return defaultConfig0()
+            1 -> return defaultConfig1()
+            2 -> return defaultConfig2()
+            3 -> return defaultConfig3()
+            4 -> return defaultConfig4()
+            5 -> return defaultConfig5()
+        }
+        return chess()
     }
 
     fun orient(row00: List<String>, color: String): List<String> {
@@ -80,12 +99,5 @@ class Config {
         return r0
     }
 
-//    fun generateState(white: List<List<String>>): List<List<String>> {
-//        val color: String = "White"
-//        val row00: List<String> = orient(white[0], color)
-//        val row01: List<String> = orient(white[1], color)
-//        val black: List<List<String>> = quickBlack()
-//        return arrayListOf(row00, row01, row, row, row, row, black[1], black[0])
-//    }
 }
 

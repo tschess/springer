@@ -17,11 +17,9 @@ class GameChallenge(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    private val pusher: Pusher = Pusher()
-
-    private val output: Output =
-        Output()
+    private val output: Output = Output()
     private val config: Config = Config()
+    private val pusher: Pusher = Pusher()
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     fun challenge(requestChallenge: RequestCreate): ResponseEntity<Any> {
