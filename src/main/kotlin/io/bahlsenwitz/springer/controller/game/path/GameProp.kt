@@ -1,6 +1,6 @@
 package io.bahlsenwitz.springer.controller.game.path
 
-import io.bahlsenwitz.springer.controller.game.request.GameTurn
+import io.bahlsenwitz.springer.controller.game.util.GameTurn
 import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.repository.RepositoryGame

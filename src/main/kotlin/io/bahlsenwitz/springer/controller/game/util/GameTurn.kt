@@ -1,4 +1,4 @@
-package io.bahlsenwitz.springer.controller.game.request
+package io.bahlsenwitz.springer.controller.game.util
 
 import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game

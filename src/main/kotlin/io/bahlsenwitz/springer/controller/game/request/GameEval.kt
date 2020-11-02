@@ -8,6 +8,7 @@ import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.DateTime
 import io.bahlsenwitz.springer.controller.Output
+import io.bahlsenwitz.springer.controller.game.util.GameTurn
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import java.util.*

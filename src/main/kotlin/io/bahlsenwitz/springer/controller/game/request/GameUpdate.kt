@@ -6,6 +6,7 @@ import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.controller.Output
+import io.bahlsenwitz.springer.controller.game.util.GameTurn
 import org.springframework.http.ResponseEntity
 import java.util.*
 
