@@ -19,31 +19,26 @@ import javax.validation.Valid
 class GameController @Autowired
 constructor(val repositoryGame: RepositoryGame, val repositoryPlayer: RepositoryPlayer) {
 
-
-
     @PostMapping("/rematch")
     fun rematch(@Valid @RequestBody requestRematch: GameRematch.RequestRematch): ResponseEntity<Any> {
         return GameRematch(repositoryGame, repositoryPlayer).rematch(requestRematch)
     }
 
     @PostMapping("/challenge")
-    fun challenge(@Valid @RequestBody requestChallenge: RequestCreate): ResponseEntity<Any> {
+    fun challenge(@Valid @RequestBody requestChallenge: GameChallenge.RequestCreate): ResponseEntity<Any> {
         return GameChallenge(repositoryGame, repositoryPlayer).challenge(requestChallenge)
     }
 
 
     @PostMapping("/nack")
-    fun nack(@Valid @RequestBody updateNack: UpdateNack): ResponseEntity<Any> {
+    fun nack(@Valid @RequestBody updateNack: GameNack.UpdateNack): ResponseEntity<Any> {
         return GameNack(repositoryGame, repositoryPlayer).nack(updateNack)
     }
 
     @PostMapping("/rescind")
-    fun rescind(@Valid @RequestBody updateRescind: UpdateNack): ResponseEntity<Any> {
+    fun rescind(@Valid @RequestBody updateRescind: GameNack.UpdateNack): ResponseEntity<Any> {
         return GameRescind(repositoryGame, repositoryPlayer).rescind(updateRescind)
     }
-
-
-
 
     @GetMapping("/recent/{id_player}")
     fun recent(@PathVariable(value = "id_player") id_player: String): ResponseEntity<Any> {

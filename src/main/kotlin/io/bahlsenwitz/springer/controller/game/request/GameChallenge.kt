@@ -17,6 +17,12 @@ class GameChallenge(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
+    data class RequestCreate(
+        val id_self: String,
+        val id_other: String,
+        val config: Int
+    )
+
     private val output: Output = Output()
     private val config: Config = Config()
     private val pusher: Pusher = Pusher()

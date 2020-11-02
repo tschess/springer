@@ -18,6 +18,11 @@ class GameNack(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
+    data class UpdateNack(
+        val id_game: String,
+        val id_self: String
+    )
+
     private val dateTime: DateTime = DateTime()
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
     private val output: Output = Output(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
@@ -34,3 +39,4 @@ class GameNack(
         return output.player(player = playerSelf, route = "nack") //to update your header...  //ack
     }
 }
+
