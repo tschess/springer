@@ -6,6 +6,7 @@ import io.bahlsenwitz.springer.model.game.CONTESTANT
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
+import io.bahlsenwitz.springer.push.Pusher
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Config
@@ -62,8 +63,7 @@ class PlayerStart(private val repositoryPlayer: RepositoryPlayer, val repository
             device = requestCreate.device
         )
         player = rating.addition(player)
-
-        seedGameInit(player)
+        seedInviteInit(player)
 
         if(requestCreate.device.length > 16){
             return output.player(player = player, route = "create", growth = "ios")
@@ -71,25 +71,13 @@ class PlayerStart(private val repositoryPlayer: RepositoryPlayer, val repository
         return output.player(player = player, route = "create", growth = "android")
     }
 
-    /**
-     *
-     * CHANGE THIS TO AN INVITE!!!!
-     *
-     * not a game...
-     *
-     */
-    private fun seedGameInit(player: Player) {
+    private fun seedInviteInit(player: Player) {
         val opponent: Player = repositoryPlayer.findByUsername("sme")!!
-
-        repositoryPlayer.save(opponent)
         val index: Int = (0..3).random()
         val state: List<List<String>> = config.get(index, opponent)
-        val game = Game(
-            state = state,
-            white = player,
-            black = opponent,
-            challenger = CONTESTANT.BLACK)
+        val game = Game(state = state, white = player, black = opponent)
         repositoryGame.save(game)
+        Pusher().notify(opponent)
     }
 }
 
