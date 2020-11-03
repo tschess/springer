@@ -4,7 +4,6 @@ import io.bahlsenwitz.springer.controller.player.backup.PlayerBackUp
 import io.bahlsenwitz.springer.controller.player.path.PlayerInit
 import io.bahlsenwitz.springer.controller.player.request.PlayerConfig
 import io.bahlsenwitz.springer.controller.player.request.*
-import io.bahlsenwitz.springer.controller.player.path.PlayerRivals
 import io.bahlsenwitz.springer.controller.player.request.PlayerPush
 import io.bahlsenwitz.springer.controller.player.util.PlayerProfile
 import io.bahlsenwitz.springer.repository.RepositoryGame
@@ -28,7 +27,7 @@ constructor(val repositoryPlayer: RepositoryPlayer, val repositoryGame: Reposito
 
     @PostMapping("/rivals/{id}")
     fun rivals(@PathVariable(value = "id") id: String): ResponseEntity<Any> {
-        return PlayerRivals(repositoryPlayer).rivals(id)
+        return PlayerHome(repositoryPlayer).rivals(id)
     }
 
     @PostMapping("/device/{device}")
