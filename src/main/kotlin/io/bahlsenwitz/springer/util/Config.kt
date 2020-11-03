@@ -14,7 +14,7 @@ class Config {
     }
 
     fun defaultConfig1(): List<List<String>> {
-        val r1: List<String> = arrayListOf("Knight","Knight","Knight","Knight","Knight","Knight","Knight","")
+        val r1: List<String> = arrayListOf("Knight","Knight","Knight","Knight","Knight","Knight","Knight","Knight")
         val r0: List<String> = arrayListOf("","Knight","Knight","Knight","King","Knight","Knight","")
         return arrayListOf(r0, r1)
     }
