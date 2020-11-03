@@ -47,7 +47,14 @@ class GeneratorGame(
                     if (stateString != "NULL") {
                         state = generateState(stateString = stateString) //1
                     }
-                    val status: STATUS = STATUS.valueOf(tokens[IDX_STATUS]) //2
+
+                    /* * */
+                    var pending: String = tokens[IDX_STATUS]
+                    if(pending.contains("RESOLVED")){ //TODO: REMOVE THIS~~~~
+                        pending = "RESOLVED"
+                    }
+                    val status: STATUS = STATUS.valueOf(pending) //2
+                    /* * */
 
                     /* * */
                     var condition_0: String = tokens[IDX_OUTCOME] //3
