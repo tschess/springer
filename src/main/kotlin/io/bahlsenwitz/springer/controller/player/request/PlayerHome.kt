@@ -17,7 +17,6 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
     private fun getActive(player: Player): Boolean {
         val time00: ZonedDateTime = dateTime.rn().minusDays(7L)
         val time01: ZonedDateTime = dateTime.getDate(player.updated)
-
         if (time00.isBefore(time01)) {
             return true
         }

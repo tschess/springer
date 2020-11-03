@@ -21,6 +21,11 @@ import javax.validation.Valid
 class PlayerController @Autowired
 constructor(val repositoryPlayer: RepositoryPlayer, val repositoryGame: RepositoryGame) {
 
+    @PostMapping("/leaderboard")
+    fun leaderboard(@Valid @RequestBody requestPage: PlayerHome.RequestPage): ResponseEntity<Any> {
+        return PlayerHome(repositoryPlayer).leaderboard(requestPage)
+    }
+
     @PostMapping("/rivals/{id}")
     fun rivals(@PathVariable(value = "id") id: String): ResponseEntity<Any> {
         return PlayerRivals(repositoryPlayer).rivals(id)
@@ -58,16 +63,6 @@ constructor(val repositoryPlayer: RepositoryPlayer, val repositoryGame: Reposito
     @PostMapping("/config")
     fun config(@Valid @RequestBody updateConfig: PlayerConfig.UpdateConfig): ResponseEntity<Any> {
         return PlayerConfig(repositoryPlayer).config(updateConfig)
-    }
-
-    @PostMapping("/leaderboard")
-    fun leaderboard(@Valid @RequestBody requestPage: PlayerHome.RequestPage): ResponseEntity<Any> {
-        return PlayerHome(repositoryPlayer).leaderboard(requestPage)
-    }
-
-    @PostMapping("/refresh")
-    fun refresh(@Valid @RequestBody requestRefresh: PlayerRefresh.RequestRefresh): ResponseEntity<Any> {
-        return PlayerRefresh(repositoryPlayer).refresh(requestRefresh)
     }
 
     @PostMapping("/push")
