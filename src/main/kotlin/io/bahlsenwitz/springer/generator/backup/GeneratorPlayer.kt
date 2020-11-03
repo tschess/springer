@@ -18,7 +18,7 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
     private val IDX_RANK = 5
     private val IDX_DISP = 6
     private val IDX_DATE = 7
-    //private val IDX_NOTE_VALUE = 8  !!!!
+    private val IDX_NOTE_VALUE = 8 //REMOVE THIS NEXT TIME...
     private val IDX_NOTE_KEY = 9
     private val IDX_CONFIG0 = 10
     private val IDX_CONFIG1 = 11
@@ -50,7 +50,14 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                     val rank: Int = tokens[IDX_RANK].toInt() //5
                     val disp: Int = tokens[IDX_DISP].toInt() //6
                     val date: String = tokens[IDX_DATE] //7
-                    //val note_value: Boolean = tokens[IDX_NOTE_VALUE].toBoolean() //8
+
+                    /* * */
+                    val note_value: Boolean = tokens[IDX_NOTE_VALUE].toBoolean() //8
+                    /*
+                     * Get it, 'cause it's there, but then ignore it...
+                     * Next time around remove it completely.
+                     */
+
                     var note_key: String? = tokens[IDX_NOTE_KEY] //9
                     note_key = if(note_key == "NULL"){
                         null
@@ -81,7 +88,7 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                         rank = rank, //5
                         disp = disp, //6
                         date = date, //7
-                        //note_value = note_value, //8
+                        //note_value = note_value, //8 :: PENDING REMOVAL
                         note_key = note_key, //9
                         config0 = config0, //10
                         config1 = config1, //11
