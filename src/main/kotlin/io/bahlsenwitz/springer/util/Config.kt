@@ -46,8 +46,8 @@ class Config {
     fun get(index: Int, player: Player): List<List<String>> {
         when (index) {
             0 -> return player.config0
-            1 -> return player.config0
-            2 -> return player.config0
+            1 -> return player.config1
+            2 -> return player.config2
             3 -> return chess()
         }
         return random()
