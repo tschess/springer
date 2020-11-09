@@ -20,8 +20,8 @@ class Config {
     }
 
     fun defaultConfig2(): List<List<String>> {
-        val r1: List<String> = arrayListOf("Bishop","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop")
-        val r0: List<String> = arrayListOf("","Bishop","Bishop","King","Bishop","Bishop","Bishop","")
+        val r1: List<String> = arrayListOf("","Bishop","Bishop","Bishop","Bishop","Bishop","Bishop","")
+        val r0: List<String> = arrayListOf("Bishop","Bishop","Bishop","King","Bishop","Bishop","Bishop","Bishop")
         return arrayListOf(r0, r1)
     }
 
