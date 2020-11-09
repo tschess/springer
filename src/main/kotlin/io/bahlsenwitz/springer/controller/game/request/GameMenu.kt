@@ -64,7 +64,6 @@ class GameMenu(
     }
 
     private fun getOther(game: Game): Boolean {
-        //if (game.status != STATUS.RESOLVED){
         if(!game.isResolved()){
             return false
         }
@@ -81,12 +80,6 @@ class GameMenu(
     }
 
     private fun getSelf(game: Game): Boolean {
-        //if (game.status == STATUS.PROPOSED){
-            //return true
-        //}
-        //if (game.status == STATUS.ONGOING){
-            //return true
-        //}
         if(game.condition == CONDITION.REFUSED){
             return false
         }
