@@ -62,6 +62,13 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
     fun rivals(id: String): ResponseEntity<Any> {
         val player: Player = repositoryPlayer.findById(UUID.fromString(id)!!).get()
         val listRivals: List<Player> = this.getActiveList().filter { it.id != player.id }.shuffled().take(3)
+        val count: Int = listRivals.size
+        if(count < 3){
+            val player0: Player = repositoryPlayer.findByUsername("alexandra")!!
+            val player1: Player = repositoryPlayer.findByUsername("sme")!!
+            val player2: Player = repositoryPlayer.findByUsername("aesdfghjkl666")!!
+            return ResponseEntity.ok().body(listOf(player0, player1, player2))
+        }
         return ResponseEntity.ok().body(listRivals)
     }
 }
