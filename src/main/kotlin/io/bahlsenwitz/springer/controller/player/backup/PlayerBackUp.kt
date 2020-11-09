@@ -21,7 +21,7 @@ class PlayerBackUp(private val repositoryPlayer: RepositoryPlayer) {
             "rank;" + //       05
             "disp;" + //       06
             "date;" + //       07
-            "note_value;" + // 08  //TODO: !!!
+            //"note_value;" + // 08  //TODO: !!!
             "note_key;" + //   09  //TODO: ^^
             "config0;" + //     10
             "config1;" + //     11
