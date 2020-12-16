@@ -29,7 +29,6 @@ constructor(val repositoryGame: RepositoryGame, val repositoryPlayer: Repository
         return GameChallenge(repositoryGame, repositoryPlayer).challenge(requestChallenge)
     }
 
-
     @PostMapping("/nack")
     fun nack(@Valid @RequestBody updateNack: GameNack.UpdateNack): ResponseEntity<Any> {
         return GameNack(repositoryGame, repositoryPlayer).nack(updateNack)
