@@ -7,16 +7,14 @@ import org.springframework.http.ResponseEntity
 import java.util.*
 
 class GameCheck(private val repositoryGame: RepositoryGame) {
-    //private val output: Output = Output(repositoryGame = repositoryGame)
 
-    fun check(id_game: String): ResponseEntity<Any>? {
+    fun check(id_game: String): ResponseEntity<Any> {
         val game: Game = repositoryGame.findById(UUID.fromString(id_game)!!).get()
         if (game.on_check) {
-            //return output.terminal(result = "fail", route = "check")
             val body: MutableMap<String, String> = HashMap()
             body["fail"] = "check"
             return ResponseEntity.ok().body(body)
-        } //return output.update(route = "check", game = game)
+        }
         game.on_check = true
         game.updated = DateTime().getDate()
         repositoryGame.save(game)
