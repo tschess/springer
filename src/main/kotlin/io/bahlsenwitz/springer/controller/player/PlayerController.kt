@@ -18,7 +18,7 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/player")
 class PlayerController @Autowired
-constructor(val repositoryPlayer: RepositoryPlayer, val repositoryGame: RepositoryGame) {
+constructor(final val repositoryPlayer: RepositoryPlayer, final val repositoryGame: RepositoryGame) {
 
     @PostMapping("/leaderboard")
     fun leaderboard(@Valid @RequestBody requestPage: PlayerHome.RequestPage): ResponseEntity<Any> {
