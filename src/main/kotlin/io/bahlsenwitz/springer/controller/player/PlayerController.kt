@@ -18,7 +18,7 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/player")
 class PlayerController @Autowired
-constructor(final val repositoryPlayer: RepositoryPlayer, final val repositoryGame: RepositoryGame) {
+constructor(val repositoryPlayer: RepositoryPlayer, val repositoryGame: RepositoryGame) {
 
     @PostMapping("/leaderboard")
     fun leaderboard(@Valid @RequestBody requestPage: PlayerHome.RequestPage): ResponseEntity<Any> {
@@ -35,28 +35,24 @@ constructor(final val repositoryPlayer: RepositoryPlayer, final val repositoryGa
         return PlayerInit(repositoryPlayer).device(device)
     }
 
-    val playerStart = PlayerStart(repositoryPlayer, repositoryGame)
-
     @PostMapping("/create")
     fun create(@Valid @RequestBody requestCreate: PlayerStart.RequestStart): ResponseEntity<Any> {
-        return playerStart.create(requestCreate)
+        return PlayerStart(repositoryPlayer, repositoryGame).create(requestCreate)
     }
 
     @PostMapping("/login")
     fun login(@Valid @RequestBody requestLogin: PlayerStart.RequestStart): ResponseEntity<Any> {
-        return playerStart.login(requestLogin)
+        return PlayerStart(repositoryPlayer, repositoryGame).login(requestLogin)
     }
-
-    val playerProfile = PlayerProfile(repositoryPlayer)
 
     @PostMapping("/clear/{device}")
     fun clear(@PathVariable(value = "device") device: String): ResponseEntity<Any> {
-        return playerProfile.clear(device)
+        return PlayerProfile(repositoryPlayer).clear(device)
     }
 
     @PostMapping("/avatar")
     fun avatar(@Valid @RequestBody updateAvatar: PlayerProfile.UpdateAvatar): ResponseEntity<Any> {
-        return playerProfile.avatar(updateAvatar)
+        return PlayerProfile(repositoryPlayer).avatar(updateAvatar)
     }
 
     @PostMapping("/config")

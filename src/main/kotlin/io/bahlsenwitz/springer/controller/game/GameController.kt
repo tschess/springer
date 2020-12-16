@@ -99,9 +99,7 @@ constructor(val repositoryGame: RepositoryGame, val repositoryPlayer: Repository
     fun ack(@Valid @RequestBody requestAck: GameAck.RequestAck): ResponseEntity<Any> {
         return GameAck(repositoryGame, repositoryPlayer).ack(requestAck)
     }
-
-
-
+    
     @PostMapping("/backup")
     fun backup(): Any {
         return GameBackUp(repositoryGame).backup()
