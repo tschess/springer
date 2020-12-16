@@ -10,9 +10,11 @@ import io.bahlsenwitz.springer.push.Pusher
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Config
+import io.bahlsenwitz.springer.util.DateTime
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import java.util.HashMap
 
 class PlayerStart(private val repositoryPlayer: RepositoryPlayer, val repositoryGame: RepositoryGame) {
 
@@ -27,26 +29,32 @@ class PlayerStart(private val repositoryPlayer: RepositoryPlayer, val repository
     private val rating: Rating = Rating(repositoryPlayer = repositoryPlayer)
 
     fun login(requestLogin: RequestStart): ResponseEntity<Any> {
-        val player00: Player? = repositoryPlayer.findByDevice(requestLogin.device)
-        if (player00 != null) {
-            player00.device = null
-            repositoryPlayer.save(player00)
-        }
+        //val player00: Player? = repositoryPlayer.findByDevice(requestLogin.device)
+        //if (player00 != null) {
+            //player00.device = null
+            //repositoryPlayer.save(player00)
+        //}
 
         //TODO: unknown
-        val player: Player =
-            repositoryPlayer.findByUsername(requestLogin.username) ?: return output.terminal(
-                result = "unknown",
-                route = "login"
-            )
+        val player: Player? = repositoryPlayer.findByUsername(requestLogin.username)
+                //?: return output.terminal(
+                //result = "unknown",
+                //route = "login"
+            //)
 
-        if (BCryptPasswordEncoder().matches(requestLogin.password, player.password)) {
+       val match: Boolean = BCryptPasswordEncoder().matches(requestLogin.password, player!!.password)
+        if (match) {
             player.device = requestLogin.device
-            return output.player(player = player, route = "login")
+            ///return output.player(player = player, route = "login")
+            player.updated = DateTime().getDate()
+            return ResponseEntity.ok().body(repositoryPlayer.save(player))
         }
 
         //TODO: password
-        return output.terminal(result = "invalid", route = "login")
+        //return output.terminal(result = "invalid", route = "login")
+        val body: MutableMap<String, String> = HashMap()
+        body["invalid"] = "login"
+        return ResponseEntity.ok().body(body)
     }
 
     fun create(requestCreate: RequestStart): ResponseEntity<Any> {
