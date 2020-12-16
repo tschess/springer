@@ -18,8 +18,8 @@ class GameAck(
 ) {
 
     private val config: Config = Config()
-    private val dateTime: DateTime = DateTime()
-    private val output: Output = Output(repositoryGame = repositoryGame)
+    //private val dateTime: DateTime = DateTime()
+    //private val output: Output = Output(repositoryGame = repositoryGame)
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     data class RequestAck(
@@ -31,13 +31,15 @@ class GameAck(
     fun ack(requestAck: RequestAck): ResponseEntity<Any> {
         val game: Game = repositoryGame.findById(UUID.fromString(requestAck.id_game)!!).get()
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(requestAck.id_self)!!).get()
-        playerSelf.date = dateTime.getDate()
+        playerSelf.date = DateTime().getDate()
         rating.update(playerSelf, RESULT.WIN)
         val config: List<List<String>> = config.get(requestAck.config, playerSelf)
         val state: List<List<String>> = generateState(config, game.state!!)
         game.state = state
         game.status = STATUS.ONGOING
-        return output.game(game = game, route = "ack")
+        //return output.game(game = game, route = "ack")
+        game.updated = DateTime().getDate()
+        return ResponseEntity.ok().body(repositoryGame.save(game))
     }
 
     private fun generateState(config: List<List<String>>, state: List<List<String>>): List<List<String>> {

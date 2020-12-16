@@ -13,8 +13,6 @@ class GameMenu(
     private val repositoryPlayer: RepositoryPlayer
 ) {
 
-    private val output: Output = Output()
-
     data class RequestMenu(
         val id: String,
         val index: Int,
@@ -29,7 +27,10 @@ class GameMenu(
 
         val playerList: List<Game> = repositoryGame.findPlayerList(uuid)
         if (playerList.isEmpty()) {
-            return output.terminal(result = "eol", route = "menu")
+            //return output.terminal(result = "eol", route = "menu")
+            val body: MutableMap<String, String> = HashMap()
+            body["eol"] = "menu"
+            return ResponseEntity.ok().body(body)
         }
         val self: Boolean = requestActual.self
         val playerListFilter: List<Game>
@@ -62,29 +63,29 @@ class GameMenu(
     }
 
     private fun getOther(game: Game): Boolean {
-        if(!game.isResolved()){
+        if (!game.isResolved()) {
             return false
         }
-        if(game.condition == CONDITION.REFUSED){
+        if (game.condition == CONDITION.REFUSED) {
             return false
         }
-        if(game.condition == CONDITION.RESCIND){
+        if (game.condition == CONDITION.RESCIND) {
             return false
         }
-        if(game.condition == CONDITION.EXPIRED){
+        if (game.condition == CONDITION.EXPIRED) {
             return false
         }
         return true
     }
 
     private fun getSelf(game: Game): Boolean {
-        if(game.condition == CONDITION.REFUSED){
+        if (game.condition == CONDITION.REFUSED) {
             return false
         }
-        if(game.condition == CONDITION.RESCIND){
+        if (game.condition == CONDITION.RESCIND) {
             return false
         }
-        if(game.condition == CONDITION.EXPIRED){
+        if (game.condition == CONDITION.EXPIRED) {
             return false
         }
         return true

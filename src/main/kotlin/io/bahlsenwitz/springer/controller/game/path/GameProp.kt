@@ -10,19 +10,19 @@ import java.util.*
 
 class GameProp(
     private val repositoryGame: RepositoryGame,
-    private val repositoryPlayer: RepositoryPlayer
+    repositoryPlayer: RepositoryPlayer
 ) {
-
     private val gameTurn: GameTurn = GameTurn(repositoryPlayer)
-    private val output: Output =
-        Output(repositoryGame = repositoryGame)
 
     fun prop(id_game: String): ResponseEntity<Any> {
         val game: Game = repositoryGame.findById(UUID.fromString(id_game)!!).get()
         game.highlight = "TBD"
         game.condition = CONDITION.PENDING
         game.turn = gameTurn.setTurn(game = game)
-        return output.update(route = "prop", game = game)
+        //return output.update(route = "prop", game = game)
+        val body: MutableMap<String, String> = HashMap()
+        body["unknown"] = "login"
+        return ResponseEntity.ok().body(body)
     }
 
 }

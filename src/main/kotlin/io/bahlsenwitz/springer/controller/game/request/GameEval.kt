@@ -19,8 +19,6 @@ class GameEval(
 
     private val dateTime: DateTime = DateTime()
     private val gameTurn: GameTurn = GameTurn(repositoryPlayer)
-    private val output: Output =
-        Output(repositoryGame = repositoryGame)
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     data class EvalUpdate(
@@ -37,13 +35,20 @@ class GameEval(
         if (!accept) {
             game.condition = CONDITION.TBD
             game.turn = gameTurn.setTurn(game = game)
-            return output.update(route = "eval", game = game)
+            //return output.update(route = "eval", game = game)
+            repositoryGame.save(game)
+            val body: MutableMap<String, String> = HashMap()
+            body["success"] = "eval"
+            return ResponseEntity.ok().body(body)
         }
         playerSelf.updated = date
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.DRAW
         rating.draw(game) //also persists game/players
-        return output.update(route = "eval", game = game)
+        //return output.update(route = "eval", game = game)
+        val body: MutableMap<String, String> = HashMap()
+        body["success"] = "eval"
+        return ResponseEntity.ok().body(body)
     }
 
 

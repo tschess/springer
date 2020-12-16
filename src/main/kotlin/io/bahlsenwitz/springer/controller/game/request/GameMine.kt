@@ -6,18 +6,17 @@ import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Config
+import io.bahlsenwitz.springer.util.DateTime
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity
 import java.util.*
 
 class GameMine(
     private val repositoryGame: RepositoryGame,
-    private val repositoryPlayer: RepositoryPlayer
+    repositoryPlayer: RepositoryPlayer
 ) {
 
     private val config: Config = Config()
-    private val output: Output =
-        Output(repositoryGame = repositoryGame)
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     data class UpdateMine(val id_game: String, val state: List<List<String>>)
@@ -28,8 +27,12 @@ class GameMine(
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.LANDMINE
         game.state = config.poisonReveal(updateMine.state)
+        game.updated = DateTime().getDate()
         rating.resolve(game)
-        return output.update(route = "mine", game = game)
+        //return output.update(route = "mine", game = game)
+        val body: MutableMap<String, String> = HashMap()
+        body["success"] = "mine"
+        return ResponseEntity.ok().body(body)
     }
 
 }

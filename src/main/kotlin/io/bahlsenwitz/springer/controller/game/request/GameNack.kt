@@ -1,10 +1,10 @@
 package io.bahlsenwitz.springer.controller.game.request
 
-import io.bahlsenwitz.springer.model.rating.RESULT
 import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
+import io.bahlsenwitz.springer.model.rating.RESULT
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.DateTime
@@ -24,7 +24,6 @@ class GameNack(
 
     private val dateTime: DateTime = DateTime()
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
-    private val output: Output = Output(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
 
     fun nack(updateNack: UpdateNack): ResponseEntity<Any> {
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(updateNack.id_self)!!).get()
@@ -35,7 +34,9 @@ class GameNack(
         game.condition = CONDITION.REFUSED
         game.updated = dateTime.getDate()
         repositoryGame.save(game)
-        return output.player(player = playerSelf, route = "nack") //to update your header...  //ack
+        //return output.player(player = playerSelf, route = "nack") //to update your header...  //ack
+        playerSelf.updated = dateTime.getDate()
+        return ResponseEntity.ok().body(repositoryPlayer.save(playerSelf))
     }
 }
 
