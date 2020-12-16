@@ -18,14 +18,14 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
     private val IDX_RANK = 5
     private val IDX_DISP = 6
     private val IDX_DATE = 7
-    private val IDX_NOTE_VALUE = 8 //REMOVE THIS NEXT TIME...
-    private val IDX_NOTE_KEY = 9
-    private val IDX_CONFIG0 = 10
-    private val IDX_CONFIG1 = 11
-    private val IDX_CONFIG2 = 12
-    private val IDX_DEVICE = 13
-    private val IDX_UPDATED = 14
-    private val IDX_CREATED = 15
+    //private val IDX_NOTE_VALUE = 8 //REMOVE THIS NEXT TIME...
+    private val IDX_NOTE_KEY = 8
+    private val IDX_CONFIG0 = 9
+    private val IDX_CONFIG1 = 10
+    private val IDX_CONFIG2 = 11
+    private val IDX_DEVICE = 12
+    private val IDX_UPDATED = 13
+    private val IDX_CREATED = 14
 
     fun generate(file: File) {
 
@@ -52,7 +52,7 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                     val date: String = tokens[IDX_DATE] //7
 
                     /* * */
-                    val note_value: Boolean = tokens[IDX_NOTE_VALUE].toBoolean() //8
+                    //val note_value: Boolean = tokens[IDX_NOTE_VALUE].toBoolean() //8
                     /*
                      * Get it, 'cause it's there, but then ignore it...
                      * Next time around remove it completely.
