@@ -1,10 +1,10 @@
 package io.bahlsenwitz.springer.controller.game.request
 
-import io.bahlsenwitz.springer.model.rating.RESULT
 import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
+import io.bahlsenwitz.springer.model.rating.RESULT
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.DateTime
@@ -19,7 +19,6 @@ class GameRescind(
 
     private val dateTime: DateTime = DateTime()
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
-    private val output: Output = Output(repositoryGame = repositoryGame, repositoryPlayer = repositoryPlayer)
 
     fun rescind(updateRescind: GameNack.UpdateNack): ResponseEntity<Any> {
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(updateRescind.id_self)!!).get()
@@ -29,6 +28,8 @@ class GameRescind(
         game.condition = CONDITION.RESCIND
         game.updated = dateTime.getDate()
         repositoryGame.save(game)
-        return output.player(player = playerSelf, route = "rescind") //to update your header...
+        //return output.player(player = playerSelf, route = "rescind") //to update your header...
+        playerSelf.updated = dateTime.getDate()
+        return ResponseEntity.ok().body(repositoryPlayer.save(playerSelf))
     }
 }

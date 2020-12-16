@@ -9,7 +9,6 @@ import java.util.*
 
 class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
 
-    private val output: Output = Output()
     private val dateTime: DateTime = DateTime()
 
     data class RequestPage(val index: Int, val size: Int)
@@ -27,7 +26,10 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
         val indexTo: Int = indexFrom + pageSize
 
         if (playerListFindAll.lastIndex <= indexFrom) {
-            return output.terminal(result = "eol", route = "leaderboard")
+            //return output.terminal(result = "eol", route = "leaderboard")
+            val body: MutableMap<String, String> = HashMap()
+            body["eol"] = "leaderboard"
+            return ResponseEntity.ok().body(body)
         }
         if (playerListFindAll.lastIndex <= indexTo) {
             playerList = playerListFindAll.subList(indexFrom, playerListFindAll.lastIndex + 1)
@@ -53,7 +55,7 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
     }
 
     private fun getActiveList(): List<Player> {
-        return  repositoryPlayer.findAll().filter {
+        return repositoryPlayer.findAll().filter {
             this.getActive(it)
         }.sorted()
     }
@@ -62,7 +64,7 @@ class PlayerHome(private val repositoryPlayer: RepositoryPlayer) {
         val player: Player = repositoryPlayer.findById(UUID.fromString(id)!!).get()
         val listRivals: List<Player> = this.getActiveList().filter { it.id != player.id }.shuffled().take(3)
         val count: Int = listRivals.size
-        if(count < 3){
+        if (count < 3) {
             val player0: Player = repositoryPlayer.findByUsername("alexandra")!!
             val player1: Player = repositoryPlayer.findByUsername("sme")!!
             val player2: Player = repositoryPlayer.findByUsername("aesdfghjkl666")!!

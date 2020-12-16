@@ -2,13 +2,11 @@ package io.bahlsenwitz.springer.controller.player.request
 
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
+import io.bahlsenwitz.springer.util.DateTime
 import org.springframework.http.ResponseEntity
 import java.util.*
 
 class PlayerConfig(private val repositoryPlayer: RepositoryPlayer) {
-
-    private val output: Output =
-        Output(repositoryPlayer)
 
     data class UpdateConfig(
         val config: List<List<String>>,
@@ -27,7 +25,9 @@ class PlayerConfig(private val repositoryPlayer: RepositoryPlayer) {
         if (updateConfig.index == 2) {
             player.config2 = updateConfig.config
         }
-        return output.player(player = player, route = "config")
+        //return output.player(player = player, route = "config")
+        player.updated = DateTime().getDate()
+        return ResponseEntity.ok().body(repositoryPlayer.save(player))
     }
 
 }

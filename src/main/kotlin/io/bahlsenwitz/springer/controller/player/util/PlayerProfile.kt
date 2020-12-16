@@ -9,8 +9,6 @@ import java.util.*
 class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
 
     private val dateTime: DateTime = DateTime()
-    private val output: Output =
-        Output(repositoryPlayer)
 
     data class UpdateAvatar(
         val id: String,
@@ -19,8 +17,10 @@ class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
 
     fun avatar(updateAvatar: UpdateAvatar): ResponseEntity<Any> {
         val player: Player = repositoryPlayer.findById(UUID.fromString(updateAvatar.id)!!).get()
-        player.avatar = updateAvatar.avatar.replace("\n","")
-        return output.player(player = player, route = "avatar")
+        player.avatar = updateAvatar.avatar.replace("\n", "")
+        //return output.player(player = player, route = "avatar")
+        player.updated = dateTime.getDate()
+        return ResponseEntity.ok().body(repositoryPlayer.save(player))
     }
 
     fun clear(device: String): ResponseEntity<Any> {
@@ -29,9 +29,15 @@ class PlayerProfile(private val repositoryPlayer: RepositoryPlayer) {
             player.device = null
             player.updated = dateTime.getDate()
             repositoryPlayer.save(player)
-            return output.terminal(result = "success", route = "clear")
+            //return output.terminal(result = "success", route = "clear")
+            val body: MutableMap<String, String> = HashMap()
+            body["success"] = "clear"
+            return ResponseEntity.ok().body(body)
         }
-        return output.terminal(result = "fail", route = "clear")
+        //return output.terminal(result = "fail", route = "clear")
+        val body: MutableMap<String, String> = HashMap()
+        body["fail"] = "clear"
+        return ResponseEntity.ok().body(body)
     }
 
 }

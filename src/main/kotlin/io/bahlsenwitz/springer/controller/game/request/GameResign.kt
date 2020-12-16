@@ -20,8 +20,6 @@ class GameResign(
 
     private val dateTime: DateTime = DateTime()
     private val config: Config = Config()
-    private val output: Output =
-        Output(repositoryGame = repositoryGame)
     private val rating: Rating = Rating(repositoryGame, repositoryPlayer)
 
     data class UpdateResign(
@@ -33,7 +31,10 @@ class GameResign(
     fun resign(updateResign: UpdateResign): ResponseEntity<Any>? {
         val game: Game = repositoryGame.findById(UUID.fromString(updateResign.id_game)!!).get()
         if (game.status == STATUS.RESOLVED) {
-            return output.terminal(result = "fail", route = "resign")
+            //return output.terminal(result = "fail", route = "resign")
+            val body: MutableMap<String, String> = HashMap()
+            body["fail"] = "resign"
+            return ResponseEntity.ok().body(body)
         }
         val date: String = dateTime.getDate()
         val playerSelf: Player = repositoryPlayer.findById(UUID.fromString(updateResign.id_self)!!).get()
@@ -43,12 +44,14 @@ class GameResign(
         game.status = STATUS.RESOLVED
         game.condition = CONDITION.RESIGN
         game.state = config.poisonReveal(game.state!!)
-        if(game.white == playerSelf){
+        if (game.white == playerSelf) {
             game.turn = CONTESTANT.WHITE
         } else {
             game.turn = CONTESTANT.BLACK
         }
         rating.resolve(game)
-        return output.update(route = "resign", game = game)
+        //return output.update(route = "resign", game = game)
+        game.updated = dateTime.getDate()
+        return ResponseEntity.ok().body(repositoryGame.save(game))
     }
 }
