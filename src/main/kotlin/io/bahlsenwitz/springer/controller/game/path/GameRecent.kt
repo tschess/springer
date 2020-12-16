@@ -5,7 +5,6 @@ import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.util.DateTime
-import io.bahlsenwitz.springer.controller.Output
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.push.Influx
 import io.bahlsenwitz.springer.repository.RepositoryPlayer

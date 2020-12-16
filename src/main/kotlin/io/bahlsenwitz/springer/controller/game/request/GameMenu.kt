@@ -2,11 +2,9 @@ package io.bahlsenwitz.springer.controller.game.request
 
 import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.model.game.Game
-import io.bahlsenwitz.springer.model.game.STATUS
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.controller.Output
 import org.springframework.http.ResponseEntity
 import java.util.*
 

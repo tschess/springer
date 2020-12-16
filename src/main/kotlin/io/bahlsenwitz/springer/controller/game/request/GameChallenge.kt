@@ -6,7 +6,6 @@ import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.Config
-import io.bahlsenwitz.springer.controller.Output
 import io.bahlsenwitz.springer.push.Pusher
 import io.bahlsenwitz.springer.util.Rating
 import org.springframework.http.ResponseEntity

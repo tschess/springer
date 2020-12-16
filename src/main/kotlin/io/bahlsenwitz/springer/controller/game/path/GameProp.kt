@@ -5,7 +5,6 @@ import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
-import io.bahlsenwitz.springer.controller.Output
 import org.springframework.http.ResponseEntity
 import java.util.*
 

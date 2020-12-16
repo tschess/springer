@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.player.request
 
-import io.bahlsenwitz.springer.controller.Output
 import io.bahlsenwitz.springer.model.player.Player
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import io.bahlsenwitz.springer.util.DateTime

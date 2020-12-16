@@ -1,6 +1,5 @@
 package io.bahlsenwitz.springer.controller.game.path
 
-import io.bahlsenwitz.springer.controller.Output
 import io.bahlsenwitz.springer.model.game.CONDITION
 import io.bahlsenwitz.springer.model.game.Game
 import io.bahlsenwitz.springer.model.game.STATUS
