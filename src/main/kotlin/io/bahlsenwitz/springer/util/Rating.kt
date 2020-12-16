@@ -13,9 +13,6 @@ class Rating(
     private val repositoryGame: RepositoryGame? = null,
     private val repositoryPlayer: RepositoryPlayer? = null) {
 
-    private val dateTime: DateTime = DateTime()
-
-
     fun activate(player: Player) {
         val eloUpdate: Int = player.elo + 1
         player.elo = eloUpdate
@@ -129,8 +126,8 @@ class Rating(
     }
 
     private fun getActive(player: Player): Boolean {
-        val time00: ZonedDateTime = dateTime.rn().minusDays(7L)
-        val time01: ZonedDateTime = dateTime.getDate(player.updated)
+        val time00: ZonedDateTime = DateTime().rn().minusDays(7L)
+        val time01: ZonedDateTime = DateTime().getDate(player.updated)
         if (time00.isBefore(time01)) {
             return true
         }
@@ -153,7 +150,7 @@ class Rating(
             player.rank = rankXX
             val disp: Int = rank00 - rankXX
             player.disp = disp
-            player.date = dateTime.getDate()
+            player.date = DateTime().getDate()
             repositoryPlayer.save(player)
         }
     }
