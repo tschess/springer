@@ -45,10 +45,11 @@ class GameRematch(private val repositoryGame: RepositoryGame, private val reposi
         rating.update(playerSelf, RESULT.WIN)
         //return output.update(route = "rematch", game = game)
         game.updated = dateTime.getDate()
-        repositoryGame.save(game)
+        //repositoryGame.save(game)
+        return ResponseEntity.ok().body(repositoryGame.save(game))
 
-        val body: MutableMap<String, String> = HashMap()
-        body["success"] = "rematch"
-        return ResponseEntity.ok().body(body)
+        //val body: MutableMap<String, String> = HashMap()
+        //body["success"] = "rematch"
+        //return ResponseEntity.ok().body(body)
     }
 }

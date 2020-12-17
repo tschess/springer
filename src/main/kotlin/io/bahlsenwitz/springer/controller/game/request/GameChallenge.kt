@@ -35,16 +35,18 @@ class GameChallenge(
             black = playerSelf,
             state = config
         )
-        repositoryGame.save(game)
+        //repositoryGame.save(game)
         /* * */
         pusher.notify(playerOther)
         /* * */
         //repositoryPlayer.save(playerOther) //TODO: <-- REDUNDANT
         rating.update(playerSelf, RESULT.ACTION)
         //return output.terminal(result = "success", route = "challenge")
-        val body: MutableMap<String, String> = HashMap()
-        body["success"] = "challenge"
-        return ResponseEntity.ok().body(body)
+        //val body: MutableMap<String, String> = HashMap()
+        //body["success"] = "challenge"
+        //return ResponseEntity.ok().body(body)
+
+        return ResponseEntity.ok().body(repositoryGame.save(game))
     }
 
 }
