@@ -5,6 +5,7 @@ import io.bahlsenwitz.springer.controller.game.path.*
 import io.bahlsenwitz.springer.controller.game.path.GameProp
 import io.bahlsenwitz.springer.controller.game.request.*
 import io.bahlsenwitz.springer.controller.game.request.GameUpdate
+import io.bahlsenwitz.springer.controller.player.request.PlayerSubscription
 import io.bahlsenwitz.springer.repository.RepositoryGame
 import io.bahlsenwitz.springer.repository.RepositoryPlayer
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,6 +20,13 @@ import javax.validation.Valid
 class GameController @Autowired
 constructor(val repositoryGame: RepositoryGame, val repositoryPlayer: RepositoryPlayer) {
 
+    //TODO: also needs to be loaded in / generator
+    @PostMapping("/subscription")
+    fun subscription(@Valid @RequestBody updateSubscription: PlayerSubscription.UpdateSubscription): ResponseEntity<Any> {
+        return PlayerSubscription(repositoryPlayer).subscription(updateSubscription)
+    }
+
+    //TODO: configs here are sometimes reversed... atend to this!
     @PostMapping("/rematch")
     fun rematch(@Valid @RequestBody requestRematch: GameRematch.RequestRematch): ResponseEntity<Any> {
         return GameRematch(repositoryGame, repositoryPlayer).rematch(requestRematch)
