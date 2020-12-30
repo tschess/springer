@@ -9,7 +9,7 @@ class PlayerSubscription(private val repositoryPlayer: RepositoryPlayer) {
 
     data class UpdateSubscription(
         val id: String,
-        val date: String
+        val date: String //TODO: eventually will be date for now, "TRUE" or "FALSE" (or null)
     )
 
     fun subscription(updateSubscription: UpdateSubscription): ResponseEntity<Any> {
