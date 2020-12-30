@@ -35,7 +35,7 @@ class Player(
 
     var note_key: String? = "POPUP", //"POPUP" means first game ~ ask them (overlay)
 
-    var subscription: String? = "TBD",
+    var subscription: String? = "FALSE", //alternatively... "TRUE"
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
