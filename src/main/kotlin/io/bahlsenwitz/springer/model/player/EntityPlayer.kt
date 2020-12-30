@@ -35,8 +35,6 @@ class Player(
 
     var note_key: String? = "POPUP", //"POPUP" means first game ~ ask them (overlay)
 
-    var subscription: String? = "FALSE", //alternatively... "TRUE"
-
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
     var config0: List<List<String>> = CONFIG.defaultConfig0(),

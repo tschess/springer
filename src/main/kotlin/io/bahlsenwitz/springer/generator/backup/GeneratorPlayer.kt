@@ -19,13 +19,12 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
     private val IDX_DISP = 6
     private val IDX_DATE = 7
     private val IDX_NOTE_KEY = 8
-    //private val IDX_SUBSCRIPTION = 9 //ADD THIS NEXT TIME...
-    private val IDX_CONFIG0 = 9//10
-    private val IDX_CONFIG1 = 10//11
-    private val IDX_CONFIG2 = 11//12
-    private val IDX_DEVICE = 12//13
-    private val IDX_UPDATED = 13//14
-    private val IDX_CREATED = 14//15
+    private val IDX_CONFIG0 = 9
+    private val IDX_CONFIG1 = 10
+    private val IDX_CONFIG2 = 11
+    private val IDX_DEVICE = 12
+    private val IDX_UPDATED = 13
+    private val IDX_CREATED = 14
 
     fun generate(file: File) {
 
@@ -89,13 +88,12 @@ class GeneratorPlayer(private val repositoryPlayer: RepositoryPlayer) {
                         disp = disp, //6
                         date = date, //7
                         note_key = note_key, //8
-                        subscription = "FALSE", //9 :: PENDING REMOVAL
-                        config0 = config0, //10
-                        config1 = config1, //11
-                        config2 = config2, //12
-                        device = device, //13
-                        updated = updated, //14
-                        created = created //15
+                        config0 = config0, //9
+                        config1 = config1, //10
+                        config2 = config2, //11
+                        device = device, //12
+                        updated = updated, //13
+                        created = created //14
                     )
                     playerList.add(player)
                 }
